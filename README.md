@@ -48,6 +48,34 @@ Built for cybersecurity research, **REXIS** focuses on analyzing static features
 
 ---
 
+## ⚙️ Installation & Setup
+
+REXIS uses Python `3.13+` and is managed using [PDM](https://pdm.fming.dev/).  
+Ensure you have Python 3.13 installed and [PostgreSQL](https://www.postgresql.org/) running with the [pgvector](https://github.com/pgvector/pgvector) extension enabled.
+
+### 📦 Prerequisites
+
+- Python 3.13+
+- PDM (`pip install pdm`)
+- PostgreSQL with pgvector extension
+- OpenAI and/or DeepSeek API credentials
+
+### 🚀 Setup Steps
+
+```bash
+# Clone the repo
+git clone https://github.com/andremmfaria/rexis
+cd rexis
+
+# Install dependencies
+pdm install
+
+# Create a .env file for your API keys and database config
+cp .env.example .env
+```
+
+---
+
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).

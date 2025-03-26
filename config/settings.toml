@@ -1,0 +1,18 @@
+[default]
+# General project settings
+project_name = "REXIS"
+log_level = "INFO"
+
+# Vector DB settings
+db_host = "localhost"
+db_port = 5432
+db_name = "rexis"
+db_user = "postgres"
+db_password = "@db_password"
+
+# Embedding model defaults
+embedding_provider = "openai"  # or "deepseek"
+embedding_model = "text-embedding-3-small"
+
+# RAG parameters
+retriever_top_k = 5
