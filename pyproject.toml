@@ -1,0 +1,19 @@
+[project]
+name = "rexis"
+version = "0.1.0"
+description = "Experimental framework designed to enhance static malware analysis using Large Language Models (LLMs) integrated with Retrieval-Augmented Generation (RAG)"
+authors = [
+    {name = "Andre Faria", email = "andremarcalfaria@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.13"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
