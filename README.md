@@ -24,11 +24,18 @@ Built for cybersecurity research, **REXIS** focuses on analyzing static features
   - [OpenAI](https://platform.openai.com/) — for general-purpose, high-accuracy LLM queries  
   - [DeepSeek](https://github.com/deepseek-ai) — for code-centric language understanding and reasoning
 
-- **Static Analysis Input:** Decompiled source code and structural features from known malware datasets  
-  - Supported decompilation tools include:  
+- **Static Analysis Input:**  
+  - Decompiled source code and structural features from known malware datasets  
+  - Recommended decompilation tools include:  
     - [IDA Pro](https://hex-rays.com/ida-pro/)  
     - [Ghidra](https://ghidra-sre.org/)  
     - Any tool producing readable code or bytecode representations suitable for static analysis
+
+- **Datastore (Vector Database):**  
+  - [PostgreSQL](https://www.postgresql.org/) with [pgvector](https://github.com/pgvector/pgvector) extension  
+  - Used to store and query embeddings for Retrieval-Augmented Generation (RAG)  
+  - Integrated with the Haystack pipeline for vector-based semantic search and context retrieval
+
 
 ---
 
@@ -70,9 +77,49 @@ cd rexis
 # Install dependencies
 pdm install
 
-# Create a .env file for your API keys and database config
-cp .env.example .env
+# Create a ./config/.secrets.toml file for your API keys and database config
+cp ./config/.secrets_template.toml ./config/.secrets.toml
 ```
+
+---
+
+## 🧪 Usage
+
+REXIS is containerized for reproducibility and ease of development. The project uses `docker-compose` to manage two main services:
+
+- `app`: The main application (e.g. RAG pipeline, interface, analysis logic)
+- `db`: PostgreSQL with the `pgvector` extension for vector-based semantic search
+
+---
+
+### 🐳 Step-by-Step Instructions
+
+1. **Create your `.env` file** in the root of the project by copying from the template file (`.env-template`):
+
+```dotenv
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=super_secret_password
+POSTGRES_DB=rexis
+```
+
+2. **Build and start the containers**:
+
+```bash
+docker compose up --build
+```
+
+3. **App source code and configuration**:
+   - Application code lives in `./src/`
+   - Configuration files (via Dynaconf) are in `./config/`
+
+4. **Stopping the containers**:
+
+```bash
+docker compose down
+```
+
+5. **Persistent data**:  
+PostgreSQL data is stored in a Docker volume named `pgdata` and will persist between restarts.
 
 ---
 

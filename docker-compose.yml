@@ -1,0 +1,41 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/app.dockerfile
+    container_name: rexis-app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - REXIS_POSTGRES_HOST=db
+      - REXIS_POSTGRES_USER=${POSTGRES_USER}
+      - REXIS_POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - REXIS_POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./config:/rexis/config
+      - ./src:/rexis/src
+
+  db:
+    build:
+      context: .
+      dockerfile: .docker/db/db.dockerfile
+    container_name: rexis-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rexis"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  pgdata:
