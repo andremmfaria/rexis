@@ -1,4 +1,3 @@
-[default]
 # General project settings
 project_name = "REXIS"
 log_level = "INFO"

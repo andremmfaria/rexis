@@ -3,40 +3,39 @@ name = "rexis"
 version = "0.1.0"
 description = "Experimental framework designed to enhance static malware analysis using Large Language Models (LLMs) integrated with Retrieval-Augmented Generation (RAG)"
 authors = [{ name = "Andre Faria", email = "andremarcalfaria@gmail.com" }]
-requires-python = ">=3.13"
+requires-python = "<3.14,>=3.11"
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 dependencies = [
-  "openai",
-  "haystack-ai",
-  "tqdm",
-  "requests",
-  "pandas",
-  "scikit-learn",
-  "psycopg[binary]",
-  "pgvector",
-  "dynaconf",
+    "malwarebazaar>=0.2.7",
+    "dynaconf>=3.2.10",
+    "pgvector>=0.4.0",
+    "psycopg>=3.2.6",
+    "pandas>=2.2.3",
+    "requests>=2.32.3",
+    "openai>=1.75.0",
+    "haystack-ai>=2.12.2"
 ]
 scripts = { rexis = "rexis.main:main" }
 
 [dependency-groups]
 dev = [
-    "pytest",
-    "flake8",
-    "black",
-    "mypy",
-    "coverage",
-    "isort",
-    "ipython",
-    "pylint",
-    "tomli",
-    "pydocstyle",
-    "pre-commit",
+    "pytest>=8.3.5",
+    "flake8>=7.2.0",
+    "black>=25.1.0",
+    "mypy>=1.15.0",
+    "coverage>=7.8.0",
+    "isort>=6.0.1",
+    "ipython>=9.1.0",
+    "pylint>=3.3.6",
+    "tomli>=2.2.1",
+    "pydocstyle>=6.3.0",
+    "pre-commit>=4.2.0",
 ]
 
 [tool.black]
 line-length = 100
-target-version = ["py310"]
+target-version = ["py311"]
 include = '\.pyi?$'
 
 [tool.coverage.paths]
@@ -56,7 +55,7 @@ src_paths = ["isort", "test"]
 
 [tool.pylint.main]
 fail-under = 1
-py-version = "3.10"
+py-version = "3.11"
 
 [tool.pylint.basic]
 argument-naming-style = "snake_case"
@@ -71,7 +70,7 @@ max-line-length = 100
 legacy_tox_ini = """
 [tox]
 skipsdist = true
-envlist = py310
+envlist = py311
 
 [testenv]
 allowlist_externals = poetry
