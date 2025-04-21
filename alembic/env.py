@@ -3,14 +3,14 @@ import sys
 from logging.config import fileConfig
 
 from alembic import context
+from rexis.utils.constants import DATABASE_MIGRATIONS_CONNSTRING
 from sqlalchemy import engine_from_config, pool
 
 # Add the 'src' directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 # Import Dynaconf settings and SQLAlchemy metadata
-from rexis.data.model import Base
-from rexis.utils.config import settings
+from rexis.data.model import Document
 
 # Alembic Config object
 config = context.config
@@ -19,11 +19,10 @@ config = context.config
 fileConfig(config.config_file_name)
 
 # Inject database URL from Dynaconf into Alembic config
-database_url = f"postgresql+psycopg2://{settings.db_user}:{settings.db_password}@{settings.db_host}:{settings.db_port}/{settings.db_name}"
-config.set_main_option("sqlalchemy.url", database_url)
+config.set_main_option("sqlalchemy.url", DATABASE_MIGRATIONS_CONNSTRING)
 
 # Target metadata (used for autogenerate)
-target_metadata = Base.metadata
+target_metadata = Document.metadata
 
 
 def run_migrations_offline():

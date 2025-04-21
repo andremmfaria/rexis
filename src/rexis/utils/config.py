@@ -1,5 +1,6 @@
 from dynaconf import Dynaconf
-from rexis.utils.constants import CONFIG_PATH
+
+CONFIG_PATH: str = "config"
 
 settings = Dynaconf(
     envvar_prefix="REXIS",

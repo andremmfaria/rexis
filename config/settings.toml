@@ -3,15 +3,18 @@ project_name = "REXIS"
 log_level = "INFO"
 
 # Vector DB settings
-db_host = "localhost"
-db_port = 5432
-db_name = "rexis"
-db_user = "postgres"
-db_password = "@db_password"
+[db]
+host = "localhost"
+port = 5432
+name = "rexis"
+user = "postgres"
+password = "@get db_password"
 
-# Embedding model defaults
-embedding_provider = "openai"  # or "deepseek"
-embedding_model = "text-embedding-3-small"
+# Model metadata
+[models]
+openai = {base_url = "https://api.openai.com/v1", api_key = "@get openai_api_key", embedding_model = "text-embedding-3-small", query_model = "gpt-4o-2024-08-06"}
+deepseek = {base_url = "https://api.deepseek.com", api_key = "@get deepseek_api_key", embedding_model = "text-embedding-3-small", query_model = "deepseek-chat"}
+
 
 # RAG parameters
 retriever_top_k = 5
