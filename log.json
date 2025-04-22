@@ -1,0 +1,4228 @@
+{
+    "data": [
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "9d29441037295b6a3ab348c6ce9c909a052fca4f7d3f888bdbe626b9da099d73",
+            "file_size": 2898432,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 17:04:54",
+            "gimphash": "None",
+            "imphash": "f28445ed2284cc718ae931f6653ada10",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Win32.MalwareX-gen.19934.8297.UNOFFICIAL"
+                ],
+                "downloads": "461",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "bcd51ee1df396f07af0b0a345a6dbaf4",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "7c367f130e0370e6c9ff510ed7f7eefd03cdd0f8",
+            "sha256_hash": "9d29441037295b6a3ab348c6ce9c909a052fca4f7d3f888bdbe626b9da099d73",
+            "sha3_384_hash": "bb588c14a187d5040f3afca8625480fd6ff371385d942ef7ac992afdc792916b6662690ca2755fcbab605483510ed5d1",
+            "signature": "None",
+            "ssdeep": "49152:NoUXR7hhHxXRFdi5qNpDwppr4uVZTXPAH0fOzDN4zwx8IDmCl8ydEwiNlKli:NoUXR7hhHxXRFdi5qNpkVLPAHSOzDNF0",
+            "tags": [
+                "exe",
+                "fog",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1EAD5E17661ECC944E77681FC186887A1B60EEEB7B925250EBD644FD01F39ED0442BE23",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "f90eed4b7864c8d1af860abd487b58019d919b8be361f67b0dccdc2e36f3729d",
+            "file_size": 539136,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 17:04:15",
+            "gimphash": "None",
+            "imphash": "f28445ed2284cc718ae931f6653ada10",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Win32.MalwareX-gen.9072.28046.UNOFFICIAL"
+                ],
+                "downloads": "413",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "b5e1521ea5ffa2d5ec13cef61ffe363d",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "32a6ecd25ba7dce2e3e6c0363b31ffee58f3d389",
+            "sha256_hash": "f90eed4b7864c8d1af860abd487b58019d919b8be361f67b0dccdc2e36f3729d",
+            "sha3_384_hash": "0b8f8d9171b7ecb91efd00f24d65ab9e0dbb64b8ae109dbf6d8b5f3dc782911dbce882a0e900cc7a2049eb281f06e070",
+            "signature": "None",
+            "ssdeep": "12288:hBOyPzjrY9LoEkGkSmZ5liIrTJmwENntkXmJHp6O3CN3hZv8xQXA:HDPnrY9LoEkGwZ5liIrTJmwENntkM6OR",
+            "tags": [
+                "exe",
+                "fog",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T18AB42B7FD7E0C11DE7918138118AD3B0BC6DA7779C621747B7A05EA4A638BE2852B307",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "44494f7c30d86199c94ce582b269ab1b0f345f362af1f5a4e9eeed63304b4809",
+            "file_size": 509440,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 16:51:31",
+            "gimphash": "None",
+            "imphash": "f28445ed2284cc718ae931f6653ada10",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Win32.MalwareX-gen.19495.22837.UNOFFICIAL"
+                ],
+                "downloads": "442",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "dee2ecb51fbfa2f1de9dbe9a7524da12",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "b44cc6fcce0bc25dd4ccf7acd1b6ae758e356716",
+            "sha256_hash": "44494f7c30d86199c94ce582b269ab1b0f345f362af1f5a4e9eeed63304b4809",
+            "sha3_384_hash": "dbfea95f4255d0e4620937ccdb4179687fdebf5a2e56bb692a459f7b7337586fc5f5767bb819742c4211f1d48cb04681",
+            "signature": "None",
+            "ssdeep": "12288:X0oZREmKFqKoi9LoEE9ja9LoEY7mqaphLAW65GQ8S5A:kaPkboi9LoEE929LoEYahLAW65G",
+            "tags": [
+                "exe",
+                "fog",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T108B43B3FD7E0C21DE691403851DED3B16C6DE6779D120787B3A05EA0AA38BE2856B317",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "fb9b0a9f0a1c99ae4243eb676a34ac5a53b4512440627ff05357accbdab5aed9",
+            "file_size": 107516,
+            "file_type": "dll",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 16:11:58",
+            "gimphash": "None",
+            "imphash": "eb3720f6914684ffa76842b04461a3f4",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Fog-10036497-0"
+                ],
+                "downloads": "491",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "18f9eebf70db818c0f2a3c865f7132ee",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "96bef1221a18348ed25ac1ae652f4153b577d887",
+            "sha256_hash": "fb9b0a9f0a1c99ae4243eb676a34ac5a53b4512440627ff05357accbdab5aed9",
+            "sha3_384_hash": "8a6bdea8246c65aeedd28ca249cad842d22d2621802054a53d0c6989ca8b7d66d8085fee2f7b43d51ec58ab42c8b9264",
+            "signature": "Fog",
+            "ssdeep": "1536:nlwbejUUgzMfjvHggNd2lXBVkyWLWHs5OU7QlAfVbe/sWxcdMh7UdJXBDFp:nlwbejlgUjPTWXBsLWM55PpfK723p",
+            "tags": [
+                "dll",
+                "fog",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1A5B37C4079829175D8FB4B3E127896764B7E3930AB649DEFA7C004B48E744D0EE39D2B",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 1,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "LCrypt0rX.vbs",
+            "file_size": 24361,
+            "file_type": "vbs",
+            "file_type_mime": "text/plain",
+            "first_seen": "2025-04-19 16:00:44",
+            "gimphash": "None",
+            "imphash": "None",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "68",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "vba",
+            "md5_hash": "6d9fd6e27e81f8a6e35678ee2554f4c3",
+            "reporter": "anonymous",
+            "sha1_hash": "245e8c48c9113b419faa16b925bccad79ec319d8",
+            "sha256_hash": "6a123c9e979f2f1c1fb2ac787ad381cebb6a1c0707b558c1437e881e941301f2",
+            "sha3_384_hash": "c66996e5f10dfe6e392ed42edc3e9eda141a223d8080405870f1c27178d85b9e28e9a48ebc7689c5340c892ad24ba558",
+            "signature": "None",
+            "ssdeep": "384:y8enkBVDIKxwbpBStxYUQHSH7l+ixb+UzbGvPpSy+U1h0g9UT6:inkbcclbUfFUm",
+            "tags": [
+                "LCRYPT",
+                "LCRYPTORX",
+                "LCRYPTX",
+                "LCRYX",
+                "Ransomware",
+                "vbs",
+                "VBSRANSOMWARE"
+            ],
+            "telfhash": "None",
+            "tlsh": "T13EB296025D1BC826D4F6E3D162A7E80AE7B5F39768618E1436CCC8905B36FDC95B40EE",
+            "trid": "None"
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "aff2e319a47193ab195e2aa116747c2a5aa4bb4d8cc4c915e0c6bda12481881f",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:13:27",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "551",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "7a99bd570caf0d33464ecfd64d4da58d",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "ab0365de87cd4598c61ca35b5a4b7b15727d4819",
+            "sha256_hash": "aff2e319a47193ab195e2aa116747c2a5aa4bb4d8cc4c915e0c6bda12481881f",
+            "sha3_384_hash": "9ebb7bd957f58493632a00695bdac6f0a6b4faaa8b2aa7a2882ed359b3a03657c23294e96066c9a9c4365a76a6f43248",
+            "signature": "None",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVmqs:zQa36bg4NBqT1VAwfcoVI",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T172352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "c6ede98801eb47fd2390c23064fb0b8a78c17a222926d2f6ba0d7ea8c622ded2",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:12:26",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "414",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "a99266340fb6880f8e0a8744b23a8b03",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "f239a804f657bf3e7859e90f9cfd1d2c97d4b084",
+            "sha256_hash": "c6ede98801eb47fd2390c23064fb0b8a78c17a222926d2f6ba0d7ea8c622ded2",
+            "sha3_384_hash": "4ad40566380d0af9c38f292c2936e08b917479501cfbd17d19a7307e30d6fb46484049182bc7b1265adc6be47c5b679d",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoV/qs:zQa36bg4NBqT1VAwfcoVH",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T192352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "35b94bc0a7ea6e2aedbd06411947cb1e6bd439244fc51fa6165b82cd42188613",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:11:59",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "403",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "32948677d3fa60b7b755a20c4412658b",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "52ca98136ef2a4c5835377818ed8944de0bff025",
+            "sha256_hash": "35b94bc0a7ea6e2aedbd06411947cb1e6bd439244fc51fa6165b82cd42188613",
+            "sha3_384_hash": "ffae0116d565dbde9722f610f92691c9aa6771ca4a663ce3d9504d59b3255609117ce5a9a82319edb81d737275f5273c",
+            "signature": "None",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVGqs:zQa36bg4NBqT1VAwfcoVo",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1BA352941A5164AF6F652CABD4A32C02FEEF736050B10DAE75581B63A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "d131cb0aa9ff7a152b506d53fbc066743e97aa7c6592b5de534f0b174fc819fc",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:11:37",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "401",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "4de019c8bde754dc0cb3d50b485816d8",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "724bf9e7caa797cfdb08b5bf3536c81eb8927c8e",
+            "sha256_hash": "d131cb0aa9ff7a152b506d53fbc066743e97aa7c6592b5de534f0b174fc819fc",
+            "sha3_384_hash": "7b0505f9bed6eb8ac378a9a7173fa8a84783576f205bd7f9d443f4ae3b4cf2bfab28dcf3cc9c7fc6ab8002d7459df9b8",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVeqs:zQa36bg4NBqT1VAwfcoVg",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1B9352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "28c3a34af034859aee859e0429c95ad35c55e0aa2b2ffbc48f39e8c3e26c7be0",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:11:05",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "403",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "c66e5310eeacd24a96735eafa02ca7eb",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "ba10b201b1a2c25d2944427faa1bd113e8e76bda",
+            "sha256_hash": "28c3a34af034859aee859e0429c95ad35c55e0aa2b2ffbc48f39e8c3e26c7be0",
+            "sha3_384_hash": "19e0e9e3a351f87cda5c7578b8e79b4d26d197ac5b6170fd5c68f72da51836f6aa11a1f45711174df97a4f2ca3e9ebfa",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVxqs:zQa36bg4NBqT1VAwfcoVR",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1F1352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "92834241ae642d8d3baf8401d6340b603e540c99ce4e5375b6e1ae30fc627974",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:10:40",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "389",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "5700eef6f154fdae3a22985674b41168",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "4457bb04c4df64cc2a1eb2c60156883c3e8141d4",
+            "sha256_hash": "92834241ae642d8d3baf8401d6340b603e540c99ce4e5375b6e1ae30fc627974",
+            "sha3_384_hash": "36cd4a85469c98ade49f040ceaa2e584a8dff29db70eae144b845b4c98052afbb8f0a932afb70902066a11a15ab91770",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVUqs:zQa36bg4NBqT1VAwfcoVG",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T19F352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "2290f0f8462d389fd52307411c126fbc682e5db1b6a122da1b2ae1fb1f914359",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:10:13",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "400",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "5d4fb327482a0d6c46d28428fccd0a82",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "30be0a7cc4a4fa6e1da2b99cbbfe84fff75b0afd",
+            "sha256_hash": "2290f0f8462d389fd52307411c126fbc682e5db1b6a122da1b2ae1fb1f914359",
+            "sha3_384_hash": "a754243b7cd21eae74c003a817f60969113ee180448c72f1b44ef3579082f016fca0e2e8e78fa87f3c8bc7f648c4ee2b",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVSqs:zQa36bg4NBqT1VAwfcoVk",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1DF352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "7f4a4a2093163e8946b5649b91c942d414779bec4551613cd35a812d6c9359f5",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:09:50",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "387",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "0fe4937a7dfa8f212f21f65a496d7713",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "0c98c9457ae07383dd4af351dc4f8f81ad9b3d85",
+            "sha256_hash": "7f4a4a2093163e8946b5649b91c942d414779bec4551613cd35a812d6c9359f5",
+            "sha3_384_hash": "75367bf6a133c034932350845f73f820bb65194bfa3a78287056c2859ac2691c211ebbe2bb744cecccb7ccd9ce232813",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVIqs:zQa36bg4NBqT1VAwfcoVK",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T195352941A5164AF6F652CABD4A32C02FEEF736050B10DAE75581B63A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "3da380b7816c9f1c3fbf9d63aeeb02cd939ca68d3062b0f35b660b7b75b81028",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:09:21",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "390",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "2052591870714efa3df51a186bf57d75",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "d8d196855f78a99dd5ea49a3113f136d14c786b6",
+            "sha256_hash": "3da380b7816c9f1c3fbf9d63aeeb02cd939ca68d3062b0f35b660b7b75b81028",
+            "sha3_384_hash": "ed1c502716cd51571c9cea6d1e870a6d99bb99c1ee6eb289e4f6e62076ba89d80672674e1491d0c03154e47a2ad04d7a",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVrqs:zQa36bg4NBqT1VAwfcoVz",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T17F352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "ef9d89e9f4371ea86b4f744a3abae761b7e7bcc715239ab3c4c0f4d317a77bb0",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:08:52",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "388",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "1965b4ea67c442855e6aebb5a6c67933",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "e085b027bd929f12c9ab6dce0143ac8309b8856d",
+            "sha256_hash": "ef9d89e9f4371ea86b4f744a3abae761b7e7bcc715239ab3c4c0f4d317a77bb0",
+            "sha3_384_hash": "2858bf1fc38bb9fe51321d8b346671d6000d97c676cb9fcb2ca5c10882bc45b79c254952974ebe5a5cb718098d3fd1c2",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVGqs:zQa36bg4NBqT1VAwfcoVo",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1D0352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "43226a19b0f84ddc353eff49aba8a0791d5d12b74d984adfdc24cf7f0d73d25a",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:08:27",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "388",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "6bf95bc0fe536e68e34033a66f620857",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "52955e992cb4de57b0c59a9964697a34be595069",
+            "sha256_hash": "43226a19b0f84ddc353eff49aba8a0791d5d12b74d984adfdc24cf7f0d73d25a",
+            "sha3_384_hash": "180a98c116301ee0c9489090f5672a88c711a9204dc78523d4a19409dfd02c280f625779ae714fe9be8a57dbf9975e16",
+            "signature": "None",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVPqs:zQa36bg4NBqT1VAwfcoV3",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T155352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "71029bcf2c1708dd53473885e244bf37daba6543e13bdf1925a7d5c2ee683a37",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:07:49",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "389",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "0a0bf18c2cb53435d9df2311761fb7b1",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "a8b3742858cca75f1748607fc1360b483b5acfcd",
+            "sha256_hash": "71029bcf2c1708dd53473885e244bf37daba6543e13bdf1925a7d5c2ee683a37",
+            "sha3_384_hash": "96e767f404656b7b0c415ae50500dcd4064b7ed231f68023df9b8a80a7337ca4b4729ca979691f0f415445fdad4f6e21",
+            "signature": "Akira",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVeqs:zQa36bg4NBqT1VAwfcoVg",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T13C352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "f0c1268ae4f6b942bd9af389c0c0f2e78e6dd163c3a1f41b83ce6e1005f3a404",
+            "file_size": 1076736,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:07:28",
+            "gimphash": "None",
+            "imphash": "6c864ce260dd3952094fbdbfe5597535",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "380",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "0248bf2afb70642288646760bb25a38d",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "24f46dba6e51270a28ce70d065d5ab67c42ffee8",
+            "sha256_hash": "f0c1268ae4f6b942bd9af389c0c0f2e78e6dd163c3a1f41b83ce6e1005f3a404",
+            "sha3_384_hash": "ebd15cec7307b9c311054f70905ab16c7b669167fbdf0424b0fd2c3059c29b6d625389aa77ee36af82b7eec095ffa3e7",
+            "signature": "Akira",
+            "ssdeep": "24576:FTyLPsJjVjzhWwiENiUGC86pNV2GNxgr+oBwGoGs:FTyLPsJjVjzliE0opNV2G7gr+o+Gy",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T105352A41A5164AF6F6528ABE4A32C02FEEF736050B11DAE74581723A2F070ED2F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "86517343326a99a6c89ee5a1895b43b338214ef945de817c22a2cf37f127c4b4",
+            "file_size": 1076736,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:06:54",
+            "gimphash": "None",
+            "imphash": "6c864ce260dd3952094fbdbfe5597535",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "376",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "64e4753cab78dcba6072a7c0ba9eeb89",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "018ee8a28c2c5b60fc2b59e75f4148f9831969fa",
+            "sha256_hash": "86517343326a99a6c89ee5a1895b43b338214ef945de817c22a2cf37f127c4b4",
+            "sha3_384_hash": "6e19766763f705b925896b46c31e1e4ded32742b0ed69afb89c3817eb63460911713df2cea79feac83b5cb04a732dc6e",
+            "signature": "Akira",
+            "ssdeep": "24576:FTyLPsJjVjzhWwiENiUGC86pNV2GNxgr+oBwGkGs:FTyLPsJjVjzliE0opNV2G7gr+o+Ge",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T117352A41A5164AF6F6528ABE4A32C02FEEF736050B11DAE74581723A2F070ED2F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "4f0b6ccf09a4c8e05aaf945bd23f2ef1d02f936682cfe6d42e3f1c4c5d8c60e2",
+            "file_size": 1081856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-19 15:06:31",
+            "gimphash": "None",
+            "imphash": "f89d971f855e5743dd4d1e73a5da5699",
+            "intelligence": {
+                "clamav": [
+                    "Multios.Ransomware.Akira-10036536-0",
+                    "Multios.Ransomware.Megazord-10021030-1"
+                ],
+                "downloads": "374",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "43b0adfed2c14c240931d8e0a3986d9e",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "9a35f3f86491a44f8427c98fb5177dc6be9e858d",
+            "sha256_hash": "4f0b6ccf09a4c8e05aaf945bd23f2ef1d02f936682cfe6d42e3f1c4c5d8c60e2",
+            "sha3_384_hash": "b8160ac76141a4a7952764db75e2126e99093945d85c51b410ae3e5c87bf32e9049959f7055c2a049e7a0a2285fe72a1",
+            "signature": "None",
+            "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVLqs:zQa36bg4NBqT1VAwfcoVT",
+            "tags": [
+                "akira",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T16F352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "Locker.exe",
+            "file_size": 1672208,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 14:13:04",
+            "gimphash": "None",
+            "imphash": "8ae0849028943549b89d3b86513c9b75",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "743",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "d7ad18e63064ef80cc6b98db54516f6f",
+            "reporter": "V3n0mStrike",
+            "sha1_hash": "89343dc2715e580cd96c35bda1025cb2ddc1021d",
+            "sha256_hash": "83badb448a7575b661deb122871d2340604c4ead3f95ed25bcdf6cdbe58e319c",
+            "sha3_384_hash": "a258da8909f86684270032edb0b13cde27118ca34b2ca5bef5ba8d12756cbb2b44794a3c8ee925a665887bc85d5c0fef",
+            "signature": "VanHelsing",
+            "ssdeep": "49152:v6QApqkQWFMc2lw9nwPDC7bODth5yx30G:OpdQW3fFwPD+8th5",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Vanhelsing"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1F675AE19BAD480F1E0B7913089B59656EBB5782A4B7096CF13D0466E3F336D18E39B33",
+            "trid": [
+                "40.3% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "19.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "17.2% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "7.7% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "7.6% (.EXE) Generic Win/DOS Executable (2002/3)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "67a78b39e760e3460a135a7e4fa096ab6ce6b013658103890c866d9401928ba5",
+            "file_size": 1261752,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:47:54",
+            "gimphash": "None",
+            "imphash": "f6da1794eea7809ac5969477dbb4fa70",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "524",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "67edfff8250487d97f403c74fed85388",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "f20bc8af34dd292e017caf4d42dd95d0cdc08792",
+            "sha256_hash": "67a78b39e760e3460a135a7e4fa096ab6ce6b013658103890c866d9401928ba5",
+            "sha3_384_hash": "bf4998e6d568277e4aa90c6202786abf751f0eb4fd220aa06e847281c11335e5b3efd8005ea64ea1e161545e9986f118",
+            "signature": "Rhysida",
+            "ssdeep": "24576:utP7hdO1s6Skscec1SgnyN9HPFCCNhQI6GOfaFVIVrYwcMavDiZn3m75/J7:gLO1qkscec0gnyN9HPFCCNSI6GOfaFVp",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1C9458E84F742FCFDD59A42B406D7131793BAF480A719FB272650FE38091AB906EA3B15",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "0050a69d6e93eddcd1ea4b7e951945f8970e5700d9436238bde7f63d757988ae",
+            "file_size": 429056,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:46:12",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "457",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "26f41a46d0addde100bb9512a130de5e",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "bef7719a8a98131b8bdf885895b5d1c3f9d089ad",
+            "sha256_hash": "0050a69d6e93eddcd1ea4b7e951945f8970e5700d9436238bde7f63d757988ae",
+            "sha3_384_hash": "c107a1dbaafb20df2e3b5063234166f4791c5bd12e21febe676269b289b03b7dd8f344df92c9f141ebd97460006fbbf7",
+            "signature": "Rhysida",
+            "ssdeep": "6144:1OQ7bSLB+QbqZ0/xDPK8JLM7hsqMFUtkko1mJ8+ANqT:OmQx71M75tzOmJ8+",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T175948D2BE7E350BDC26B40748B8766736571BC490130E96B13D0DAB06F629A07BEF365",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "1a9c27e5be8c58da1c02fc4245a07831d5d431cdd1a91cd35d2dd0ad62da71cd",
+            "file_size": 432128,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:45:48",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "228",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "4ef0160b3eb114a94aeedd0bb5716058",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "10cb9fa20dec34fa7ceab8248a0deef8ecb7bcef",
+            "sha256_hash": "1a9c27e5be8c58da1c02fc4245a07831d5d431cdd1a91cd35d2dd0ad62da71cd",
+            "sha3_384_hash": "34a3898daf48d0fce7a1e633aeb9342bcd7aff60aa12dd744b5e1f9d38b04a5e4a6de668f83f2662b0193e85232df8b7",
+            "signature": "Rhysida",
+            "ssdeep": "6144:izOLumbr+/LRsL5whr2FaSSJmo7zYrMFFMk3nwH8nTNFT:iUCaJo7tMowHI",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1B8947D2BE7E354BDC26B8074878766736571BC490130E96B13D0DAB0AF619A07BEF325",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "3d2013c2ba0aa1c0475cab186ddf3d9005133fe5f88b5d8604b46673b96a40d8",
+            "file_size": 361984,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:44:57",
+            "gimphash": "None",
+            "imphash": "36e77497d3c29d194a4ac4cc20116b1c",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "436",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "fac561bb0f072d29fe6f8ee6072c905a",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "da29dc6bd9ba38d11d46665e42bed7d5c35f48fc",
+            "sha256_hash": "3d2013c2ba0aa1c0475cab186ddf3d9005133fe5f88b5d8604b46673b96a40d8",
+            "sha3_384_hash": "d0b56d7f82aef8611cf9abd8936799227c3836ab8b26c4dee7d01c0f5c5edd29a272025935b1b5510746794c9ffe4117",
+            "signature": "Rhysida",
+            "ssdeep": "6144:heigHPKpV1hH/lRLIRsdyhFNnofZwnADhY+xlgVv3M:UigHUz9lRvyLtiwnZ+xKU",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1B7747C0AFA8750F1DD1318B14243FABF5B24B7029430DF6ED698ED89EB33691711E265",
+            "trid": [
+                "32.2% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "20.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "d23a265fb919a4d9401ef60c5aa52d8deda1310a8a1eeb61edbe87f35114f76a",
+            "file_size": 4881408,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:43:16",
+            "gimphash": "None",
+            "imphash": "5cb57b2d7f44d82f02d065d9d7590a15",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Win64.MalwareX-gen.11299.9238.UNOFFICIAL"
+                ],
+                "downloads": "458",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "6742fdde9d5fde37ac5a9c9cbb1f691f",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "df8a2e211eeeac0f5936cb11a1f825fa56fc61c8",
+            "sha256_hash": "d23a265fb919a4d9401ef60c5aa52d8deda1310a8a1eeb61edbe87f35114f76a",
+            "sha3_384_hash": "be80a6742d28c3416b8a6e5debb1b353c287ca51f88e2e23e38b724c7ac6a6173c96ea372b80f851b344c3320e76442e",
+            "signature": "Rhysida",
+            "ssdeep": "98304:aV3ebShMWh0+wCzQxTyCmG/4kJiKqVOhkQlPta5LIOwGB:C38S+QwuQxT7n/4kJxqEhVPA5LIOw",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1AA36CF3354B142DEF083C4F4DAFFFA936A84F2154E1935A976892C542FB2C509ED8A4E",
+            "trid": [
+                "36.9% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "23.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "11.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "10.0% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.6% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "9ddb239d7c1ca00e5cf13cd6b1f816bdba30792b1f26cef2ca807336bd0b3802",
+            "file_size": 930304,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:42:05",
+            "gimphash": "None",
+            "imphash": "f3e83b7fcd96fde8eeb4ee457680777d",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Trojan.KillFiles2.3202.30078.29104.UNOFFICIAL"
+                ],
+                "downloads": "448",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "0cf5491278c7d87e8c3fc88c7f9f26ff",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "db1d9f161f331d07bbb626acf7d4f8f6e1a2c742",
+            "sha256_hash": "9ddb239d7c1ca00e5cf13cd6b1f816bdba30792b1f26cef2ca807336bd0b3802",
+            "sha3_384_hash": "1be928084474f534adfbd6f97ca3a5b25ac5436c3ee0ee066957541d5776405da5130612ca42b78f5829ebec071d5e43",
+            "signature": "Rhysida",
+            "ssdeep": "6144:xcQQbTJ0huBKxmueLQ320SlmQ2Gz3bJo47/T8MF3KSUEtQGG4P4T:bqLQ320SlmQ2GzW47vKSry14P",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T10515325A0B8FC5FCC32BFCB485C65D13EB92962A172CD686DB627DB5342286CE0F5484",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "57a2401758b5282090f145623041a6c3805663de137505a7095df9e0271b4602",
+            "file_size": 250880,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:41:18",
+            "gimphash": "None",
+            "imphash": "37687a662e949493b311b4727ca43df9",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Win64.MalwareX-gen.16306.26333.UNOFFICIAL"
+                ],
+                "downloads": "431",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "3225b95fc72f238ab1e53bfabc11b551",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "dcbd80dae14ff473b2c052863d01eb7fc7a536c3",
+            "sha256_hash": "57a2401758b5282090f145623041a6c3805663de137505a7095df9e0271b4602",
+            "sha3_384_hash": "6e3ac9954c3882eee7546db6b533fcff72fa848a38f147a88fc1f41ad3a35cdec47490d74019a31ec95a0de38062f15f",
+            "signature": "Rhysida",
+            "ssdeep": "6144:6U502s1Aua/EadH9ZswGAgeH5Rrgj2MDjLSZr3Sf5xv/O:bns0//dZsF6Z/Mlf5x3O",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T11934123DA35BD32AC05DE4F64F428C966532B9481172B27B03D698B17ECEA584F9D3C1",
+            "trid": [
+                "38.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "15.6% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "15.4% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "15.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "15.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "b55ecbddcbed916481ad537807cd3e33cb71814be6ce8e03eb63b629ccb8c692",
+            "file_size": 509440,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:39:47",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "402",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "5f3ecd02a94cec2b62bfecd79f5a1d98",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "2cd65d6d0cb10b8d061ee33133f0f98f86917265",
+            "sha256_hash": "b55ecbddcbed916481ad537807cd3e33cb71814be6ce8e03eb63b629ccb8c692",
+            "sha3_384_hash": "3d3602267c105660c354d7326dc92efb70d116cb78d4df74330eefc272019bf30464c0eeb605820eadd91f5b50178657",
+            "signature": "Rhysida",
+            "ssdeep": "6144:rFoCbN9uRhQW8HnuYqWrJhN7L6aMFNYkS+D5gtuMf9opagj7T:IqnTp7N78Y5e5gUG9o/",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T14CB47C17D6A3466DC12781706F4766736F31BC4C01B0B9AF1291CEB26F61B706BAE329",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "a78fa1ecadc46870c17e458ab427bad6586b74c7d3e8472f6d8448832ccb20f1",
+            "file_size": 509440,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:39:19",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "399",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "1888ecf4e90f02ecaaefdb3624825fa2",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "f347814ce3c6018a342799ff38644d02964635c0",
+            "sha256_hash": "a78fa1ecadc46870c17e458ab427bad6586b74c7d3e8472f6d8448832ccb20f1",
+            "sha3_384_hash": "f18fd2b0048d70b0a2fac6e2b2e5e64cefe5a7f387fc92efe938abd59d2598717db92c1a3a8e57631a5a3c47d6b5e2b1",
+            "signature": "Rhysida",
+            "ssdeep": "6144:WFoCbN9uRh5W8iZuYtWrJhN7L6aMFNCk0Y+sPgtuMf9opaMPdZXT:0vZTs7N78CrZsPgUG9oDlZ",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1FDB48C17D6A3566DC12781706F4766736F31BC4C01B0B9AF0291CAF26F61B706BAE329",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "8061bb999a0f5d3165742283001a7a68e7905718c928172343bf8456b69f268d",
+            "file_size": 508928,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:38:36",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "428",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "bea5c2c91e1fa97854c65ece18456b0e",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "2ed560ed6d90b42e79da906625a03e743f742369",
+            "sha256_hash": "8061bb999a0f5d3165742283001a7a68e7905718c928172343bf8456b69f268d",
+            "sha3_384_hash": "f242fbf3b52c255ff51bfdf22f86b9f309aea18f660a0e2d097d0b08c172689c215afae28d19ce1602b942320cefb20e",
+            "signature": "Rhysida",
+            "ssdeep": "6144:LgVoyb9e9BhzGcIo6gCJv47raqMFdiksMi9agtuMf9opaiYOmDdnT:com47ciTt9agUG9oCOmD",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T11BB47C17D6A3566DC12781706F4766736F31BC4C01B0F9AF0291CEA26F61B706BAE329",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "39d5df6362f22bdc4cecda164149ea0e66f93f61fe1f403f9c38666052f385ad",
+            "file_size": 508928,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:37:53",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "422",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "569d2b5701755260514fe1563d7530bb",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "4296b3794c3253434418f08fb933fd8a3880501e",
+            "sha256_hash": "39d5df6362f22bdc4cecda164149ea0e66f93f61fe1f403f9c38666052f385ad",
+            "sha3_384_hash": "358d65c5c10fcda51cf88001ec4686bf0f44168bb13582e9aab2cc7b8ab31749b3e9b2c7cb03be64aed575c3a8281b72",
+            "signature": "Rhysida",
+            "ssdeep": "6144:pgVoyb9e9BhrGcmofCJv47raqMFdIkR8492EgtuMf9opavgUnT:SGI47cIeL92EgUG9oyg",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T138B47C17D6A3566DC12B81706F4766736F31BC4C01B0B5AF0291CEE26F61B706B9E329",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "2c5d3fea7ad3c9c49e9c1a154370229c86c48fbaf7044213fd85d31efcebf7f6",
+            "file_size": 431616,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:36:27",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "417",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "7dd4de113a97c638518f01760ff4f03c",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "39649fa040a3c6894758016a65afec7b6acd4017",
+            "sha256_hash": "2c5d3fea7ad3c9c49e9c1a154370229c86c48fbaf7044213fd85d31efcebf7f6",
+            "sha3_384_hash": "5edc91cc87be7b43260e3b8cf068dfb59f131d1262484c12be0448c4dd7269e909e9f783ed455e3680ff368b168f195a",
+            "signature": "Rhysida",
+            "ssdeep": "6144:pzOLumbr+/LRs95wOr0F2SSJmo7zYrMFFHk9FIT9pLaaT:XeB8Fo7tHG6T9Ra",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T14E947D2BE7E354BDC26B8074878766736571BC490130E96B13D0DAB06F719A0BBEE325",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "250e81eeb4df4649ccb13e271ae3f80d44995b2f8ffca7a2c5e1c738546c2ab1",
+            "file_size": 1264644,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:36:05",
+            "gimphash": "None",
+            "imphash": "f6da1794eea7809ac5969477dbb4fa70",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "224",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "59a9ca795b59161f767b94fc2dece71a",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "b07f6a5f61834a57304ad4d885bd37d8e1badba8",
+            "sha256_hash": "250e81eeb4df4649ccb13e271ae3f80d44995b2f8ffca7a2c5e1c738546c2ab1",
+            "sha3_384_hash": "d92319b0e7eb3c45add11ee89a6837ab8ac53d09066aaa2cfab2bbe06ed63d68bdde3bfbf9096fda7b8c78263440ee65",
+            "signature": "Rhysida",
+            "ssdeep": "24576:ztP7hdO1s6Skscec1SgnyN9HPFCCNhQI6GOfaFVIVrYwcMavbiZn3m75/J2:BLO1qkscec0gnyN9HPFCCNSI6GOfaFVc",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T112458E84F742FCFDD59A42B406D7131793BAF480A719FB272650FE38091AB906EA3B15",
+            "trid": [
+                "45.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "18.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "18.0% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "18.0% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "f6f74e05e24dd2e4e60e5fb50f73fc720ee826a43f2f0056e5b88724fa06fbab",
+            "file_size": 432128,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:35:43",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "207",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "fbbb2685cb612b25c50c59c1ffa6e654",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "134c25e1b864f14d25e06d29cce0ca0b90968b44",
+            "sha256_hash": "f6f74e05e24dd2e4e60e5fb50f73fc720ee826a43f2f0056e5b88724fa06fbab",
+            "sha3_384_hash": "de1aac7da6026c335be25edc08771bd8422291570ae1914d532b69d9553e2347bc42d3b370cb8ac8258c8edfe71e38b0",
+            "signature": "Rhysida",
+            "ssdeep": "6144:pzOu5u9brOPsosL5wJ8gElIJ/P7xJrMFKtkB3YDHit1w9T:3DUlhsP7/tyIbit2",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1F8947D2BE7E354BDC12B5074878766736571BC490230E96B13D0DAB0AF729A07BEE325",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "0bb0e1fcff8ccf54c6f9ecfd4bbb6757f6a25cb0e7a173d12cf0f402a3ae706f",
+            "file_size": 431616,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-12 13:35:21",
+            "gimphash": "None",
+            "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Rhysida-10007205-0"
+                ],
+                "downloads": "219",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "c9a5e675dbb1f0ce61623f24757a1c72",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "560a64721d5a647ffae76febdb6f99bf356dae79",
+            "sha256_hash": "0bb0e1fcff8ccf54c6f9ecfd4bbb6757f6a25cb0e7a173d12cf0f402a3ae706f",
+            "sha3_384_hash": "5febf37fdcb8a2a2986f8e59501ae25719c818d1bf5ee34aedecf2870001b0861d377ccb4b85519190865d6adab50b29",
+            "signature": "Rhysida",
+            "ssdeep": "6144:pzOu5u9brOPsosD5w/8+EeIJ/P7xJrMFKIkNEcT3gVv3PmT:3DMTPpP7/IkEw8X",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Rhysida"
+            ],
+            "telfhash": "None",
+            "tlsh": "T17F947D2BE7E354BDC26B4074478766736571BC480230E96B13D0DAF0AF619A0BBEE365",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "af179b093adef005f85ed0c5e9a920381bf0993bd5fd2af393fe6551e3b934b4",
+            "file_size": 473600,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:13:13",
+            "gimphash": "None",
+            "imphash": "593b61df0f3b8d68fe1726159597097d",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "492",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-10 09:14:29",
+            "magika": "pebin",
+            "md5_hash": "4d854853a5fab3421e5713fd0b6fed42",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "4810900a37237015a3097b8c5f45cc6cbfe285c2",
+            "sha256_hash": "af179b093adef005f85ed0c5e9a920381bf0993bd5fd2af393fe6551e3b934b4",
+            "sha3_384_hash": "84a516f055c9fcd844190a8813709f820ef9c14b1e0d3787250d70f7d876b1bda2456fcd234e05da1ea6ecc661fab821",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:6lFU2CtlIqd1fz6LGkUSWsMH3Eq1x4m9:MU2CtGqdJLkUSmh39",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T159A49E1171E1C4B1E57A1F301970DAA49D7EFAB04B319E7F6B94026B4E3C0D09A39EA7",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "4b082cfa36133e66c3ed8918ed775bd656890c3c7373606d67e0ee9edd6aa3b4",
+            "file_size": 484352,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:12:49",
+            "gimphash": "None",
+            "imphash": "6fc7db09c5144cfb86f05772e2fc3008",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "444",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-10 09:14:02",
+            "magika": "pebin",
+            "md5_hash": "a3dc8739c25b9b0c0348fc12fddcef65",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "37fa81ea2346e2110715c604d451097b95bb4698",
+            "sha256_hash": "4b082cfa36133e66c3ed8918ed775bd656890c3c7373606d67e0ee9edd6aa3b4",
+            "sha3_384_hash": "6aaae72d2da2251369f1dcd92628a97e466616a6facddae2b25336da7e8e4226b51642f535891c671987e2bff9b456c3",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:WLObLmjqGR2l/mlHaMwGkHJhqDLcClct:WLkLmjqGk/m2ghlC",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1C9A48E21B0C18470E6B74F306AF4EAB19C3DFA744B708DFF6784066B4E644E26639997",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "8fb025d59e501a545cae40ef222ca22b5722fdd487cdefb3f2e4b0a8635f9bc2",
+            "file_size": 488960,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:12:25",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "446",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "eab47cbf897c7e9c2dc1009e11d1d928",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "0816c29d03f6612b053db52a245f6c0062967b5d",
+            "sha256_hash": "8fb025d59e501a545cae40ef222ca22b5722fdd487cdefb3f2e4b0a8635f9bc2",
+            "sha3_384_hash": "c19ee6d535dce16a7c2fa13cda5b2cd43519ee987eb1836707a0f2cd0f9b4334eaecf11a176998de0bdd929b85dbad3e",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:oNV+NjSXtz57JtE/Dglskr/gT72ZywWWq/ePVl/uw7cFhUD:oTcjSXDukskWWjzcFCD",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1C7A4B4107EE74675F3B3CE7118B0D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "e22137c5b034e0bf022ee389b607d3e0cffdbb25355918135f1536a7e510442b",
+            "file_size": 488448,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:12:03",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "435",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "dedaf87d9f14524ec3fe7c3d2e304bf5",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "be8574663f31227d834bf3adc31c386533a7632c",
+            "sha256_hash": "e22137c5b034e0bf022ee389b607d3e0cffdbb25355918135f1536a7e510442b",
+            "sha3_384_hash": "35cf8c02a43643bcbfefc3ac05df51cba19ec3a0e0577aa45f3c59d279455ff97339a552a6c1e5225617fa5c0429b1a7",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:OWNV+TSXAtEyDgEws1/gT72ZywWWq/ePVl/uw7cFhpD:OWTASXh6mkWWjzcFLD",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T122A4B3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901B5A0922DE0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "192acfe0d55eef4c49cb7c803e7130d2f5ecd6bdee446f1c065ea6dee489ea6c",
+            "file_size": 488960,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:11:43",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "438",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "16153e9582cfe94a06fc670a5d851ed9",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "9a59a3310086462fd4bbf4781995464eb889974c",
+            "sha256_hash": "192acfe0d55eef4c49cb7c803e7130d2f5ecd6bdee446f1c065ea6dee489ea6c",
+            "sha3_384_hash": "305acf163876de229a0edfdec38f0f1f919e46452a79f4d8e82a73d6faedf064b5d19cc370feeacca380b2f855622f76",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:qNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFh:qTwSXNUQmkWWjzcF",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1B2A4A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "a022e86b2bb3ed6b4a8676be8b1688397b6e15c693e69c5093d8eb04396d2905",
+            "file_size": 484352,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:11:23",
+            "gimphash": "None",
+            "imphash": "6fc7db09c5144cfb86f05772e2fc3008",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "439",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "a169a146571b908a412ba8482adee8f1",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "47cd550be7567b8ff091fff32cd0d7c3c0e4f7d2",
+            "sha256_hash": "a022e86b2bb3ed6b4a8676be8b1688397b6e15c693e69c5093d8eb04396d2905",
+            "sha3_384_hash": "fcaad09787215715aed512571f8e9b13a6e94470a95c57ee451bea9025c8c1db161f4a81d776f53189cc2d47e002e6de",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:heTmjxb5QIul2hD/S8+5hFg2NRrlSYDLGRxHwEEaY4qr6leWvebuFD0MCu7sWZcA:19b45hmjqGR2l/mlHaMwGkHJhqDLcCl",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1FAA48E21B1C18470F6774B3066F4EAB19C3DFA704B708DFF6788066B4E644D26639A97",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "513266fb23782f2bff65b6e8f059c4f4bb99562610c44110c4a463338f91d425",
+            "file_size": 488448,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:10:52",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "433",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "e931ab5882d62ea08e498d90e2e11ad0",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "5b68fe6556752d6bf077740d1b297f65a2673b54",
+            "sha256_hash": "513266fb23782f2bff65b6e8f059c4f4bb99562610c44110c4a463338f91d425",
+            "sha3_384_hash": "0347701baa0d42aa0dc2134d5c50b7a3c58c7ce6b00c4232bd458886f01f80d47a36eb860d83033d2182dc9554f41929",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:/NV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFh:/TwSXNUQmkWWjzcF",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1D1A4A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "7bdb0be5e4c376bbb3533b8872f3ba72b7876ef261b94f6799010f55160d8adb",
+            "file_size": 473600,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:10:32",
+            "gimphash": "None",
+            "imphash": "593b61df0f3b8d68fe1726159597097d",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "432",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "44c36bc55af58eb506d1760ab608402b",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "f2e35260e8aefd4a8222602001b387fc901b29a1",
+            "sha256_hash": "7bdb0be5e4c376bbb3533b8872f3ba72b7876ef261b94f6799010f55160d8adb",
+            "sha3_384_hash": "ad996c9340e18bbaa787f2841dae92ca5fa7f00d749e01ee890fd5a1c08c5860a8661deef8cecc1a9d30328907ccfc60",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:bKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWgncb:0SLaXC+lIma1fz6LGkUSWsMH3Eq1x4m",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1A5A48E1171E1C8B1E57A1F3019B0DAA49D7EFA704B319E7F6B54026F4E380D09A39EA7",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "3b64b861af1779df860a1e8d480bbe5b775acee19ca8c3b64c9005d8c64eb327",
+            "file_size": 222208,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 09:10:08",
+            "gimphash": "None",
+            "imphash": "04a48917184543d74be07effdd370a6e",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "438",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "a831d838a924ea135c3e0f315f73fcd3",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "6277e9697b01ebf1856697335fd125542ec6ae5a",
+            "sha256_hash": "3b64b861af1779df860a1e8d480bbe5b775acee19ca8c3b64c9005d8c64eb327",
+            "sha3_384_hash": "f623a6b155438aba8efe3c50364b92cd30ffd2d069c68230a6ff3643810891115d7cdcd8e5cc9feb92c286482b0149bb",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:8bdv1JM8NoASUHepQ0fwb45icOg37RA5AVMe74aAe7gIujAtsa1KpXS6y:Z8VSUHepFfwU5icOgrRAdyVl7x6y",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T162247B4673E508F8E5AB8238C9514A05E6B2BC164760EBCF03E44776DF236D19D3EBA1",
+            "trid": [
+                "48.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "9.2% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "ef614b456ca4eaa8156a895f450577600ad41bd553b4512ae6abf3fb8b5eb04e",
+            "file_size": 255504,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:30:11",
+            "gimphash": "None",
+            "imphash": "8517cf209c905e801241690648f36a97",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "512",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "57824214710bc0cdb22463571a72afd0",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "dc8595989fc1bc784138b56cf32e8b194f425727",
+            "sha256_hash": "ef614b456ca4eaa8156a895f450577600ad41bd553b4512ae6abf3fb8b5eb04e",
+            "sha3_384_hash": "8f5cd6b9c4779e8f17cdf615cbcf9f36a167b34e28796a007ed1eb652bf983770e840c1ab3881f98fbad3e60b3ed6922",
+            "signature": "HelloKitty",
+            "ssdeep": "6144:YVgUc9JwBsH2/dvXVS2Iar3gjevvZWKedSHXGZw3H:Y09WBsH6dvfx3BkVc2ZE",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T18944E011B4D2C473DAB20D33097ADEB48D7EF9344F2189BF37D4126A0E680E15A3696B",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "52dace403e8f9b4f7ea20c0c3565fa11b6953b404a7d49d63af237a57b36fd2a",
+            "file_size": 255504,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:29:44",
+            "gimphash": "None",
+            "imphash": "8517cf209c905e801241690648f36a97",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "425",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "1b0b9e4cddcbcb02affe9c8124855e58",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "8fb41b6d5186cc996b4b92e812407a1adee8932f",
+            "sha256_hash": "52dace403e8f9b4f7ea20c0c3565fa11b6953b404a7d49d63af237a57b36fd2a",
+            "sha3_384_hash": "da042906b44b798fa8fad9da32cba94337777c688d45b31eeb67aec7641552dd1f5e901a409aa0d60bbf938801c66cc2",
+            "signature": "HelloKitty",
+            "ssdeep": "6144:YVgUc9JwBsH2/SUrGYEBzU0IEbq9DTGLJS07:Y09WBsH6vrGYEq0IMq9DaLY2",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T15B44E01175C1C8B3D9B35D320976DDA14EBEF9344F2188AB33D8127A4E680F19A36D6B",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "a147945635d5bd0fa832c9b55bc3ebcea7a7787e8f89b98a44279f8eddda2a77",
+            "file_size": 255504,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:29:18",
+            "gimphash": "None",
+            "imphash": "8517cf209c905e801241690648f36a97",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "423",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "46ecc24ef6d20f3eaf71ff37610d57d1",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "2342cc02a5ac26fd78603ac82e2d90e1b54ff71f",
+            "sha256_hash": "a147945635d5bd0fa832c9b55bc3ebcea7a7787e8f89b98a44279f8eddda2a77",
+            "sha3_384_hash": "1409b1568746c2e9df8d1a074080d4b09a40cfbd3156aeb3d60ce78b8656d3042d1bc0fcc6945dab4ab6d5b5d0e0234c",
+            "signature": "HelloKitty",
+            "ssdeep": "6144:YVgUc9JwBsH2/Ms20W5I2qRGepy/Tu7UMlkoXP:Y09WBsH6MsyqRdEToBXP",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1F344E01074D1C432E9B71E3609BACEB08ABEF5784F3558BF33D8466E4E780E16935866",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "0e5f7737704c8f25b2b8157561be54a463057cd4d79c7e016c30a1cf6590a85c",
+            "file_size": 255504,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:28:50",
+            "gimphash": "None",
+            "imphash": "8517cf209c905e801241690648f36a97",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Zusy-9950758-0"
+                ],
+                "downloads": "419",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "1a79b6d169aac719c9323bc3ee4a8361",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "c4a1eb629133a63dbfc7bdae189bfa73168c260c",
+            "sha256_hash": "0e5f7737704c8f25b2b8157561be54a463057cd4d79c7e016c30a1cf6590a85c",
+            "sha3_384_hash": "a1b168fe1237d405899bf0d763fb2f33cba724674bc0a8474db4d774018340f39a32b280050bbba09ffb510e491c3646",
+            "signature": "HelloKitty",
+            "ssdeep": "6144:YVgUc9JwBsH2/5IuJHexuMmCn8q5sYJ3m:Y09WBsH65IaHe0MmCbsi3m",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1BC44E11170D1C472D9721933047ACEB68EBEF9385F2589BF33D8126A4EB41E1693AC67",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "7be901c5f7ffeb8f99e4f5813c259d0227335680380ed06df03fb836a041cb06",
+            "file_size": 253456,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:28:19",
+            "gimphash": "None",
+            "imphash": "8517cf209c905e801241690648f36a97",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "426",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "a64d79eba40229ae9aaebbd73938b985",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "e6e4f57df5c0db2aa0d64ca7b5fb65a4395e3b5f",
+            "sha256_hash": "7be901c5f7ffeb8f99e4f5813c259d0227335680380ed06df03fb836a041cb06",
+            "sha3_384_hash": "08263ef66cb20346d9453b58955233d92fc7ab85514ca1757a122b380f314992e29ec4b3484942dd5b5672140fb9ddc2",
+            "signature": "HelloKitty",
+            "ssdeep": "6144:tVgUc9JwBsHC/qqx6d7+Jb2Y+ViU+pn3NbA:t09WBsH2t6812dV70A",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1F744E11174D1C472EAB70A7205769FB58EBEF9244F2189BB37D806BA4F740E02935C67",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "501487b025f25ddf1ca32deb57a2b4db43ccf6635c1edc74b9cff54ce0e5bcfe",
+            "file_size": 160849,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:27:53",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Kitty-9822510-0"
+                ],
+                "downloads": "406",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "136bd70f7aa98f52861879d7dca03cf2",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "fadd8d7c13a18c251ded1f645ffea18a37f1c2de",
+            "sha256_hash": "501487b025f25ddf1ca32deb57a2b4db43ccf6635c1edc74b9cff54ce0e5bcfe",
+            "sha3_384_hash": "e8a23a47638a3af975940d5e44445d19433c61445c28dfff0aa403432d3f4cc5216013327a8be980d5d704d485660857",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:ENV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFho:ETwSXNUQmkWWjzcF6",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1FDF3A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "3ae7bedf236d4e53a33f3a3e1e80eae2d93e91b1988da2f7fcb8fde5dcc3a0e9",
+            "file_size": 159232,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:27:19",
+            "gimphash": "None",
+            "imphash": "fca1e108446f2598a0a25b1c9ee4027f",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "411",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "af568e8a6060812f040f0cb0fd6f5a7b",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "e7f0c17b338d78c4f8b82b032af9f81828512b30",
+            "sha256_hash": "3ae7bedf236d4e53a33f3a3e1e80eae2d93e91b1988da2f7fcb8fde5dcc3a0e9",
+            "sha3_384_hash": "aef9bfacbd89efec66fad40fd5f927f78b5c3c98837b1256c31069f780cb7b56c4d9235d72b6c40ec36536de6a205ec1",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:eaV+7SXvezfVdzGt3/ygs7vZoVCrmjePFpUSFC:eI4SXvktuo6CK+KSF",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T16CF3A2107EE74674F6B3CE7418B4E760483EBDA19E23979F92911B5A09329E0DD70E22",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "10887d13dba1f83ef34e047455a04416d25a83079a7f3798ce3483e0526e3768",
+            "file_size": 156672,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:26:49",
+            "gimphash": "None",
+            "imphash": "a212ef7585d0a3931461b40e0bee95ba",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "409",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "d96adf82f061b1a6c80699364a1e3208",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "1e71d6f6fa31cfcc7c96ca8f74e63f6427722fd3",
+            "sha256_hash": "10887d13dba1f83ef34e047455a04416d25a83079a7f3798ce3483e0526e3768",
+            "sha3_384_hash": "ac9f60d06c93b87373b52e55f516e012be70b1f3baafe912b0b0cd78182dbfc9cb6f7fd2256cadd011241429cd2c80c9",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:dV+bSXmSOa792a6bpNecigiOPsnpriT9:D4SXK6t6LE2T",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T139E382107EE74674F7B3CE7118B4D760493EB8A19E23979F92901B5A0A23DD0DDB0E26",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "e94064401b54c399d3f844fdf08f880cb8c5d74c34de9dc28733dd22dabba678",
+            "file_size": 255504,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:26:18",
+            "gimphash": "None",
+            "imphash": "8517cf209c905e801241690648f36a97",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "445",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "c45f5895c255c5bb59b2aa4947412753",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "fc96140b2f98c84427f3f01a7b2515b6283f5025",
+            "sha256_hash": "e94064401b54c399d3f844fdf08f880cb8c5d74c34de9dc28733dd22dabba678",
+            "sha3_384_hash": "34c4ec3f1ff25b63ffc7b07b75ad7481846d87b986cd3bd5a893bc883d9ce7180e642b9cf5ec2e748b411331146e75c9",
+            "signature": "HelloKitty",
+            "ssdeep": "6144:YVgUc9JwBsH2/dmHrXfRuE4s5YZHP7a32tDWhuSdp:Y09WBsH6ivRJDYxPOeD+uSj",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1A544D04174D28433DA778E36057BDEA08DBEF9348F2589BB33D8127A4EA41E05939877",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "01bfeed1000907ad1063e513454ee73eecf2d613386e38473640fc5b88ac1090",
+            "file_size": 145920,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:25:50",
+            "gimphash": "None",
+            "imphash": "593b61df0f3b8d68fe1726159597097d",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "443",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "e7ad64df3eea1239f735f790c17db441",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "5c28e277ad3bda10f29925726d760cf5213fc505",
+            "sha256_hash": "01bfeed1000907ad1063e513454ee73eecf2d613386e38473640fc5b88ac1090",
+            "sha3_384_hash": "45bc80602e4d5663df36f18f156192c64487a2c0667b640e2c5056940e5d5424917d5182df6986c686482d562fcd7118",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:xfKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWgnI:2SLaXC+lIma1fz6LGkUSWsMH3Eq1x4m",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T170E38E1171E1C8B1E17B1F301970DAA59D7EFA704B319EBF6B54026B4E380D09A39EA7",
+            "trid": [
+                "45.8% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.4% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.6% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.6% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "00b28eabababa600",
+            "file_name": "184dcab660427b846432e9e20b7d9caa98c0b91d00814f4258f73269d184f907",
+            "file_size": 289373,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:24:55",
+            "gimphash": "None",
+            "imphash": "e5d2ec931648bb8ad5e500042e54a614",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "439",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "83b6f9a64ac51c6623bd93918379dfc4",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "543a4f893051614c1326bd5230ef288d8f2d41b5",
+            "sha256_hash": "184dcab660427b846432e9e20b7d9caa98c0b91d00814f4258f73269d184f907",
+            "sha3_384_hash": "d7d8bdb895c257449e7d377db5f5464281a03ffefd0ed4a2f5dc62e8d76726f630a69912e1c8e7bcdb08d2fe043251d9",
+            "signature": "HelloKitty",
+            "ssdeep": "6144:HXyo+euTtGPQ0/t4KAOYc6R9q9M0PuC1LXXPG:3yUuZCQ0/J36fq9KkLXXO",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T16954AF213AE6C477D253253189DC6BB6B1FAAB484F11499713C08F1DAE349E2D33962E",
+            "trid": [
+                "33.5% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "21.3% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "13.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "10.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.1% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "8251fc8739e539c1d7c0ffc93d993a86fc95ffb836422b432c78e6ce107c168a",
+            "file_size": 145920,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:23:12",
+            "gimphash": "None",
+            "imphash": "593b61df0f3b8d68fe1726159597097d",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "445",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "280d680ee80e5fcc5cd6fc9be2d8518d",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "364bb4e1450d792434b52d8a9bef488d601f725a",
+            "sha256_hash": "8251fc8739e539c1d7c0ffc93d993a86fc95ffb836422b432c78e6ce107c168a",
+            "sha3_384_hash": "ccc6d210e224f352a17cd8a12e3433113923f7ec4174a26174a57412d4e18ed7a3eecf943696e352ef4247cc7e125d9a",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:NKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWWdsa:eSLaXC+lIma1fz6LGkUmsMH3Eq1x4m",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T195E38E1171E1C8B1E57B1F301970DAA49D7EFAB04B319E7F6B54026B4E380D09A39EA7",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "ac23f1970395ff1429dd6738261eb25ad8f695b46a4816056924c8fc97dcec03",
+            "file_size": 156064,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:22:27",
+            "gimphash": "None",
+            "imphash": "593b61df0f3b8d68fe1726159597097d",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "445",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "176bfe9ab5a14115ff5b90b07626cb64",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "447743d80ca2efee322be71654a39d9d23dc7771",
+            "sha256_hash": "ac23f1970395ff1429dd6738261eb25ad8f695b46a4816056924c8fc97dcec03",
+            "sha3_384_hash": "4bfb302a2d3716483574beee0c0c5b8455004dafeba60e9d1c98c68b6f58789277105bd15f87110f2903e30a3fcfc72f",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:RSLaXC+lIma1fz6LGkUSWsMH3Eq1x4mmc:WaXC+GmaJLkUSmh3n",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T12EE39E11B1E0C4B1E57B1E3015B0DAA5AD3EFBB04B319A7F6754426F0E381D09A39EA7",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "bf417334cd777c5073e2a3f30497aa8fcb16feabdc391d77a59ce23fb4a07d7d",
+            "file_size": 119590,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:21:59",
+            "gimphash": "None",
+            "imphash": "",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "445",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "4ca68bf3d630332e9c19a17ac910376e",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "5c36674521573f7e0a965ac472d0181688b9eddd",
+            "sha256_hash": "bf417334cd777c5073e2a3f30497aa8fcb16feabdc391d77a59ce23fb4a07d7d",
+            "sha3_384_hash": "c70634d0ebb94355d05312cd12d325f52efcae3a9a59618015162f8e599509f1cb03a766fc8ccf3c91ea1a51f62a568f",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:NKcrl2hD/7NDeLLdl7XVcExynCaBJKmQDbn4mte8XX3hmqd7DY:eSLaXC+JKmkRH3EqdX",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1C7C3B003B1E1C4A2E26907322A70FA559DADF3B48B314167FB9D435B0D6C9D0DE2A693",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "efb40400f8e52cc29b9c6758e6d66406d9a8aabc199d5a403ed74b9a71ebca60",
+            "file_size": 156064,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:18:55",
+            "gimphash": "None",
+            "imphash": "593b61df0f3b8d68fe1726159597097d",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "449",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-10 08:21:13",
+            "magika": "pebin",
+            "md5_hash": "3167cd62ad262b8c920fc0fb258a8988",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "98c8613fe38fa3dbc8945be263ea550b862c8f33",
+            "sha256_hash": "efb40400f8e52cc29b9c6758e6d66406d9a8aabc199d5a403ed74b9a71ebca60",
+            "sha3_384_hash": "e47347a50bd23ef84653cf5e561c0ca183a0b0b5d94a56373d8e4476e92f06f8d899a7847bf76fc2838ff51e0cf00021",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:RSLaXC+lIma1fz6LGkUSWsMH3Eqdx4mmc:WaXC+GmaJLkUSm53n",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T17CE3AF11B5E0C4B1E57B1E3015B0DAA5AD3EFBB04B309A7F6754426F0E381D09A39EA7",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "c7275b4ed6a04bec1e7e1ed3f241dd4b6ce11d230ae06b00d9fb3bbfcd88f752",
+            "file_size": 75264,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:18:23",
+            "gimphash": "None",
+            "imphash": "7cf07e42822dda91b7d3d47185995b80",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "439",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "eafdcf0d488f08716764a0cbfdc27b46",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "cad330184933f8d292259a38ed49351a6923edba",
+            "sha256_hash": "c7275b4ed6a04bec1e7e1ed3f241dd4b6ce11d230ae06b00d9fb3bbfcd88f752",
+            "sha3_384_hash": "d64f9c7db871896fb41e622fc8a90f3499fb7efe314670b65cc03f20f1eeedd77292e8c2993de487378946e57d300114",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:q9UYsfCDTt8XZH0pLmyvTj45t1w4ZN9FWFvvL:q0+Ttg4LmyvT0t1w4xoV",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T155730207EAE0D832DBE55F3840DE5D1243968954CBF7833F05CEE8A21578B121B9AB4E",
+            "trid": [
+                "52.7% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "00e6db8d116020d7dda556e0cdf9e0d4c9e57bb8d566c0e702a23ec679a46b51",
+            "file_size": 168963,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:17:38",
+            "gimphash": "None",
+            "imphash": "864aacd60fbdb1cf6a6a44ae50b3f31c",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "437",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "50363f811d630e8e3ceb84f6f3db066e",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "c608d658ce2e28c768c65bb6116bf118f1f9631c",
+            "sha256_hash": "00e6db8d116020d7dda556e0cdf9e0d4c9e57bb8d566c0e702a23ec679a46b51",
+            "sha3_384_hash": "3274de8d9e538f0d3a971a7a2c4ec1ceac405f274394a93300eb83c57c2332b85b8597360ea781364a9b0c0b00cc7e4e",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:XNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePa8f:XTwSXNUQmkWWxf",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1B4F382507EE74674F7B3CE7018B0D761483ABDA19E23979F92911B1E0922DE0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "03712d5e96fdb8f0e110ffb1f5448e8e963d008de31ed69b77a5f78a5ac25533",
+            "file_size": 74755,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:17:04",
+            "gimphash": "None",
+            "imphash": "ed3da211374214cece8995c56fd260bb",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "435",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "28c5c992809fecdc82509dab19c0d90a",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "79a223a03da2d7fb7970214ff8aeec9c2cae77fb",
+            "sha256_hash": "03712d5e96fdb8f0e110ffb1f5448e8e963d008de31ed69b77a5f78a5ac25533",
+            "sha3_384_hash": "d95ddfb8bc0e78a1d122a2d6ee96693e021927491c88fe77dfc87e99a4387c894842ed526bdfd90e5f69f5265de740da",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:74WsQthAgWvw7XKqX0Df9p3QzFnfNEeTM39dw7:UkWvaXKDDrYl3eM7",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1BA73024E55846F43D0919AB4C7D0EDE4B13EABD6AE0401B7CD58FD5608B8B01BE2AF1B",
+            "trid": [
+                "52.7% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "1144d0448fefe26f5b9db7e7a7522c9a46eded3a603daa903052373cecc92b27",
+            "file_size": 192856,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:16:33",
+            "gimphash": "None",
+            "imphash": "eea2562baf71bb381372b742a8d0a394",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "441",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "db804c3f55c5d09dace40c76c99cab52",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "e170f46854f3ccda006528b14ff09ecf5756cf5e",
+            "sha256_hash": "1144d0448fefe26f5b9db7e7a7522c9a46eded3a603daa903052373cecc92b27",
+            "sha3_384_hash": "e12728e9f568f8366932def17ee3c986dfa97c860ea4fbbd85a91ed8e21cb3b472449b684025f83cc344b6eb7661cba2",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:Z0bRbeSCuF7PXuwFyoJ+mKTrZYzXlEmS6ZCHOoSnEYXosMM:Z2FeSCulPXuwIoWT9YlhD4dM",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T11F14AE21B8C2C0B1E5B7497022F8EBB16D7C7A601B3094EF6394077B8E745E26639D67",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "170ddf08d3c54ba8eb1d28c24b3ac61cb22f4552c1805546796937bd43267f41",
+            "file_size": 168972,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:15:56",
+            "gimphash": "None",
+            "imphash": "864aacd60fbdb1cf6a6a44ae50b3f31c",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "439",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "ba35a80338fbf197a323f6fe960bf7cb",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "41331dae8da6d24d4841854923172e7b73e8b638",
+            "sha256_hash": "170ddf08d3c54ba8eb1d28c24b3ac61cb22f4552c1805546796937bd43267f41",
+            "sha3_384_hash": "30a8040443b56c8f4b766fdfd585ebd6ecec480f237a9264362cd0e1f3ab8609942e3643f6673f436e713ce9a3fc10a8",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:XNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePa8G:XTwSXNUQmkWWxG",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T126F382507EE74674F7B3CE7018B0D761483ABDA19E23979F92911B1E0922DE0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "17dc9bb50f33427f62ccf8e9c844c47300eec8be13e2342b119b1c88a2b46bef",
+            "file_size": 170993,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:15:31",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "434",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "e333299d9f7e4c064746e177c84bb5c8",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "7dfa402cebfb31ee8e898aff3a645ce87e32c70a",
+            "sha256_hash": "17dc9bb50f33427f62ccf8e9c844c47300eec8be13e2342b119b1c88a2b46bef",
+            "sha3_384_hash": "ce334b6714042287db3a081548f528af9da62919821d6170bb25e609de943dff0f57855a0a8a026cf0a62dbdeab42c51",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:ONV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFhDc:OTwSXNUQmkWWjzcFW",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T125F3C3107EE74675F7B3CE7018B0D761483EB9A19E23979F92901B5A0922ED0DDB0E26",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "75d8f3368cde3f851b043bcedfb948e603da880d4b2d1a94bddfebbdefb56aa3",
+            "file_size": 171177,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:15:06",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "439",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "87b418a1d8eaf648b6338af20407abbb",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "4743b4312212d4a8e8f5f4b3542f61f66cf08091",
+            "sha256_hash": "75d8f3368cde3f851b043bcedfb948e603da880d4b2d1a94bddfebbdefb56aa3",
+            "sha3_384_hash": "8378beff7d04bfec5b0255aa6f43f0ebadf2aa8c9fbfddb4244d1e9e1d50fd7f081f67fe96dd5877e75537f7cff0d703",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:GNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFhj86:GTwSXNUQmkWWjzcFx",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T144F3C4107EE74675F7B3CE7018B4D761483EBDA19E23879F92901B5A0922EE0DD70E26",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "7cef8665e7f5032d331e0ba5f0766aefaa537dce41343fa67434d0a98ecfdacd",
+            "file_size": 160849,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:14:40",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "426",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "bd0802f8a9a71336607d5c9241db31d9",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "fe2b2da8662169da025197e114ea474f65c2f0d8",
+            "sha256_hash": "7cef8665e7f5032d331e0ba5f0766aefaa537dce41343fa67434d0a98ecfdacd",
+            "sha3_384_hash": "d0b03649a69188e70362f9472bf1fb3e148a0c902558a892b92aeb28042c299870612b927348634ff52136a3de618d4e",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:LNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFho:LTwSXNUQmkWWjzcF6",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1AFF3A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "c4d4dcdcdcdcdcd4",
+            "file_name": "9de32eb152480c5acd6683b4471ebb10fd5b10af638ef571eb3813330fb25cf0",
+            "file_size": 267264,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:13:55",
+            "gimphash": "None",
+            "imphash": "eea2562baf71bb381372b742a8d0a394",
+            "intelligence": {
+                "clamav": [
+                    "Win.Dropper.Memery-9979246-0",
+                    "Win.Dropper.Micropsia-10030191-0",
+                    "Win.Ransomware.Kitty-9822510-0"
+                ],
+                "downloads": "436",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "7ffaaaef5bcaf94756352b1fc866ef3d",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "3850c3fceeb5e67351c9d4bc81eeae379caac3b2",
+            "sha256_hash": "9de32eb152480c5acd6683b4471ebb10fd5b10af638ef571eb3813330fb25cf0",
+            "sha3_384_hash": "2094c77ec80126026556c23d2626cb97072d5ff23406c99f4563d021ec587794789813c63069db801e8d356b24aaf6e3",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:bY0bRbeSCuF7PXuwjyoJ+mKTrZYzXlEmS6ZCHOoSVsRZzFPk2I111KYTI1Uk12od:bY2FeSCulPXuw2oWT9YlmHMzTy1Bd",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T164449D61B48280B0D4BA0D3052F4D6B15D7E75A55BF098EB73A0273F9EB41E27236E27",
+            "trid": [
+                "40.3% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "19.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "17.2% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "7.7% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "7.6% (.EXE) Generic Win/DOS Executable (2002/3)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "b2f56cdb87e9417cd59250408e056f39a3df9e832df9afb8b7f95e3e46421312",
+            "file_size": 74764,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:13:33",
+            "gimphash": "None",
+            "imphash": "ed3da211374214cece8995c56fd260bb",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Kitty-9822510-0"
+                ],
+                "downloads": "438",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "3342dc0e3aac48664341cd2fed82d8f0",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "233c8b1b3ec02dd698b4ba9e85f89dab9ee472d3",
+            "sha256_hash": "b2f56cdb87e9417cd59250408e056f39a3df9e832df9afb8b7f95e3e46421312",
+            "sha3_384_hash": "d7365ec559c231f0b23937059c45069403467eb18a8da84d760191d6a7a02103a06c62b84a6f8a797b464318b885cce3",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:74WsQthAgWvw7XKqX0Df9p3QzFnfNEeTM39dwC:UkWvaXKDDrYl3eMC",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T16073024E55846F43D0919AB4C7D0EDE4B13EABD6AE0401B7CD58FD5608B8B01BE2AF1B",
+            "trid": [
+                "52.7% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "bc10f7d483b8fac6652edb4cee39e2dfb0163822957e02191ebf70e2b968ed26",
+            "file_size": 168960,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:13:02",
+            "gimphash": "None",
+            "imphash": "1e6318700f802c378fd14ed1b841cb32",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Kitty-9822510-0"
+                ],
+                "downloads": "432",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "a91d55cb6f5d7328a2a778c203177221",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "7e21cf224b6a0f92ff0d2223637017728769aa68",
+            "sha256_hash": "bc10f7d483b8fac6652edb4cee39e2dfb0163822957e02191ebf70e2b968ed26",
+            "sha3_384_hash": "6f902cafd88a2ed223b8676c26e9f1a81911a2b528b73a8fd88cad68e17c08fd9385d19ad04a130adc73b3386727e70b",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:wNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFh:wTwSXNUQmkWWjzcF",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1DCF3A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901B5A0922DE0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "bfeec85c8f9a6dabae685713b57d9ffbbe3dc185955ba653e2f684321682758c",
+            "file_size": 74752,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:12:34",
+            "gimphash": "None",
+            "imphash": "ed3da211374214cece8995c56fd260bb",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Kitty-9822510-0"
+                ],
+                "downloads": "432",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "12df37da9db681055655bd0c73ae6716",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "8adee7bc7489698b8a61966e4dc500785fa99e6c",
+            "sha256_hash": "bfeec85c8f9a6dabae685713b57d9ffbbe3dc185955ba653e2f684321682758c",
+            "sha3_384_hash": "dfad60b1927e073a2d3dc4199e11a8b34c799a4928d7c5cb43c9606b7c0ee280314b8d102386397fac8a168b71d1617f",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:74WsQthAgWvw7XKqX0Df9p3QzFnfNEeTM39dw:UkWvaXKDDrYl3eM",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T11F73024E55846F43D0919AB4C7D0EDE4B13EABD6AE0401B7CD58FD5608B8B01BE2AF1B",
+            "trid": [
+                "52.7% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "faf379bd44211154301a1a370970a74978e718b80cc117ea5c9d79610b29ba0d",
+            "file_size": 168960,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:11:41",
+            "gimphash": "None",
+            "imphash": "864aacd60fbdb1cf6a6a44ae50b3f31c",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Kitty-9822510-0"
+                ],
+                "downloads": "440",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "3426341929acfd5f963d75d209337802",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "18e58494b67c5c4bcdafa35418f890a02ea5e4f9",
+            "sha256_hash": "faf379bd44211154301a1a370970a74978e718b80cc117ea5c9d79610b29ba0d",
+            "sha3_384_hash": "1c583dc2524338154b70b6cb6855dc43548211bd5ffa67b427de46fd365036dd1c92bac8d086bde41b1590295aabefb5",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:XNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePa8:XTwSXNUQmkWWx",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T14EF382507EE74674F7B3CE7018B0D761483ABDA19E23979F92911B1E0922DE0DDB4E22",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "bdb19d9eb19343708fbcc36acfaa91699e89d68643c75bf90c6d1e57adaf0d3d",
+            "file_size": 156672,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:10:27",
+            "gimphash": "None",
+            "imphash": "6fc7db09c5144cfb86f05772e2fc3008",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Kitty-9822510-0"
+                ],
+                "downloads": "446",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "019b65ccaabcf519b65645284966db57",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "76fbee514ec7d0b666b10ebfa98bc3197ebde8cd",
+            "sha256_hash": "bdb19d9eb19343708fbcc36acfaa91699e89d68643c75bf90c6d1e57adaf0d3d",
+            "sha3_384_hash": "10b0dc6cc02e9faff541d408b8ea7bbfc0409e505a735b31c7d8e9f4e18911f0ff3ad5c6165449169df513def2830cb9",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:oeTqb5QIul2hD/S8+5hFg2NRrlSYDLGRxHwEEaY4qr6leWvebuFD0MCu7sWZcdGv:Kb45hmjqGR2l/mlHaMwGkHJhqjLcCl",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1D8E38E21B0C18470F6B74B3066F4EAB19C3DFA744B708DFF6788067A4E644D26639A97",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "02a08b994265901a649f1bcf6772bc06df2eb51eb09906af9fd0f4a8103e9851",
+            "file_size": 145920,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:09:49",
+            "gimphash": "None",
+            "imphash": "593b61df0f3b8d68fe1726159597097d",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Trojan.Encoder.33428.28325.7376.UNOFFICIAL"
+                ],
+                "downloads": "392",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "39ea2394a6e6c39c5d7722dc996daf05",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "ca010ca1e7d5104049c09eefca128cc0e50729e1",
+            "sha256_hash": "02a08b994265901a649f1bcf6772bc06df2eb51eb09906af9fd0f4a8103e9851",
+            "sha3_384_hash": "bd4c50f025c7486441d6b9e8c287db70a4303b8794c64e916357bf97c8ea0be2702b75cd86617458162659b1fc8b99ea",
+            "signature": "HelloKitty",
+            "ssdeep": "1536:NKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWgncb:eSLaXC+lIma1fz6LGkUSWsMH3Eq1x4m",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1B2E39E1171E1C8B1E57A1F301970DAA49D7EFA704B319EBF6B54026F4E380D09A39EA7",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "dc007e71085297883ca68a919e37687427b7e6db0c24ca014c148f226d8dd98f",
+            "file_size": 255504,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-10 08:08:44",
+            "gimphash": "None",
+            "imphash": "8517cf209c905e801241690648f36a97",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Zusy-9950758-0"
+                ],
+                "downloads": "418",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "6c849920155f48d4b4aafce0fc49eb5b",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "e8044ecd514574b71c353a9b640c8d6705a8051c",
+            "sha256_hash": "dc007e71085297883ca68a919e37687427b7e6db0c24ca014c148f226d8dd98f",
+            "sha3_384_hash": "535e7d8ffcf666de34c0003061c83aca63cc82c6efbc6915359001f8a983cf476361c5a53c6f45d2e227ed6acd017b19",
+            "signature": "HelloKitty",
+            "ssdeep": "3072:YVgULufGsUPe/WCEzOQnTi/UL4VY+w5g2AAPEQ6p+GJZnIg2r5aLF9hAmmiQnrJ6:YVgUc9JwBsH2/g2ABnIgqY9uvJIes9ma",
+            "tags": [
+                "exe",
+                "HelloKitty",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1FC44E01074D2C473DA724D3205BADE754EBEF9381F2588AB33D8126E4E681F0993AD67",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "08c4e99a0bd2c88d0d96f0c688557fbb27c027ce3fbad861925961c86eb35ec1",
+            "file_size": 2054356,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-09 06:18:50",
+            "gimphash": "None",
+            "imphash": "None",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "462",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "a9297a8acbee74ba0169333ee38be2ef",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "013bcd831c2681c852b716055afb8dc2cd3f3f4b",
+            "sha256_hash": "08c4e99a0bd2c88d0d96f0c688557fbb27c027ce3fbad861925961c86eb35ec1",
+            "sha3_384_hash": "0b1388609018cdc8dfd6cac1d7cabf8dfd0b0cbb68c4659ca9cf73c6ce54a5981ba468ce61c1519589e98dcfaa21c3dd",
+            "signature": "Nitrogen",
+            "ssdeep": "12288:i67MAQlcWRfpJpinnnnnnnhKYseIYjtsC9Bsm+84CPXBc9bSHKJemZzy6ZU3qton:i67MAQlXpJp4KsPibG5n6Zkb",
+            "tags": [
+                "exe",
+                "Nitrogen",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T189951DB7E1AB460CDDB94777182C5D1322267A6C20DFB46479913EB2B8089CF0DE49E7",
+            "trid": [
+                "50.0% (.EXE) Generic Win/DOS Executable (2002/3)",
+                "49.9% (.EXE) DOS Executable Generic (2000/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "75d6531f631c6088552be3e4b1c76a34e4009b03c13af1971cd9c3b0722095fa",
+            "file_size": 173371,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-09 05:45:40",
+            "gimphash": "None",
+            "imphash": "25f97eba7b227746192e37f98c864789",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "468",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "54fc9ad5b96b67529b27dae4b634f7f3",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "d5e71961865631d66dc758ee95d2c70bd99626a6",
+            "sha256_hash": "75d6531f631c6088552be3e4b1c76a34e4009b03c13af1971cd9c3b0722095fa",
+            "sha3_384_hash": "4bfc1682f8da5024fa829f0bda2a3adad5862897ac275ec0cd88875529631665dae543edddab1f619879a6a0d666fba7",
+            "signature": "Apos",
+            "ssdeep": "3072:rMt2XsUOaP2xEwViB6LrG0TaK/pizgb/S:rnjALa6O3K/ogba",
+            "tags": [
+                "apos",
+                "aposlocker",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T11404812DE386D2F6C45252B2190FE6BB55107F34B151981FFA8E1E5CF236EA7825830B",
+            "trid": [
+                "32.2% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "20.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "3da500d9dc1a24e1c4a55146a1dd85088c07cde5cb684f1ad4238b78b74cd5c1",
+            "file_size": 542282,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-07 07:53:31",
+            "gimphash": "None",
+            "imphash": "25f97eba7b227746192e37f98c864789",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "2180",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "c8c64113076101d13ee6dfad4ce1c934",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "eb7c8c07092e0aa0d3d329d322eca63d0bb7f02e",
+            "sha256_hash": "3da500d9dc1a24e1c4a55146a1dd85088c07cde5cb684f1ad4238b78b74cd5c1",
+            "sha3_384_hash": "6f7338e2a69e06f8cd24a045a6dbb7e2e9828e2f85212da15b82a335357f27cc554d9521a015a413b84a03231fbf00d6",
+            "signature": "Apos",
+            "ssdeep": "6144:rnjALa6O3K/ogbEPeK3Y98O9Yscj/cDc+agpiHRLGNWizbm2oP:fALlO3YEPeK3Y9o+zGRKkiXU",
+            "tags": [
+                "apos",
+                "aposlocker",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1F8B46E5DF3D6DDF7C501427A444FC36A2228B7B062428B1F7A6D293CE722ED29A95307",
+            "trid": [
+                "32.2% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "20.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "9494b494d4aeaeac",
+            "file_name": "33a99066776eacf39e2f36243b8fbee2e542e35a4b56531187463a266dd5b0ff",
+            "file_size": 2625175,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-07 07:53:06",
+            "gimphash": "None",
+            "imphash": "b1c5b1beabd90d9fdabd1df0779ea832",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "101",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "bb62d73fcab6f29f95f9919e1dc0932c",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "4657887a8f288d3b764553b88e3b60c3656936a9",
+            "sha256_hash": "33a99066776eacf39e2f36243b8fbee2e542e35a4b56531187463a266dd5b0ff",
+            "sha3_384_hash": "a5ad8a2e407be18ff789f231a65e19fdd71707013561678a5f4a4c97c55371fe9fadeb18559a2732c03422f39c2c0432",
+            "signature": "Apos",
+            "ssdeep": "49152:RZB1G8YJtiBO0r6fUTfC+qc9LyRb350D2tZcRpU8bxGWxmhQXkHWaZO0:j3GXAT0UEMmRbpERpr9mzDs0",
+            "tags": [
+                "apos",
+                "aposlocker",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T191C51306E3E909FCE4B7E178D9979E12E2B63C0D0371969F13A5566B1F233A09D39321",
+            "trid": [
+                "92.4% (.EXE) WinRAR Self Extracting archive (4.x-5.x) (265042/9/39)",
+                "3.6% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "1.7% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "0.7% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "0.6% (.EXE) Generic Win/DOS Executable (2002/3)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "a0027df5ccc2a66c8a0bcaa7d7033aa438b58a92732030e73d5a9f77a7659639",
+            "file_size": 564196,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-07 07:52:40",
+            "gimphash": "None",
+            "imphash": "ac8b13711073e9343047374f24094779",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "1487",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "84b3d2b5c6ba0d6627e74c2c89f3b9a3",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "fffba62ea70604d321ed6ff199a96c51e4447d1e",
+            "sha256_hash": "a0027df5ccc2a66c8a0bcaa7d7033aa438b58a92732030e73d5a9f77a7659639",
+            "sha3_384_hash": "8fbd3b8a741e9b34489ab8759d7e7485612294bc69fe0c41df05947867514d9414272b055da743a3b54f76d7217ed8bf",
+            "signature": "Apos",
+            "ssdeep": "6144:x08cEpULsYWeRa9aa+u4QxlofqFTYDNeE4WNAm29N7gpiHRLGNWizbm2oP:x08cEpULsYWe0aa+RyFXm29NsGRKkiXU",
+            "tags": [
+                "apos",
+                "aposlocker",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1BEC47D73F2F99C89C581C13C7986C36222BC79940BA3B717056962313F16DD2AFAE745",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "9494b494d4aeaeac",
+            "file_name": "e90249a27ea1181ac71f789c0c563d008cf920c5847b41c7a790952139b84808",
+            "file_size": 2717633,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-07 07:52:13",
+            "gimphash": "None",
+            "imphash": "b1c5b1beabd90d9fdabd1df0779ea832",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "100",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "0f8b20c367c6cb2c2726a3495d1d8d28",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "76376acbe82a4dc22cdf93e1caf01bd67992164e",
+            "sha256_hash": "e90249a27ea1181ac71f789c0c563d008cf920c5847b41c7a790952139b84808",
+            "sha3_384_hash": "31a23bbd8392f150dc6ede72f620bf2eee72e420f935dd0a7752320239174e619d271104b73cb451a11db31a1558ecf7",
+            "signature": "Apos",
+            "ssdeep": "49152:RZB1G8YMx0r+dBkCN9S+1qVoOH51LkiKT/PLzi6jmeZDwS27fIiOs:j3Gsnp9YnZlKbXvcSiIC",
+            "tags": [
+                "apos",
+                "aposlocker",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T128C52209F7D804F9E0F7A134C9968812FB7A7C4E43715A9F1398666A2F57390DD3A322",
+            "trid": [
+                "92.4% (.EXE) WinRAR Self Extracting archive (4.x-5.x) (265042/9/39)",
+                "3.6% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "1.7% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "0.7% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "0.6% (.EXE) Generic Win/DOS Executable (2002/3)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "6669cfeba5619b6f4d80b1281adfe69c87d845ebaaf9e83c25efa01a8267e751",
+            "file_size": 3417088,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-05 05:52:12",
+            "gimphash": "None",
+            "imphash": "d437aad619af88e914fa3015f428c33f",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Trojan.Encoder.41909.22381.24430.UNOFFICIAL"
+                ],
+                "downloads": "468",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "b7e0af5dbb170d91c63b700d8b324203",
+            "reporter": "JAMESWT_WT",
+            "sha1_hash": "6b249c9bffd3698a3033a4110e387a711c488154",
+            "sha256_hash": "6669cfeba5619b6f4d80b1281adfe69c87d845ebaaf9e83c25efa01a8267e751",
+            "sha3_384_hash": "2fa9cdf21fc4b17deb7a3aa02670bbf8389dd1e31efd6c2e99b65631ffcd2f54307a15a2b61f26471b0232b4ab720c16",
+            "signature": "Sarcoma",
+            "ssdeep": "49152:l4wDeyVeECuIhRjp1bj5MDau+4w38wRTuWKd:x5AbFgau+4QJuW",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "Sarcoma"
+            ],
+            "telfhash": "None",
+            "tlsh": "T15CF57C27E6A380DDC57BC130432B9273B571BC5A12753A6E2B64EB291F71F60462EF24",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "869686c4b2968ed4",
+            "file_name": "Catto.exe",
+            "file_size": 351744,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-04 22:05:33",
+            "gimphash": "None",
+            "imphash": "f34d5f2d4577ed6d9ceec516c1f5a744",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Hydracrypt-9878672-0"
+                ],
+                "downloads": "2088",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "8ed3ba6941919a0d9bb1cb5007476949",
+            "reporter": "FelloBoiYuuka",
+            "sha1_hash": "95d3a559bb1842ec2b4c6f9d58ef0273f72740ff",
+            "sha256_hash": "11e508b38307c2ee091406449b78fc1e5cae7d48ac40e4fc3339cb31a4d52754",
+            "sha3_384_hash": "0fd7cd401f160d048d1238859baba8d4942bf00b9a5dc5ae6820346cdc145d5251d5e8f9d059884fe954fde3d88b27dd",
+            "signature": "Chaos",
+            "ssdeep": "3072:wCc9Km9m2n1ycrCcjtTzqP/Jf7R/9lmyAnMyYVO3zlN5xu2ZsRYHeQKkMjnXJ+Zi:Lc9picmax+JAn7Q8zlA+H+QxonXS",
+            "tags": [
+                "Chaos",
+                "exe",
+                "Ransomware",
+                "trojan"
+            ],
+            "telfhash": "None",
+            "tlsh": "T14574CF342DF65029F173EE7E8BE87597E56E7E622703945920B2338A0733D429DC253A",
+            "trid": [
+                "71.1% (.EXE) Generic CIL Executable (.NET, Mono, etc.) (73123/4/13)",
+                "10.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "6.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "4.3% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "2.0% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "aebc385c4ce0e8f8",
+            "file_name": "2021 Ransomware.exe",
+            "file_size": 5980968,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-03 14:47:38",
+            "gimphash": "None",
+            "imphash": "646ed52c3b44c4b2c2a037da34b5940d",
+            "intelligence": {
+                "clamav": [
+                    "SecuriteInfo.com.Trojan.GenericKD.35980429.15154.16265.UNOFFICIAL"
+                ],
+                "downloads": "88",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "010aae6703d6423af2b8aeeb958482a8",
+            "reporter": "FelloBoiYuuka",
+            "sha1_hash": "c17e1686d8b0283f7a8adc3404f3c0c46a54b812",
+            "sha256_hash": "fea2b34d7cfd396c4ac408c6f8bb3d97147f71cdc32c6a6010b1d459834abaf6",
+            "sha3_384_hash": "8c1442650c604789c062b37dc29daee944e472a9229d078264f7e04b3ea5fd3b66bad3fcd2bb3f6986559e732818427b",
+            "signature": "None",
+            "ssdeep": "98304:XN8uZ/ecedIbwoPllMWHuoizLkGAcoLs5REwQTXBQyiLoP1SA+Q8OSpqlMPW9zib:dN2ce6UoP1HswG93wXlaoN+QXBt9zjm",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "trojan"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1E05633217881A176C2B6157418A0D67D363FAE3B5B0590B3D2E8366A7DB37E0F43CB64",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "f0dcc8b2acd4c471",
+            "file_name": "FreeWill.exe",
+            "file_size": 7419904,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-03 14:35:48",
+            "gimphash": "None",
+            "imphash": "f34d5f2d4577ed6d9ceec516c1f5a744",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "92",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "4318d93e4b3d3590f3b4c6c2cdd794f3",
+            "reporter": "FelloBoiYuuka",
+            "sha1_hash": "166c8a860d24671c6236944d32f5713a91449893",
+            "sha256_hash": "ebbb8769086dcf3f7bdaf9366cf6a5ac4c5ac981e4be3c69d08ce06fc80c2f28",
+            "sha3_384_hash": "f943b9cac0b3774c9c2cdf727f0926ae477066c16059be4700b59ad1b356099af44a4956e2789c10e6fd4cdb8c7ed190",
+            "signature": "AgentTesla",
+            "ssdeep": "196608:JOoKoTbXauPIo+8izlrAjDCbXauPIo+8iAo:XlT70Rcu7M",
+            "tags": [
+                "AgentTesla",
+                "exe",
+                "Ransomware",
+                "trojan",
+                "UPX"
+            ],
+            "telfhash": "None",
+            "tlsh": "T13276BE14F983AA1FC2DBCE33CAD15810D6F0A852EA72EB0E71C76B18559734578463AF",
+            "trid": [
+                "67.7% (.EXE) Generic CIL Executable (.NET, Mono, etc.) (73123/4/13)",
+                "9.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "6.0% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "4.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "4.1% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "e6a498b89aa04d7c25cbfa96599a4cd9bdcc79e73bf7b09906e5ca85bda2bff6",
+            "file_size": 1246720,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-02 15:34:34",
+            "gimphash": "None",
+            "imphash": "f7e43e0de1643f36b9466c5cecaec952",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "2524",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "3139c8e0d0dd9683ebfecdb2e4f1b6bb",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "9d8189c1d66154b5f01b307748ba47ea589f91fc",
+            "sha256_hash": "e6a498b89aa04d7c25cbfa96599a4cd9bdcc79e73bf7b09906e5ca85bda2bff6",
+            "sha3_384_hash": "69e8788574dc1a2b7e3ac9e01f107196f196576733a21448e724c70d1646de5d4a658e606b8d72aa4b8e78b3f2819263",
+            "signature": "Nitrogen",
+            "ssdeep": "24576:H5IUfoIZjP/gRcIHF1tj6J3ASQl8/r+HlBePcLBP:HHfPjQRcIHF1B6J3ASQlh",
+            "tags": [
+                "exe",
+                "Nitrogen",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T175453A0BE2B341ECC16AD57446A39775AD347C18013CBE2E5FE8DB216F60F109A9FA19",
+            "trid": [
+                "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "8e209e4f7f10ca6def27eabf31ecc0dbb809643feaecb8e52c2f194daa0511aa",
+            "file_size": 516608,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-01 14:45:26",
+            "gimphash": "None",
+            "imphash": "768de5ae3df913a5ba50a983adcace2b",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "777",
+                "mail": "None",
+                "uploads": "3"
+            },
+            "last_seen": "2025-04-19 17:05:13",
+            "magika": "pebin",
+            "md5_hash": "470a328ad3705d0c6866a48912a3f718",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "4f6c94ca437039a6d1a23f78ab16d39e027f8f25",
+            "sha256_hash": "8e209e4f7f10ca6def27eabf31ecc0dbb809643feaecb8e52c2f194daa0511aa",
+            "sha3_384_hash": "1cb2a4d38698819d7015521850303cb67ec06036ecc9dc3f87d346dfb4e46313adc47006bf054edec8d6774fff192e01",
+            "signature": "Fog",
+            "ssdeep": "12288:j1se5cvHLBj8l9LoE7q9zNd8uXR7huPcjLcq4PKRJ8IaPG2bdE:j1se5CLM9LoE7MzMuXR7huLSRJ8Dm",
+            "tags": [
+                "exe",
+                "fog",
+                "hilarious-trifle-d9182e-netlify-app",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T11FB42A7FE6E1D21DE6908538518AC3F07C6DE6779C520B47B7A01FA0A638BE1856B307",
+            "trid": [
+                "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "100cbf5578cfd03950c8606c6131a85635a8278696d3d64ecb629fa09af449e9",
+            "file_size": 241664,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-01 14:45:06",
+            "gimphash": "None",
+            "imphash": "3dbe9105b1fbfaeb47681b2c51025393",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "771",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-04 09:07:33",
+            "magika": "pebin",
+            "md5_hash": "fd471239a6c4314c4f5f2ea7cc8e5cd5",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "fad7e283242ce0a4ab7de14a752be3a81d6b7b64",
+            "sha256_hash": "100cbf5578cfd03950c8606c6131a85635a8278696d3d64ecb629fa09af449e9",
+            "sha3_384_hash": "46c639c89af1d6eb01b16720f51fad43aa948ce6dc9a61b0bd478bf2608aaaf71312d024c84ca78729764521094f8627",
+            "signature": "Fog",
+            "ssdeep": "6144:RlS4HR8NvFKBt7K93QTZduxHDL7T/th1WROkP/lcDo+0NgoY3:HSrZr93QbuxTT/th1nGkSg5",
+            "tags": [
+                "exe",
+                "fog",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T113341232204D4AB5F05746FC37F078BD0846B92D14EE99E2535CFAA8B4768224D7DB8B",
+            "trid": [
+                "52.7% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "44b7eebf7a26d466f9c7ad4ddb058503f7066aded180ab6d5162197c47780293",
+            "file_size": 455168,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-01 14:44:45",
+            "gimphash": "None",
+            "imphash": "35495a5b7aceef7bd3ccd60fc1242e54",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "753",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-04 10:22:10",
+            "magika": "pebin",
+            "md5_hash": "be5af780a67635d1eae32bc959450aff",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "57a544e97bdb613411b1d1d0b25b563c9d63fce4",
+            "sha256_hash": "44b7eebf7a26d466f9c7ad4ddb058503f7066aded180ab6d5162197c47780293",
+            "sha3_384_hash": "36c43005792b6816be19616d954b8eeffbbd537f557009103ac5c43beed60398c57573a9258b1825a15de007ef85f209",
+            "signature": "Fog",
+            "ssdeep": "12288:Z1se5TMrBYVsXRFd8bo/liIrEWuzrViA7uWSBwpPQE5H9y:Z1se5jsXRFd8aliIrEfrViAyf6QE5H9y",
+            "tags": [
+                "exe",
+                "fog",
+                "hilarious-trifle-d9182e-netlify-app",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T190A43A7FD6E8C22DE691803C52DAC3F06D69E6775C11078773A06EB0AA38BE19467713",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "703d9ded2d69eac83f9e4d1f94b283d01d4592fe4fcf37dfffcb21bedc45a6ab",
+            "file_size": 452096,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-01 14:44:25",
+            "gimphash": "None",
+            "imphash": "35495a5b7aceef7bd3ccd60fc1242e54",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "754",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-04 10:21:41",
+            "magika": "pebin",
+            "md5_hash": "f162816f1d7b0006cfa0bfaf95c492c4",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "0ec587e04edf6913ae69f6a006ed71641fbd253c",
+            "sha256_hash": "703d9ded2d69eac83f9e4d1f94b283d01d4592fe4fcf37dfffcb21bedc45a6ab",
+            "sha3_384_hash": "8a1f865cdc3b0f44a2499ea0a011fc8d0bcb49af8e492476e0f5eee05341e10608b562aac7ea853943ec7ecd1de72fa1",
+            "signature": "Fog",
+            "ssdeep": "12288:F1se5APZHB3D7z1se5oYRw64XR7hH/bmdmm707RBUuWSBwpPQE5H9yJW:F1se5AZBT31se5olbXR7hHK707RBPf68",
+            "tags": [
+                "exe",
+                "fog",
+                "hilarious-trifle-d9182e-netlify-app",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1BAA45B7FD6D8C22DE691803C52DAC3F06D6DE6766C51078773A06EA49A38FE18427713",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "4ad9216a0a6ac84a7b0b5593b0fc97e27de9cdfeb84ab7e5339ae5a4102100c0",
+            "file_size": 461824,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-01 14:44:04",
+            "gimphash": "None",
+            "imphash": "35495a5b7aceef7bd3ccd60fc1242e54",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "748",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-04 10:32:26",
+            "magika": "pebin",
+            "md5_hash": "4d5bec4d9d32e00c7d0b9d89e3948c8f",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "2e988872f7ffe5dc29c12c54d017b7fbb4f01c30",
+            "sha256_hash": "4ad9216a0a6ac84a7b0b5593b0fc97e27de9cdfeb84ab7e5339ae5a4102100c0",
+            "sha3_384_hash": "a79ba37e08a27f218fa5be70b88963c07c2d11a9bdfe97d0f8a06b28d6cd0f35d682ab75321abf99033ede964d3a116b",
+            "signature": "Fog",
+            "ssdeep": "12288:I1se569H505GdXRFdNkyyjXR7hqFE+XmbjSTfuWSBwpPQE5H9y:I1se5ieQdXRFdNAXR7hqF32bjSTGf6QL",
+            "tags": [
+                "exe",
+                "fog",
+                "hilarious-trifle-d9182e-netlify-app",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T143A44B7FD6E8C22DE691803852CAC3F06D6EE6776C51178773A06EB09638BE19427713",
+            "trid": [
+                "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "f0968ee8aae8e8b2",
+            "file_name": "Installer.exe",
+            "file_size": 6211072,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-04-01 11:39:53",
+            "gimphash": "None",
+            "imphash": "d745a328d00f871a4bb4ca8959bdb635",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "64",
+                "mail": "None",
+                "uploads": "2"
+            },
+            "last_seen": "2025-04-02 10:01:39",
+            "magika": "pebin",
+            "md5_hash": "c512d14a763a3f39921180e00a7c9aba",
+            "reporter": "MekMekez",
+            "sha1_hash": "ea38b6426d491fb8bfdeadc7318b58fbccf82bce",
+            "sha256_hash": "a205b3000e64821c7d482e1b5c0fde9cedbbdc4783ba25d6019a93b325aa8742",
+            "sha3_384_hash": "a438789adc4af32a8fe95b778649d9ad95831b6e95cd6221ff6862594d35a9a4c3f03f3a5faa5b3327689f54d7d6b7e2",
+            "signature": "None",
+            "ssdeep": "98304:DHSD5Ub1VjwfmNWeB1yphkIFGa5M5+94E5TQ6iwcUusLP1hkT64T7zX6kzlNF6WP:qUDKiWeYMemUcbA74zX6AlOW+O",
+            "tags": [
+                "exe",
+                "Ransomware",
+                "trojan"
+            ],
+            "telfhash": "None",
+            "tlsh": "T16F56232313AC3CC5D1B98934A3376FD4B3FECEA64691E47C60D669C1693D463B612B82",
+            "trid": [
+                "27.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "20.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "18.6% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "8.5% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "8.3% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "6316417fcd979c39a4da672ba3521f62081ff4dfebb868ef65a1f2dff9a738ea.exe",
+            "file_size": 5254144,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-03-31 10:03:41",
+            "gimphash": "None",
+            "imphash": "146c4a9adcfc058a5c5a3e517786060b",
+            "intelligence": {
+                "clamav": [
+                    "Win.Ransomware.Qilin-10037892-0",
+                    "Win.Ransomware.Zusy-10037891-0"
+                ],
+                "downloads": "431",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "0d68a310f4265821900249bec89364c2",
+            "reporter": "zhuzhu0009",
+            "sha1_hash": "2981343bfd2db38e236c0b70c2a6cd924c49b0ab",
+            "sha256_hash": "6316417fcd979c39a4da672ba3521f62081ff4dfebb868ef65a1f2dff9a738ea",
+            "sha3_384_hash": "8fef5e5489315a2bae5d5a4c8ef76d3e18e3ba025e6808ba4175a94a3d0763141ddf3b574a100f7ba4f15a3fdc079515",
+            "signature": "Qilin",
+            "ssdeep": "98304:a8DAoC0H2dy/u87jwP0xuy+Ccv8HxYRWpgzh5euFMjQIDgYodZHoyVHmzDZN3sGw:a0WyzcOuy+Ccv8HxYRWpgzh5euFMjQIc",
+            "tags": [
+                "Agenda",
+                "exe",
+                "QiLin",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T12636D06F724A7748D89851FA2235AA7AB10DB70C60D0D4A4DA71F3393C0B774AEBE147",
+            "trid": [
+                "37.8% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+                "20.0% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+                "12.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "7.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "6.1% (.EXE) Win16 NE executable (generic) (5038/12/1)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "b8e71845cc8ccd668a3436d1952a6c57649974bb8399e599dc33afc4c0843be7",
+            "file_size": 2939904,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-03-30 07:04:09",
+            "gimphash": "None",
+            "imphash": "c2d457ad8ac36fc9f18d45bffcd450c2",
+            "intelligence": {
+                "clamav": [
+                    "ditekSHen.MALWARE.Win.Ransomware.Polar.UNOFFICIAL"
+                ],
+                "downloads": "454",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "03c2034d91589b84d2f95b5e9408aedb",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "ce1d4859cc8aedd425104ccb95f7e10b32658785",
+            "sha256_hash": "b8e71845cc8ccd668a3436d1952a6c57649974bb8399e599dc33afc4c0843be7",
+            "sha3_384_hash": "45d738cb8237e6d218ad167eac6e751351a53777b6bb1d45c19817447dda93f5a0a640594ea135cd22764a1803e2abb5",
+            "signature": "HellCat",
+            "ssdeep": "49152:WU7XuDD/7oLfKyB4nJkq0Nw9c3A0Q5YzE8PvV3B/lH:W77cKdiq0sc35oYxPtR",
+            "tags": [
+                "exe",
+                "HellCat",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T165D57D07BCA108B9C4AAA331C9A692537B75BC481F3223D77E50B27C2FB6BD45976704",
+            "trid": [
+                "44.4% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "21.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "8.5% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "8.4% (.EXE) Generic Win/DOS Executable (2002/3)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "dcd7995038ad4839e88e5bb3bf654b4f7c2ad09780a39c9d47596ce717fd4ac2",
+            "file_size": 5517840,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-03-30 07:03:35",
+            "gimphash": "None",
+            "imphash": "d42595b695fc008ef2c56aabd8efd68e",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "402",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "b0874f942efea5a90240477dc6c16de4",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "b7918a2aa1228de71d14a8e43a3fec0ae7b83e17",
+            "sha256_hash": "dcd7995038ad4839e88e5bb3bf654b4f7c2ad09780a39c9d47596ce717fd4ac2",
+            "sha3_384_hash": "d518335a5387af1ede844ad3425d8833ff2e93450c3836daf0e36c76e893e5deafe64e40d596b0873f42c0469946b79d",
+            "signature": "HellCat",
+            "ssdeep": "49152:VSjdLjw5NX2Z2SBUZGWjrNaFG/fSIGfPm8e9EGKXyAcJihpAkJZVg/Jaz:VZXZLEGAcBl/I",
+            "tags": [
+                "exe",
+                "HellCat",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1B9466B83F8E11C94C8B9C274953A8226A9757C0D1B7673EB97D0B6342F333E15AB6B50",
+            "trid": [
+                "44.4% (.EXE) Win64 Executable (generic) (10522/11/4)",
+                "21.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "8.5% (.EXE) OS/2 Executable (generic) (2029/13)",
+                "8.4% (.EXE) Generic Win/DOS Executable (2002/3)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "6924479c42b3732e0d57b34714b7210e14655ee1ca570ae4aab1d90c3f6c6428",
+            "file_size": 7223296,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-03-30 07:03:08",
+            "gimphash": "None",
+            "imphash": "6ed4f5f04d62b18d96b26d6db7c18840",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "406",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "f5eadd3928e3432e873d813683e174fd",
+            "reporter": "RakeshKrish12",
+            "sha1_hash": "234fe7fb257e19394a409d9ba0f75c7ba70a88ee",
+            "sha256_hash": "6924479c42b3732e0d57b34714b7210e14655ee1ca570ae4aab1d90c3f6c6428",
+            "sha3_384_hash": "7453ff20af8ae7f0b0281afef96d43d0df8b8851a0e2a29a3cafa27c8a317e16df420e9503d8cb5a1173bd04a1cd22fb",
+            "signature": "HellCat",
+            "ssdeep": "196608:ndo2idsri1epw+fgIneY28p5czl2S2lUkEp6OXeJq15Z9Nw:nBidsu1e6+3eYlClDWQlRf",
+            "tags": [
+                "exe",
+                "HellCat",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T12E7633265A1E5C72C62216FEB14822396F17D6C413EABEFC2B5C8E10B67D373B124582",
+            "trid": [
+                "63.5% (.EXE) UPX compressed Win64 Executable (70117/5/12)",
+                "24.5% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "4.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "1.8% (.ICL) Windows Icons Library (generic) (2059/9)",
+                "1.8% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "d00853e592bccd823027e7e685d88c5a1f76a5a36ec5b7073d49ee633b050cc8",
+            "file_size": 71168,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-03-30 06:34:13",
+            "gimphash": "None",
+            "imphash": "ec87726c07cd7d8c71e0d2c74f21ea77",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "447",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "a99e3627afb443440686fcb10491d954",
+            "reporter": "JAMESWT_WT",
+            "sha1_hash": "ff14a3919c9e4bd0dd4e1b964017de64a0298318",
+            "sha256_hash": "d00853e592bccd823027e7e685d88c5a1f76a5a36ec5b7073d49ee633b050cc8",
+            "sha3_384_hash": "7d7dc5b316943b65b0756dbda584d9698cdf323ce3c0288c0e21eb4c36b0f272040c96fab080cbcd19a848e4f100c27f",
+            "signature": "Cloak",
+            "ssdeep": "1536:1kLPmzHTE+IpmdeGUtoQimYKmP+h/dgLAnpypJjmxxN6AG4+gT0QX2nouy8:qb8HTE+qmdDUUmR/dg8py/jmHxb/2out",
+            "tags": [
+                "cloak",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1D06302B3F2A31C23CF29263904FDF45BE2C8869C471503DA665D520A48B2B191FA43EB",
+            "trid": [
+                "54.9% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "13.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "10.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.1% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.1% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "827baf5be98a693f923c055ba9950ec3437a244abb9bd0a4e794add298bff087",
+            "file_size": 71168,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-03-30 06:34:11",
+            "gimphash": "None",
+            "imphash": "ec87726c07cd7d8c71e0d2c74f21ea77",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "433",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "f17d7475ae143611c98e3eb03d3911ef",
+            "reporter": "JAMESWT_WT",
+            "sha1_hash": "b98367f0d97faf9b7d1002d46637ce4bc57d9a5b",
+            "sha256_hash": "827baf5be98a693f923c055ba9950ec3437a244abb9bd0a4e794add298bff087",
+            "sha3_384_hash": "e3021338d825da00152edeb07145b3873dddedfa4042a087f6037c5f689cc1c135c7bd828946023d14b2262c574828c2",
+            "signature": "Cloak",
+            "ssdeep": "1536:bkLPmzHTE+IpmdeGUtoQimYKmP+h/dgLAnpypJjmxx2J/pxFHqtXnouy8:Qb8HTE+qmdDUUmR/dg8py/jmHIhjHqZZ",
+            "tags": [
+                "cloak",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T14A6302FBF7572D17CB28363E04F97017B6D8EA8C664442EF5E0E220148767655F602AA",
+            "trid": [
+                "54.9% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "13.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "10.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "9.1% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.1% (.EXE) OS/2 Executable (generic) (2029/13)"
+            ]
+        },
+        {
+            "anonymous": 0,
+            "code_sign": [],
+            "dhash_icon": "None",
+            "file_name": "f4ca0aaa779663297a6fb634fb3c9f775230e52a9fa733073fe8057b0e70a0f5",
+            "file_size": 185344,
+            "file_type": "exe",
+            "file_type_mime": "application/x-dosexec",
+            "first_seen": "2025-03-30 06:34:09",
+            "gimphash": "None",
+            "imphash": "394560d9c73b5168747c25caeda6ba9f",
+            "intelligence": {
+                "clamav": "None",
+                "downloads": "419",
+                "mail": "None",
+                "uploads": "1"
+            },
+            "last_seen": "None",
+            "magika": "pebin",
+            "md5_hash": "4b61967fdf02be7687b1490e15b9fd68",
+            "reporter": "JAMESWT_WT",
+            "sha1_hash": "fad1ec3f9014432f8bc878c1424c7a7e56d6d729",
+            "sha256_hash": "f4ca0aaa779663297a6fb634fb3c9f775230e52a9fa733073fe8057b0e70a0f5",
+            "sha3_384_hash": "6aa3bbca3ba6d0da571f2052b782a40c4fb951bfa059db400e7c6116257d9c9bc3066c0ef6b05299618ce85351694810",
+            "signature": "Cloak",
+            "ssdeep": "3072:rB/5U7rXgNoku2TspaCq7IUnQOuDE4cxmphmSkCRgOupmTZ0Nk5TqhpzWJy43UYl:rR5U7rwN02Tyq7IwQO54eMBkwXKmTZQq",
+            "tags": [
+                "cloak",
+                "exe",
+                "Ransomware"
+            ],
+            "telfhash": "None",
+            "tlsh": "T1C804124F8551EDEAC06D2AF560B3295E0DB5884CD04C631A91CB78AFC8F031DB926CF8",
+            "trid": [
+                "52.7% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+                "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+                "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
+            ]
+        }
+    ],
+    "query_status": "ok"
+}

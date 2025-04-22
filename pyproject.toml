@@ -13,8 +13,8 @@ dependencies = [
     "pandas>=2.2.3",
     "requests>=2.32.3",
     "openai>=1.75.0",
-    "haystack-ai>=2.12.2",
-    "psycopg2>=2.9.10"
+    "haystack-ai[openai,pgvector]>=2.12.2",
+    "pgvector-haystack>=3.2.0"
 ]
 scripts = { rexis = "rexis.main:main" }
 
@@ -31,7 +31,6 @@ dev = [
     "tomli>=2.2.1",
     "pydocstyle>=6.3.0",
     "pre-commit>=4.2.0",
-    "alembic>=1.15.2",
 ]
 
 [tool.black]

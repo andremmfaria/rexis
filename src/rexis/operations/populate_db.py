@@ -1,82 +1,102 @@
 import json
+from typing import List
 
-import psycopg2
-from psycopg2.errors import UniqueViolation
-from rexis.facade.ai_provider import OpenAIProvider
-from rexis.facade.malware_bazaar import query_malware_bazaar
+from haystack import Pipeline
+from haystack.components.embedders import OpenAIDocumentEmbedder
+from haystack.components.writers import DocumentWriter
+from haystack.dataclasses import Document
+from haystack.document_stores.types import DuplicatePolicy
+from haystack.utils import Secret
+from haystack_integrations.document_stores.pgvector import PgvectorDocumentStore
+from rexis.facade.malware_bazaar import Sample, query_malware_bazaar
+from rexis.utils.config import settings
 from rexis.utils.constants import DATABASE_CONNECTION_CONNSTRING
 
 
-def populate_db(query_type: str, query_value: str) -> None:
+def fetch_malware_documents(query_type: str, query_value: str) -> List[Document]:
     """
-    Populate the database with malware samples and their embeddings.
-
-    This function queries the Malware Bazaar API for malware samples based on the
-    specified query type and value. It processes the samples, generates embeddings
-    using the OpenAIProvider, and stores the data in a PostgreSQL database.
+    Fetch malware documents from Malware Bazaar based on the given query type and value.
 
     Args:
-        query_type (str): The type of query to perform (e.g., "hash", "tag").
-        query_value (str): The value to query for (e.g., a specific hash or tag).
+        query_type (str): The type of query to perform (e.g., "tag", "hash").
+        query_value (str): The value to query for (e.g., specific tag or hash).
 
     Returns:
-        None
+        List[Document]: A list of Document objects containing the fetched malware data.
     """
     print(f"Querying Malware Bazaar for {query_type}: {query_value}...")
     result = query_malware_bazaar(query_type=query_type, query_value=query_value)
 
-    print(f"{len(result)} samples received. Preparing for storage...")
+    if not result or "data" not in result:
+        print("No results.")
+        return []
 
-    conn = psycopg2.connect(DATABASE_CONNECTION_CONNSTRING)
-    cur = conn.cursor()
+    documents: List[Document] = []
 
-    # Prepare inputs for embedding
-    new_samples = []
-    contents = []
-
-    for sample in result:
-        sha256 = sample.get("sha256_hash")
-        if not sha256:
-            continue
-        content = json.dumps(sample, indent=2)
-        contents.append(content)
-        new_samples.append((sha256, content, sample))
-
-    if not new_samples:
-        print("No new samples to embed.")
-        return
-
-    print("Generating embeddings...")
-    provider = OpenAIProvider()
-    embeddings = provider.get_embeddings_batch(texts=[c for _, c, _ in new_samples])
-
-    print("Inserting into database...")
-    for (sha256, content, sample), embedding in zip(new_samples, embeddings):
-        tags = list(
+    sample: Sample
+    for sample in result["data"]:
+        sha256: str = sample.get("sha256_hash", "")
+        content: str = json.dumps(sample, indent=2)
+        tags: List[str] = list(
             set(
                 sample.get("tags", [])
                 + [sample.get("signature")]
-                + [sample.get("vendor_intel", {}).get("clamav")]
+                + (sample.get("intelligence", {}).get("clamav") or [])
             )
         )
         tags = [tag for tag in tags if tag and isinstance(tag, str)]
+        file_type: str = sample.get("file_type", "")
+        file_type_mime: str = sample.get("file_type_mime", "")
 
-        try:
-            cur.execute(
-                """
-                INSERT INTO documents (sha256, content, tags, embedding)
-                VALUES (%s, %s, %s, %s)
-            """,
-                (sha256, content, tags, embedding),
+        documents.append(
+            Document(
+                id=sha256,
+                content=content,
+                meta={
+                    "sha256": sha256,
+                    "tags": tags,
+                    "file_type": file_type,
+                    "file_type_mime": file_type_mime,
+                },
             )
-        except UniqueViolation:
-            print(f"Duplicate sample: {sha256} — skipping.")
-            conn.rollback()
-        except Exception as err:
-            print(f"Error inserting {sha256}: {err}")
-            conn.rollback()
+        )
 
-    conn.commit()
-    cur.close()
-    conn.close()
-    print(f"Finished storing {len(new_samples)} samples.")
+    return documents
+
+
+def index_documents(documents: List[Document]) -> None:
+    """
+    Index the given documents into a pgvector-backed document store.
+
+    Args:
+        documents (List[Document]): A list of Document objects to be indexed.
+
+    Returns:
+        None
+    """
+    # Step 1: Connect to your pgvector-backed document store
+    doc_store: PgvectorDocumentStore = PgvectorDocumentStore(
+        connection_string=Secret.from_token(DATABASE_CONNECTION_CONNSTRING),
+        embedding_dimension=1536,
+        vector_function="cosine_similarity",
+        recreate_table=False,
+        search_strategy="hnsw",
+        hnsw_recreate_index_if_exists=True
+    )
+
+    # Step 2: Create embedding + write pipeline
+    embedder: OpenAIDocumentEmbedder = OpenAIDocumentEmbedder(
+        api_key=Secret.from_token(settings.models.openai.api_key),
+        model=settings.models.openai.embedding_model,
+    )
+    writer: DocumentWriter = DocumentWriter(document_store=doc_store, policy=DuplicatePolicy.OVERWRITE)
+
+    pipeline: Pipeline = Pipeline()
+    pipeline.add_component("embedder", embedder)
+    pipeline.add_component("writer", writer)
+    pipeline.connect("embedder.documents", "writer.documents")
+
+    # Step 3: Run the pipeline
+    pipeline.run(data={"embedder": {"documents": documents}})
+
+    print(f"Indexed {len(documents)} documents.")
