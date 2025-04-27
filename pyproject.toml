@@ -9,14 +9,12 @@ license = { text = "MIT" }
 dependencies = [
     "malwarebazaar>=0.2.7",
     "dynaconf>=3.2.10",
-    "pgvector>=0.4.0",
-    "pandas>=2.2.3",
-    "requests>=2.32.3",
     "openai>=1.75.0",
     "haystack-ai[openai,pgvector]>=2.12.2",
-    "pgvector-haystack>=3.2.0"
+    "pgvector-haystack>=3.2.0",
+    "vt-py>=0.20.0",
 ]
-scripts = { rexis = "rexis.main:main" }
+scripts = { rexis = "rexis.main:main", populate-db = "rexis.main:populate_db" }
 
 [dependency-groups]
 dev = [
