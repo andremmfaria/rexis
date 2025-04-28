@@ -13,8 +13,15 @@ dependencies = [
     "haystack-ai[openai,pgvector]>=2.12.2",
     "pgvector-haystack>=3.2.0",
     "vt-py>=0.20.0",
+    "pyfiglet>=1.0.2",
+    "rich>=14.0.0",
+    "typer>=0.15.2",
 ]
-scripts = { rexis = "rexis.main:main", populate-db = "rexis.main:populate_db" }
+
+[project.scripts]
+rexis = "rexis.main:main"
+populate-db = "rexis.main:populate_db"
+analyze-prompt = "rexis.main:analyze_prompt"
 
 [dependency-groups]
 dev = [
