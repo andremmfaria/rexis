@@ -16,11 +16,13 @@ dependencies = [
     "pyfiglet>=1.0.2",
     "rich>=14.0.0",
     "typer>=0.15.2",
+    "pyghidra>=2.1.0",
+    "tiktoken>=0.10.0",
 ]
 
 [project.scripts]
 rexis = "rexis.main:main"
-populate-db = "rexis.main:populate_db"
+ingest = "rexis.main:ingest"
 analyze-prompt = "rexis.main:analyze_prompt"
 
 [dependency-groups]

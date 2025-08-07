@@ -5,7 +5,7 @@ from rexis.utils.config import settings
 from rexis.utils.utils import LOGGER
 
 
-def get_malware_metadata(file_hash: str) -> Dict[Any, Any]:
+def query_virustotal(hash: str) -> Dict[Any, Any]:
     """
     Retrieves metadata for a malware sample from the VirusTotal API using its hash.
 
@@ -18,22 +18,22 @@ def get_malware_metadata(file_hash: str) -> Dict[Any, Any]:
     Raises:
         ValueError: If the metadata retrieval fails or the sample is not found.
     """
-    LOGGER.info(f"Retrieving metadata for file hash: {file_hash}")
+    LOGGER.info(f"Retrieving metadata for file hash: {hash}")
     client = vt.Client(settings.virus_total_api_key)
 
     try:
-        result: vt.Object = client.get_object(f"/files/{file_hash}")
+        result: vt.Object = client.get_object(f"/files/{hash}")
         if not result:
-            LOGGER.warning(f"No metadata found for hash: {file_hash}")
-            raise ValueError(f"No metadata found for hash: {file_hash}")
-        LOGGER.info(f"Metadata successfully retrieved for hash: {file_hash}")
+            LOGGER.warning(f"No metadata found for hash: {hash}")
+            raise ValueError(f"No metadata found for hash: {hash}")
+        LOGGER.info(f"Metadata successfully retrieved for hash: {hash}")
         return result.to_dict()
     except Exception as e:
-        LOGGER.error(f"Error retrieving metadata for hash {file_hash}: {e}")
+        LOGGER.error(f"Error retrieving metadata for hash {hash}: {e}")
         raise ValueError(f"Error retrieving metadata: {e}")
     finally:
         client.close()
-        LOGGER.info(f"VirusTotal client closed for hash: {file_hash}")
+        LOGGER.info(f"VirusTotal client closed for hash: {hash}")
 
 
 def process_metadata_for_embedding(file_hash: str) -> Dict[str, Any]:

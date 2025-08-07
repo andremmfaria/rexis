@@ -1,20 +1,20 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: .docker/app.dockerfile
-    container_name: rexis-app
-    restart: unless-stopped
-    depends_on:
-      - db
-    environment:
-      - REXIS_POSTGRES_HOST=db
-      - REXIS_POSTGRES_USER=${POSTGRES_USER}
-      - REXIS_POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - REXIS_POSTGRES_DB=${POSTGRES_DB}
-    volumes:
-      - ./config:/rexis/config
-      - ./src:/rexis/src
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: .docker/app.dockerfile
+  #   container_name: rexis-app
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     - REXIS_POSTGRES_HOST=db
+  #     - REXIS_POSTGRES_USER=${POSTGRES_USER}
+  #     - REXIS_POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - REXIS_POSTGRES_DB=${POSTGRES_DB}
+  #   volumes:
+  #     - ./config:/rexis/config
+  #     - ./src:/rexis/src
 
   db:
     build:

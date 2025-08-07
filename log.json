@@ -12,12 +12,10 @@
             "gimphash": "None",
             "imphash": "f28445ed2284cc718ae931f6653ada10",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Win32.MalwareX-gen.19934.8297.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Win32.MalwareX-gen.19934.8297.UNOFFICIAL"],
                 "downloads": "461",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -28,11 +26,7 @@
             "sha3_384_hash": "bb588c14a187d5040f3afca8625480fd6ff371385d942ef7ac992afdc792916b6662690ca2755fcbab605483510ed5d1",
             "signature": "None",
             "ssdeep": "49152:NoUXR7hhHxXRFdi5qNpDwppr4uVZTXPAH0fOzDN4zwx8IDmCl8ydEwiNlKli:NoUXR7hhHxXRFdi5qNpkVLPAHSOzDNF0",
-            "tags": [
-                "exe",
-                "fog",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1EAD5E17661ECC944E77681FC186887A1B60EEEB7B925250EBD644FD01F39ED0442BE23",
             "trid": [
@@ -40,8 +34,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -55,12 +49,10 @@
             "gimphash": "None",
             "imphash": "f28445ed2284cc718ae931f6653ada10",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Win32.MalwareX-gen.9072.28046.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Win32.MalwareX-gen.9072.28046.UNOFFICIAL"],
                 "downloads": "413",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -71,11 +63,7 @@
             "sha3_384_hash": "0b8f8d9171b7ecb91efd00f24d65ab9e0dbb64b8ae109dbf6d8b5f3dc782911dbce882a0e900cc7a2049eb281f06e070",
             "signature": "None",
             "ssdeep": "12288:hBOyPzjrY9LoEkGkSmZ5liIrTJmwENntkXmJHp6O3CN3hZv8xQXA:HDPnrY9LoEkGwZ5liIrTJmwENntkM6OR",
-            "tags": [
-                "exe",
-                "fog",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T18AB42B7FD7E0C11DE7918138118AD3B0BC6DA7779C621747B7A05EA4A638BE2852B307",
             "trid": [
@@ -83,8 +71,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -98,12 +86,10 @@
             "gimphash": "None",
             "imphash": "f28445ed2284cc718ae931f6653ada10",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Win32.MalwareX-gen.19495.22837.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Win32.MalwareX-gen.19495.22837.UNOFFICIAL"],
                 "downloads": "442",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -114,11 +100,7 @@
             "sha3_384_hash": "dbfea95f4255d0e4620937ccdb4179687fdebf5a2e56bb692a459f7b7337586fc5f5767bb819742c4211f1d48cb04681",
             "signature": "None",
             "ssdeep": "12288:X0oZREmKFqKoi9LoEE9ja9LoEY7mqaphLAW65GQ8S5A:kaPkboi9LoEE929LoEYahLAW65G",
-            "tags": [
-                "exe",
-                "fog",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T108B43B3FD7E0C21DE691403851DED3B16C6DE6779D120787B3A05EA0AA38BE2856B317",
             "trid": [
@@ -126,8 +108,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -141,12 +123,10 @@
             "gimphash": "None",
             "imphash": "eb3720f6914684ffa76842b04461a3f4",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Fog-10036497-0"
-                ],
+                "clamav": ["Win.Ransomware.Fog-10036497-0"],
                 "downloads": "491",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -157,11 +137,7 @@
             "sha3_384_hash": "8a6bdea8246c65aeedd28ca249cad842d22d2621802054a53d0c6989ca8b7d66d8085fee2f7b43d51ec58ab42c8b9264",
             "signature": "Fog",
             "ssdeep": "1536:nlwbejUUgzMfjvHggNd2lXBVkyWLWHs5OU7QlAfVbe/sWxcdMh7UdJXBDFp:nlwbejlgUjPTWXBsLWM55PpfK723p",
-            "tags": [
-                "dll",
-                "fog",
-                "Ransomware"
-            ],
+            "tags": ["dll", "fog", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1A5B37C4079829175D8FB4B3E127896764B7E3930AB649DEFA7C004B48E744D0EE39D2B",
             "trid": [
@@ -169,8 +145,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 1,
@@ -183,12 +159,7 @@
             "first_seen": "2025-04-19 16:00:44",
             "gimphash": "None",
             "imphash": "None",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "68",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "68", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "vba",
             "md5_hash": "6d9fd6e27e81f8a6e35678ee2554f4c3",
@@ -205,11 +176,11 @@
                 "LCRYX",
                 "Ransomware",
                 "vbs",
-                "VBSRANSOMWARE"
+                "VBSRANSOMWARE",
             ],
             "telfhash": "None",
             "tlsh": "T13EB296025D1BC826D4F6E3D162A7E80AE7B5F39768618E1436CCC8905B36FDC95B40EE",
-            "trid": "None"
+            "trid": "None",
         },
         {
             "anonymous": 0,
@@ -225,11 +196,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "551",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -240,11 +211,7 @@
             "sha3_384_hash": "9ebb7bd957f58493632a00695bdac6f0a6b4faaa8b2aa7a2882ed359b3a03657c23294e96066c9a9c4365a76a6f43248",
             "signature": "None",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVmqs:zQa36bg4NBqT1VAwfcoVI",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T172352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -252,8 +219,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -269,11 +236,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "414",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -284,11 +251,7 @@
             "sha3_384_hash": "4ad40566380d0af9c38f292c2936e08b917479501cfbd17d19a7307e30d6fb46484049182bc7b1265adc6be47c5b679d",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoV/qs:zQa36bg4NBqT1VAwfcoVH",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T192352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -296,8 +259,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -313,11 +276,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "403",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -328,11 +291,7 @@
             "sha3_384_hash": "ffae0116d565dbde9722f610f92691c9aa6771ca4a663ce3d9504d59b3255609117ce5a9a82319edb81d737275f5273c",
             "signature": "None",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVGqs:zQa36bg4NBqT1VAwfcoVo",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1BA352941A5164AF6F652CABD4A32C02FEEF736050B10DAE75581B63A2F030E92F7C759",
             "trid": [
@@ -340,8 +299,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -357,11 +316,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "401",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -372,11 +331,7 @@
             "sha3_384_hash": "7b0505f9bed6eb8ac378a9a7173fa8a84783576f205bd7f9d443f4ae3b4cf2bfab28dcf3cc9c7fc6ab8002d7459df9b8",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVeqs:zQa36bg4NBqT1VAwfcoVg",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1B9352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -384,8 +339,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -401,11 +356,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "403",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -416,11 +371,7 @@
             "sha3_384_hash": "19e0e9e3a351f87cda5c7578b8e79b4d26d197ac5b6170fd5c68f72da51836f6aa11a1f45711174df97a4f2ca3e9ebfa",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVxqs:zQa36bg4NBqT1VAwfcoVR",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1F1352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -428,8 +379,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -445,11 +396,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "389",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -460,11 +411,7 @@
             "sha3_384_hash": "36cd4a85469c98ade49f040ceaa2e584a8dff29db70eae144b845b4c98052afbb8f0a932afb70902066a11a15ab91770",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVUqs:zQa36bg4NBqT1VAwfcoVG",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T19F352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -472,8 +419,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -489,11 +436,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "400",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -504,11 +451,7 @@
             "sha3_384_hash": "a754243b7cd21eae74c003a817f60969113ee180448c72f1b44ef3579082f016fca0e2e8e78fa87f3c8bc7f648c4ee2b",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVSqs:zQa36bg4NBqT1VAwfcoVk",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1DF352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -516,8 +459,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -533,11 +476,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "387",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -548,11 +491,7 @@
             "sha3_384_hash": "75367bf6a133c034932350845f73f820bb65194bfa3a78287056c2859ac2691c211ebbe2bb744cecccb7ccd9ce232813",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVIqs:zQa36bg4NBqT1VAwfcoVK",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T195352941A5164AF6F652CABD4A32C02FEEF736050B10DAE75581B63A2F030E92F7C759",
             "trid": [
@@ -560,8 +499,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -577,11 +516,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "390",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -592,11 +531,7 @@
             "sha3_384_hash": "ed1c502716cd51571c9cea6d1e870a6d99bb99c1ee6eb289e4f6e62076ba89d80672674e1491d0c03154e47a2ad04d7a",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVrqs:zQa36bg4NBqT1VAwfcoVz",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T17F352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -604,8 +539,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -621,11 +556,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "388",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -636,11 +571,7 @@
             "sha3_384_hash": "2858bf1fc38bb9fe51321d8b346671d6000d97c676cb9fcb2ca5c10882bc45b79c254952974ebe5a5cb718098d3fd1c2",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVGqs:zQa36bg4NBqT1VAwfcoVo",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1D0352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -648,8 +579,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -665,11 +596,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "388",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -680,11 +611,7 @@
             "sha3_384_hash": "180a98c116301ee0c9489090f5672a88c711a9204dc78523d4a19409dfd02c280f625779ae714fe9be8a57dbf9975e16",
             "signature": "None",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVPqs:zQa36bg4NBqT1VAwfcoV3",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T155352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -692,8 +619,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -709,11 +636,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "389",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -724,11 +651,7 @@
             "sha3_384_hash": "96e767f404656b7b0c415ae50500dcd4064b7ed231f68023df9b8a80a7337ca4b4729ca979691f0f415445fdad4f6e21",
             "signature": "Akira",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVeqs:zQa36bg4NBqT1VAwfcoVg",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T13C352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -736,8 +659,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -753,11 +676,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "380",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -768,11 +691,7 @@
             "sha3_384_hash": "ebd15cec7307b9c311054f70905ab16c7b669167fbdf0424b0fd2c3059c29b6d625389aa77ee36af82b7eec095ffa3e7",
             "signature": "Akira",
             "ssdeep": "24576:FTyLPsJjVjzhWwiENiUGC86pNV2GNxgr+oBwGoGs:FTyLPsJjVjzliE0opNV2G7gr+o+Gy",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T105352A41A5164AF6F6528ABE4A32C02FEEF736050B11DAE74581723A2F070ED2F7C759",
             "trid": [
@@ -780,8 +699,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -797,11 +716,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "376",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -812,11 +731,7 @@
             "sha3_384_hash": "6e19766763f705b925896b46c31e1e4ded32742b0ed69afb89c3817eb63460911713df2cea79feac83b5cb04a732dc6e",
             "signature": "Akira",
             "ssdeep": "24576:FTyLPsJjVjzhWwiENiUGC86pNV2GNxgr+oBwGkGs:FTyLPsJjVjzliE0opNV2G7gr+o+Ge",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T117352A41A5164AF6F6528ABE4A32C02FEEF736050B11DAE74581723A2F070ED2F7C759",
             "trid": [
@@ -824,8 +739,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -841,11 +756,11 @@
             "intelligence": {
                 "clamav": [
                     "Multios.Ransomware.Akira-10036536-0",
-                    "Multios.Ransomware.Megazord-10021030-1"
+                    "Multios.Ransomware.Megazord-10021030-1",
                 ],
                 "downloads": "374",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -856,11 +771,7 @@
             "sha3_384_hash": "b8160ac76141a4a7952764db75e2126e99093945d85c51b410ae3e5c87bf32e9049959f7055c2a049e7a0a2285fe72a1",
             "signature": "None",
             "ssdeep": "24576:zQagXrs6xiS7Ay/i4NBqThb23KAwcCcoVLqs:zQa36bg4NBqT1VAwfcoVT",
-            "tags": [
-                "akira",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["akira", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T16F352941A5164AF6F652CABD4A32C42FEEF736050B10DAE75581B23A2F030E92F7C759",
             "trid": [
@@ -868,8 +779,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -882,12 +793,7 @@
             "first_seen": "2025-04-12 14:13:04",
             "gimphash": "None",
             "imphash": "8ae0849028943549b89d3b86513c9b75",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "743",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "743", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "d7ad18e63064ef80cc6b98db54516f6f",
@@ -897,11 +803,7 @@
             "sha3_384_hash": "a258da8909f86684270032edb0b13cde27118ca34b2ca5bef5ba8d12756cbb2b44794a3c8ee925a665887bc85d5c0fef",
             "signature": "VanHelsing",
             "ssdeep": "49152:v6QApqkQWFMc2lw9nwPDC7bODth5yx30G:OpdQW3fFwPD+8th5",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Vanhelsing"
-            ],
+            "tags": ["exe", "Ransomware", "Vanhelsing"],
             "telfhash": "None",
             "tlsh": "T1F675AE19BAD480F1E0B7913089B59656EBB5782A4B7096CF13D0466E3F336D18E39B33",
             "trid": [
@@ -909,8 +811,8 @@
                 "19.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "17.2% (.EXE) Win32 Executable (generic) (4504/4/1)",
                 "7.7% (.EXE) OS/2 Executable (generic) (2029/13)",
-                "7.6% (.EXE) Generic Win/DOS Executable (2002/3)"
-            ]
+                "7.6% (.EXE) Generic Win/DOS Executable (2002/3)",
+            ],
         },
         {
             "anonymous": 0,
@@ -924,12 +826,10 @@
             "gimphash": "None",
             "imphash": "f6da1794eea7809ac5969477dbb4fa70",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "524",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -940,11 +840,7 @@
             "sha3_384_hash": "bf4998e6d568277e4aa90c6202786abf751f0eb4fd220aa06e847281c11335e5b3efd8005ea64ea1e161545e9986f118",
             "signature": "Rhysida",
             "ssdeep": "24576:utP7hdO1s6Skscec1SgnyN9HPFCCNhQI6GOfaFVIVrYwcMavDiZn3m75/J7:gLO1qkscec0gnyN9HPFCCNSI6GOfaFVp",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T1C9458E84F742FCFDD59A42B406D7131793BAF480A719FB272650FE38091AB906EA3B15",
             "trid": [
@@ -952,8 +848,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -967,12 +863,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "457",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -983,11 +877,7 @@
             "sha3_384_hash": "c107a1dbaafb20df2e3b5063234166f4791c5bd12e21febe676269b289b03b7dd8f344df92c9f141ebd97460006fbbf7",
             "signature": "Rhysida",
             "ssdeep": "6144:1OQ7bSLB+QbqZ0/xDPK8JLM7hsqMFUtkko1mJ8+ANqT:OmQx71M75tzOmJ8+",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T175948D2BE7E350BDC26B40748B8766736571BC490130E96B13D0DAB06F629A07BEF365",
             "trid": [
@@ -995,8 +885,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1010,12 +900,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "228",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1026,11 +914,7 @@
             "sha3_384_hash": "34a3898daf48d0fce7a1e633aeb9342bcd7aff60aa12dd744b5e1f9d38b04a5e4a6de668f83f2662b0193e85232df8b7",
             "signature": "Rhysida",
             "ssdeep": "6144:izOLumbr+/LRsL5whr2FaSSJmo7zYrMFFMk3nwH8nTNFT:iUCaJo7tMowHI",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T1B8947D2BE7E354BDC26B8074878766736571BC490130E96B13D0DAB0AF619A07BEF325",
             "trid": [
@@ -1038,8 +922,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1053,12 +937,10 @@
             "gimphash": "None",
             "imphash": "36e77497d3c29d194a4ac4cc20116b1c",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "436",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1069,11 +951,7 @@
             "sha3_384_hash": "d0b56d7f82aef8611cf9abd8936799227c3836ab8b26c4dee7d01c0f5c5edd29a272025935b1b5510746794c9ffe4117",
             "signature": "Rhysida",
             "ssdeep": "6144:heigHPKpV1hH/lRLIRsdyhFNnofZwnADhY+xlgVv3M:UigHUz9lRvyLtiwnZ+xKU",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T1B7747C0AFA8750F1DD1318B14243FABF5B24B7029430DF6ED698ED89EB33691711E265",
             "trid": [
@@ -1081,8 +959,8 @@
                 "20.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1096,12 +974,10 @@
             "gimphash": "None",
             "imphash": "5cb57b2d7f44d82f02d065d9d7590a15",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Win64.MalwareX-gen.11299.9238.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Win64.MalwareX-gen.11299.9238.UNOFFICIAL"],
                 "downloads": "458",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1112,11 +988,7 @@
             "sha3_384_hash": "be80a6742d28c3416b8a6e5debb1b353c287ca51f88e2e23e38b724c7ac6a6173c96ea372b80f851b344c3320e76442e",
             "signature": "Rhysida",
             "ssdeep": "98304:aV3ebShMWh0+wCzQxTyCmG/4kJiKqVOhkQlPta5LIOwGB:C38S+QwuQxT7n/4kJxqEhVPA5LIOw",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T1AA36CF3354B142DEF083C4F4DAFFFA936A84F2154E1935A976892C542FB2C509ED8A4E",
             "trid": [
@@ -1124,8 +996,8 @@
                 "23.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "11.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "10.0% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.6% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
+                "4.6% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1139,12 +1011,10 @@
             "gimphash": "None",
             "imphash": "f3e83b7fcd96fde8eeb4ee457680777d",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Trojan.KillFiles2.3202.30078.29104.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Trojan.KillFiles2.3202.30078.29104.UNOFFICIAL"],
                 "downloads": "448",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1155,11 +1025,7 @@
             "sha3_384_hash": "1be928084474f534adfbd6f97ca3a5b25ac5436c3ee0ee066957541d5776405da5130612ca42b78f5829ebec071d5e43",
             "signature": "Rhysida",
             "ssdeep": "6144:xcQQbTJ0huBKxmueLQ320SlmQ2Gz3bJo47/T8MF3KSUEtQGG4P4T:bqLQ320SlmQ2GzW47vKSry14P",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T10515325A0B8FC5FCC32BFCB485C65D13EB92962A172CD686DB627DB5342286CE0F5484",
             "trid": [
@@ -1167,8 +1033,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1182,12 +1048,10 @@
             "gimphash": "None",
             "imphash": "37687a662e949493b311b4727ca43df9",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Win64.MalwareX-gen.16306.26333.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Win64.MalwareX-gen.16306.26333.UNOFFICIAL"],
                 "downloads": "431",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1198,11 +1062,7 @@
             "sha3_384_hash": "6e3ac9954c3882eee7546db6b533fcff72fa848a38f147a88fc1f41ad3a35cdec47490d74019a31ec95a0de38062f15f",
             "signature": "Rhysida",
             "ssdeep": "6144:6U502s1Aua/EadH9ZswGAgeH5Rrgj2MDjLSZr3Sf5xv/O:bns0//dZsF6Z/Mlf5x3O",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T11934123DA35BD32AC05DE4F64F428C966532B9481172B27B03D698B17ECEA584F9D3C1",
             "trid": [
@@ -1210,8 +1070,8 @@
                 "15.6% (.ICL) Windows Icons Library (generic) (2059/9)",
                 "15.4% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "15.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "15.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "15.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1225,12 +1085,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "402",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1241,11 +1099,7 @@
             "sha3_384_hash": "3d3602267c105660c354d7326dc92efb70d116cb78d4df74330eefc272019bf30464c0eeb605820eadd91f5b50178657",
             "signature": "Rhysida",
             "ssdeep": "6144:rFoCbN9uRhQW8HnuYqWrJhN7L6aMFNYkS+D5gtuMf9opagj7T:IqnTp7N78Y5e5gUG9o/",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T14CB47C17D6A3466DC12781706F4766736F31BC4C01B0B9AF1291CEB26F61B706BAE329",
             "trid": [
@@ -1253,8 +1107,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1268,12 +1122,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "399",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1284,11 +1136,7 @@
             "sha3_384_hash": "f18fd2b0048d70b0a2fac6e2b2e5e64cefe5a7f387fc92efe938abd59d2598717db92c1a3a8e57631a5a3c47d6b5e2b1",
             "signature": "Rhysida",
             "ssdeep": "6144:WFoCbN9uRh5W8iZuYtWrJhN7L6aMFNCk0Y+sPgtuMf9opaMPdZXT:0vZTs7N78CrZsPgUG9oDlZ",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T1FDB48C17D6A3566DC12781706F4766736F31BC4C01B0B9AF0291CAF26F61B706BAE329",
             "trid": [
@@ -1296,8 +1144,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1311,12 +1159,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "428",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1327,11 +1173,7 @@
             "sha3_384_hash": "f242fbf3b52c255ff51bfdf22f86b9f309aea18f660a0e2d097d0b08c172689c215afae28d19ce1602b942320cefb20e",
             "signature": "Rhysida",
             "ssdeep": "6144:LgVoyb9e9BhzGcIo6gCJv47raqMFdiksMi9agtuMf9opaiYOmDdnT:com47ciTt9agUG9oCOmD",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T11BB47C17D6A3566DC12781706F4766736F31BC4C01B0F9AF0291CEA26F61B706BAE329",
             "trid": [
@@ -1339,8 +1181,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1354,12 +1196,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "422",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1370,11 +1210,7 @@
             "sha3_384_hash": "358d65c5c10fcda51cf88001ec4686bf0f44168bb13582e9aab2cc7b8ab31749b3e9b2c7cb03be64aed575c3a8281b72",
             "signature": "Rhysida",
             "ssdeep": "6144:pgVoyb9e9BhrGcmofCJv47raqMFdIkR8492EgtuMf9opavgUnT:SGI47cIeL92EgUG9oyg",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T138B47C17D6A3566DC12B81706F4766736F31BC4C01B0B5AF0291CEE26F61B706B9E329",
             "trid": [
@@ -1382,8 +1218,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1397,12 +1233,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "417",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1413,11 +1247,7 @@
             "sha3_384_hash": "5edc91cc87be7b43260e3b8cf068dfb59f131d1262484c12be0448c4dd7269e909e9f783ed455e3680ff368b168f195a",
             "signature": "Rhysida",
             "ssdeep": "6144:pzOLumbr+/LRs95wOr0F2SSJmo7zYrMFFHk9FIT9pLaaT:XeB8Fo7tHG6T9Ra",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T14E947D2BE7E354BDC26B8074878766736571BC490130E96B13D0DAB06F719A0BBEE325",
             "trid": [
@@ -1425,8 +1255,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1440,12 +1270,10 @@
             "gimphash": "None",
             "imphash": "f6da1794eea7809ac5969477dbb4fa70",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "224",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1456,19 +1284,15 @@
             "sha3_384_hash": "d92319b0e7eb3c45add11ee89a6837ab8ac53d09066aaa2cfab2bbe06ed63d68bdde3bfbf9096fda7b8c78263440ee65",
             "signature": "Rhysida",
             "ssdeep": "24576:ztP7hdO1s6Skscec1SgnyN9HPFCCNhQI6GOfaFVIVrYwcMavbiZn3m75/J2:BLO1qkscec0gnyN9HPFCCNSI6GOfaFVc",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T112458E84F742FCFDD59A42B406D7131793BAF480A719FB272650FE38091AB906EA3B15",
             "trid": [
                 "45.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "18.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "18.0% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "18.0% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "18.0% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1482,12 +1306,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "207",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1498,11 +1320,7 @@
             "sha3_384_hash": "de1aac7da6026c335be25edc08771bd8422291570ae1914d532b69d9553e2347bc42d3b370cb8ac8258c8edfe71e38b0",
             "signature": "Rhysida",
             "ssdeep": "6144:pzOu5u9brOPsosL5wJ8gElIJ/P7xJrMFKtkB3YDHit1w9T:3DUlhsP7/tyIbit2",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T1F8947D2BE7E354BDC12B5074878766736571BC490230E96B13D0DAB0AF729A07BEE325",
             "trid": [
@@ -1510,8 +1328,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1525,12 +1343,10 @@
             "gimphash": "None",
             "imphash": "515a3064a47ad1391d1e2cc2ed69a98b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Rhysida-10007205-0"
-                ],
+                "clamav": ["Win.Ransomware.Rhysida-10007205-0"],
                 "downloads": "219",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -1541,11 +1357,7 @@
             "sha3_384_hash": "5febf37fdcb8a2a2986f8e59501ae25719c818d1bf5ee34aedecf2870001b0861d377ccb4b85519190865d6adab50b29",
             "signature": "Rhysida",
             "ssdeep": "6144:pzOu5u9brOPsosD5w/8+EeIJ/P7xJrMFKIkNEcT3gVv3PmT:3DMTPpP7/IkEw8X",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Rhysida"
-            ],
+            "tags": ["exe", "Ransomware", "Rhysida"],
             "telfhash": "None",
             "tlsh": "T17F947D2BE7E354BDC26B4074478766736571BC480230E96B13D0DAF0AF619A0BBEE365",
             "trid": [
@@ -1553,8 +1365,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1567,12 +1379,7 @@
             "first_seen": "2025-04-10 09:13:13",
             "gimphash": "None",
             "imphash": "593b61df0f3b8d68fe1726159597097d",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "492",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "492", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-10 09:14:29",
             "magika": "pebin",
             "md5_hash": "4d854853a5fab3421e5713fd0b6fed42",
@@ -1582,11 +1389,7 @@
             "sha3_384_hash": "84a516f055c9fcd844190a8813709f820ef9c14b1e0d3787250d70f7d876b1bda2456fcd234e05da1ea6ecc661fab821",
             "signature": "HelloKitty",
             "ssdeep": "3072:6lFU2CtlIqd1fz6LGkUSWsMH3Eq1x4m9:MU2CtGqdJLkUSmh39",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T159A49E1171E1C4B1E57A1F301970DAA49D7EFAB04B319E7F6B94026B4E3C0D09A39EA7",
             "trid": [
@@ -1594,8 +1397,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1608,12 +1411,7 @@
             "first_seen": "2025-04-10 09:12:49",
             "gimphash": "None",
             "imphash": "6fc7db09c5144cfb86f05772e2fc3008",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "444",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "444", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-10 09:14:02",
             "magika": "pebin",
             "md5_hash": "a3dc8739c25b9b0c0348fc12fddcef65",
@@ -1623,11 +1421,7 @@
             "sha3_384_hash": "6aaae72d2da2251369f1dcd92628a97e466616a6facddae2b25336da7e8e4226b51642f535891c671987e2bff9b456c3",
             "signature": "HelloKitty",
             "ssdeep": "3072:WLObLmjqGR2l/mlHaMwGkHJhqDLcClct:WLkLmjqGk/m2ghlC",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1C9A48E21B0C18470E6B74F306AF4EAB19C3DFA744B708DFF6784066B4E644E26639997",
             "trid": [
@@ -1635,8 +1429,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1649,12 +1443,7 @@
             "first_seen": "2025-04-10 09:12:25",
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "446",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "446", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "eab47cbf897c7e9c2dc1009e11d1d928",
@@ -1664,11 +1453,7 @@
             "sha3_384_hash": "c19ee6d535dce16a7c2fa13cda5b2cd43519ee987eb1836707a0f2cd0f9b4334eaecf11a176998de0bdd929b85dbad3e",
             "signature": "HelloKitty",
             "ssdeep": "3072:oNV+NjSXtz57JtE/Dglskr/gT72ZywWWq/ePVl/uw7cFhUD:oTcjSXDukskWWjzcFCD",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1C7A4B4107EE74675F3B3CE7118B0D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
             "trid": [
@@ -1676,8 +1461,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1690,12 +1475,7 @@
             "first_seen": "2025-04-10 09:12:03",
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "435",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "435", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "dedaf87d9f14524ec3fe7c3d2e304bf5",
@@ -1705,11 +1485,7 @@
             "sha3_384_hash": "35cf8c02a43643bcbfefc3ac05df51cba19ec3a0e0577aa45f3c59d279455ff97339a552a6c1e5225617fa5c0429b1a7",
             "signature": "HelloKitty",
             "ssdeep": "3072:OWNV+TSXAtEyDgEws1/gT72ZywWWq/ePVl/uw7cFhpD:OWTASXh6mkWWjzcFLD",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T122A4B3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901B5A0922DE0DDB4E22",
             "trid": [
@@ -1717,8 +1493,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1731,12 +1507,7 @@
             "first_seen": "2025-04-10 09:11:43",
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "438",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "438", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "16153e9582cfe94a06fc670a5d851ed9",
@@ -1746,11 +1517,7 @@
             "sha3_384_hash": "305acf163876de229a0edfdec38f0f1f919e46452a79f4d8e82a73d6faedf064b5d19cc370feeacca380b2f855622f76",
             "signature": "HelloKitty",
             "ssdeep": "3072:qNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFh:qTwSXNUQmkWWjzcF",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1B2A4A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
             "trid": [
@@ -1758,8 +1525,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1772,12 +1539,7 @@
             "first_seen": "2025-04-10 09:11:23",
             "gimphash": "None",
             "imphash": "6fc7db09c5144cfb86f05772e2fc3008",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "439",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "439", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "a169a146571b908a412ba8482adee8f1",
@@ -1787,11 +1549,7 @@
             "sha3_384_hash": "fcaad09787215715aed512571f8e9b13a6e94470a95c57ee451bea9025c8c1db161f4a81d776f53189cc2d47e002e6de",
             "signature": "HelloKitty",
             "ssdeep": "1536:heTmjxb5QIul2hD/S8+5hFg2NRrlSYDLGRxHwEEaY4qr6leWvebuFD0MCu7sWZcA:19b45hmjqGR2l/mlHaMwGkHJhqDLcCl",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1FAA48E21B1C18470F6774B3066F4EAB19C3DFA704B708DFF6788066B4E644D26639A97",
             "trid": [
@@ -1799,8 +1557,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1813,12 +1571,7 @@
             "first_seen": "2025-04-10 09:10:52",
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "433",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "433", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "e931ab5882d62ea08e498d90e2e11ad0",
@@ -1828,11 +1581,7 @@
             "sha3_384_hash": "0347701baa0d42aa0dc2134d5c50b7a3c58c7ce6b00c4232bd458886f01f80d47a36eb860d83033d2182dc9554f41929",
             "signature": "HelloKitty",
             "ssdeep": "3072:/NV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFh:/TwSXNUQmkWWjzcF",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1D1A4A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
             "trid": [
@@ -1840,8 +1589,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1854,12 +1603,7 @@
             "first_seen": "2025-04-10 09:10:32",
             "gimphash": "None",
             "imphash": "593b61df0f3b8d68fe1726159597097d",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "432",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "432", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "44c36bc55af58eb506d1760ab608402b",
@@ -1869,11 +1613,7 @@
             "sha3_384_hash": "ad996c9340e18bbaa787f2841dae92ca5fa7f00d749e01ee890fd5a1c08c5860a8661deef8cecc1a9d30328907ccfc60",
             "signature": "HelloKitty",
             "ssdeep": "1536:bKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWgncb:0SLaXC+lIma1fz6LGkUSWsMH3Eq1x4m",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1A5A48E1171E1C8B1E57A1F3019B0DAA49D7EFA704B319E7F6B54026F4E380D09A39EA7",
             "trid": [
@@ -1881,8 +1621,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1895,12 +1635,7 @@
             "first_seen": "2025-04-10 09:10:08",
             "gimphash": "None",
             "imphash": "04a48917184543d74be07effdd370a6e",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "438",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "438", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "a831d838a924ea135c3e0f315f73fcd3",
@@ -1910,11 +1645,7 @@
             "sha3_384_hash": "f623a6b155438aba8efe3c50364b92cd30ffd2d069c68230a6ff3643810891115d7cdcd8e5cc9feb92c286482b0149bb",
             "signature": "HelloKitty",
             "ssdeep": "3072:8bdv1JM8NoASUHepQ0fwb45icOg37RA5AVMe74aAe7gIujAtsa1KpXS6y:Z8VSUHepFfwU5icOgrRAdyVl7x6y",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T162247B4673E508F8E5AB8238C9514A05E6B2BC164760EBCF03E44776DF236D19D3EBA1",
             "trid": [
@@ -1922,8 +1653,8 @@
                 "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
                 "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "9.2% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "9.2% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1936,12 +1667,7 @@
             "first_seen": "2025-04-10 08:30:11",
             "gimphash": "None",
             "imphash": "8517cf209c905e801241690648f36a97",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "512",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "512", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "57824214710bc0cdb22463571a72afd0",
@@ -1951,11 +1677,7 @@
             "sha3_384_hash": "8f5cd6b9c4779e8f17cdf615cbcf9f36a167b34e28796a007ed1eb652bf983770e840c1ab3881f98fbad3e60b3ed6922",
             "signature": "HelloKitty",
             "ssdeep": "6144:YVgUc9JwBsH2/dvXVS2Iar3gjevvZWKedSHXGZw3H:Y09WBsH6dvfx3BkVc2ZE",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T18944E011B4D2C473DAB20D33097ADEB48D7EF9344F2189BF37D4126A0E680E15A3696B",
             "trid": [
@@ -1963,8 +1685,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -1977,12 +1699,7 @@
             "first_seen": "2025-04-10 08:29:44",
             "gimphash": "None",
             "imphash": "8517cf209c905e801241690648f36a97",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "425",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "425", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "1b0b9e4cddcbcb02affe9c8124855e58",
@@ -1992,11 +1709,7 @@
             "sha3_384_hash": "da042906b44b798fa8fad9da32cba94337777c688d45b31eeb67aec7641552dd1f5e901a409aa0d60bbf938801c66cc2",
             "signature": "HelloKitty",
             "ssdeep": "6144:YVgUc9JwBsH2/SUrGYEBzU0IEbq9DTGLJS07:Y09WBsH6vrGYEq0IMq9DaLY2",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T15B44E01175C1C8B3D9B35D320976DDA14EBEF9344F2188AB33D8127A4E680F19A36D6B",
             "trid": [
@@ -2004,8 +1717,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2018,12 +1731,7 @@
             "first_seen": "2025-04-10 08:29:18",
             "gimphash": "None",
             "imphash": "8517cf209c905e801241690648f36a97",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "423",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "423", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "46ecc24ef6d20f3eaf71ff37610d57d1",
@@ -2033,11 +1741,7 @@
             "sha3_384_hash": "1409b1568746c2e9df8d1a074080d4b09a40cfbd3156aeb3d60ce78b8656d3042d1bc0fcc6945dab4ab6d5b5d0e0234c",
             "signature": "HelloKitty",
             "ssdeep": "6144:YVgUc9JwBsH2/Ms20W5I2qRGepy/Tu7UMlkoXP:Y09WBsH6MsyqRdEToBXP",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1F344E01074D1C432E9B71E3609BACEB08ABEF5784F3558BF33D8466E4E780E16935866",
             "trid": [
@@ -2045,8 +1749,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2060,12 +1764,10 @@
             "gimphash": "None",
             "imphash": "8517cf209c905e801241690648f36a97",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Zusy-9950758-0"
-                ],
+                "clamav": ["Win.Ransomware.Zusy-9950758-0"],
                 "downloads": "419",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -2076,11 +1778,7 @@
             "sha3_384_hash": "a1b168fe1237d405899bf0d763fb2f33cba724674bc0a8474db4d774018340f39a32b280050bbba09ffb510e491c3646",
             "signature": "HelloKitty",
             "ssdeep": "6144:YVgUc9JwBsH2/5IuJHexuMmCn8q5sYJ3m:Y09WBsH65IaHe0MmCbsi3m",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1BC44E11170D1C472D9721933047ACEB68EBEF9385F2589BF33D8126A4EB41E1693AC67",
             "trid": [
@@ -2088,8 +1786,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2102,12 +1800,7 @@
             "first_seen": "2025-04-10 08:28:19",
             "gimphash": "None",
             "imphash": "8517cf209c905e801241690648f36a97",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "426",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "426", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "a64d79eba40229ae9aaebbd73938b985",
@@ -2117,11 +1810,7 @@
             "sha3_384_hash": "08263ef66cb20346d9453b58955233d92fc7ab85514ca1757a122b380f314992e29ec4b3484942dd5b5672140fb9ddc2",
             "signature": "HelloKitty",
             "ssdeep": "6144:tVgUc9JwBsHC/qqx6d7+Jb2Y+ViU+pn3NbA:t09WBsH2t6812dV70A",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1F744E11174D1C472EAB70A7205769FB58EBEF9244F2189BB37D806BA4F740E02935C67",
             "trid": [
@@ -2129,8 +1818,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2144,12 +1833,10 @@
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Kitty-9822510-0"
-                ],
+                "clamav": ["Win.Ransomware.Kitty-9822510-0"],
                 "downloads": "406",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -2160,11 +1847,7 @@
             "sha3_384_hash": "e8a23a47638a3af975940d5e44445d19433c61445c28dfff0aa403432d3f4cc5216013327a8be980d5d704d485660857",
             "signature": "HelloKitty",
             "ssdeep": "3072:ENV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFho:ETwSXNUQmkWWjzcF6",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1FDF3A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
             "trid": [
@@ -2172,8 +1855,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2186,12 +1869,7 @@
             "first_seen": "2025-04-10 08:27:19",
             "gimphash": "None",
             "imphash": "fca1e108446f2598a0a25b1c9ee4027f",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "411",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "411", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "af568e8a6060812f040f0cb0fd6f5a7b",
@@ -2201,11 +1879,7 @@
             "sha3_384_hash": "aef9bfacbd89efec66fad40fd5f927f78b5c3c98837b1256c31069f780cb7b56c4d9235d72b6c40ec36536de6a205ec1",
             "signature": "HelloKitty",
             "ssdeep": "3072:eaV+7SXvezfVdzGt3/ygs7vZoVCrmjePFpUSFC:eI4SXvktuo6CK+KSF",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T16CF3A2107EE74674F6B3CE7418B4E760483EBDA19E23979F92911B5A09329E0DD70E22",
             "trid": [
@@ -2213,8 +1887,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2227,12 +1901,7 @@
             "first_seen": "2025-04-10 08:26:49",
             "gimphash": "None",
             "imphash": "a212ef7585d0a3931461b40e0bee95ba",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "409",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "409", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "d96adf82f061b1a6c80699364a1e3208",
@@ -2242,11 +1911,7 @@
             "sha3_384_hash": "ac9f60d06c93b87373b52e55f516e012be70b1f3baafe912b0b0cd78182dbfc9cb6f7fd2256cadd011241429cd2c80c9",
             "signature": "HelloKitty",
             "ssdeep": "3072:dV+bSXmSOa792a6bpNecigiOPsnpriT9:D4SXK6t6LE2T",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T139E382107EE74674F7B3CE7118B4D760493EB8A19E23979F92901B5A0A23DD0DDB0E26",
             "trid": [
@@ -2254,8 +1919,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2268,12 +1933,7 @@
             "first_seen": "2025-04-10 08:26:18",
             "gimphash": "None",
             "imphash": "8517cf209c905e801241690648f36a97",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "445",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "445", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "c45f5895c255c5bb59b2aa4947412753",
@@ -2283,11 +1943,7 @@
             "sha3_384_hash": "34c4ec3f1ff25b63ffc7b07b75ad7481846d87b986cd3bd5a893bc883d9ce7180e642b9cf5ec2e748b411331146e75c9",
             "signature": "HelloKitty",
             "ssdeep": "6144:YVgUc9JwBsH2/dmHrXfRuE4s5YZHP7a32tDWhuSdp:Y09WBsH6ivRJDYxPOeD+uSj",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1A544D04174D28433DA778E36057BDEA08DBEF9348F2589BB33D8127A4EA41E05939877",
             "trid": [
@@ -2295,8 +1951,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2309,12 +1965,7 @@
             "first_seen": "2025-04-10 08:25:50",
             "gimphash": "None",
             "imphash": "593b61df0f3b8d68fe1726159597097d",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "443",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "443", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "e7ad64df3eea1239f735f790c17db441",
@@ -2324,11 +1975,7 @@
             "sha3_384_hash": "45bc80602e4d5663df36f18f156192c64487a2c0667b640e2c5056940e5d5424917d5182df6986c686482d562fcd7118",
             "signature": "HelloKitty",
             "ssdeep": "1536:xfKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWgnI:2SLaXC+lIma1fz6LGkUSWsMH3Eq1x4m",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T170E38E1171E1C8B1E17B1F301970DAA59D7EFA704B319EBF6B54026B4E380D09A39EA7",
             "trid": [
@@ -2336,8 +1983,8 @@
                 "15.4% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.6% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.6% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.6% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2350,12 +1997,7 @@
             "first_seen": "2025-04-10 08:24:55",
             "gimphash": "None",
             "imphash": "e5d2ec931648bb8ad5e500042e54a614",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "439",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "439", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "83b6f9a64ac51c6623bd93918379dfc4",
@@ -2365,11 +2007,7 @@
             "sha3_384_hash": "d7d8bdb895c257449e7d377db5f5464281a03ffefd0ed4a2f5dc62e8d76726f630a69912e1c8e7bcdb08d2fe043251d9",
             "signature": "HelloKitty",
             "ssdeep": "6144:HXyo+euTtGPQ0/t4KAOYc6R9q9M0PuC1LXXPG:3yUuZCQ0/J36fq9KkLXXO",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T16954AF213AE6C477D253253189DC6BB6B1FAAB484F11499713C08F1DAE349E2D33962E",
             "trid": [
@@ -2377,8 +2015,8 @@
                 "21.3% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "13.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "10.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "9.1% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "9.1% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2391,12 +2029,7 @@
             "first_seen": "2025-04-10 08:23:12",
             "gimphash": "None",
             "imphash": "593b61df0f3b8d68fe1726159597097d",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "445",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "445", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "280d680ee80e5fcc5cd6fc9be2d8518d",
@@ -2406,11 +2039,7 @@
             "sha3_384_hash": "ccc6d210e224f352a17cd8a12e3433113923f7ec4174a26174a57412d4e18ed7a3eecf943696e352ef4247cc7e125d9a",
             "signature": "HelloKitty",
             "ssdeep": "1536:NKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWWdsa:eSLaXC+lIma1fz6LGkUmsMH3Eq1x4m",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T195E38E1171E1C8B1E57B1F301970DAA49D7EFAB04B319E7F6B54026B4E380D09A39EA7",
             "trid": [
@@ -2418,8 +2047,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2432,12 +2061,7 @@
             "first_seen": "2025-04-10 08:22:27",
             "gimphash": "None",
             "imphash": "593b61df0f3b8d68fe1726159597097d",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "445",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "445", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "176bfe9ab5a14115ff5b90b07626cb64",
@@ -2447,11 +2071,7 @@
             "sha3_384_hash": "4bfb302a2d3716483574beee0c0c5b8455004dafeba60e9d1c98c68b6f58789277105bd15f87110f2903e30a3fcfc72f",
             "signature": "HelloKitty",
             "ssdeep": "3072:RSLaXC+lIma1fz6LGkUSWsMH3Eq1x4mmc:WaXC+GmaJLkUSmh3n",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T12EE39E11B1E0C4B1E57B1E3015B0DAA5AD3EFBB04B319A7F6754426F0E381D09A39EA7",
             "trid": [
@@ -2459,8 +2079,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2473,12 +2093,7 @@
             "first_seen": "2025-04-10 08:21:59",
             "gimphash": "None",
             "imphash": "",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "445",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "445", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "4ca68bf3d630332e9c19a17ac910376e",
@@ -2488,11 +2103,7 @@
             "sha3_384_hash": "c70634d0ebb94355d05312cd12d325f52efcae3a9a59618015162f8e599509f1cb03a766fc8ccf3c91ea1a51f62a568f",
             "signature": "HelloKitty",
             "ssdeep": "1536:NKcrl2hD/7NDeLLdl7XVcExynCaBJKmQDbn4mte8XX3hmqd7DY:eSLaXC+JKmkRH3EqdX",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1C7C3B003B1E1C4A2E26907322A70FA559DADF3B48B314167FB9D435B0D6C9D0DE2A693",
             "trid": [
@@ -2500,8 +2111,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2514,12 +2125,7 @@
             "first_seen": "2025-04-10 08:18:55",
             "gimphash": "None",
             "imphash": "593b61df0f3b8d68fe1726159597097d",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "449",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "449", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-10 08:21:13",
             "magika": "pebin",
             "md5_hash": "3167cd62ad262b8c920fc0fb258a8988",
@@ -2529,11 +2135,7 @@
             "sha3_384_hash": "e47347a50bd23ef84653cf5e561c0ca183a0b0b5d94a56373d8e4476e92f06f8d899a7847bf76fc2838ff51e0cf00021",
             "signature": "HelloKitty",
             "ssdeep": "3072:RSLaXC+lIma1fz6LGkUSWsMH3Eqdx4mmc:WaXC+GmaJLkUSm53n",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T17CE3AF11B5E0C4B1E57B1E3015B0DAA5AD3EFBB04B309A7F6754426F0E381D09A39EA7",
             "trid": [
@@ -2541,8 +2143,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2555,12 +2157,7 @@
             "first_seen": "2025-04-10 08:18:23",
             "gimphash": "None",
             "imphash": "7cf07e42822dda91b7d3d47185995b80",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "439",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "439", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "eafdcf0d488f08716764a0cbfdc27b46",
@@ -2570,11 +2167,7 @@
             "sha3_384_hash": "d64f9c7db871896fb41e622fc8a90f3499fb7efe314670b65cc03f20f1eeedd77292e8c2993de487378946e57d300114",
             "signature": "HelloKitty",
             "ssdeep": "1536:q9UYsfCDTt8XZH0pLmyvTj45t1w4ZN9FWFvvL:q0+Ttg4LmyvT0t1w4xoV",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T155730207EAE0D832DBE55F3840DE5D1243968954CBF7833F05CEE8A21578B121B9AB4E",
             "trid": [
@@ -2582,8 +2175,8 @@
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2596,12 +2189,7 @@
             "first_seen": "2025-04-10 08:17:38",
             "gimphash": "None",
             "imphash": "864aacd60fbdb1cf6a6a44ae50b3f31c",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "437",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "437", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "50363f811d630e8e3ceb84f6f3db066e",
@@ -2611,11 +2199,7 @@
             "sha3_384_hash": "3274de8d9e538f0d3a971a7a2c4ec1ceac405f274394a93300eb83c57c2332b85b8597360ea781364a9b0c0b00cc7e4e",
             "signature": "HelloKitty",
             "ssdeep": "3072:XNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePa8f:XTwSXNUQmkWWxf",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1B4F382507EE74674F7B3CE7018B0D761483ABDA19E23979F92911B1E0922DE0DDB4E22",
             "trid": [
@@ -2623,8 +2207,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2637,12 +2221,7 @@
             "first_seen": "2025-04-10 08:17:04",
             "gimphash": "None",
             "imphash": "ed3da211374214cece8995c56fd260bb",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "435",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "435", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "28c5c992809fecdc82509dab19c0d90a",
@@ -2652,11 +2231,7 @@
             "sha3_384_hash": "d95ddfb8bc0e78a1d122a2d6ee96693e021927491c88fe77dfc87e99a4387c894842ed526bdfd90e5f69f5265de740da",
             "signature": "HelloKitty",
             "ssdeep": "1536:74WsQthAgWvw7XKqX0Df9p3QzFnfNEeTM39dw7:UkWvaXKDDrYl3eM7",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1BA73024E55846F43D0919AB4C7D0EDE4B13EABD6AE0401B7CD58FD5608B8B01BE2AF1B",
             "trid": [
@@ -2664,8 +2239,8 @@
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2678,12 +2253,7 @@
             "first_seen": "2025-04-10 08:16:33",
             "gimphash": "None",
             "imphash": "eea2562baf71bb381372b742a8d0a394",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "441",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "441", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "db804c3f55c5d09dace40c76c99cab52",
@@ -2693,11 +2263,7 @@
             "sha3_384_hash": "e12728e9f568f8366932def17ee3c986dfa97c860ea4fbbd85a91ed8e21cb3b472449b684025f83cc344b6eb7661cba2",
             "signature": "HelloKitty",
             "ssdeep": "3072:Z0bRbeSCuF7PXuwFyoJ+mKTrZYzXlEmS6ZCHOoSnEYXosMM:Z2FeSCulPXuwIoWT9YlhD4dM",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T11F14AE21B8C2C0B1E5B7497022F8EBB16D7C7A601B3094EF6394077B8E745E26639D67",
             "trid": [
@@ -2705,8 +2271,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2719,12 +2285,7 @@
             "first_seen": "2025-04-10 08:15:56",
             "gimphash": "None",
             "imphash": "864aacd60fbdb1cf6a6a44ae50b3f31c",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "439",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "439", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "ba35a80338fbf197a323f6fe960bf7cb",
@@ -2734,11 +2295,7 @@
             "sha3_384_hash": "30a8040443b56c8f4b766fdfd585ebd6ecec480f237a9264362cd0e1f3ab8609942e3643f6673f436e713ce9a3fc10a8",
             "signature": "HelloKitty",
             "ssdeep": "3072:XNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePa8G:XTwSXNUQmkWWxG",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T126F382507EE74674F7B3CE7018B0D761483ABDA19E23979F92911B1E0922DE0DDB4E22",
             "trid": [
@@ -2746,8 +2303,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2760,12 +2317,7 @@
             "first_seen": "2025-04-10 08:15:31",
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "434",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "434", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "e333299d9f7e4c064746e177c84bb5c8",
@@ -2775,11 +2327,7 @@
             "sha3_384_hash": "ce334b6714042287db3a081548f528af9da62919821d6170bb25e609de943dff0f57855a0a8a026cf0a62dbdeab42c51",
             "signature": "HelloKitty",
             "ssdeep": "3072:ONV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFhDc:OTwSXNUQmkWWjzcFW",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T125F3C3107EE74675F7B3CE7018B0D761483EB9A19E23979F92901B5A0922ED0DDB0E26",
             "trid": [
@@ -2787,8 +2335,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2801,12 +2349,7 @@
             "first_seen": "2025-04-10 08:15:06",
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "439",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "439", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "87b418a1d8eaf648b6338af20407abbb",
@@ -2816,11 +2359,7 @@
             "sha3_384_hash": "8378beff7d04bfec5b0255aa6f43f0ebadf2aa8c9fbfddb4244d1e9e1d50fd7f081f67fe96dd5877e75537f7cff0d703",
             "signature": "HelloKitty",
             "ssdeep": "3072:GNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFhj86:GTwSXNUQmkWWjzcFx",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T144F3C4107EE74675F7B3CE7018B4D761483EBDA19E23879F92901B5A0922EE0DD70E26",
             "trid": [
@@ -2828,8 +2367,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2842,12 +2381,7 @@
             "first_seen": "2025-04-10 08:14:40",
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "426",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "426", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "bd0802f8a9a71336607d5c9241db31d9",
@@ -2857,11 +2391,7 @@
             "sha3_384_hash": "d0b03649a69188e70362f9472bf1fb3e148a0c902558a892b92aeb28042c299870612b927348634ff52136a3de618d4e",
             "signature": "HelloKitty",
             "ssdeep": "3072:LNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFho:LTwSXNUQmkWWjzcF6",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1AFF3A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901F5A0922DA0DDB4E22",
             "trid": [
@@ -2869,8 +2399,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2887,11 +2417,11 @@
                 "clamav": [
                     "Win.Dropper.Memery-9979246-0",
                     "Win.Dropper.Micropsia-10030191-0",
-                    "Win.Ransomware.Kitty-9822510-0"
+                    "Win.Ransomware.Kitty-9822510-0",
                 ],
                 "downloads": "436",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -2902,11 +2432,7 @@
             "sha3_384_hash": "2094c77ec80126026556c23d2626cb97072d5ff23406c99f4563d021ec587794789813c63069db801e8d356b24aaf6e3",
             "signature": "HelloKitty",
             "ssdeep": "3072:bY0bRbeSCuF7PXuwjyoJ+mKTrZYzXlEmS6ZCHOoSVsRZzFPk2I111KYTI1Uk12od:bY2FeSCulPXuw2oWT9YlmHMzTy1Bd",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T164449D61B48280B0D4BA0D3052F4D6B15D7E75A55BF098EB73A0273F9EB41E27236E27",
             "trid": [
@@ -2914,8 +2440,8 @@
                 "19.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "17.2% (.EXE) Win32 Executable (generic) (4504/4/1)",
                 "7.7% (.EXE) OS/2 Executable (generic) (2029/13)",
-                "7.6% (.EXE) Generic Win/DOS Executable (2002/3)"
-            ]
+                "7.6% (.EXE) Generic Win/DOS Executable (2002/3)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2929,12 +2455,10 @@
             "gimphash": "None",
             "imphash": "ed3da211374214cece8995c56fd260bb",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Kitty-9822510-0"
-                ],
+                "clamav": ["Win.Ransomware.Kitty-9822510-0"],
                 "downloads": "438",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -2945,11 +2469,7 @@
             "sha3_384_hash": "d7365ec559c231f0b23937059c45069403467eb18a8da84d760191d6a7a02103a06c62b84a6f8a797b464318b885cce3",
             "signature": "HelloKitty",
             "ssdeep": "1536:74WsQthAgWvw7XKqX0Df9p3QzFnfNEeTM39dwC:UkWvaXKDDrYl3eMC",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T16073024E55846F43D0919AB4C7D0EDE4B13EABD6AE0401B7CD58FD5608B8B01BE2AF1B",
             "trid": [
@@ -2957,8 +2477,8 @@
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
         },
         {
             "anonymous": 0,
@@ -2972,12 +2492,10 @@
             "gimphash": "None",
             "imphash": "1e6318700f802c378fd14ed1b841cb32",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Kitty-9822510-0"
-                ],
+                "clamav": ["Win.Ransomware.Kitty-9822510-0"],
                 "downloads": "432",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -2988,11 +2506,7 @@
             "sha3_384_hash": "6f902cafd88a2ed223b8676c26e9f1a81911a2b528b73a8fd88cad68e17c08fd9385d19ad04a130adc73b3386727e70b",
             "signature": "HelloKitty",
             "ssdeep": "3072:wNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePVl/uw7cFh:wTwSXNUQmkWWjzcF",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1DCF3A3107EE74675F3B3CE7018B4D761483EBDA19E23979F92901B5A0922DE0DDB4E22",
             "trid": [
@@ -3000,8 +2514,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3015,12 +2529,10 @@
             "gimphash": "None",
             "imphash": "ed3da211374214cece8995c56fd260bb",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Kitty-9822510-0"
-                ],
+                "clamav": ["Win.Ransomware.Kitty-9822510-0"],
                 "downloads": "432",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3031,11 +2543,7 @@
             "sha3_384_hash": "dfad60b1927e073a2d3dc4199e11a8b34c799a4928d7c5cb43c9606b7c0ee280314b8d102386397fac8a168b71d1617f",
             "signature": "HelloKitty",
             "ssdeep": "1536:74WsQthAgWvw7XKqX0Df9p3QzFnfNEeTM39dw:UkWvaXKDDrYl3eM",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T11F73024E55846F43D0919AB4C7D0EDE4B13EABD6AE0401B7CD58FD5608B8B01BE2AF1B",
             "trid": [
@@ -3043,8 +2551,8 @@
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3058,12 +2566,10 @@
             "gimphash": "None",
             "imphash": "864aacd60fbdb1cf6a6a44ae50b3f31c",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Kitty-9822510-0"
-                ],
+                "clamav": ["Win.Ransomware.Kitty-9822510-0"],
                 "downloads": "440",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3074,11 +2580,7 @@
             "sha3_384_hash": "1c583dc2524338154b70b6cb6855dc43548211bd5ffa67b427de46fd365036dd1c92bac8d086bde41b1590295aabefb5",
             "signature": "HelloKitty",
             "ssdeep": "3072:XNV+7SXjtEjDg/s6L7h/gT72ZywWWq/ePa8:XTwSXNUQmkWWx",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T14EF382507EE74674F7B3CE7018B0D761483ABDA19E23979F92911B1E0922DE0DDB4E22",
             "trid": [
@@ -3086,8 +2588,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3101,12 +2603,10 @@
             "gimphash": "None",
             "imphash": "6fc7db09c5144cfb86f05772e2fc3008",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Kitty-9822510-0"
-                ],
+                "clamav": ["Win.Ransomware.Kitty-9822510-0"],
                 "downloads": "446",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3117,11 +2617,7 @@
             "sha3_384_hash": "10b0dc6cc02e9faff541d408b8ea7bbfc0409e505a735b31c7d8e9f4e18911f0ff3ad5c6165449169df513def2830cb9",
             "signature": "HelloKitty",
             "ssdeep": "1536:oeTqb5QIul2hD/S8+5hFg2NRrlSYDLGRxHwEEaY4qr6leWvebuFD0MCu7sWZcdGv:Kb45hmjqGR2l/mlHaMwGkHJhqjLcCl",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1D8E38E21B0C18470F6B74B3066F4EAB19C3DFA744B708DFF6788067A4E644D26639A97",
             "trid": [
@@ -3129,8 +2625,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3144,12 +2640,10 @@
             "gimphash": "None",
             "imphash": "593b61df0f3b8d68fe1726159597097d",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Trojan.Encoder.33428.28325.7376.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Trojan.Encoder.33428.28325.7376.UNOFFICIAL"],
                 "downloads": "392",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3160,11 +2654,7 @@
             "sha3_384_hash": "bd4c50f025c7486441d6b9e8c287db70a4303b8794c64e916357bf97c8ea0be2702b75cd86617458162659b1fc8b99ea",
             "signature": "HelloKitty",
             "ssdeep": "1536:NKcrl2hD/7NDeLLdl7XVcExynCaBl0BR7GtlqJN122fIRQGjDIn6LC1kUXsWgncb:eSLaXC+lIma1fz6LGkUSWsMH3Eq1x4m",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1B2E39E1171E1C8B1E57A1F301970DAA49D7EFA704B319EBF6B54026F4E380D09A39EA7",
             "trid": [
@@ -3172,8 +2662,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3187,12 +2677,10 @@
             "gimphash": "None",
             "imphash": "8517cf209c905e801241690648f36a97",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Zusy-9950758-0"
-                ],
+                "clamav": ["Win.Ransomware.Zusy-9950758-0"],
                 "downloads": "418",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3203,11 +2691,7 @@
             "sha3_384_hash": "535e7d8ffcf666de34c0003061c83aca63cc82c6efbc6915359001f8a983cf476361c5a53c6f45d2e227ed6acd017b19",
             "signature": "HelloKitty",
             "ssdeep": "3072:YVgULufGsUPe/WCEzOQnTi/UL4VY+w5g2AAPEQ6p+GJZnIg2r5aLF9hAmmiQnrJ6:YVgUc9JwBsH2/g2ABnIgqY9uvJIes9ma",
-            "tags": [
-                "exe",
-                "HelloKitty",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HelloKitty", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1FC44E01074D2C473DA724D3205BADE754EBEF9381F2588AB33D8126E4E681F0993AD67",
             "trid": [
@@ -3215,8 +2699,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3229,12 +2713,7 @@
             "first_seen": "2025-04-09 06:18:50",
             "gimphash": "None",
             "imphash": "None",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "462",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "462", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "a9297a8acbee74ba0169333ee38be2ef",
@@ -3244,17 +2723,13 @@
             "sha3_384_hash": "0b1388609018cdc8dfd6cac1d7cabf8dfd0b0cbb68c4659ca9cf73c6ce54a5981ba468ce61c1519589e98dcfaa21c3dd",
             "signature": "Nitrogen",
             "ssdeep": "12288:i67MAQlcWRfpJpinnnnnnnhKYseIYjtsC9Bsm+84CPXBc9bSHKJemZzy6ZU3qton:i67MAQlXpJp4KsPibG5n6Zkb",
-            "tags": [
-                "exe",
-                "Nitrogen",
-                "Ransomware"
-            ],
+            "tags": ["exe", "Nitrogen", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T189951DB7E1AB460CDDB94777182C5D1322267A6C20DFB46479913EB2B8089CF0DE49E7",
             "trid": [
                 "50.0% (.EXE) Generic Win/DOS Executable (2002/3)",
-                "49.9% (.EXE) DOS Executable Generic (2000/1)"
-            ]
+                "49.9% (.EXE) DOS Executable Generic (2000/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3267,12 +2742,7 @@
             "first_seen": "2025-04-09 05:45:40",
             "gimphash": "None",
             "imphash": "25f97eba7b227746192e37f98c864789",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "468",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "468", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "54fc9ad5b96b67529b27dae4b634f7f3",
@@ -3282,12 +2752,7 @@
             "sha3_384_hash": "4bfc1682f8da5024fa829f0bda2a3adad5862897ac275ec0cd88875529631665dae543edddab1f619879a6a0d666fba7",
             "signature": "Apos",
             "ssdeep": "3072:rMt2XsUOaP2xEwViB6LrG0TaK/pizgb/S:rnjALa6O3K/ogba",
-            "tags": [
-                "apos",
-                "aposlocker",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["apos", "aposlocker", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T11404812DE386D2F6C45252B2190FE6BB55107F34B151981FFA8E1E5CF236EA7825830B",
             "trid": [
@@ -3295,8 +2760,8 @@
                 "20.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3309,12 +2774,7 @@
             "first_seen": "2025-04-07 07:53:31",
             "gimphash": "None",
             "imphash": "25f97eba7b227746192e37f98c864789",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "2180",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "2180", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "c8c64113076101d13ee6dfad4ce1c934",
@@ -3324,12 +2784,7 @@
             "sha3_384_hash": "6f7338e2a69e06f8cd24a045a6dbb7e2e9828e2f85212da15b82a335357f27cc554d9521a015a413b84a03231fbf00d6",
             "signature": "Apos",
             "ssdeep": "6144:rnjALa6O3K/ogbEPeK3Y98O9Yscj/cDc+agpiHRLGNWizbm2oP:fALlO3YEPeK3Y9o+zGRKkiXU",
-            "tags": [
-                "apos",
-                "aposlocker",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["apos", "aposlocker", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1F8B46E5DF3D6DDF7C501427A444FC36A2228B7B062428B1F7A6D293CE722ED29A95307",
             "trid": [
@@ -3337,8 +2792,8 @@
                 "20.5% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3351,12 +2806,7 @@
             "first_seen": "2025-04-07 07:53:06",
             "gimphash": "None",
             "imphash": "b1c5b1beabd90d9fdabd1df0779ea832",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "101",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "101", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "bb62d73fcab6f29f95f9919e1dc0932c",
@@ -3366,12 +2816,7 @@
             "sha3_384_hash": "a5ad8a2e407be18ff789f231a65e19fdd71707013561678a5f4a4c97c55371fe9fadeb18559a2732c03422f39c2c0432",
             "signature": "Apos",
             "ssdeep": "49152:RZB1G8YJtiBO0r6fUTfC+qc9LyRb350D2tZcRpU8bxGWxmhQXkHWaZO0:j3GXAT0UEMmRbpERpr9mzDs0",
-            "tags": [
-                "apos",
-                "aposlocker",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["apos", "aposlocker", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T191C51306E3E909FCE4B7E178D9979E12E2B63C0D0371969F13A5566B1F233A09D39321",
             "trid": [
@@ -3379,8 +2824,8 @@
                 "3.6% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "1.7% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "0.7% (.EXE) OS/2 Executable (generic) (2029/13)",
-                "0.6% (.EXE) Generic Win/DOS Executable (2002/3)"
-            ]
+                "0.6% (.EXE) Generic Win/DOS Executable (2002/3)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3393,12 +2838,7 @@
             "first_seen": "2025-04-07 07:52:40",
             "gimphash": "None",
             "imphash": "ac8b13711073e9343047374f24094779",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "1487",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "1487", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "84b3d2b5c6ba0d6627e74c2c89f3b9a3",
@@ -3408,12 +2848,7 @@
             "sha3_384_hash": "8fbd3b8a741e9b34489ab8759d7e7485612294bc69fe0c41df05947867514d9414272b055da743a3b54f76d7217ed8bf",
             "signature": "Apos",
             "ssdeep": "6144:x08cEpULsYWeRa9aa+u4QxlofqFTYDNeE4WNAm29N7gpiHRLGNWizbm2oP:x08cEpULsYWe0aa+RyFXm29NsGRKkiXU",
-            "tags": [
-                "apos",
-                "aposlocker",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["apos", "aposlocker", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1BEC47D73F2F99C89C581C13C7986C36222BC79940BA3B717056962313F16DD2AFAE745",
             "trid": [
@@ -3421,8 +2856,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3435,12 +2870,7 @@
             "first_seen": "2025-04-07 07:52:13",
             "gimphash": "None",
             "imphash": "b1c5b1beabd90d9fdabd1df0779ea832",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "100",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "100", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "0f8b20c367c6cb2c2726a3495d1d8d28",
@@ -3450,12 +2880,7 @@
             "sha3_384_hash": "31a23bbd8392f150dc6ede72f620bf2eee72e420f935dd0a7752320239174e619d271104b73cb451a11db31a1558ecf7",
             "signature": "Apos",
             "ssdeep": "49152:RZB1G8YMx0r+dBkCN9S+1qVoOH51LkiKT/PLzi6jmeZDwS27fIiOs:j3Gsnp9YnZlKbXvcSiIC",
-            "tags": [
-                "apos",
-                "aposlocker",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["apos", "aposlocker", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T128C52209F7D804F9E0F7A134C9968812FB7A7C4E43715A9F1398666A2F57390DD3A322",
             "trid": [
@@ -3463,8 +2888,8 @@
                 "3.6% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "1.7% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "0.7% (.EXE) OS/2 Executable (generic) (2029/13)",
-                "0.6% (.EXE) Generic Win/DOS Executable (2002/3)"
-            ]
+                "0.6% (.EXE) Generic Win/DOS Executable (2002/3)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3478,12 +2903,10 @@
             "gimphash": "None",
             "imphash": "d437aad619af88e914fa3015f428c33f",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Trojan.Encoder.41909.22381.24430.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Trojan.Encoder.41909.22381.24430.UNOFFICIAL"],
                 "downloads": "468",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3494,11 +2917,7 @@
             "sha3_384_hash": "2fa9cdf21fc4b17deb7a3aa02670bbf8389dd1e31efd6c2e99b65631ffcd2f54307a15a2b61f26471b0232b4ab720c16",
             "signature": "Sarcoma",
             "ssdeep": "49152:l4wDeyVeECuIhRjp1bj5MDau+4w38wRTuWKd:x5AbFgau+4QJuW",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "Sarcoma"
-            ],
+            "tags": ["exe", "Ransomware", "Sarcoma"],
             "telfhash": "None",
             "tlsh": "T15CF57C27E6A380DDC57BC130432B9273B571BC5A12753A6E2B64EB291F71F60462EF24",
             "trid": [
@@ -3506,8 +2925,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3521,12 +2940,10 @@
             "gimphash": "None",
             "imphash": "f34d5f2d4577ed6d9ceec516c1f5a744",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Hydracrypt-9878672-0"
-                ],
+                "clamav": ["Win.Ransomware.Hydracrypt-9878672-0"],
                 "downloads": "2088",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3537,12 +2954,7 @@
             "sha3_384_hash": "0fd7cd401f160d048d1238859baba8d4942bf00b9a5dc5ae6820346cdc145d5251d5e8f9d059884fe954fde3d88b27dd",
             "signature": "Chaos",
             "ssdeep": "3072:wCc9Km9m2n1ycrCcjtTzqP/Jf7R/9lmyAnMyYVO3zlN5xu2ZsRYHeQKkMjnXJ+Zi:Lc9picmax+JAn7Q8zlA+H+QxonXS",
-            "tags": [
-                "Chaos",
-                "exe",
-                "Ransomware",
-                "trojan"
-            ],
+            "tags": ["Chaos", "exe", "Ransomware", "trojan"],
             "telfhash": "None",
             "tlsh": "T14574CF342DF65029F173EE7E8BE87597E56E7E622703945920B2338A0733D429DC253A",
             "trid": [
@@ -3550,8 +2962,8 @@
                 "10.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "6.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "4.3% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "2.0% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
+                "2.0% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3565,12 +2977,10 @@
             "gimphash": "None",
             "imphash": "646ed52c3b44c4b2c2a037da34b5940d",
             "intelligence": {
-                "clamav": [
-                    "SecuriteInfo.com.Trojan.GenericKD.35980429.15154.16265.UNOFFICIAL"
-                ],
+                "clamav": ["SecuriteInfo.com.Trojan.GenericKD.35980429.15154.16265.UNOFFICIAL"],
                 "downloads": "88",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3581,11 +2991,7 @@
             "sha3_384_hash": "8c1442650c604789c062b37dc29daee944e472a9229d078264f7e04b3ea5fd3b66bad3fcd2bb3f6986559e732818427b",
             "signature": "None",
             "ssdeep": "98304:XN8uZ/ecedIbwoPllMWHuoizLkGAcoLs5REwQTXBQyiLoP1SA+Q8OSpqlMPW9zib:dN2ce6UoP1HswG93wXlaoN+QXBt9zjm",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "trojan"
-            ],
+            "tags": ["exe", "Ransomware", "trojan"],
             "telfhash": "None",
             "tlsh": "T1E05633217881A176C2B6157418A0D67D363FAE3B5B0590B3D2E8366A7DB37E0F43CB64",
             "trid": [
@@ -3593,8 +2999,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3607,12 +3013,7 @@
             "first_seen": "2025-04-03 14:35:48",
             "gimphash": "None",
             "imphash": "f34d5f2d4577ed6d9ceec516c1f5a744",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "92",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "92", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "4318d93e4b3d3590f3b4c6c2cdd794f3",
@@ -3622,13 +3023,7 @@
             "sha3_384_hash": "f943b9cac0b3774c9c2cdf727f0926ae477066c16059be4700b59ad1b356099af44a4956e2789c10e6fd4cdb8c7ed190",
             "signature": "AgentTesla",
             "ssdeep": "196608:JOoKoTbXauPIo+8izlrAjDCbXauPIo+8iAo:XlT70Rcu7M",
-            "tags": [
-                "AgentTesla",
-                "exe",
-                "Ransomware",
-                "trojan",
-                "UPX"
-            ],
+            "tags": ["AgentTesla", "exe", "Ransomware", "trojan", "UPX"],
             "telfhash": "None",
             "tlsh": "T13276BE14F983AA1FC2DBCE33CAD15810D6F0A852EA72EB0E71C76B18559734578463AF",
             "trid": [
@@ -3636,8 +3031,8 @@
                 "9.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "6.0% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "4.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "4.1% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "4.1% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3650,12 +3045,7 @@
             "first_seen": "2025-04-02 15:34:34",
             "gimphash": "None",
             "imphash": "f7e43e0de1643f36b9466c5cecaec952",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "2524",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "2524", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "3139c8e0d0dd9683ebfecdb2e4f1b6bb",
@@ -3665,11 +3055,7 @@
             "sha3_384_hash": "69e8788574dc1a2b7e3ac9e01f107196f196576733a21448e724c70d1646de5d4a658e606b8d72aa4b8e78b3f2819263",
             "signature": "Nitrogen",
             "ssdeep": "24576:H5IUfoIZjP/gRcIHF1tj6J3ASQl8/r+HlBePcLBP:HHfPjQRcIHF1B6J3ASQlh",
-            "tags": [
-                "exe",
-                "Nitrogen",
-                "Ransomware"
-            ],
+            "tags": ["exe", "Nitrogen", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T175453A0BE2B341ECC16AD57446A39775AD347C18013CBE2E5FE8DB216F60F109A9FA19",
             "trid": [
@@ -3677,8 +3063,8 @@
                 "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "5.0% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3691,12 +3077,7 @@
             "first_seen": "2025-04-01 14:45:26",
             "gimphash": "None",
             "imphash": "768de5ae3df913a5ba50a983adcace2b",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "777",
-                "mail": "None",
-                "uploads": "3"
-            },
+            "intelligence": {"clamav": "None", "downloads": "777", "mail": "None", "uploads": "3"},
             "last_seen": "2025-04-19 17:05:13",
             "magika": "pebin",
             "md5_hash": "470a328ad3705d0c6866a48912a3f718",
@@ -3706,12 +3087,7 @@
             "sha3_384_hash": "1cb2a4d38698819d7015521850303cb67ec06036ecc9dc3f87d346dfb4e46313adc47006bf054edec8d6774fff192e01",
             "signature": "Fog",
             "ssdeep": "12288:j1se5cvHLBj8l9LoE7q9zNd8uXR7huPcjLcq4PKRJ8IaPG2bdE:j1se5CLM9LoE7MzMuXR7huLSRJ8Dm",
-            "tags": [
-                "exe",
-                "fog",
-                "hilarious-trifle-d9182e-netlify-app",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "hilarious-trifle-d9182e-netlify-app", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T11FB42A7FE6E1D21DE6908538518AC3F07C6DE6779C520B47B7A01FA0A638BE1856B307",
             "trid": [
@@ -3719,8 +3095,8 @@
                 "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
-                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
-            ]
+                "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3733,12 +3109,7 @@
             "first_seen": "2025-04-01 14:45:06",
             "gimphash": "None",
             "imphash": "3dbe9105b1fbfaeb47681b2c51025393",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "771",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "771", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-04 09:07:33",
             "magika": "pebin",
             "md5_hash": "fd471239a6c4314c4f5f2ea7cc8e5cd5",
@@ -3748,11 +3119,7 @@
             "sha3_384_hash": "46c639c89af1d6eb01b16720f51fad43aa948ce6dc9a61b0bd478bf2608aaaf71312d024c84ca78729764521094f8627",
             "signature": "Fog",
             "ssdeep": "6144:RlS4HR8NvFKBt7K93QTZduxHDL7T/th1WROkP/lcDo+0NgoY3:HSrZr93QbuxTT/th1nGkSg5",
-            "tags": [
-                "exe",
-                "fog",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T113341232204D4AB5F05746FC37F078BD0846B92D14EE99E2535CFAA8B4768224D7DB8B",
             "trid": [
@@ -3760,8 +3127,8 @@
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3774,12 +3141,7 @@
             "first_seen": "2025-04-01 14:44:45",
             "gimphash": "None",
             "imphash": "35495a5b7aceef7bd3ccd60fc1242e54",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "753",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "753", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-04 10:22:10",
             "magika": "pebin",
             "md5_hash": "be5af780a67635d1eae32bc959450aff",
@@ -3789,12 +3151,7 @@
             "sha3_384_hash": "36c43005792b6816be19616d954b8eeffbbd537f557009103ac5c43beed60398c57573a9258b1825a15de007ef85f209",
             "signature": "Fog",
             "ssdeep": "12288:Z1se5TMrBYVsXRFd8bo/liIrEWuzrViA7uWSBwpPQE5H9y:Z1se5jsXRFd8aliIrEfrViAyf6QE5H9y",
-            "tags": [
-                "exe",
-                "fog",
-                "hilarious-trifle-d9182e-netlify-app",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "hilarious-trifle-d9182e-netlify-app", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T190A43A7FD6E8C22DE691803C52DAC3F06D69E6775C11078773A06EB0AA38BE19467713",
             "trid": [
@@ -3802,8 +3159,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3816,12 +3173,7 @@
             "first_seen": "2025-04-01 14:44:25",
             "gimphash": "None",
             "imphash": "35495a5b7aceef7bd3ccd60fc1242e54",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "754",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "754", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-04 10:21:41",
             "magika": "pebin",
             "md5_hash": "f162816f1d7b0006cfa0bfaf95c492c4",
@@ -3831,12 +3183,7 @@
             "sha3_384_hash": "8a1f865cdc3b0f44a2499ea0a011fc8d0bcb49af8e492476e0f5eee05341e10608b562aac7ea853943ec7ecd1de72fa1",
             "signature": "Fog",
             "ssdeep": "12288:F1se5APZHB3D7z1se5oYRw64XR7hH/bmdmm707RBUuWSBwpPQE5H9yJW:F1se5AZBT31se5olbXR7hHK707RBPf68",
-            "tags": [
-                "exe",
-                "fog",
-                "hilarious-trifle-d9182e-netlify-app",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "hilarious-trifle-d9182e-netlify-app", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1BAA45B7FD6D8C22DE691803C52DAC3F06D6DE6766C51078773A06EA49A38FE18427713",
             "trid": [
@@ -3844,8 +3191,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3858,12 +3205,7 @@
             "first_seen": "2025-04-01 14:44:04",
             "gimphash": "None",
             "imphash": "35495a5b7aceef7bd3ccd60fc1242e54",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "748",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "748", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-04 10:32:26",
             "magika": "pebin",
             "md5_hash": "4d5bec4d9d32e00c7d0b9d89e3948c8f",
@@ -3873,12 +3215,7 @@
             "sha3_384_hash": "a79ba37e08a27f218fa5be70b88963c07c2d11a9bdfe97d0f8a06b28d6cd0f35d682ab75321abf99033ede964d3a116b",
             "signature": "Fog",
             "ssdeep": "12288:I1se569H505GdXRFdNkyyjXR7hqFE+XmbjSTfuWSBwpPQE5H9y:I1se5ieQdXRFdNAXR7hqF32bjSTGf6QL",
-            "tags": [
-                "exe",
-                "fog",
-                "hilarious-trifle-d9182e-netlify-app",
-                "Ransomware"
-            ],
+            "tags": ["exe", "fog", "hilarious-trifle-d9182e-netlify-app", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T143A44B7FD6E8C22DE691803852CAC3F06D6EE6776C51178773A06EB09638BE19427713",
             "trid": [
@@ -3886,8 +3223,8 @@
                 "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "6.2% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3900,12 +3237,7 @@
             "first_seen": "2025-04-01 11:39:53",
             "gimphash": "None",
             "imphash": "d745a328d00f871a4bb4ca8959bdb635",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "64",
-                "mail": "None",
-                "uploads": "2"
-            },
+            "intelligence": {"clamav": "None", "downloads": "64", "mail": "None", "uploads": "2"},
             "last_seen": "2025-04-02 10:01:39",
             "magika": "pebin",
             "md5_hash": "c512d14a763a3f39921180e00a7c9aba",
@@ -3915,11 +3247,7 @@
             "sha3_384_hash": "a438789adc4af32a8fe95b778649d9ad95831b6e95cd6221ff6862594d35a9a4c3f03f3a5faa5b3327689f54d7d6b7e2",
             "signature": "None",
             "ssdeep": "98304:DHSD5Ub1VjwfmNWeB1yphkIFGa5M5+94E5TQ6iwcUusLP1hkT64T7zX6kzlNF6WP:qUDKiWeYMemUcbA74zX6AlOW+O",
-            "tags": [
-                "exe",
-                "Ransomware",
-                "trojan"
-            ],
+            "tags": ["exe", "Ransomware", "trojan"],
             "telfhash": "None",
             "tlsh": "T16F56232313AC3CC5D1B98934A3376FD4B3FECEA64691E47C60D669C1693D463B612B82",
             "trid": [
@@ -3927,8 +3255,8 @@
                 "20.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "18.6% (.EXE) Win32 Executable (generic) (4504/4/1)",
                 "8.5% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "8.3% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "8.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3942,13 +3270,10 @@
             "gimphash": "None",
             "imphash": "146c4a9adcfc058a5c5a3e517786060b",
             "intelligence": {
-                "clamav": [
-                    "Win.Ransomware.Qilin-10037892-0",
-                    "Win.Ransomware.Zusy-10037891-0"
-                ],
+                "clamav": ["Win.Ransomware.Qilin-10037892-0", "Win.Ransomware.Zusy-10037891-0"],
                 "downloads": "431",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -3959,12 +3284,7 @@
             "sha3_384_hash": "8fef5e5489315a2bae5d5a4c8ef76d3e18e3ba025e6808ba4175a94a3d0763141ddf3b574a100f7ba4f15a3fdc079515",
             "signature": "Qilin",
             "ssdeep": "98304:a8DAoC0H2dy/u87jwP0xuy+Ccv8HxYRWpgzh5euFMjQIDgYodZHoyVHmzDZN3sGw:a0WyzcOuy+Ccv8HxYRWpgzh5euFMjQIc",
-            "tags": [
-                "Agenda",
-                "exe",
-                "QiLin",
-                "Ransomware"
-            ],
+            "tags": ["Agenda", "exe", "QiLin", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T12636D06F724A7748D89851FA2235AA7AB10DB70C60D0D4A4DA71F3393C0B774AEBE147",
             "trid": [
@@ -3972,8 +3292,8 @@
                 "20.0% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
                 "12.7% (.EXE) Win64 Executable (generic) (10522/11/4)",
                 "7.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
-                "6.1% (.EXE) Win16 NE executable (generic) (5038/12/1)"
-            ]
+                "6.1% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+            ],
         },
         {
             "anonymous": 0,
@@ -3987,12 +3307,10 @@
             "gimphash": "None",
             "imphash": "c2d457ad8ac36fc9f18d45bffcd450c2",
             "intelligence": {
-                "clamav": [
-                    "ditekSHen.MALWARE.Win.Ransomware.Polar.UNOFFICIAL"
-                ],
+                "clamav": ["ditekSHen.MALWARE.Win.Ransomware.Polar.UNOFFICIAL"],
                 "downloads": "454",
                 "mail": "None",
-                "uploads": "1"
+                "uploads": "1",
             },
             "last_seen": "None",
             "magika": "pebin",
@@ -4003,11 +3321,7 @@
             "sha3_384_hash": "45d738cb8237e6d218ad167eac6e751351a53777b6bb1d45c19817447dda93f5a0a640594ea135cd22764a1803e2abb5",
             "signature": "HellCat",
             "ssdeep": "49152:WU7XuDD/7oLfKyB4nJkq0Nw9c3A0Q5YzE8PvV3B/lH:W77cKdiq0sc35oYxPtR",
-            "tags": [
-                "exe",
-                "HellCat",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HellCat", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T165D57D07BCA108B9C4AAA331C9A692537B75BC481F3223D77E50B27C2FB6BD45976704",
             "trid": [
@@ -4015,8 +3329,8 @@
                 "21.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.ICL) Windows Icons Library (generic) (2059/9)",
                 "8.5% (.EXE) OS/2 Executable (generic) (2029/13)",
-                "8.4% (.EXE) Generic Win/DOS Executable (2002/3)"
-            ]
+                "8.4% (.EXE) Generic Win/DOS Executable (2002/3)",
+            ],
         },
         {
             "anonymous": 0,
@@ -4029,12 +3343,7 @@
             "first_seen": "2025-03-30 07:03:35",
             "gimphash": "None",
             "imphash": "d42595b695fc008ef2c56aabd8efd68e",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "402",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "402", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "b0874f942efea5a90240477dc6c16de4",
@@ -4044,11 +3353,7 @@
             "sha3_384_hash": "d518335a5387af1ede844ad3425d8833ff2e93450c3836daf0e36c76e893e5deafe64e40d596b0873f42c0469946b79d",
             "signature": "HellCat",
             "ssdeep": "49152:VSjdLjw5NX2Z2SBUZGWjrNaFG/fSIGfPm8e9EGKXyAcJihpAkJZVg/Jaz:VZXZLEGAcBl/I",
-            "tags": [
-                "exe",
-                "HellCat",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HellCat", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1B9466B83F8E11C94C8B9C274953A8226A9757C0D1B7673EB97D0B6342F333E15AB6B50",
             "trid": [
@@ -4056,8 +3361,8 @@
                 "21.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.ICL) Windows Icons Library (generic) (2059/9)",
                 "8.5% (.EXE) OS/2 Executable (generic) (2029/13)",
-                "8.4% (.EXE) Generic Win/DOS Executable (2002/3)"
-            ]
+                "8.4% (.EXE) Generic Win/DOS Executable (2002/3)",
+            ],
         },
         {
             "anonymous": 0,
@@ -4070,12 +3375,7 @@
             "first_seen": "2025-03-30 07:03:08",
             "gimphash": "None",
             "imphash": "6ed4f5f04d62b18d96b26d6db7c18840",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "406",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "406", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "f5eadd3928e3432e873d813683e174fd",
@@ -4085,11 +3385,7 @@
             "sha3_384_hash": "7453ff20af8ae7f0b0281afef96d43d0df8b8851a0e2a29a3cafa27c8a317e16df420e9503d8cb5a1173bd04a1cd22fb",
             "signature": "HellCat",
             "ssdeep": "196608:ndo2idsri1epw+fgIneY28p5czl2S2lUkEp6OXeJq15Z9Nw:nBidsu1e6+3eYlClDWQlRf",
-            "tags": [
-                "exe",
-                "HellCat",
-                "Ransomware"
-            ],
+            "tags": ["exe", "HellCat", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T12E7633265A1E5C72C62216FEB14822396F17D6C413EABEFC2B5C8E10B67D373B124582",
             "trid": [
@@ -4097,8 +3393,8 @@
                 "24.5% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
                 "4.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "1.8% (.ICL) Windows Icons Library (generic) (2059/9)",
-                "1.8% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "1.8% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -4111,12 +3407,7 @@
             "first_seen": "2025-03-30 06:34:13",
             "gimphash": "None",
             "imphash": "ec87726c07cd7d8c71e0d2c74f21ea77",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "447",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "447", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "a99e3627afb443440686fcb10491d954",
@@ -4126,11 +3417,7 @@
             "sha3_384_hash": "7d7dc5b316943b65b0756dbda584d9698cdf323ce3c0288c0e21eb4c36b0f272040c96fab080cbcd19a848e4f100c27f",
             "signature": "Cloak",
             "ssdeep": "1536:1kLPmzHTE+IpmdeGUtoQimYKmP+h/dgLAnpypJjmxxN6AG4+gT0QX2nouy8:qb8HTE+qmdDUUmR/dg8py/jmHxb/2out",
-            "tags": [
-                "cloak",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["cloak", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1D06302B3F2A31C23CF29263904FDF45BE2C8869C471503DA665D520A48B2B191FA43EB",
             "trid": [
@@ -4138,8 +3425,8 @@
                 "13.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "10.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.1% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.1% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "4.1% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -4152,12 +3439,7 @@
             "first_seen": "2025-03-30 06:34:11",
             "gimphash": "None",
             "imphash": "ec87726c07cd7d8c71e0d2c74f21ea77",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "433",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "433", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "f17d7475ae143611c98e3eb03d3911ef",
@@ -4167,11 +3449,7 @@
             "sha3_384_hash": "e3021338d825da00152edeb07145b3873dddedfa4042a087f6037c5f689cc1c135c7bd828946023d14b2262c574828c2",
             "signature": "Cloak",
             "ssdeep": "1536:bkLPmzHTE+IpmdeGUtoQimYKmP+h/dgLAnpypJjmxx2J/pxFHqtXnouy8:Qb8HTE+qmdDUUmR/dg8py/jmHIhjHqZZ",
-            "tags": [
-                "cloak",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["cloak", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T14A6302FBF7572D17CB28363E04F97017B6D8EA8C664442EF5E0E220148767655F602AA",
             "trid": [
@@ -4179,8 +3457,8 @@
                 "13.3% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "10.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "9.1% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.1% (.EXE) OS/2 Executable (generic) (2029/13)"
-            ]
+                "4.1% (.EXE) OS/2 Executable (generic) (2029/13)",
+            ],
         },
         {
             "anonymous": 0,
@@ -4193,12 +3471,7 @@
             "first_seen": "2025-03-30 06:34:09",
             "gimphash": "None",
             "imphash": "394560d9c73b5168747c25caeda6ba9f",
-            "intelligence": {
-                "clamav": "None",
-                "downloads": "419",
-                "mail": "None",
-                "uploads": "1"
-            },
+            "intelligence": {"clamav": "None", "downloads": "419", "mail": "None", "uploads": "1"},
             "last_seen": "None",
             "magika": "pebin",
             "md5_hash": "4b61967fdf02be7687b1490e15b9fd68",
@@ -4208,11 +3481,7 @@
             "sha3_384_hash": "6aa3bbca3ba6d0da571f2052b782a40c4fb951bfa059db400e7c6116257d9c9bc3066c0ef6b05299618ce85351694810",
             "signature": "Cloak",
             "ssdeep": "3072:rB/5U7rXgNoku2TspaCq7IUnQOuDE4cxmphmSkCRgOupmTZ0Nk5TqhpzWJy43UYl:rR5U7rwN02Tyq7IwQO54eMBkwXKmTZQq",
-            "tags": [
-                "cloak",
-                "exe",
-                "Ransomware"
-            ],
+            "tags": ["cloak", "exe", "Ransomware"],
             "telfhash": "None",
             "tlsh": "T1C804124F8551EDEAC06D2AF560B3295E0DB5884CD04C631A91CB78AFC8F031DB926CF8",
             "trid": [
@@ -4220,9 +3489,9 @@
                 "12.8% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
                 "9.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
                 "8.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
-                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)"
-            ]
-        }
+                "4.0% (.ICL) Windows Icons Library (generic) (2059/9)",
+            ],
+        },
     ],
-    "query_status": "ok"
+    "query_status": "ok",
 }

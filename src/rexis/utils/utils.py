@@ -7,7 +7,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def setup_logging(verbose: bool):
-    level = logging.DEBUG if verbose else logging.ERROR
+    level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(
         level=level,
         format="[%(levelname)s] %(message)s",

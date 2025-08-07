@@ -12,8 +12,8 @@ password = "@get db_password"
 
 # Model metadata
 [models]
-openai = {base_url = "https://api.openai.com/v1", api_key = "@get openai_api_key", embedding_model = "text-embedding-3-small", query_model = "gpt-4o-2024-08-06"}
-deepseek = {base_url = "https://api.deepseek.com", api_key = "@get deepseek_api_key", embedding_model = "text-embedding-3-small", query_model = "deepseek-chat"}
+openai = {base_url = "https://api.openai.com/v1", api_key = "@get openai_api_key", embedding_model = "text-embedding-3-small", embedding_model_limit=8192, query_model = "gpt-4o-2024-08-06"}
+deepseek = {base_url = "https://api.deepseek.com", api_key = "@get deepseek_api_key", embedding_model = "text-embedding-3-small", embedding_model_limit=8192, query_model = "deepseek-chat"}
 
 [pipeline_params]
 retriever_top_k = 5

@@ -1,11 +1,10 @@
-import time
-from typing import List
+from typing import List, Optional
 
 import pyfiglet
 import typer
-from haystack.dataclasses import Document
-from rexis.operations.analyse import analyse
-from rexis.operations.populate_db import fetch_malware_documents, index_documents
+
+# from rexis.operations.analyse import analyse_baseline, analyse_llm_rag
+from rexis.operations.ingest import ingest_exec
 from rexis.utils.utils import LOGGER, get_version, setup_logging
 from rich import print as rich_print
 
@@ -16,30 +15,89 @@ app = typer.Typer(
 )
 
 
-# --- Command: populate_db ---
-@app.command()
-def populate_db(
-    tags: list[str] = typer.Option(..., "-t", "--tags", help="List of tags to fetch samples for.")
+# --- Command: ingest ---
+@app.command("ingest")
+def ingest_data(
+    hash: str = typer.Option(None, "--hash", help="SHA-256 hash of a specific sample."),
+    tags: Optional[str] = typer.Option(
+        None,
+        "--tags",
+        "-t",
+        help="Comma separated list of tags to query samples by. e.g., ransomware,trojan.",
+    ),
+    limit: int = typer.Option(100, "--limit", "-l", help="Max number of samples per tag."),
+    file: str = typer.Option(
+        None, "--file", "-f", help="Path to a file with one SHA-256 hash per line."
+    ),
+    source: str = typer.Option(
+        "all", "--source", "-s", help="Source to use: malwarebazaar, virustotal, or all."
+    ),
+    refresh: bool = typer.Option(
+        False, "--refresh", help="Force re-ingestion even if sample exists in DB."
+    ),
 ):
     """
-    Populate the database with malware documents based on tags.
+    Ingest malware samples and intelligence into the vector database.
 
-    Example:
-    rexis populate-db --tags ransomware trojan banker
+    Examples:
+    - rexis ingest --hash <hash>
+    - rexis ingest --tags ransomware,trojan --limit 50 --source malwarebazaar
+    - rexis ingest --file hashes.txt
     """
-    ingest_data_into_db(tag_list=tags)
+    # Enforce exclusivity: hash > file > tags
+    exclusive_params = [bool(hash), bool(file), bool(tags)]
+    if sum(exclusive_params) > 1:
+        rich_print("[bold red]Error:[/bold red] Only one of --hash, --file, or --tags can be specified at a time.")
+        raise typer.Exit(code=1)
+
+    ingest_exec(
+        hash=hash,
+        tags=[t.strip() for t in tags.split(",")] if tags else None,
+        file_path=file,
+        source=source,
+        refresh=refresh,
+        limit=limit,
+    )
 
 
-# --- Command: prompt (analyze) ---
-@app.command()
-def prompt(query: str = typer.Option(..., "-q", "--query", help="Query string to analyze.")):
-    """
-    Analyze malware behaviour using your indexed database and GPT-4o.
+# # --- Command: baseline ---
+# @app.command("baseline")
+# def baseline_pipeline(
+#     sha256: str = typer.Option(..., "--sha256", help="SHA-256 hash of the malware sample."),
+# ):
+#     """
+#     Run the static baseline pipeline for the given SHA256 sample.
 
-    Example:
-    rexis prompt --query "How does Emotet persist?"
-    """
-    analyze_prompt(query=query)
+#     Example:
+#     rexis baseline --sha256 abc123...
+#     """
+#     result = analyse_baseline(sha256=sha256)
+#     rich_print(f"[bold blue]Baseline Result:[/bold blue] {result}")
+
+
+# # --- Command: llmrag ---
+# @app.command("llmrag")
+# def llmrag_pipeline(
+#     sha256: str = typer.Option(..., "--sha256", help="SHA-256 hash of the malware sample."),
+#     top_k: int = typer.Option(5, "--top-k", help="Number of documents to retrieve."),
+#     temperature: float = typer.Option(0.2, "--temperature", help="LLM response randomness."),
+#     model: str = typer.Option(
+#         "gpt-4o", "--model", help="LLM model to use (e.g., gpt-4o or deepseek-r1)."
+#     ),
+# ):
+#     """
+#     Run the LLM+RAG pipeline for the given SHA256 sample.
+
+#     Example:
+#     rexis llmrag --sha256 abc123... --top-k 5 --temperature 0.3 --model gpt-4o
+#     """
+#     response = analyse_llm_rag(
+#         sha256=sha256,
+#         top_k=top_k,
+#         temperature=temperature,
+#         model=model,
+#     )
+#     rich_print(f"[bold magenta]LLM+RAG Result:[/bold magenta] {response}")
 
 
 # --- Global Callback ---
@@ -47,16 +105,14 @@ def prompt(query: str = typer.Option(..., "-q", "--query", help="Query string to
 def entrypoint(
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Enable verbose debug output."),
     version: bool = typer.Option(
-        False, "--version", "-V", help="Shows the version of REXIS.", is_eager=True
+        False, "--version", "-V", help="Show REXIS version and exit.", is_eager=True
     ),
 ):
     """
-    Entry point for REXIS CLI application.
+    REXIS CLI entry point.
     """
     if version:
-        rich_print(
-            f"[bold magenta] REXIS Static Malware Analysis CLI v{get_version()} 🚀 [/bold magenta]"
-        )
+        rich_print(f"[bold magenta] REXIS CLI v{get_version()} 🚀 [/bold magenta]")
         raise typer.Exit()
 
     rich_print(f"[bold cyan]{pyfiglet.figlet_format('REXIS')}[/bold cyan]")
@@ -65,83 +121,7 @@ def entrypoint(
 
 
 def main():
-    """
-    Main function to run the REXIS CLI application.
-
-    This function serves as the entry point for the REXIS CLI application.
-    It initializes the application and sets up logging based on user input.
-
-    Returns:
-        None
-    """
     app()
-
-
-def ingest_data_into_db(tag_list: List[str] = None) -> None:
-    """
-    Populate the database with malware documents based on the provided tags.
-
-    This function fetches malware documents for each tag in the provided
-    `tag_list` by querying an external source. The fetched documents are
-    then indexed into the database. The function also logs the time taken
-    to fetch documents for each tag.
-
-    Args:
-        tag_list (List[str], optional): A list of tags to query malware
-            documents. Defaults to None.
-
-    Returns:
-        None: This function does not return any value.
-
-    Side Effects:
-        - Fetches malware documents for each tag in `tag_list`.
-        - Indexes the fetched documents into the database.
-        - Prints the time taken for each tag and the total number of
-          indexed documents.
-        - Introduces a 1-second delay between processing each tag.
-    """
-    sample_docs: List[Document] = []
-    for tag in tag_list:
-        LOGGER.info(f"Fetching documents for tag: {tag}")
-        start_time = time.time()
-        try:
-            documents = fetch_malware_documents(
-                query_type="tag",
-                query_value=tag,
-            )
-            sample_docs.extend(documents)
-            elapsed_time = time.time() - start_time
-            LOGGER.info(
-                f"Fetched {len(documents)} documents for tag '{tag}' in {elapsed_time:.2f} seconds."
-            )
-        except Exception as e:
-            LOGGER.error(f"Error fetching documents for tag '{tag}': {e}")
-        time.sleep(1)
-
-    if sample_docs:
-        try:
-            LOGGER.info("Indexing fetched documents into the database.")
-            index_documents(sample_docs)
-            LOGGER.info(f"Successfully indexed {len(sample_docs)} documents.")
-        except Exception as e:
-            LOGGER.error(f"Error indexing documents: {e}")
-    else:
-        LOGGER.warning("No documents fetched. Skipping indexing.")
-
-
-def analyze_prompt(query: str) -> None:
-    """
-    Analyzes the given query by passing it to the `analyse` function.
-
-    Args:
-        query (str): The input string to be analyzed.
-
-    Returns:
-        None
-    """
-    response = analyse(query=query)
-    rich_print(f"[bold green]Response:[/bold green] {response}")
-    LOGGER.info(f"Analysis completed for query: {query}")
 
 
 if __name__ == "__main__":
