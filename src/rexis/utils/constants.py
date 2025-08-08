@@ -1,5 +1,5 @@
-from rexis.utils.config import settings
+from rexis.utils.config import config
 
 DATABASE_CONNECTION_CONNSTRING: str = (
-    f"postgresql://{settings.db.user}:{settings.db.password}@{settings.db.host}:{settings.db.port}/{settings.db.name}"
+    f"postgresql://{config.db.user}:{config.db.password}@{config.db.host}:{config.db.port}/{config.db.name}"
 )
