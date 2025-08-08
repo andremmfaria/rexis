@@ -1,11 +1,11 @@
 from pathlib import Path
-from typing import List, Optional
+from typing import Optional
 
-import typer
 import click
-
+import typer
 from rexis.cli.utils import ensure_exactly_one, make_batches
 from rexis.operations.ingest_malwarebazaar import ingest_malwarebazaar_exec
+from rexis.operations.ingest_vxunderground import ingest_vxunderground_exec
 from rexis.utils.utils import LOGGER
 
 
@@ -91,26 +91,22 @@ def ingest_vxu(
         "--type",
         help="Type of data",
         case_sensitive=False,
-        click_type=click.Choice(["apt", "paper", "sample"], case_sensitive=False),
+        click_type=click.Choice(["apt", "paper"], case_sensitive=False),
     ),
     year: Optional[int] = typer.Option(None, help="Year filter (required for type=apt)"),
-    samples: bool = typer.Option(False, help="Download samples (apt mode)"),
     papers: bool = typer.Option(False, help="Download papers (apt mode)"),
     path: Optional[str] = typer.Option(None, help="Specific path (required for type=paper)"),
 ):
     """
-        Ingest data from VX-Underground with strict parameter validation.
+    Ingest data from VX-Underground with strict parameter validation.
 
     Parameters:
-        type (Literal["apt", "paper", "sample"]):
+        type (Literal["apt", "paper"]):
             Specifies the type of data to ingest.
-            - "apt": Advanced Persistent Threat data (requires --year and at least one of --samples or --papers).
+            - "apt": Advanced Persistent Threat data (requires --year and --papers).
             - "paper": Research papers (requires --path).
-            - "sample": Malware samples (requires --year; behaves like "apt" with --samples).
         year (Optional[int]):
-            Year filter for the data. Required for "apt" and "sample" types.
-        samples (bool):
-            If set, downloads samples (only applicable for "apt" type).
+            Year filter for the data. Required for "apt" type.
         papers (bool):
             If set, downloads papers (only applicable for "apt" type).
         path (Optional[str]):
@@ -119,33 +115,31 @@ def ingest_vxu(
     Raises:
         typer.BadParameter:
             If required parameters are missing or invalid combinations are provided.
-
-    Behavior:
-        - For type="apt": Requires --year and at least one of --samples or --papers.
-        - For type="paper": Requires --path.
-        - For type="sample": Requires --year and downloads samples for the specified year.
-
-    Logs the intended ingestion action based on the provided parameters.
     """
     if type == "apt":
         if year is None:
             raise typer.BadParameter("type=apt requires --year.")
-        if not (samples or papers):
-            raise typer.BadParameter("type=apt requires at least one of --samples or --papers.")
-        LOGGER.info("[VXU] type=apt | year=%d | samples=%s | papers=%s", year, samples, papers)
-        LOGGER.info("Would download APT %d: samples=%s, papers=%s", year, samples, papers)
+        if not papers:
+            raise typer.BadParameter("type=apt requires --papers.")
+        LOGGER.info("[VXU] type=apt | year=%d | papers=%s", year, papers)
+        ingest_vxunderground_exec(
+            type="apt",
+            year=year,
+            samples=False,
+            papers=papers,
+            batch=50,
+        )
 
     elif type == "paper":
         if not path:
             raise typer.BadParameter("type=paper requires --path.")
         LOGGER.info("[VXU] type=paper | path=%s", path)
-        LOGGER.info("Would download papers from path: %s", path)
-
-    elif type == "sample":
-        if year is None:
-            raise typer.BadParameter("type=sample requires --year.")
-        LOGGER.info("[VXU] type=sample | year=%d", year)
-        LOGGER.info("Would download samples for year %d.", year)
+        ingest_vxunderground_exec(
+            type="paper",
+            path=path,
+            papers=True,
+            batch=50,
+        )
 
 
 def ingest_malpedia(

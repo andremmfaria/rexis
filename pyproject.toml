@@ -18,6 +18,8 @@ dependencies = [
     "typer>=0.15.2",
     "pyghidra>=2.1.0",
     "tiktoken>=0.10.0",
+    "beautifulsoup4>=4.13.4",
+    "pymupdf>=1.26.3",
 ]
 
 [project.scripts]

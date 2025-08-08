@@ -10,6 +10,15 @@ name = "rexis"
 user = "postgres"
 password = "@get db_password"
 
+# Ingestion settings
+[ingestion]
+[ingestion.vxu]
+base_url = "https://vx-underground.org"
+download_dir = "./data/vx_underground"
+user_agent = "rexis-ingestor/1.0 (+https://github.com/andremmfaria/rexis)"
+req_timeout = 30
+rate_delay_sec = 0.5
+
 # Model metadata
 [models]
 openai = {base_url = "https://api.openai.com/v1", api_key = "@get openai_api_key", embedding_model = "text-embedding-3-small", embedding_model_limit=8192, query_model = "gpt-4o-2024-08-06"}
