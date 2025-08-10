@@ -21,6 +21,7 @@ dependencies = [
     "beautifulsoup4>=4.13.4",
     "pymupdf>=1.26.3",
     "cloudscraper>=1.2.71",
+    "nltk>=3.9.1",
 ]
 
 [project.scripts]

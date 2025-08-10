@@ -7,6 +7,7 @@ import pymupdf
 from haystack import Document
 from rexis.facade.haystack import index_documents
 from rexis.utils.utils import LOGGER
+from rexis.utils.config import config
 
 
 def ingest_file_exec(
@@ -93,7 +94,6 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
             LOGGER.warning("Empty text extracted from %s", path)
             return
 
-        # Build payload (what goes into .content)
         payload = {
             "local_path": str(path.resolve()),
             "title": path.stem,
@@ -117,7 +117,7 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
         )
 
         LOGGER.info("Indexing 1 PDF document: %s", path.name)
-        index_documents([doc], refresh=True)
+        index_documents(documents=[doc], refresh=True, doc_type="prose")
 
     except Exception as e:
         LOGGER.error("Failed to ingest PDF %s: %s", path, e, exc_info=True)
@@ -150,7 +150,7 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
                 "metadata": metadata or {},
             }
 
-            hash_val = (_stable_doc_id_from_path(path),)
+            hash_val = _stable_doc_id_from_path(path)
 
             doc = Document(
                 id=f"file_pdf::{hash_val}",
@@ -167,7 +167,7 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
 
             if len(prepared) >= batch:
                 LOGGER.info("Indexing batch: %d docs (progress %d/%d)", len(prepared), i, total)
-                index_documents(prepared, refresh=True)
+                index_documents(documents=prepared, refresh=True, doc_type="prose")
                 prepared = []
 
         except Exception as e:

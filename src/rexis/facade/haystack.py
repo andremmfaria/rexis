@@ -1,7 +1,7 @@
 import json
-from typing import Any, Dict, List
+from typing import Dict, List, Literal
 
-import numpy as np
+import tiktoken
 from haystack.components.embedders import OpenAIDocumentEmbedder
 from haystack.components.preprocessors import DocumentSplitter
 from haystack.components.writers import DocumentWriter
@@ -14,18 +14,23 @@ from rexis.utils.constants import DATABASE_CONNECTION_CONNSTRING
 from rexis.utils.utils import LOGGER
 
 
-def index_documents(documents: List[Document], refresh: bool = True) -> None:
+def index_documents(
+    documents: List[Document], refresh: bool = True, doc_type: Literal["prose", "json"] = "prose"
+) -> None:
+    """
+    Index documents with chunking strategy based on doc_type.
+    doc_type: 'prose' for English/natural language, 'json' for JSON/technical files.
+    """
     if not documents:
         LOGGER.warning("No documents provided for indexing.")
         return
 
-    LOGGER.info("Starting indexing for %d documents...", len(documents))
+    LOGGER.info("Starting indexing for %d documents (type=%s)...", len(documents), doc_type)
 
     prepped_docs: List[Document] = _prepare_documents_for_indexing(documents)
-    chunked_docs: List[Document] = _split_documents(prepped_docs)
+    chunked_docs: List[Document] = _split_documents(prepped_docs, doc_type=doc_type)
     embedded_chunks: List[Document] = _embed_chunks(chunked_docs)
-    rejoined_documents: List[Document] = _rejoin_embedded_chunks(embedded_chunks)
-    _write_documents_to_db(rejoined_documents, refresh=refresh)
+    _write_documents_to_db(embedded_chunks, refresh=refresh)
     LOGGER.info("Indexing complete.")
 
 
@@ -43,33 +48,72 @@ def _prepare_documents_for_indexing(documents: List[Document]) -> List[Document]
     return prepped_docs
 
 
-def _split_documents(documents: List[Document]) -> List[Document]:
-    # Create a DocumentSplitter instance to split documents by words,
-    # with each chunk containing up to 400 words and 50 words overlap between chunks.
-    splitter: DocumentSplitter = DocumentSplitter(
-        split_by="word",
-        split_length=400,
-        split_overlap=50,
-        respect_sentence_boundary=False,
-    )
+def _split_documents(documents: List[Document], doc_type: str = "prose") -> List[Document]:
+    if doc_type == "prose":
+        splitter = DocumentSplitter(
+            split_by="word",
+            split_length=500,
+            split_overlap=50,
+            respect_sentence_boundary=True,
+        )
+        LOGGER.info("Splitting documents into chunks (word-based, length=500, overlap=50)...")
+    elif doc_type == "json":
+        splitter = DocumentSplitter(
+            split_by="character",
+            split_length=4000,
+            split_overlap=400,
+        )
+        LOGGER.info(
+            "Splitting documents into chunks (character-based, length=4000, overlap=400)..."
+        )
+    else:
+        raise ValueError(f"Unknown doc_type: {doc_type}")
 
-    LOGGER.info("Splitting documents into chunks (word-based, length=400, overlap=50)...")
-
-    # Run the splitter on the input documents. This returns a dict with a "documents" key.
+    splitter.warm_up()
     split_result = splitter.run(documents=documents)
-
-    # Extract the list of split (chunked) documents from the result.
     chunked_docs: List[Document] = split_result.get("documents", [])
+
+    # Get model and limit from config
+    embedding_model = config.models.openai.embedding_model
+    max_tokens = getattr(config.models.openai, "embedding_model_limit", 8192)
+    enc = tiktoken.encoding_for_model(embedding_model)
+
+    def split_by_tokens(text: str, max_tokens: int) -> list:
+        tokens = enc.encode(text)
+        if len(tokens) <= max_tokens:
+            return [text]
+        # Split tokens into even chunks
+        chunks = []
+        for i in range(0, len(tokens), max_tokens):
+            chunk_tokens = tokens[i:i+max_tokens]
+            chunk_text = enc.decode(chunk_tokens)
+            chunks.append(chunk_text)
+        return chunks
+
+    safe_chunks: List[Document] = []
+    for d in chunked_docs:
+        tokens = enc.encode(d.content)
+        if len(tokens) > max_tokens:
+            subchunks = split_by_tokens(d.content, max_tokens)
+            for i, sub in enumerate(subchunks):
+                new_doc = Document(
+                    id=f"{d.id}::subchunk-{i}",
+                    content=sub,
+                    meta=dict(d.meta),
+                )
+                safe_chunks.append(new_doc)
+        else:
+            safe_chunks.append(d)
 
     LOGGER.info(
         "Chunking complete. %d chunks produced from %d input documents.",
-        len(chunked_docs),
+        len(safe_chunks),
         len(documents),
     )
 
     # Group the chunked documents by their parent document ID.
     by_parent: Dict[str, List[Document]] = {}
-    for d in chunked_docs:
+    for d in safe_chunks:
         parent_id = d.meta.get("parent_id") or d.id
         if parent_id not in by_parent:
             by_parent[parent_id] = []
@@ -84,8 +128,7 @@ def _split_documents(documents: List[Document]) -> List[Document]:
             ch.meta["total_chunks"] = total
             ch.id = f"{parent_id}::chunk-{idx}"
 
-    # Return the list of all chunked documents.
-    return chunked_docs
+    return safe_chunks
 
 
 def _embed_chunks(chunked_docs: List[Document]) -> List[Document]:
@@ -98,55 +141,6 @@ def _embed_chunks(chunked_docs: List[Document]) -> List[Document]:
     embedded_chunks: List[Document] = emb_result["documents"]
     LOGGER.info("Embedding complete. %d chunks embedded.", len(embedded_chunks))
     return embedded_chunks
-
-
-def _rejoin_embedded_chunks(embedded_chunks: List[Document]) -> List[Document]:
-    # Group chunks by their parent_id (or their own id if parent_id is missing)
-    grouped_chunks: Dict[str, List[Document]] = {}
-    for ch in embedded_chunks:
-        parent_id: str = ch.meta.get("parent_id", ch.id)
-        # Initialize the list if this parent_id hasn't been seen yet
-        if parent_id not in grouped_chunks:
-            grouped_chunks[parent_id] = []
-        grouped_chunks[parent_id].append(ch)
-
-    LOGGER.info("Rejoining embedded chunks back to parent documents...")
-    rejoined_documents: List[Document] = []
-    for parent_id, chunks in grouped_chunks.items():
-        # If there's only one chunk and it's not a split chunk, just keep it as is
-        if len(chunks) == 1 and "::chunk-" not in chunks[0].id:
-            rejoined_documents.extend(chunks)
-            continue
-
-        # Collect all available embeddings for the chunks
-        vecs: List[np.ndarray] = [
-            np.array(ch.embedding, dtype=np.float32) for ch in chunks if ch.embedding is not None
-        ]
-        if not vecs:
-            # If no embeddings are found, skip this group
-            LOGGER.warning("No embeddings found for parent_id=%s; skipping.", parent_id)
-            continue
-        # Average the embeddings to create a single embedding for the rejoined document
-        avg_embedding: List[float] = np.mean(vecs, axis=0).tolist()
-        # Combine the content of all chunks, sorted by their chunk_index
-        combined_content: str = "\n\n".join(
-            ch.content for ch in sorted(chunks, key=lambda x: x.meta.get("chunk_index", 0))
-        )
-        # Copy the metadata from the first chunk, removing chunk-specific keys
-        base_meta: Dict[str, Any] = dict(chunks[0].meta or {})
-        base_meta.pop("chunk_index", None)
-        base_meta.pop("total_chunks", None)
-        # Create a new Document representing the rejoined parent document
-        rejoined_documents.append(
-            Document(
-                id=parent_id,
-                content=combined_content,
-                embedding=avg_embedding,
-                meta=base_meta,
-            )
-        )
-    LOGGER.info("Rejoin complete. %d parent documents ready to write.", len(rejoined_documents))
-    return rejoined_documents
 
 
 def _write_documents_to_db(documents: List[Document], refresh: bool = True) -> None:

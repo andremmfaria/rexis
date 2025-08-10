@@ -74,7 +74,7 @@ def _process_and_index(documents_batch):
     documents_batch: List[Document]
     if documents_batch:
         LOGGER.info(f"Indexing {len(documents_batch)} documents...")
-        index_documents(documents=documents_batch)
+        index_documents(documents=documents_batch, refresh=True, doc_type="json")
         LOGGER.info("Batch indexing completed.")
 
 
