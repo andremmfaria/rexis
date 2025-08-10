@@ -95,7 +95,6 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
             return
 
         payload = {
-            "local_path": str(path.resolve()),
             "title": path.stem,
             "extracted_text": _normalize_whitespace(text),
             "metadata": metadata or {},
@@ -144,7 +143,6 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
                 continue
 
             payload = {
-                "local_path": str(path.resolve()),
                 "title": path.stem,
                 "extracted_text": _normalize_whitespace(text),
                 "metadata": metadata or {},
@@ -204,23 +202,17 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
 
 
 def _pdf_to_text(path: Path) -> str:
-    """
-    Extracts and concatenates text from all pages of a PDF file.
-
-    Args:
-        path (Path): The file path to the PDF document.
-
-    Returns:
-        str: The extracted text from the PDF, with pages separated by newlines.
-
-    Raises:
-        FileNotFoundError: If the specified PDF file does not exist.
-        Exception: If there is an error opening or reading the PDF file.
-    """
     parts: List[str] = []
-    with pymupdf.open(path) as doc:
-        for page in doc:
-            parts.append(page.get_text("text"))
+    try:
+        with pymupdf.open(path) as doc:
+            for page in doc:
+                try:
+                    parts.append(page.get_text("text"))
+                except Exception as e:
+                    LOGGER.warning(f"MuPDF warning on page extraction ({path}): {e}")
+    except Exception as e:
+        LOGGER.error(f"Failed to open PDF {path}: {e}")
+        return ""
     return "\n".join(parts)
 
 

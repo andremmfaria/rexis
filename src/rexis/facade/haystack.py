@@ -1,3 +1,4 @@
+from rexis.facade.tagger import tag_chunk
 import json
 from typing import Dict, List, Literal
 
@@ -127,6 +128,16 @@ def _split_documents(documents: List[Document], doc_type: str = "prose") -> List
             ch.meta["chunk_index"] = idx
             ch.meta["total_chunks"] = total
             ch.id = f"{parent_id}::chunk-{idx}"
+            LOGGER.info(f"Chunk created: {ch.id} (parent: {parent_id}, index: {idx}/{total})")
+
+    # --- Tagging: Add LLM-generated tags to each chunk's metadata ---
+    for chunk in safe_chunks:
+        tags = tag_chunk(chunk.content)
+        LOGGER.info(f"Generated tags for chunk {chunk.id}: {tags}")
+        if tags:
+            chunk.meta["tags"] = tags
+        else:
+            chunk.meta["tags"] = []
 
     return safe_chunks
 

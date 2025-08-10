@@ -6,6 +6,7 @@ from typing import List, Optional, Tuple
 from haystack import Document
 from rexis.facade.haystack import index_documents
 from rexis.facade.malware_bazaar import query_malware_bazaar
+from rexis.facade.tagger import tag_chunk
 from rexis.utils.utils import LOGGER
 
 
@@ -216,9 +217,8 @@ def _wrap_malwarebazaar_documents(api_data: List[dict]) -> List[Document]:
         hash_val: str = sample.get("sha256_hash", "")
         content: str = json.dumps(sample)
         tags: List = sample.get("tags", [])
-        # Try to get timestamp fields, fallback to None if not present
-        first_seen = sample.get("first_seen", None)
-        last_seen = sample.get("last_seen", None)
+        llm_tags = tag_chunk(content)
+        all_tags = list(set(tags + llm_tags)) if llm_tags else tags
         LOGGER.debug(f"Creating Document for sha256: {hash_val}")
         documents.append(
             Document(
@@ -226,9 +226,9 @@ def _wrap_malwarebazaar_documents(api_data: List[dict]) -> List[Document]:
                 content=content,
                 meta={
                     "sha256": hash_val,
-                    "tags": tags,
-                    "first_seen": first_seen,
-                    "last_seen": last_seen,
+                    "tags": all_tags,
+                    "first_seen": sample.get("first_seen", None),
+                    "last_seen": sample.get("last_seen", None),
                     "imported_time": imported_time,
                 },
             )

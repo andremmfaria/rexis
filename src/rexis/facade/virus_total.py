@@ -34,37 +34,3 @@ def query_virustotal(hash: str) -> Dict[Any, Any]:
     finally:
         client.close()
         LOGGER.info(f"VirusTotal client closed for hash: {hash}")
-
-
-def process_metadata_for_embedding(file_hash: str) -> Dict[str, Any]:
-    """
-    Processes the metadata retrieved from VirusTotal and formats it for embedding into Haystack AI.
-
-    Args:
-        file_hash (str): The hash of the file to retrieve and process metadata for.
-
-    Returns:
-        Dict[str, Any]: A dictionary containing the processed metadata ready for embedding.
-    """
-    LOGGER.info(f"Starting to process metadata for file hash: {file_hash}")
-    try:
-        metadata = get_malware_metadata(file_hash)
-        LOGGER.info(f"Metadata retrieved successfully for file hash: {file_hash}")
-
-        # Extract relevant fields for embedding
-        processed_metadata = {
-            "file_hash": file_hash,
-            "scan_date": metadata.get("scan_date"),
-            "positives": metadata.get("positives"),
-            "total": metadata.get("total"),
-            "permalink": metadata.get("permalink"),
-            "file_type": metadata.get("type"),
-            "file_size": metadata.get("size"),
-            "additional_info": metadata.get("additional_info", {}),
-        }
-
-        LOGGER.info(f"Metadata processed successfully for file hash: {file_hash}")
-        return processed_metadata
-    except Exception as e:
-        LOGGER.error(f"Error processing metadata for file hash {file_hash}: {e}")
-        raise
