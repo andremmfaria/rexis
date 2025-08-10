@@ -27,8 +27,8 @@ def index_documents(documents: List[Document], refresh: bool = True) -> None:
     rejoined_documents: List[Document] = _rejoin_embedded_chunks(embedded_chunks)
     _write_documents_to_db(rejoined_documents, refresh=refresh)
     LOGGER.info("Indexing complete.")
-    
-    
+
+
 def _prepare_documents_for_indexing(documents: List[Document]) -> List[Document]:
     prepped_docs: List[Document] = []
     for doc in documents:

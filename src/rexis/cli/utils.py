@@ -1,6 +1,13 @@
 import typer
 
 
+def validate_file_type(value: str):
+    allowed = {"pdf", "html", "text"}
+    if value not in allowed:
+        raise typer.BadParameter(f"--type must be one of {allowed}.")
+    return value
+
+
 def ensure_exactly_one(label: str, **kwargs) -> str:
     """
     Ensure exactly one of the provided keyword args is not None/empty.

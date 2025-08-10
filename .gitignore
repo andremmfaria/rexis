@@ -214,3 +214,4 @@ pyrightconfig.json
 
 config/.secrets.toml
 .pdm-build/
+data/

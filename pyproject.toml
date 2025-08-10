@@ -20,6 +20,7 @@ dependencies = [
     "tiktoken>=0.10.0",
     "beautifulsoup4>=4.13.4",
     "pymupdf>=1.26.3",
+    "cloudscraper>=1.2.71",
 ]
 
 [project.scripts]

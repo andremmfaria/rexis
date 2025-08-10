@@ -12,12 +12,6 @@ password = "@get db_password"
 
 # Ingestion settings
 [ingestion]
-[ingestion.vxu]
-base_url = "https://vx-underground.org"
-download_dir = "./data/vx_underground"
-user_agent = "rexis-ingestor/1.0 (+https://github.com/andremmfaria/rexis)"
-req_timeout = 30
-rate_delay_sec = 0.5
 
 # Model metadata
 [models]

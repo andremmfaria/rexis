@@ -1,13 +1,9 @@
 import pyfiglet
-import typer
 import rich
-
-from rexis.utils.utils import get_version, setup_logging
-
 import typer
-
-from rexis.cli.ingestion_commands import ingest_malwarebazaar, ingest_malpedia, ingest_vxu
+from rexis.cli.ingestion_commands import ingest_api, ingest_file
 from rexis.cli.query_commands import baseline_query, llmrag_query
+from rexis.utils.utils import get_version, setup_logging
 
 cli_app = typer.Typer(
     help="🚀 REXIS Static Malware Analysis CLI",
@@ -19,9 +15,8 @@ ingest_app = typer.Typer(help="Data ingestion commands")
 cli_app.add_typer(ingest_app, name="ingest")
 
 # Register ingestion commands
-ingest_app.command("malwarebazaar")(ingest_malwarebazaar)
-ingest_app.command("malpedia")(ingest_malpedia)
-ingest_app.command("vxu")(ingest_vxu)
+ingest_app.command("api")(ingest_api)
+ingest_app.command("file")(ingest_file)
 
 query_app = typer.Typer(help="Data query commands")
 cli_app.add_typer(query_app, name="query")

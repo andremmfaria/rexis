@@ -1,25 +1,33 @@
 from pathlib import Path
-from typing import Optional
+from typing import Dict, List, Optional, Tuple
 
-import click
 import typer
-from rexis.cli.utils import ensure_exactly_one, make_batches
-from rexis.operations.ingest_malwarebazaar import ingest_malwarebazaar_exec
-from rexis.operations.ingest_vxunderground import ingest_vxunderground_exec
+from rexis.cli.utils import ensure_exactly_one, make_batches, validate_file_type
+from rexis.operations.ingest_api import ingest_api_exec
+from rexis.operations.ingest_file import ingest_file_exec
 from rexis.utils.utils import LOGGER
 
 
-def ingest_malwarebazaar(
-    tags: Optional[str] = typer.Option(None, help="Tags to search for"),
-    fetch_limit: Optional[int] = typer.Option(None, help="How many entries to fetch from the API"),
-    batch: Optional[int] = typer.Option(None, help="Batch size to split results into"),
-    hash: Optional[str] = typer.Option(None, help="Single SHA256 hash to fetch"),
+def ingest_api(
+    tags: Optional[str] = typer.Option(None, "--tags", "-t", help="Tags to search for"),
+    fetch_limit: Optional[int] = typer.Option(
+        None, "--fetch-limit", "-l", help="How many entries to fetch from the API", min=1
+    ),
+    batch: Optional[int] = typer.Option(
+        None, "--batch", "-b", help="Batch size to split results into", min=1
+    ),
+    hash: Optional[str] = typer.Option(None, "--hash", "-s", help="Single SHA256 hash to fetch"),
     hash_file: Optional[Path] = typer.Option(
-        None, exists=True, dir_okay=False, help="File with newline-separated hashes"
+        None,
+        "--hash-file",
+        "-f",
+        exists=True,
+        dir_okay=False,
+        help="File with newline-separated hashes",
     ),
 ):
     """
-    Ingest data from MalwareBazaar with strict parameter validation.
+    Ingest data from the MalwareBazaar API with strict parameter validation.
 
     Exactly one of --tags, --hash, or --hash_file must be provided.
 
@@ -40,8 +48,8 @@ def ingest_malwarebazaar(
     Raises:
         typer.BadParameter: If parameter constraints are violated.
     """
-    choice = ensure_exactly_one(
-        "malwarebazaar",
+    choice: str = ensure_exactly_one(
+        "api",
         tags=tags or None,
         hash=hash,
         hash_file=str(hash_file) if hash_file else None,
@@ -53,26 +61,32 @@ def ingest_malwarebazaar(
         if batch is None or batch <= 0:
             raise typer.BadParameter("--batch must be provided and > 0 when using --tags.")
 
-        batches = make_batches(fetch_limit, batch)
+        batches: List[Tuple[int, int]] = make_batches(fetch_limit, batch)
         LOGGER.info(
-            "[MalwareBazaar] Tags=%s | fetch_limit=%d | batch=%d | batches=%d",
+            "[API] Tags=%s | fetch_limit=%d | batch=%d | batches=%d",
             tags,
             fetch_limit,
             batch,
             len(batches),
         )
-        for i, (s, e) in enumerate(batches, 1):
-            LOGGER.debug("Batch %d: [%d, %d) size=%d", i, s, e, e - s)
+        for batch_index, (start_idx, end_idx) in enumerate(batches, 1):
+            LOGGER.debug(
+                "Batch %d: [start=%d, end=%d) size=%d",
+                batch_index,
+                start_idx,
+                end_idx,
+                end_idx - start_idx,
+            )
 
-        ingest_malwarebazaar_exec(tags=tags, fetch_limit=fetch_limit, batch=batch)
+        ingest_api_exec(tags=tags, fetch_limit=fetch_limit, batch=batch)
 
     elif choice == "hash":
         if any(v is not None for v in (fetch_limit, batch, hash_file)):
             raise typer.BadParameter(
                 "--hash cannot be combined with --fetch_limit/--batch/--hash_file."
             )
-        LOGGER.info("[MalwareBazaar] Single hash=%s", hash)
-        ingest_malwarebazaar_exec(hash=hash)
+        LOGGER.info("[API] Single hash=%s", hash)
+        ingest_api_exec(hash=hash)
 
     elif choice == "hash_file":
         if any(v is not None for v in (fetch_limit, batch, hash)):
@@ -81,102 +95,81 @@ def ingest_malwarebazaar(
             )
         with open(hash_file, "r", encoding="utf-8") as f:
             hashes = [line.strip() for line in f if line.strip()]
-        LOGGER.info("[MalwareBazaar] %d hashes loaded from %s", len(hashes), hash_file)
-        ingest_malwarebazaar_exec(hash_file=hash_file)
+        LOGGER.info("[API] %d hashes loaded from %s", len(hashes), hash_file)
+        ingest_api_exec(hash_file=hash_file)
 
 
-def ingest_vxu(
+def ingest_file(
     type: str = typer.Option(
         ...,
         "--type",
-        help="Type of data",
+        "-t",
+        help="File type to ingest: pdf, html, or text",
+        show_choices=True,
         case_sensitive=False,
-        click_type=click.Choice(["apt", "paper"], case_sensitive=False),
+        callback=validate_file_type,
     ),
-    year: Optional[int] = typer.Option(None, help="Year filter (required for type=apt)"),
-    papers: bool = typer.Option(False, help="Download papers (apt mode)"),
-    path: Optional[str] = typer.Option(None, help="Specific path (required for type=paper)"),
+    dir: Optional[Path] = typer.Option(
+        None,
+        "--dir",
+        "-d",
+        exists=True,
+        file_okay=False,
+        dir_okay=True,
+        help="Directory of files to ingest (batch mode)",
+    ),
+    file: Optional[Path] = typer.Option(
+        None,
+        "--file",
+        "-f",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="Single file to ingest",
+    ),
+    batch: int = typer.Option(
+        50, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
+    ),
+    metadata: Optional[List[str]] = typer.Option(
+        None,
+        "--metadata",
+        "-m",
+        help="Arbitrary metadata as key=value pairs. Can be used multiple times.",
+    ),
 ):
     """
-    Ingest data from VX-Underground with strict parameter validation.
-
-    Parameters:
-        type (Literal["apt", "paper"]):
-            Specifies the type of data to ingest.
-            - "apt": Advanced Persistent Threat data (requires --year and --papers).
-            - "paper": Research papers (requires --path).
-        year (Optional[int]):
-            Year filter for the data. Required for "apt" type.
-        papers (bool):
-            If set, downloads papers (only applicable for "apt" type).
-        path (Optional[str]):
-            Specific path to download papers from (required for "paper" type).
-
-    Raises:
-        typer.BadParameter:
-            If required parameters are missing or invalid combinations are provided.
+    Ingest local files already on disk.
+    Exactly one of --dir or --file must be provided.
     """
-    if type == "apt":
-        if year is None:
-            raise typer.BadParameter("type=apt requires --year.")
-        if not papers:
-            raise typer.BadParameter("type=apt requires --papers.")
-        LOGGER.info("[VXU] type=apt | year=%d | papers=%s", year, papers)
-        ingest_vxunderground_exec(
-            type="apt",
-            year=year,
-            samples=False,
-            papers=papers,
-            batch=50,
-        )
+    provided: List[str] = [
+        name for name, val in {"--dir": dir, "--file": file}.items() if val is not None
+    ]
+    if len(provided) != 1:
+        raise typer.BadParameter("Exactly one of --dir or --file must be provided.")
 
-    elif type == "paper":
-        if not path:
-            raise typer.BadParameter("type=paper requires --path.")
-        LOGGER.info("[VXU] type=paper | path=%s", path)
-        ingest_vxunderground_exec(
-            type="paper",
-            path=path,
-            papers=True,
-            batch=50,
-        )
+    metadata_dict: Dict[str, str] = {}
+    if metadata:
+        for item in metadata:
+            if "=" not in item:
+                raise typer.BadParameter(f"Metadata must be in key=value format: {item}")
+            key, value = item.split("=", 1)
+            key, value = key.strip(), value.strip()
+            if key in metadata_dict:
+                raise typer.BadParameter(f"Duplicate metadata key: '{key}'")
+            metadata_dict[key] = value
 
+    LOGGER.info(
+        "[FILE] type=%s | mode=%s | batch=%d | metadata=%s",
+        type,
+        "dir" if dir else "file",
+        batch,
+        metadata_dict,
+    )
 
-def ingest_malpedia(
-    page: Optional[int] = typer.Option(None, help="Page number to fetch (>= 1)"),
-    search: Optional[str] = typer.Option(None, help="Keyword to search for"),
-):
-    """
-    Ingest data from Malpedia using either a page number or a search keyword.
-
-    This command allows you to fetch data from Malpedia in two mutually exclusive ways:
-    - By specifying a page number (with --page), you can fetch a specific page of Malpedia documents.
-    - By specifying a search keyword (with --search), you can search Malpedia for documents matching the keyword.
-
-
-    Parameters:
-        page (Optional[int]): The page number to fetch (must be >= 1). Mutually exclusive with 'search'.
-        search (Optional[str]): The keyword to search for in Malpedia. Mutually exclusive with 'page'.
-
-    Raises:
-        typer.BadParameter: If neither or both of --page and --search are provided, or if the provided value is invalid.
-
-    Usage examples:
-        $ rexis ingest-malpedia --page 2
-        $ rexis ingest-malpedia --search "ransomware"
-    """
-    choice = ensure_exactly_one("malpedia", page=page, search=search)
-
-    if choice == "page":
-        if page is None or page < 1:
-            raise typer.BadParameter("--page must be >= 1.")
-        LOGGER.info("[Malpedia] Fetching page=%d", page)
-        # Placeholder for real ingestion:
-        LOGGER.info("Would fetch Malpedia documents from page %d.", page)
-
-    elif choice == "search":
-        if not search or not search.strip():
-            raise typer.BadParameter("--search must be a non-empty keyword.")
-        LOGGER.info("[Malpedia] Searching for keyword='%s'", search)
-        # Placeholder for real ingestion:
-        LOGGER.info("Would search Malpedia for keyword '%s'.", search)
+    ingest_file_exec(
+        ftype=type,
+        target_dir=dir,
+        target_file=file,
+        batch=batch,
+        metadata=metadata_dict,
+    )
