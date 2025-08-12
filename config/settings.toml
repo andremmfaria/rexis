@@ -13,6 +13,7 @@ password = "@get db_password"
 
 # Ingestion settings
 [ingestion]
+malpedia_base_url = "https://malpedia.caad.fkie.fraunhofer.de"
 
 # Model metadata
 [models]

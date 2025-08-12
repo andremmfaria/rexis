@@ -1,7 +1,7 @@
 import pyfiglet
 import rich
 import typer
-from rexis.cli.ingestion_commands import ingest_api, ingest_file
+from rexis.cli.ingestion_commands import collect_malpedia, ingest_api, ingest_file
 from rexis.cli.query_commands import baseline_query, llmrag_query
 from rexis.utils.utils import get_version, setup_logging
 
@@ -11,17 +11,22 @@ cli_app = typer.Typer(
     no_args_is_help=True,
 )
 
+collect_app = typer.Typer(help="Data collection commands")
+cli_app.add_typer(collect_app, name="collect")
+
+collect_app.command("malpedia")(collect_malpedia)
+
+
 ingest_app = typer.Typer(help="Data ingestion commands")
 cli_app.add_typer(ingest_app, name="ingest")
 
-# Register ingestion commands
 ingest_app.command("api")(ingest_api)
 ingest_app.command("file")(ingest_file)
+
 
 query_app = typer.Typer(help="Data query commands")
 cli_app.add_typer(query_app, name="query")
 
-# Register query commands
 query_app.command("baseline")(baseline_query)
 query_app.command("llmrag")(llmrag_query)
 

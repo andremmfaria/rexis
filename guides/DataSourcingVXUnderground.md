@@ -1,26 +1,28 @@
 # VX‑Underground → URL Collection → Download → Ingest (Rexis)
 
-This guide shows how to **collect signed PDF URLs in the browser**, save them to a `.txt`, then **download** and **ingest** the PDFs into your RAG datastore.
+This guide shows how to use your browser to **collect signed PDF links and trigger downloads** from VX‑Underground, then **ingest** the PDFs into your RAG datastore.
 
-> Why this flow? VX‑Underground sits behind Cloudflare and serves **time‑limited signed Backblaze B2 links**. Collecting URLs inside a *real browser session* avoids bot challenges; downloading happens locally afterward.
+> Why this flow? VX‑Underground sits behind Cloudflare and serves **time‑limited signed Backblaze B2 links**. Collecting links and downloading inside a *real browser session* avoids bot challenges; the files land locally and are ready for ingest.
+
+> See also: the ingestion companion guide — `guides/IngestVXUnderground.md`.
 
 ---
 
 ## What you’ll do
 
 1. **Open VX‑Underground** in your browser (Chrome/Firefox/Edge).
-2. **Run one of the scripts below** in the DevTools Console to **save a `.txt` of PDF URLs**:
+2. **Run one of the scripts below** in the DevTools Console to **collect PDF links and trigger downloads**:
    - **Year page walker** → collects from every APT’s `Paper/` page.
    - **Single Paper page** → collects just that folder’s PDFs.
 3. **Ingest** with `rexis ingest file -t pdf -d ./files ...`.
 
 ---
 
-## 1) Collect URLs (Batch, from a *Year* page)
+## 1) Collect & Download (Batch, from a *Year* page)
 
 Use this on a page like: `https://vx-underground.org/APTs/2012/`
 
-It **navigates the UI**, visits each APT → `Paper/`, scrapes PDF links from the DOM, then **saves** them into a buffer, .
+It **navigates the UI**, visits each APT → `Paper/`, scrapes PDF links from the DOM, then **buffers** them and periodically **flushes as downloads** to avoid overwhelming the browser.
 
 ```javascript
 (async () => {
@@ -329,11 +331,11 @@ It **navigates the UI**, visits each APT → `Paper/`, scrapes PDF links from th
 
 ---
 
-## 2) Collect URLs (Single, from a *Paper* page)
+## 2) Collect & Download (Single, from a *Paper* page)
 
 Use this on a page like: `https://vx-underground.org/APTs/2012/2012.02.29 - The Sin Digoo Affair/Paper/`
 
-It saves just that folder’s PDF links into a TXT.
+It collects just that folder’s PDFs and triggers their download.
 
 ```javascript
 (async () => {
@@ -549,7 +551,7 @@ It saves just that folder’s PDF links into a TXT.
 
 ---
 
-## 4) Ingest the PDFs with Rexis
+## 3) Ingest the PDFs with Rexis
 
 Once downloaded:
 
@@ -564,13 +566,14 @@ rexis ingest file -t pdf -f /path/to/output_dir/<some_file>.pdf -m source=vxu ye
 * Your PDF handler extracts text with PyMuPDF, wraps it as JSON, and indexes via Haystack.
 * Document IDs are computed from **file content SHA‑256** (so duplicates across folders/sources dedupe cleanly).
 
+For a deeper walkthrough of CLI options, metadata, batching, and how deduplication works under the hood, see `guides/IngestVXUnderground.md`.
+
 ---
 
 ## Tips & Troubleshooting
 
 * **Keep the browser tab focused** while the batch script runs (some browsers throttle background tabs).
 * If the year page has a lot of entries, you can run the batch collector multiple times with short date‑ranges (e.g., 2012 Q1/Q2) by editing the list of tiles (or stopping early).
-* If downloads **open in a viewer** instead of saving:
+* If downloads **open in a viewer** instead of saving: most browsers still keep a copy in the Downloads list; alternatively set your browser to “Always ask where to save files,” or right‑click → “Save link as…”.
 
-  * That’s fine here because we’re saving **URLs**, not downloading in the browser.
-  * The actual download happens with the Bash script.
+Optional: prefer exporting URLs only (no downloads)? Comment out the `triggerDownload(...)` calls in the scripts, inspect `window.__vxuBatch` / `window.__vxuSingle` for collected URLs, and save them as needed.

@@ -1,8 +1,10 @@
+import pathlib
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import typer
 from rexis.cli.utils import ensure_exactly_one, make_batches, validate_file_type
+from rexis.operations.collect_malpedia import collect_malpedia_exec
 from rexis.operations.ingest_api import ingest_api_exec
 from rexis.operations.ingest_file import ingest_file_exec
 from rexis.utils.utils import LOGGER
@@ -173,3 +175,48 @@ def ingest_file(
         batch=batch,
         metadata=metadata_dict,
     )
+
+
+def collect_malpedia(
+    family_id: Optional[str] = typer.Option(
+        None, "--family-id", "-f", help="Malpedia family ID (e.g., win.cobalt_strike)"
+    ),
+    actor_id: Optional[str] = typer.Option(
+        None, "--actor-id", "-a", help="Malpedia actor ID (e.g., apt.turla)"
+    ),
+    search_term: Optional[str] = typer.Option(
+        None, "--search-term", "-s", help="Search term (e.g., CobaltStrike)"
+    ),
+    start_date: Optional[str] = typer.Option(
+        None, "--start-date", help="Start date (YYYY-MM-DD) filter"
+    ),
+    end_date: Optional[str] = typer.Option(None, "--end-date", help="End date (YYYY-MM-DD) filter"),
+    max_items: Optional[int] = typer.Option(
+        None, "--max", help="Max items to keep after filtering"
+    ),
+    output_path: pathlib.Path = typer.Option(
+        pathlib.Path("malpedia_urls.json"), "--output-path", "-o", help="Output file path"
+    ),
+):
+    """
+    Collect Malpedia references with AND/inner-join semantics:
+
+    - If any of -f/-a/-s provided: fetch each set separately via API, then INTERSECT by URL.
+    - If none provided: fall back to RSS 'latest'.
+    - Apply --start_date/--end_date as an additional AND filter on dates.
+    - Apply --max at the end.
+    """
+
+    try:
+        num_saved: int = collect_malpedia_exec(
+            family_id=family_id,
+            actor_id=actor_id,
+            search_term=search_term,
+            start_date=start_date,
+            end_date=end_date,
+            max_items=max_items,
+            output_path=output_path,
+        )
+    except ValueError as error:
+        raise typer.BadParameter(str(error))
+    typer.echo(f"Saved {num_saved} {'JSON objects' if format=='json' else 'rows'} to {output_path}")
