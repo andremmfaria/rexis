@@ -40,7 +40,7 @@ def ingest_api(
             raise typer.BadParameter("--batch must be provided and > 0 when using --tags.")
 
         batches: List[Tuple[int, int]] = make_batches(fetch_limit, batch)
-        LOGGER.info(
+        print(
             "[API] Tags=%s | fetch_limit=%d | batch=%d | batches=%d",
             tags,
             fetch_limit,
@@ -63,7 +63,7 @@ def ingest_api(
             raise typer.BadParameter(
                 "--hash cannot be combined with --fetch_limit/--batch/--hash_file."
             )
-        LOGGER.info("[API] Single hash=%s", hash)
+        print("[API] Single hash=%s", hash)
         ingest_api_exec(hash=hash)
 
     elif choice == "hash_file":
@@ -73,7 +73,7 @@ def ingest_api(
             )
         with open(hash_file, "r", encoding="utf-8") as f:
             hashes = [line.strip() for line in f if line.strip()]
-        LOGGER.info("[API] %d hashes loaded from %s", len(hashes), hash_file)
+        print("[API] %d hashes loaded from %s", len(hashes), hash_file)
         ingest_api_exec(hash_file=hash_file)
 
 
@@ -132,7 +132,7 @@ def ingest_file(
                 raise typer.BadParameter(f"Duplicate metadata key: '{key}'")
             metadata_dict[key] = value
 
-    LOGGER.info(
+    print(
         "[FILE] type=%s | mode=%s | batch=%d | metadata=%s",
         type,
         "dir" if dir else "file",

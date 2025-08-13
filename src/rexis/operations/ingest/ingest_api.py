@@ -18,13 +18,17 @@ def ingest_api_exec(
     hash_file: Optional[Path] = None,
 ) -> None:
     tasks = _build_ingest_tasks(tags, fetch_limit, batch, hash, hash_file)
+    print("Building ingest tasks...")
     if not tasks:
         return
 
+    print(f"Executing {len(tasks)} ingest task(s)...")
     for mode, values in tasks:
         if mode == "hash":
+            print("Ingesting by HASH(es)...")
             _ingest_by_hash(values, batch)
         elif mode == "tags":
+            print("Ingesting by TAGS...")
             _ingest_by_tags(values, fetch_limit, batch)
 
 
@@ -74,16 +78,13 @@ def _build_ingest_tasks(
 def _process_and_index(documents_batch):
     documents_batch: List[Document]
     if documents_batch:
-        LOGGER.info(f"Indexing {len(documents_batch)} documents...")
+        print(f"Indexing {len(documents_batch)} document(s)...")
         index_documents(documents=documents_batch, refresh=True, doc_type="json")
-        LOGGER.info("Batch indexing completed.")
+        print("Batch indexing completed.")
 
 
 def _ingest_by_hash(hashes: List[str], batch: Optional[int]):
-    # Log the start of the ingestion process, including the number of hashes and batch size
-    LOGGER.info(
-        f"Starting ingestion by hash for {len(hashes)} hashes. Batch size: {batch if batch else 'all'}."
-    )
+    print(f"Starting ingestion by hash: {len(hashes)} hash(es). Batch: {batch if batch else 'all'}")
     all_documents: List[Document] = []
     total_hashes = len(hashes)
     batch_size = batch if batch else total_hashes
@@ -92,7 +93,7 @@ def _ingest_by_hash(hashes: List[str], batch: Optional[int]):
 
     # Iterate over each hash, fetching and processing documents
     for idx, h in enumerate(hashes, 1):
-        LOGGER.info(f"[Hash] Fetching from MalwareBazaar by hash-256: {h} ({idx}/{total_hashes})")
+        print(f"[Hash] Fetching from MalwareBazaar by hash-256: {h} ({idx}/{total_hashes})")
         try:
             # Query MalwareBazaar for the current hash
             result = query_malware_bazaar(query_type="hash", query_value=h, amount=1)
@@ -108,7 +109,7 @@ def _ingest_by_hash(hashes: List[str], batch: Optional[int]):
 
         # If the batch size is reached, process and index the batch
         if batch and len(all_documents) >= batch:
-            LOGGER.info(
+            print(
                 f"[Hash] Processing batch {current_batch} of {num_batches} (batch size: {batch})"
             )
             _process_and_index(all_documents)
@@ -117,17 +118,16 @@ def _ingest_by_hash(hashes: List[str], batch: Optional[int]):
 
     # Process any remaining documents that didn't fill a complete batch
     if all_documents:
-        LOGGER.info(
+        print(
             f"[Hash] Processing batch {current_batch} of {num_batches} (batch size: {len(all_documents)})"
         )
         _process_and_index(all_documents)
 
-    LOGGER.info(f"Completed ingestion by hash. Total hashes processed: {total_hashes}.")
+    print(f"Completed ingestion by hash. Total hashes processed: {total_hashes}.")
 
 
 def _ingest_by_tags(tags: List[str], fetch_limit: int, batch: int):
-    # Log the start of the ingestion process with the provided tags, fetch limit, and batch size
-    LOGGER.info(f"Starting ingestion by tags: {tags} | fetch_limit={fetch_limit} | batch={batch}")
+    print(f"Starting ingestion by tags: {tags} | fetch_limit={fetch_limit} | batch={batch}")
     all_documents: List[Document] = []
     docs_per_tag: List[int] = []
 
@@ -156,7 +156,7 @@ def _ingest_by_tags(tags: List[str], fetch_limit: int, batch: int):
 
     # For each tag, fetch the documents and process them in batches
     for tag in tags:
-        LOGGER.info(f"[Tags] Fetching from MalwareBazaar by tag: {tag} (limit={fetch_limit})")
+        print(f"[Tags] Fetching from MalwareBazaar by tag: {tag} (limit={fetch_limit})")
         try:
             result = query_malware_bazaar(query_type="tag", query_value=tag, amount=fetch_limit)
         except Exception as e:
@@ -173,7 +173,7 @@ def _ingest_by_tags(tags: List[str], fetch_limit: int, batch: int):
             doc_counter += 1
             # If the batch size is reached, process and index the batch
             if len(all_documents) >= batch:
-                LOGGER.info(
+                print(
                     f"[Tags] Processing batch {current_batch} of {num_batches} (batch size: {batch}) [{doc_counter}/{grand_total_docs} docs]"
                 )
                 _process_and_index(all_documents)
@@ -182,12 +182,12 @@ def _ingest_by_tags(tags: List[str], fetch_limit: int, batch: int):
 
     # Process any remaining documents that didn't fill a complete batch
     if all_documents:
-        LOGGER.info(
+        print(
             f"[Tags] Processing batch {current_batch} of {num_batches} (batch size: {len(all_documents)}) [{doc_counter}/{grand_total_docs} docs]"
         )
         _process_and_index(all_documents)
 
-    LOGGER.info(f"Completed ingestion by tags. Total docs processed: {grand_total_docs}.")
+    print(f"Completed ingestion by tags. Total docs processed: {grand_total_docs}.")
 
 
 def _wrap_malwarebazaar_documents(api_data: List[dict]) -> List[Document]:

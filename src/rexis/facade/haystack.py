@@ -26,13 +26,13 @@ def index_documents(
         LOGGER.warning("No documents provided for indexing.")
         return
 
-    LOGGER.info("Starting indexing for %d documents (type=%s)...", len(documents), doc_type)
+    print("Starting indexing for %d documents (type=%s)...", len(documents), doc_type)
 
     prepped_docs: List[Document] = _prepare_documents_for_indexing(documents)
     chunked_docs: List[Document] = _split_documents(prepped_docs, doc_type=doc_type)
     embedded_chunks: List[Document] = _embed_chunks(chunked_docs)
     _write_documents_to_db(embedded_chunks, refresh=refresh)
-    LOGGER.info("Indexing complete.")
+    print("Indexing complete.")
 
 
 def _prepare_documents_for_indexing(documents: List[Document]) -> List[Document]:
@@ -106,7 +106,7 @@ def _split_documents(documents: List[Document], doc_type: str = "prose") -> List
         else:
             safe_chunks.append(d)
 
-    LOGGER.info(
+    print(
         "Chunking complete. %d chunks produced from %d input documents.",
         len(safe_chunks),
         len(documents),
@@ -128,7 +128,7 @@ def _split_documents(documents: List[Document], doc_type: str = "prose") -> List
             ch.meta["chunk_index"] = idx
             ch.meta["total_chunks"] = total
             ch.id = f"{parent_id}::chunk-{idx}"
-            LOGGER.info(f"Chunk created: {ch.id} (parent: {parent_id}, index: {idx}/{total})")
+            print(f"Chunk created: {ch.id} (parent: {parent_id}, index: {idx}/{total})")
 
     # --- Tagging: Add LLM-generated tags to each chunk's metadata ---
     for chunk in safe_chunks:
@@ -147,10 +147,10 @@ def _embed_chunks(chunked_docs: List[Document]) -> List[Document]:
         api_key=Secret.from_token(config.models.openai.api_key),
         model=config.models.openai.embedding_model,
     )
-    LOGGER.info("Embedding %d chunked documents...", len(chunked_docs))
+    print("Embedding %d chunked documents...", len(chunked_docs))
     emb_result = embedder.run(documents=chunked_docs)
     embedded_chunks: List[Document] = emb_result["documents"]
-    LOGGER.info("Embedding complete. %d chunks embedded.", len(embedded_chunks))
+    print("Embedding complete. %d chunks embedded.", len(embedded_chunks))
     return embedded_chunks
 
 

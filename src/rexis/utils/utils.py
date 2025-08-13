@@ -4,17 +4,32 @@ import os
 import tomli
 
 LOGGER = logging.getLogger(__name__)
+def setup_logging(verbosity: int):
+    """
+    Configure logging based on verbosity count.
 
+    Verbosity mapping:
+    - 0: ERROR (default)
+    - 1: WARNING
+    - 2: INFO
+    - 3 or more: DEBUG
+    """
+    if verbosity <= 0:
+        level = logging.ERROR
+    elif verbosity == 1:
+        level = logging.WARNING
+    elif verbosity == 2:
+        level = logging.INFO
+    else:
+        level = logging.DEBUG
 
-def setup_logging(verbose: bool):
-    level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(
         level=level,
         format="[%(levelname)s] %(message)s",
     )
     LOGGER.setLevel(level)
-    if verbose:
-        LOGGER.debug("Verbose mode ON.")
+    if level == logging.DEBUG:
+        LOGGER.debug("Verbosity level: %s (DEBUG)", verbosity)
 
 
 def get_version() -> str:

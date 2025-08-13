@@ -35,7 +35,13 @@ query_app.command("llmrag")(llmrag_query)
 # --- Global Callback ---
 @cli_app.callback(invoke_without_command=True)
 def entrypoint(
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="Enable verbose debug output."),
+    verbose: int = typer.Option(
+        0,
+        "--verbose",
+        "-v",
+        count=True,
+        help="Increase verbosity (-v for info, -vv for debug).",
+    ),
     version: bool = typer.Option(
         False, "--version", "-V", help="Show REXIS version and exit.", is_eager=True
     ),
@@ -49,4 +55,4 @@ def entrypoint(
 
     rich.print(f"[bold cyan]{pyfiglet.figlet_format('REXIS')}[/bold cyan]")
     rich.print(f"[bold cyan]REXIS Static Malware Analysis CLI v{get_version()} 🚀 [/bold cyan]")
-    setup_logging(verbose=verbose)
+    setup_logging(verbosity=verbose)

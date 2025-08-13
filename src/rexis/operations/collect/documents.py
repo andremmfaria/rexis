@@ -29,26 +29,16 @@ else:
 
 
 def collect_documents_exec(input_path: Path, metadata: dict) -> List[Dict[str, Any]]:
-    """
-    Read a JSON list (from collect_malpedia_exec) and download referenced content.
-
-    - Skips well-known social media domains (no download).
-    - Classifies into: pdf, html, text (others stored under "files").
-    - Returns a list of objects: { file_type, file_path, metadata }
-
-    The output root is resolved as:
-      - If the input path lives under a "malpedia" folder, place outputs in
-        ".../malpedia/documents/{pdf,html,text,files}".
-      - Otherwise, place under "<input_path.parent>/documents/{...}".
-    """
-
-    # 0) Resolve output directories
-    documents_root_dir: Path = _resolve_output_documents_root(input_path)
-    pdf_dir = documents_root_dir / "pdf"
-    html_dir = documents_root_dir / "html"
-    text_dir = documents_root_dir / "text"
-    other_dir = documents_root_dir / "files"
-    for output_dir in (pdf_dir, html_dir, text_dir, other_dir):
+    # 0) Resolve per-run output directories (within the output file path)
+    run_root_dir: Path = input_path.resolve().parent / f"{input_path.stem}"
+    output_dirs = [
+        run_root_dir / "pdf",
+        run_root_dir / "html",
+        run_root_dir / "text",
+        run_root_dir / "files",
+    ]
+    pdf_dir, html_dir, text_dir, other_dir = output_dirs
+    for output_dir in output_dirs:
         output_dir.mkdir(parents=True, exist_ok=True)
 
     # 1) Load list of entries (dicts with at least 'url')
@@ -75,11 +65,14 @@ def collect_documents_exec(input_path: Path, metadata: dict) -> List[Dict[str, A
         urls_to_download.append((url, row))
 
     if skipped_social_count:
-        LOGGER.info("Skipped %d social-media URLs.", skipped_social_count)
-    LOGGER.info("Prepared %d unique URL(s) to download.", len(urls_to_download))
+        print("Skipped %d social-media URLs.", skipped_social_count)
+    print("Prepared %d unique URL(s) to download.", len(urls_to_download))
 
     # 3) Download
     results: List[Dict[str, Any]] = []
+    total_to_download = len(urls_to_download)
+    processed_count = 0
+    print("Starting downloads: %d item(s)", total_to_download)
     for url, row in urls_to_download:
         try:
             _download_and_store_url_content(
@@ -94,20 +87,20 @@ def collect_documents_exec(input_path: Path, metadata: dict) -> List[Dict[str, A
             )
         except Exception as e:
             LOGGER.warning("Failed to download %s: %s", url, e)
+        finally:
+            processed_count += 1
+            print("Progress: %d/%d documents processed", processed_count, total_to_download)
+
+    # 4) Write run manifest on disk
+    try:
+        manifest_path = run_root_dir / f"results-{input_path.stem}.json"
+        with open(manifest_path, "w", encoding="utf-8") as f:
+            json.dump(results, f, ensure_ascii=False, indent=2)
+        print("Saved collection manifest: %s", manifest_path)
+    except Exception as e:
+        LOGGER.warning("Failed to write manifest for %s: %s", input_path, e)
 
     return results
-
-
-def _resolve_output_documents_root(input_path: Path) -> Path:
-    """Place outputs under an existing malpedia data tree when possible."""
-    # Try to anchor at the nearest 'malpedia' directory (repo layout has data/malpedia/documents)
-    cur: Optional[Path] = input_path.resolve().parent
-    while cur and cur != cur.parent:
-        if cur.name == "malpedia":
-            return cur / "documents"
-        cur = cur.parent
-    # Fallback: sibling 'documents'
-    return input_path.resolve().parent / "documents"
 
 
 def _load_input_rows_from_json(path: Path) -> List[Dict]:
@@ -156,7 +149,7 @@ def _download_and_store_url_content(
 
     for attempt_index in range(max_attempts):
         try:
-            LOGGER.info("GET %s (stream) ...", url)
+            print("GET %s (stream) ...", url)
             with session.get(
                 url,
                 headers={
@@ -246,7 +239,7 @@ def _download_and_store_url_content(
                         )
                     return
 
-                LOGGER.info("Writing -> %s (%s)", target_path, file_type)
+                print("Writing -> %s (%s)", target_path, file_type)
                 with open(target_path, "wb") as f:
                     if first_chunk:
                         f.write(first_chunk)

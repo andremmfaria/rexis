@@ -4,10 +4,10 @@ from pathlib import Path
 from typing import Dict, List, Literal, Optional, Set
 
 import pymupdf
+from bs4 import BeautifulSoup
 from haystack import Document
 from rexis.facade.haystack import index_documents
 from rexis.utils.utils import LOGGER
-from rexis.utils.config import config
 
 
 def ingest_file_exec(
@@ -50,9 +50,7 @@ def ingest_file_exec(
             LOGGER.warning("No %s files found under %s", ftype, target_dir)
             return
 
-        LOGGER.info(
-            "[batch] %s -> %d file(s), batch=%d", ftype, len(paths), batch
-        )
+        LOGGER.info("[batch] %s -> %d file(s), batch=%d", ftype, len(paths), batch)
 
         if ftype == "pdf":
             _ingest_pdf_batch(paths, batch, metadata)
@@ -79,12 +77,13 @@ def _discover_paths(ftype: str, root: Path) -> List[Path]:
         if p.is_file() and p.suffix.lower() in exts:
             results.append(p)
     results.sort()
-    LOGGER.info("Discovered %d %s file(s) under %s", len(results), ftype, root)
+    print("Discovered %d %s file(s) under %s", len(results), ftype, root)
     return results
 
 
 def _ingest_pdf_single(path: Path, metadata: dict) -> None:
-    LOGGER.debug("PDF(single) placeholder: %s (metadata=%s)", path, metadata)
+    print("Ingesting PDF file:", path)
+    LOGGER.debug("PDF(single) path: %s (metadata=%s)", path, metadata)
     try:
         if path.suffix.lower() != ".pdf":
             LOGGER.warning("Skipping non-PDF file: %s", path)
@@ -116,22 +115,23 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
             },
         )
 
-        LOGGER.info("Indexing 1 PDF document: %s", path.name)
+        print("Indexing 1 PDF document: %s", path.name)
         index_documents(documents=[doc], refresh=True, doc_type="prose")
 
     except Exception as e:
         LOGGER.error("Failed to ingest PDF %s: %s", path, e, exc_info=True)
 
+    print("PDF ingestion complete.")
+
 
 def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
-    LOGGER.debug("PDF(batch) placeholder: %s (metadata=%s)", paths, metadata)
     if not paths:
         LOGGER.warning("No PDF files to ingest.")
         return
 
     prepared: List[Document] = []
     total = len(paths)
-    LOGGER.info("Preparing %d PDF(s) for indexing (batch=%d)...", total, batch)
+    print("Preparing %d PDF(s) for indexing (batch=%d)...", total, batch)
 
     for i, path in enumerate(paths, 1):
         try:
@@ -143,6 +143,9 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
             if not text.strip():
                 LOGGER.warning("Empty text extracted from %s", path)
                 continue
+
+            print("Ingesting PDF file:", path)
+            LOGGER.debug("PDF(batch) path: %s (metadata=%s)", path, metadata)
 
             payload = {
                 "title": path.stem,
@@ -166,7 +169,7 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
             prepared.append(doc)
 
             if len(prepared) >= batch:
-                LOGGER.info("Indexing batch: %d docs (progress %d/%d)", len(prepared), i, total)
+                print("Indexing batch: %d docs (progress %d/%d)", len(prepared), i, total)
                 index_documents(documents=prepared, refresh=True, doc_type="prose")
                 prepared = []
 
@@ -174,33 +177,311 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
             LOGGER.warning("Failed to process %s: %s", path, e)
 
     if prepared:
-        LOGGER.info("Indexing final batch: %d docs", len(prepared))
-        index_documents(prepared, refresh=True)
-    LOGGER.info("PDF batch ingestion complete.")
+        print("Indexing final batch: %d docs", len(prepared))
+        index_documents(prepared, refresh=True, doc_type="prose")
+
+    print("PDF batch ingestion complete.")
 
 
 def _ingest_html_single(path: Path, metadata: dict) -> None:
-    """TODO: read HTML, clean boilerplate, extract main text, wrap JSON, index"""
-    LOGGER.info("HTML(single) placeholder: %s (metadata=%s)", path, metadata)
+    print("Ingesting HTML file:", path)
+    LOGGER.debug("HTML(single) path: %s (metadata=%s)", path, metadata)
+    try:
+        if path.suffix.lower() not in {".html", ".htm"}:
+            LOGGER.warning("Skipping non-HTML file: %s", path)
+            return
+
+        try:
+            html = path.read_text(encoding="utf-8", errors="ignore")
+        except Exception as e:
+            LOGGER.error("Failed to read HTML %s: %s", path, e)
+            return
+
+        if not html.strip():
+            LOGGER.warning("Empty HTML content: %s", path)
+            return
+
+        soup = BeautifulSoup(html, "html.parser")
+
+        # Remove non-content elements
+        for tag in soup(["script", "style", "noscript"]):
+            tag.decompose()
+        for tag in soup.find_all(["header", "footer", "nav", "aside"]):
+            tag.decompose()
+
+        # Title selection
+        title = None
+        if soup.title and soup.title.string:
+            title = soup.title.string.strip()
+        if not title:
+            h1 = soup.find("h1")
+            if h1:
+                h1_text = h1.get_text(strip=True)
+                if h1_text:
+                    title = h1_text
+        if not title:
+            title = path.stem
+
+        # Main text extraction: prefer <article>, then <main>, else body text
+        main_text = ""
+        main_node = soup.find("article") or soup.find("main")
+        if main_node:
+            main_text = main_node.get_text(separator="\n", strip=True)
+        else:
+            body = soup.body or soup
+            main_text = body.get_text(separator="\n", strip=True)
+
+        text = _normalize_whitespace(main_text)
+        if not text:
+            LOGGER.warning("Empty text extracted from %s", path)
+            return
+
+        payload = {
+            "title": title,
+            "extracted_text": text,
+            "metadata": metadata or {},
+        }
+
+        hash_val = _stable_doc_id_from_path(path)
+
+        doc = Document(
+            id=f"file_html::{hash_val}",
+            content=json.dumps(payload),
+            meta={
+                **(metadata or {}),
+                "sha256": hash_val,
+                "filename": path.name,
+                "source": (metadata or {}).get("source", "external"),
+                "type": "html",
+            },
+        )
+
+        print("Indexing 1 HTML document: %s", path.name)
+        index_documents(documents=[doc], refresh=True, doc_type="prose")
+
+    except Exception as e:
+        LOGGER.error("Failed to ingest HTML %s: %s", path, e, exc_info=True)
+
+    print("HTML ingestion complete.")
 
 
 def _ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
-    """TODO: iterate files in batches, clean + extract text, wrap JSON, index"""
-    LOGGER.info(
-        "HTML(batch) placeholder: %d files (batch=%d, metadata=%s)", len(paths), batch, metadata
-    )
+    if not paths:
+        LOGGER.warning("No HTML files to ingest.")
+        return
+
+    prepared: List[Document] = []
+    total = len(paths)
+    print("Preparing %d HTML file(s) for indexing (batch=%d)...", total, batch)
+
+    for i, path in enumerate(paths, 1):
+        try:
+            if path.suffix.lower() not in {".html", ".htm"}:
+                LOGGER.debug("Skipping non-HTML: %s", path)
+                continue
+
+            print("Ingesting HTML file:", path)
+            LOGGER.debug("HTML(batch) path: %s (metadata=%s)", path, metadata)
+
+            try:
+                html = path.read_text(encoding="utf-8", errors="ignore")
+            except Exception as e:
+                LOGGER.warning("Failed to read HTML %s: %s", path, e)
+                continue
+
+            if not html.strip():
+                LOGGER.warning("Empty HTML content: %s", path)
+                continue
+
+            soup = BeautifulSoup(html, "html.parser")
+
+            # Remove non-content elements
+            for tag in soup(["script", "style", "noscript"]):
+                tag.decompose()
+            for tag in soup.find_all(["header", "footer", "nav", "aside"]):
+                tag.decompose()
+
+            # Title selection
+            title = None
+            if soup.title and soup.title.string:
+                title = soup.title.string.strip()
+            if not title:
+                h1 = soup.find("h1")
+                if h1:
+                    h1_text = h1.get_text(strip=True)
+                    if h1_text:
+                        title = h1_text
+            if not title:
+                title = path.stem
+
+            # Main text extraction
+            main_node = soup.find("article") or soup.find("main")
+            if main_node:
+                main_text = main_node.get_text(separator="\n", strip=True)
+            else:
+                body = soup.body or soup
+                main_text = body.get_text(separator="\n", strip=True)
+
+            text = _normalize_whitespace(main_text)
+            if not text:
+                LOGGER.warning("Empty text extracted from %s", path)
+                continue
+
+            payload = {
+                "title": title,
+                "extracted_text": text,
+                "metadata": metadata or {},
+            }
+
+            hash_val = _stable_doc_id_from_path(path)
+
+            doc = Document(
+                id=f"file_html::{hash_val}",
+                content=json.dumps(payload),
+                meta={
+                    **(metadata or {}),
+                    "sha256": hash_val,
+                    "filename": path.name,
+                    "source": (metadata or {}).get("source", "external"),
+                    "type": "html",
+                },
+            )
+
+            prepared.append(doc)
+
+            if len(prepared) >= batch:
+                print(
+                    "Indexing HTML batch: %d docs (progress %d/%d)", len(prepared), i, total
+                )
+                index_documents(documents=prepared, refresh=True, doc_type="prose")
+                prepared = []
+
+        except Exception as e:
+            LOGGER.warning("Failed to process HTML %s: %s", path, e)
+
+    if prepared:
+        print("Indexing final HTML batch: %d docs", len(prepared))
+        index_documents(documents=prepared, refresh=True, doc_type="prose")
+
+    print("HTML batch ingestion complete.")
 
 
 def _ingest_text_single(path: Path, metadata: dict) -> None:
-    """TODO: read plain text, normalize, wrap JSON, index"""
-    LOGGER.info("TEXT(single) placeholder: %s (metadata=%s)", path, metadata)
+    print("Ingesting TEXT file:", path)
+    LOGGER.debug("TEXT(single) path: %s (metadata=%s)", path, metadata)
+    try:
+        if path.suffix.lower() != ".txt":
+            LOGGER.warning("Skipping non-text file: %s", path)
+            return
+
+        try:
+            raw = path.read_text(encoding="utf-8", errors="ignore")
+        except Exception as e:
+            LOGGER.error("Failed to read text %s: %s", path, e)
+            return
+
+        if not raw.strip():
+            LOGGER.warning("Empty text content: %s", path)
+            return
+
+        text = _normalize_whitespace(raw)
+
+        payload = {
+            "title": path.stem,
+            "extracted_text": text,
+            "metadata": metadata or {},
+        }
+
+        hash_val = _stable_doc_id_from_path(path)
+
+        doc = Document(
+            id=f"file_text::{hash_val}",
+            content=json.dumps(payload),
+            meta={
+                **(metadata or {}),
+                "sha256": hash_val,
+                "filename": path.name,
+                "source": (metadata or {}).get("source", "external"),
+                "type": "text",
+            },
+        )
+
+        print("Indexing 1 TEXT document: %s", path.name)
+        index_documents(documents=[doc], refresh=True, doc_type="prose")
+
+    except Exception as e:
+        LOGGER.error("Failed to ingest TEXT %s: %s", path, e, exc_info=True)
+
+    print("TEXT ingestion complete")
 
 
 def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
-    """TODO: iterate files in batches, read + normalize, wrap JSON, index"""
-    LOGGER.info(
-        "TEXT(batch) placeholder: %d files (batch=%d, metadata=%s)", len(paths), batch, metadata
-    )
+    if not paths:
+        LOGGER.warning("No text files to ingest.")
+        return
+
+    prepared: List[Document] = []
+    total = len(paths)
+    print("Preparing %d text file(s) for indexing (batch=%d)...", total, batch)
+
+    for i, path in enumerate(paths, 1):
+        try:
+            if path.suffix.lower() != ".txt":
+                LOGGER.debug("Skipping non-text: %s", path)
+                continue
+
+            print("Ingesting HTML file:", path)
+            LOGGER.debug("TEXT(batch) path: %s (metadata=%s)", path, metadata)
+
+            try:
+                raw = path.read_text(encoding="utf-8", errors="ignore")
+            except Exception as e:
+                LOGGER.warning("Failed to read text %s: %s", path, e)
+                continue
+
+            if not raw.strip():
+                LOGGER.warning("Empty text content: %s", path)
+                continue
+
+            text = _normalize_whitespace(raw)
+
+            payload = {
+                "title": path.stem,
+                "extracted_text": text,
+                "metadata": metadata or {},
+            }
+
+            hash_val = _stable_doc_id_from_path(path)
+
+            doc = Document(
+                id=f"file_text::{hash_val}",
+                content=json.dumps(payload),
+                meta={
+                    **(metadata or {}),
+                    "sha256": hash_val,
+                    "filename": path.name,
+                    "source": (metadata or {}).get("source", "external"),
+                    "type": "text",
+                },
+            )
+
+            prepared.append(doc)
+
+            if len(prepared) >= batch:
+                print(
+                    "Indexing TEXT batch: %d docs (progress %d/%d)", len(prepared), i, total
+                )
+                index_documents(documents=prepared, refresh=True, doc_type="prose")
+                prepared = []
+
+        except Exception as e:
+            LOGGER.warning("Failed to process text %s: %s", path, e)
+
+    if prepared:
+        print("Indexing final TEXT batch: %d docs", len(prepared))
+        index_documents(documents=prepared, refresh=True, doc_type="prose")
+
+    print("TEXT batch ingestion complete.")
 
 
 def _pdf_to_text(path: Path) -> str:

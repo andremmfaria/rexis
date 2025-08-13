@@ -18,7 +18,7 @@ def query_virustotal(hash: str) -> Dict[Any, Any]:
     Raises:
         ValueError: If the metadata retrieval fails or the sample is not found.
     """
-    LOGGER.info(f"Retrieving metadata for file hash: {hash}")
+    print(f"Retrieving metadata for file hash: {hash}")
     client = vt.Client(settings.virus_total_api_key)
 
     try:
@@ -26,7 +26,7 @@ def query_virustotal(hash: str) -> Dict[Any, Any]:
         if not result:
             LOGGER.warning(f"No metadata found for hash: {hash}")
             raise ValueError(f"No metadata found for hash: {hash}")
-        LOGGER.info(f"Metadata successfully retrieved for hash: {hash}")
+        print(f"Metadata successfully retrieved for hash: {hash}")
         return result.to_dict()
     except Exception as e:
         LOGGER.error(f"Error retrieving metadata for hash {hash}: {e}")

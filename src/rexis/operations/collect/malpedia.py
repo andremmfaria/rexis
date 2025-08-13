@@ -33,35 +33,39 @@ def collect_malpedia_exec(
     Output a JSON file with merged entries including families/actors arrays.
     All flags apply with AND semantics.
     """
-    LOGGER.info(
-        "Starting collect_malpedia_exec with params: "
-        f"family_id={family_id}, actor_id={actor_id}, search_term={search_term}, "
-        f"start_date={start_date}, end_date={end_date}, max_items={max_items}, "
-        f"output_path={output_path}"
-    )
+    params = {
+        "family_id": family_id,
+        "actor_id": actor_id,
+        "search_term": search_term,
+        "start_date": start_date,
+        "end_date": end_date,
+        "max_items": max_items,
+        "output_path": output_path,
+    }
+    params_str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
+    print(f"Starting collect_malpedia_exec with params: {params_str}")
 
     # If the user provided a start date but no end date, set end date to today and inform the user.
     if start_date and not end_date:
         end_date = date.today().isoformat()
         msg = f"[date] --start-date set without --end-date. Using end={end_date} (today)."
-        typer.echo(msg)
-        LOGGER.info(msg)
+        print(msg)
 
     # 1) fetch sources
-    LOGGER.info("Fetching references index from Malpedia API.")
+    print("Fetching references index from Malpedia API.")
     refs_index: Dict[str, List[Dict[str, Any]]] = fetch_references_index()
-    LOGGER.info("Fetching BibTeX dump from Malpedia API.")
+    print("Fetching BibTeX dump from Malpedia API.")
     bib_text: str = fetch_bibtex_dump()
-    LOGGER.info("Parsing BibTeX entries.")
+
     bib_refs: List[Dict[str, Any]] = parse_bibtex_entries(bib_text)
 
     # 2) join
-    LOGGER.info("Cross-referencing BibTeX entries with references index.")
+    print("Cross-referencing BibTeX entries with references index.")
     merged: List[Dict[str, Any]] = cross_reference(refs_index, bib_refs)
     LOGGER.info(f"[merge] merged entries: {len(merged)}")
 
     # 3) AND filters
-    LOGGER.info("Applying AND filters to merged entries.")
+    print("Applying AND filters to merged entries.")
     filtered: List[Dict[str, Any]] = filter_and_semantics(
         rows=merged,
         family_id=family_id,
@@ -74,10 +78,9 @@ def collect_malpedia_exec(
     LOGGER.info(f"[filter] after AND filters: {len(filtered)}")
 
     # 4) save
-    LOGGER.info(f"Saving filtered entries to {output_path}")
+    print(f"Saving filtered entries to {output_path}")
     saved: int = save_json(filtered, output_path)
-    typer.echo(f"Saved {saved} entries to {output_path}")
-    LOGGER.info(f"Saved {saved} entries to {output_path}")
+    print(f"Saved {saved} entries to {output_path}")
     return saved
 
 
@@ -92,7 +95,7 @@ def fetch_references_index() -> Dict[str, List[Dict[str, Any]]]:
     """
     GET /api/get/references → { url: [ {type,id,common_name,alt_names,url}, ... ], ... }
     """
-    LOGGER.info(f"[GET] {REFS_ENDPOINT}")
+    print(f"[GET] {REFS_ENDPOINT}")
     try:
         r = requests.get(REFS_ENDPOINT, headers=_headers(), timeout=60)
         r.raise_for_status()
@@ -100,10 +103,10 @@ def fetch_references_index() -> Dict[str, List[Dict[str, Any]]]:
         if not isinstance(data, Dict):
             LOGGER.error("Unexpected /api/get/references response type: %s", type(data))
             raise RuntimeError("Unexpected /api/get/references response")
-        LOGGER.info(f"[refs] loaded {len(data)} URL keys")
+        print(f"[refs] loaded {len(data)} URL keys")
         return data
     except Exception as e:
-        LOGGER.exception(f"Failed to fetch references index: {e}")
+        LOGGER.error(f"Failed to fetch references index: {e}")
         raise
 
 
@@ -111,14 +114,14 @@ def fetch_bibtex_dump() -> str:
     """
     GET /api/get/bib → BibTeX of all references
     """
-    LOGGER.info(f"[GET] {BIB_ENDPOINT}")
+    print(f"[GET] {BIB_ENDPOINT}")
     try:
         r = requests.get(BIB_ENDPOINT, timeout=90)
         r.raise_for_status()
         LOGGER.info(f"[bibtex] size={len(r.text)} bytes")
         return r.text
     except Exception as e:
-        LOGGER.exception(f"Failed to fetch BibTeX dump: {e}")
+        LOGGER.error(f"Failed to fetch BibTeX dump: {e}")
         raise
 
 
@@ -140,7 +143,7 @@ def parse_bibtex_entries(bibtex_text: str) -> List[Dict[str, Any]]:
     """
     entries = re.split(r"@online\s*{", bibtex_text, flags=re.IGNORECASE)[1:]
     out: List[Dict[str, Any]] = []
-    LOGGER.info(f"Parsing {len(entries)} BibTeX entries.")
+    print(f"Parsing {len(entries)} BibTeX entries.")
 
     for entry in entries:
         fields = dict(
@@ -193,7 +196,7 @@ def parse_bibtex_entries(bibtex_text: str) -> List[Dict[str, Any]]:
         else:
             LOGGER.warning(f"BibTeX entry missing URL: {fields}")
 
-    LOGGER.info(f"Parsed {len(out)} BibTeX entries with URLs.")
+    print(f"Parsed {len(out)} BibTeX entries with URLs.")
     return dedupe_by_url(out)
 
 
@@ -207,7 +210,7 @@ def dedupe_by_url(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             continue
         seen.add(u)
         out.append(it)
-    LOGGER.info(f"Deduplicated to {len(out)} unique URLs.")
+    print(f"Deduplicated to {len(out)} unique URLs.")
     return out
 
 
@@ -309,10 +312,16 @@ def filter_and_semantics(
     sdate = parse_any_date(start_date) if start_date else None
     edate = parse_any_date(end_date) if end_date else None
 
-    LOGGER.info(
-        f"Filtering {len(rows)} rows with family_id={family_id}, actor_id={actor_id}, "
-        f"search_term={search_term}, start_date={start_date}, end_date={end_date}, max_items={max_items}"
-    )
+    params = {
+        "family_id": family_id,
+        "actor_id": actor_id,
+        "search_term": search_term,
+        "start_date": start_date,
+        "end_date": end_date,
+        "max_items": max_items,
+    }
+    params_str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
+    print(f"Filtering {len(rows)} rows" + (f" with {params_str}" if params_str else ""))
 
     def matches_family(r: Dict[str, Any]) -> bool:
         if not family_id:
@@ -401,7 +410,7 @@ def filter_and_semantics(
     ]
     if max_items and max_items > 0:
         out = out[:max_items]
-    LOGGER.info(f"Filtered down to {len(out)} rows.")
+    LOGGER.info(f"Filtered down from search patternto {len(out)} rows.")
     return out
 
 
@@ -412,5 +421,5 @@ def save_json(rows: List[Dict[str, Any]], path: pathlib.Path) -> int:
         LOGGER.info(f"Successfully saved {len(rows)} rows to {path}")
         return len(rows)
     except Exception as e:
-        LOGGER.exception(f"Failed to save JSON to {path}: {e}")
+        LOGGER.error(f"Failed to save JSON to {path}: {e}")
         raise
