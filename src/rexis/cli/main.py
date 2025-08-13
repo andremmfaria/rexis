@@ -1,7 +1,8 @@
 import pyfiglet
 import rich
 import typer
-from rexis.cli.ingestion_commands import collect_malpedia, ingest_api, ingest_file
+from rexis.cli.collect_commands import collect_malpedia
+from rexis.cli.ingestion_commands import ingest_api, ingest_file
 from rexis.cli.query_commands import baseline_query, llmrag_query
 from rexis.utils.utils import get_version, setup_logging
 

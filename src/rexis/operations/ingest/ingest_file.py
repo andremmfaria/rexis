@@ -33,7 +33,7 @@ def ingest_file_exec(
         return
 
     if target_file:
-        LOGGER.info("[single] %s -> %s | metadata=%s", ftype, target_file, metadata)
+        LOGGER.info("[single] %s -> %s", ftype, target_file)
         if ftype == "pdf":
             _ingest_pdf_single(target_file, metadata)
         elif ftype == "html":
@@ -51,7 +51,7 @@ def ingest_file_exec(
             return
 
         LOGGER.info(
-            "[batch] %s -> %d file(s), batch=%d | metadata=%s", ftype, len(paths), batch, metadata
+            "[batch] %s -> %d file(s), batch=%d", ftype, len(paths), batch
         )
 
         if ftype == "pdf":
@@ -84,6 +84,7 @@ def _discover_paths(ftype: str, root: Path) -> List[Path]:
 
 
 def _ingest_pdf_single(path: Path, metadata: dict) -> None:
+    LOGGER.debug("PDF(single) placeholder: %s (metadata=%s)", path, metadata)
     try:
         if path.suffix.lower() != ".pdf":
             LOGGER.warning("Skipping non-PDF file: %s", path)
@@ -123,6 +124,7 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
 
 
 def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
+    LOGGER.debug("PDF(batch) placeholder: %s (metadata=%s)", paths, metadata)
     if not paths:
         LOGGER.warning("No PDF files to ingest.")
         return
