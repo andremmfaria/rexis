@@ -41,11 +41,7 @@ def ingest_api(
 
         batches: List[Tuple[int, int]] = make_batches(fetch_limit, batch)
         print(
-            "[API] Tags=%s | fetch_limit=%d | batch=%d | batches=%d",
-            tags,
-            fetch_limit,
-            batch,
-            len(batches),
+            f"[API] Tags={tags} | fetch_limit={fetch_limit} | batch={batch} | batches={len(batches)}"
         )
         for batch_index, (start_idx, end_idx) in enumerate(batches, 1):
             LOGGER.debug(
@@ -63,7 +59,7 @@ def ingest_api(
             raise typer.BadParameter(
                 "--hash cannot be combined with --fetch_limit/--batch/--hash_file."
             )
-        print("[API] Single hash=%s", hash)
+        print(f"[API] Single hash={hash}")
         ingest_api_exec(hash=hash)
 
     elif choice == "hash_file":
@@ -73,7 +69,7 @@ def ingest_api(
             )
         with open(hash_file, "r", encoding="utf-8") as f:
             hashes = [line.strip() for line in f if line.strip()]
-        print("[API] %d hashes loaded from %s", len(hashes), hash_file)
+        print(f"[API] {len(hashes)} hashes loaded from {hash_file}")
         ingest_api_exec(hash_file=hash_file)
 
 
@@ -133,11 +129,7 @@ def ingest_file(
             metadata_dict[key] = value
 
     print(
-        "[FILE] type=%s | mode=%s | batch=%d | metadata=%s",
-        type,
-        "dir" if dir else "file",
-        batch,
-        metadata_dict,
+        f"[FILE] type={type} | mode={'dir' if dir else 'file'} | batch={batch} | metadata={metadata_dict}"
     )
 
     ingest_file_exec(

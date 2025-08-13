@@ -77,7 +77,7 @@ def _discover_paths(ftype: str, root: Path) -> List[Path]:
         if p.is_file() and p.suffix.lower() in exts:
             results.append(p)
     results.sort()
-    print("Discovered %d %s file(s) under %s", len(results), ftype, root)
+    print(f"Discovered {len(results)} {ftype} file(s) under {root}")
     return results
 
 
@@ -115,7 +115,7 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
             },
         )
 
-        print("Indexing 1 PDF document: %s", path.name)
+        print(f"Indexing 1 PDF document: {path.name}")
         index_documents(documents=[doc], refresh=True, doc_type="prose")
 
     except Exception as e:
@@ -131,7 +131,7 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
 
     prepared: List[Document] = []
     total = len(paths)
-    print("Preparing %d PDF(s) for indexing (batch=%d)...", total, batch)
+    print(f"Preparing {total} PDF(s) for indexing (batch={batch})...")
 
     for i, path in enumerate(paths, 1):
         try:
@@ -169,7 +169,7 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
             prepared.append(doc)
 
             if len(prepared) >= batch:
-                print("Indexing batch: %d docs (progress %d/%d)", len(prepared), i, total)
+                print(f"Indexing batch: {len(prepared)} docs (progress {i}/{total})")
                 index_documents(documents=prepared, refresh=True, doc_type="prose")
                 prepared = []
 
@@ -177,7 +177,7 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
             LOGGER.warning("Failed to process %s: %s", path, e)
 
     if prepared:
-        print("Indexing final batch: %d docs", len(prepared))
+        print(f"Indexing final batch: {len(prepared)} docs")
         index_documents(prepared, refresh=True, doc_type="prose")
 
     print("PDF batch ingestion complete.")
@@ -255,8 +255,7 @@ def _ingest_html_single(path: Path, metadata: dict) -> None:
                 "type": "html",
             },
         )
-
-        print("Indexing 1 HTML document: %s", path.name)
+        print(f"Indexing 1 HTML document: {path.name}")
         index_documents(documents=[doc], refresh=True, doc_type="prose")
 
     except Exception as e:
@@ -272,7 +271,7 @@ def _ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
 
     prepared: List[Document] = []
     total = len(paths)
-    print("Preparing %d HTML file(s) for indexing (batch=%d)...", total, batch)
+    print(f"Preparing {total} HTML file(s) for indexing (batch={batch})...")
 
     for i, path in enumerate(paths, 1):
         try:
@@ -346,13 +345,9 @@ def _ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                     "type": "html",
                 },
             )
-
             prepared.append(doc)
-
             if len(prepared) >= batch:
-                print(
-                    "Indexing HTML batch: %d docs (progress %d/%d)", len(prepared), i, total
-                )
+                print(f"Indexing HTML batch: {len(prepared)} docs (progress {i}/{total})")
                 index_documents(documents=prepared, refresh=True, doc_type="prose")
                 prepared = []
 
@@ -360,7 +355,7 @@ def _ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
             LOGGER.warning("Failed to process HTML %s: %s", path, e)
 
     if prepared:
-        print("Indexing final HTML batch: %d docs", len(prepared))
+        print(f"Indexing final HTML batch: {len(prepared)} docs")
         index_documents(documents=prepared, refresh=True, doc_type="prose")
 
     print("HTML batch ingestion complete.")
@@ -405,8 +400,7 @@ def _ingest_text_single(path: Path, metadata: dict) -> None:
                 "type": "text",
             },
         )
-
-        print("Indexing 1 TEXT document: %s", path.name)
+        print(f"Indexing 1 TEXT document: {path.name}")
         index_documents(documents=[doc], refresh=True, doc_type="prose")
 
     except Exception as e:
@@ -422,7 +416,7 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
 
     prepared: List[Document] = []
     total = len(paths)
-    print("Preparing %d text file(s) for indexing (batch=%d)...", total, batch)
+    print(f"Preparing {total} text file(s) for indexing (batch={batch})...")
 
     for i, path in enumerate(paths, 1):
         try:
@@ -430,7 +424,7 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                 LOGGER.debug("Skipping non-text: %s", path)
                 continue
 
-            print("Ingesting HTML file:", path)
+            print("Ingesting TEXT file:", path)
             LOGGER.debug("TEXT(batch) path: %s (metadata=%s)", path, metadata)
 
             try:
@@ -468,9 +462,7 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
             prepared.append(doc)
 
             if len(prepared) >= batch:
-                print(
-                    "Indexing TEXT batch: %d docs (progress %d/%d)", len(prepared), i, total
-                )
+                print(f"Indexing TEXT batch: {len(prepared)} docs (progress {i}/{total})")
                 index_documents(documents=prepared, refresh=True, doc_type="prose")
                 prepared = []
 
@@ -478,7 +470,7 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
             LOGGER.warning("Failed to process text %s: %s", path, e)
 
     if prepared:
-        print("Indexing final TEXT batch: %d docs", len(prepared))
+        print(f"Indexing final TEXT batch: {len(prepared)} docs")
         index_documents(documents=prepared, refresh=True, doc_type="prose")
 
     print("TEXT batch ingestion complete.")

@@ -26,7 +26,7 @@ def index_documents(
         LOGGER.warning("No documents provided for indexing.")
         return
 
-    print("Starting indexing for %d documents (type=%s)...", len(documents), doc_type)
+    print(f"Starting indexing for {len(documents)} documents (type={doc_type})...")
 
     prepped_docs: List[Document] = _prepare_documents_for_indexing(documents)
     chunked_docs: List[Document] = _split_documents(prepped_docs, doc_type=doc_type)
@@ -107,9 +107,7 @@ def _split_documents(documents: List[Document], doc_type: str = "prose") -> List
             safe_chunks.append(d)
 
     print(
-        "Chunking complete. %d chunks produced from %d input documents.",
-        len(safe_chunks),
-        len(documents),
+        f"Chunking complete. {len(safe_chunks)} chunks produced from {len(documents)} input documents."
     )
 
     # Group the chunked documents by their parent document ID.
@@ -147,10 +145,10 @@ def _embed_chunks(chunked_docs: List[Document]) -> List[Document]:
         api_key=Secret.from_token(config.models.openai.api_key),
         model=config.models.openai.embedding_model,
     )
-    print("Embedding %d chunked documents...", len(chunked_docs))
+    print(f"Embedding {len(chunked_docs)} chunked documents...")
     emb_result = embedder.run(documents=chunked_docs)
     embedded_chunks: List[Document] = emb_result["documents"]
-    print("Embedding complete. %d chunks embedded.", len(embedded_chunks))
+    print(f"Embedding complete. {len(embedded_chunks)} chunks embedded.")
     return embedded_chunks
 
 

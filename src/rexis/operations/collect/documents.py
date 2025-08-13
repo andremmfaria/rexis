@@ -65,14 +65,14 @@ def collect_documents_exec(input_path: Path, metadata: dict) -> List[Dict[str, A
         urls_to_download.append((url, row))
 
     if skipped_social_count:
-        print("Skipped %d social-media URLs.", skipped_social_count)
-    print("Prepared %d unique URL(s) to download.", len(urls_to_download))
+        print(f"Skipped {skipped_social_count} social-media URLs.")
+        print(f"Prepared {len(urls_to_download)} unique URL(s) to download.")
 
     # 3) Download
     results: List[Dict[str, Any]] = []
     total_to_download = len(urls_to_download)
     processed_count = 0
-    print("Starting downloads: %d item(s)", total_to_download)
+    print(f"Starting downloads: {total_to_download} item(s)")
     for url, row in urls_to_download:
         try:
             _download_and_store_url_content(
@@ -89,14 +89,14 @@ def collect_documents_exec(input_path: Path, metadata: dict) -> List[Dict[str, A
             LOGGER.warning("Failed to download %s: %s", url, e)
         finally:
             processed_count += 1
-            print("Progress: %d/%d documents processed", processed_count, total_to_download)
+            print(f"Progress: {processed_count}/{total_to_download} documents processed")
 
     # 4) Write run manifest on disk
     try:
         manifest_path = run_root_dir / f"results-{input_path.stem}.json"
         with open(manifest_path, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=2)
-        print("Saved collection manifest: %s", manifest_path)
+        print(f"Saved collection manifest: {manifest_path}")
     except Exception as e:
         LOGGER.warning("Failed to write manifest for %s: %s", input_path, e)
 
@@ -149,7 +149,7 @@ def _download_and_store_url_content(
 
     for attempt_index in range(max_attempts):
         try:
-            print("GET %s (stream) ...", url)
+            print(f"GET {url} (stream) ...")
             with session.get(
                 url,
                 headers={
@@ -239,7 +239,7 @@ def _download_and_store_url_content(
                         )
                     return
 
-                print("Writing -> %s (%s)", target_path, file_type)
+                print(f"Writing -> {target_path} ({file_type})")
                 with open(target_path, "wb") as f:
                     if first_chunk:
                         f.write(first_chunk)
