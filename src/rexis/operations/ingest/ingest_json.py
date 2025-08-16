@@ -121,7 +121,7 @@ def _ingest_json_single(path: Path, metadata: dict) -> None:
             return
 
         print(f"Indexing {len(prepared)} JSON record(s) from {path.name}")
-        index_documents(documents=prepared, refresh=True, doc_type="prose")
+        index_documents(documents=prepared, refresh=True, doc_type="json")
 
     except Exception as e:
         LOGGER.error("Failed to ingest JSON %s: %s", path, e, exc_info=True)
@@ -198,7 +198,7 @@ def _ingest_json_batch(paths: List[Path], batch: int, metadata: dict) -> None:
 
             if len(prepared) >= batch:
                 print(f"Indexing JSON batch: {len(prepared)} docs (progress {i}/{total})")
-                index_documents(documents=prepared, refresh=True, doc_type="prose")
+                index_documents(documents=prepared, refresh=True, doc_type="json")
                 prepared = []
 
         except Exception as e:
@@ -206,6 +206,6 @@ def _ingest_json_batch(paths: List[Path], batch: int, metadata: dict) -> None:
 
     if prepared:
         print(f"Indexing final JSON batch: {len(prepared)} docs")
-        index_documents(documents=prepared, refresh=True, doc_type="prose")
+        index_documents(documents=prepared, refresh=True, doc_type="json")
 
     print("JSON batch ingestion complete.")

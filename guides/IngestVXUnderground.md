@@ -44,7 +44,7 @@ Notes:
 Rexis exposes a file ingester via the CLI function `ingest_file` defined in `src/rexis/cli/ingestion_commands.py`.
 
 Key options this command enforces:
-- `--type, -t` (required): one of `pdf`, `html`, or `text`.
+- `--type, -t` (required): one of `pdf`, `html`, `json`, or `text`.
 - Exactly one of:
   - `--dir, -d` (batch mode, recursive) or
   - `--file, -f` (single file).
