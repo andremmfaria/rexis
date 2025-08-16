@@ -1,8 +1,14 @@
 import pyfiglet
 import rich
 import typer
-from rexis.cli.collect_commands import collect_malpedia
-from rexis.cli.ingestion_commands import ingest_api, ingest_file
+from rexis.cli.collect_commands import collect_malpedia, collect_malwarebazaar
+from rexis.cli.ingestion_commands import (
+    ingest_file,
+    ingest_file_pdf,
+    ingest_file_html,
+    ingest_file_text,
+    ingest_file_json,
+)
 from rexis.cli.query_commands import baseline_query, llmrag_query
 from rexis.utils.utils import get_version, setup_logging
 
@@ -16,13 +22,17 @@ collect_app = typer.Typer(help="Data collection commands")
 cli_app.add_typer(collect_app, name="collect")
 
 collect_app.command("malpedia")(collect_malpedia)
+collect_app.command("malwarebazaar")(collect_malwarebazaar)
 
 
 ingest_app = typer.Typer(help="Data ingestion commands")
 cli_app.add_typer(ingest_app, name="ingest")
 
-ingest_app.command("api")(ingest_api)
 ingest_app.command("file")(ingest_file)
+ingest_app.command("pdf")(ingest_file_pdf)
+ingest_app.command("html")(ingest_file_html)
+ingest_app.command("text")(ingest_file_text)
+ingest_app.command("json")(ingest_file_json)
 
 
 query_app = typer.Typer(help="Data query commands")

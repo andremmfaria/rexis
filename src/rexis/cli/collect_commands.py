@@ -6,7 +6,8 @@ from typing import Optional
 import typer
 from rexis.operations.collect.documents import collect_documents_exec
 from rexis.operations.collect.malpedia import collect_malpedia_exec
-from rexis.operations.ingest.ingest_file import ingest_file_exec
+from rexis.operations.collect.malwarebazaar import collect_malwarebazaar_exec
+from rexis.operations.ingest.main import ingest_file_exec
 
 
 def collect_malpedia(
@@ -81,3 +82,58 @@ def collect_malpedia(
             print(f"Ingested {ingested} items from {run_dir}")
     except Exception as e:
         print(f"Error ingesting data: {e}")
+
+
+def collect_malwarebazaar(
+    tags: Optional[str] = typer.Option(None, "--tags", "-t", help="Tags to search for"),
+    fetch_limit: Optional[int] = typer.Option(
+        None, "--fetch-limit", "-l", help="How many entries to fetch per tag", min=1
+    ),
+    batch: Optional[int] = typer.Option(
+        10, "--batch", "-b", help="Batch size for ingestion (also required with --tags)", min=1
+    ),
+    hash: Optional[str] = typer.Option(None, "--hash", "-s", help="Single SHA256 hash to fetch"),
+    hash_file: Optional[Path] = typer.Option(
+        None,
+        "--hash-file",
+        "-F",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="File with newline-separated hashes",
+    ),
+    run_name: Optional[str] = typer.Option(
+        None, "--run-name", "-n", help="Run name (if not present a UUID will be created)"
+    ),
+    output_dir: Path = typer.Option(
+        Path("."), "--output-dir", "-o", help="Directory to write outputs into"
+    ),
+    ingest: bool = typer.Option(False, "--ingest", "-i", help="Ingest the collected API data"),
+) -> None:
+    """Collect raw MalwareBazaar JSON and optionally ingest it into the index."""
+    try:
+        if not run_name: run_name = uuid.uuid4().hex
+        base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output_path: Path = output_dir / f"{base}.json"
+
+        num_saved: int = collect_malwarebazaar_exec(
+            tags=tags,
+            fetch_limit=fetch_limit,
+            batch=batch,
+            hash=hash,
+            hash_file=hash_file,
+            output_path=output_path,
+        )
+    except ValueError as error:
+        raise typer.BadParameter(str(error))
+
+    print(f"Saved {num_saved} JSON objects to {output_path}")
+
+    try:
+        if ingest and num_saved > 0:
+            print("Ingesting MalwareBazaar JSON via ingest_file_exec...")
+            ingest_file_exec(ftype="json", target_file=output_path, metadata={"source": "malwarebazaar"})
+            print(f"Ingested MalwareBazaar JSON from {output_path}")
+    except Exception as e:
+        print(f"Error ingesting MalwareBazaar data: {e}")

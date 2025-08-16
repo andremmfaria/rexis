@@ -6,7 +6,6 @@ from typing import Any, Dict, List, Optional, Set
 from urllib.parse import urlparse
 
 import requests
-import typer
 from dateutil import parser as dtparse
 from fuzzywuzzy import fuzz
 from rexis.utils.config import config
