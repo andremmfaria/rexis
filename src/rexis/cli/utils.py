@@ -3,7 +3,7 @@ from typing import Dict, List, Optional
 import typer
 
 
-def _parse_metadata_list(metadata: Optional[List[str]]) -> Dict[str, str]:
+def parse_metadata_list(metadata: Optional[List[str]]) -> Dict[str, str]:
     metadata_dict: Dict[str, str] = {}
     if metadata:
         for item in metadata:
@@ -17,7 +17,7 @@ def _parse_metadata_list(metadata: Optional[List[str]]) -> Dict[str, str]:
     return metadata_dict
 
 
-def _validate_dir_or_file(dir: Optional[Path], file: Optional[Path]) -> None:
+def validate_dir_or_file(dir: Optional[Path], file: Optional[Path]) -> None:
     provided: List[str] = [
         name for name, val in {"--dir": dir, "--file": file}.items() if val is not None
     ]
@@ -25,7 +25,7 @@ def _validate_dir_or_file(dir: Optional[Path], file: Optional[Path]) -> None:
         raise typer.BadParameter("Exactly one of --dir or --file must be provided.")
 
 
-def _validate_file_type(value: str):
+def validate_file_type(value: str):
     allowed = {"pdf", "html", "text", "json"}
     if value not in allowed:
         raise typer.BadParameter(f"--type must be one of {allowed}.")

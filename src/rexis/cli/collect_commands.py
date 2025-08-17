@@ -35,6 +35,32 @@ def collect_malpedia(
     ),
     ingest: bool = typer.Option(False, "--ingest", "-i", help="Ingest the collected data"),
 ) -> None:
+    """
+    Collects malware data from Malpedia and optionally ingests the collected files.
+
+    This function serves as the entrypoint for the Typer CLI command to collect malware samples and metadata from Malpedia,
+    filtering by family ID, actor ID, search term, and date range. The results are saved to a JSON file in the specified
+    output directory. Optionally, the collected files can be ingested for further processing.
+
+    Parameters:
+        family_id (Optional[str]): Malpedia family ID (e.g., "win.cobalt_strike").
+        actor_id (Optional[str]): Malpedia actor ID (e.g., "apt.turla").
+        search_term (Optional[str]): Search term to filter results (e.g., "CobaltStrike").
+        start_date (Optional[str]): Start date filter in YYYY-MM-DD format.
+        end_date (Optional[str]): End date filter in YYYY-MM-DD format.
+        max_items (Optional[int]): Maximum number of items to keep after filtering.
+        run_name (Optional[str]): Name for the run, used to name output files and folders.
+        output_dir (Path): Directory to write output files into.
+        ingest (bool): If True, ingests the collected data after saving.
+
+    Raises:
+        typer.BadParameter: If invalid parameters are provided.
+        Exception: If an error occurs during ingestion.
+
+    Outputs:
+        - Saves collected data as a JSON file in the output directory.
+        - Optionally ingests collected files and prints progress information.
+    """
     try:
         if not run_name: run_name = uuid.uuid4().hex
         base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
@@ -110,7 +136,31 @@ def collect_malwarebazaar(
     ),
     ingest: bool = typer.Option(False, "--ingest", "-i", help="Ingest the collected API data"),
 ) -> None:
-    """Collect raw MalwareBazaar JSON and optionally ingest it into the index."""
+    """
+    Collect raw MalwareBazaar JSON data and optionally ingest it into the index.
+
+    This function serves as the entrypoint for the Typer CLI interface to interact with the MalwareBazaar API.
+    It allows users to fetch malware sample metadata based on tags, SHA256 hashes, or a file containing hashes.
+    The collected data is saved as a JSON file, and can optionally be ingested into the index for further processing.
+
+    Parameters:
+        tags (Optional[str]): Tags to search for in MalwareBazaar. Multiple tags can be specified.
+        fetch_limit (Optional[int]): Maximum number of entries to fetch per tag.
+        batch (Optional[int]): Batch size for ingestion. Required when using tags.
+        hash (Optional[str]): Single SHA256 hash to fetch from MalwareBazaar.
+        hash_file (Optional[Path]): Path to a file containing newline-separated SHA256 hashes.
+        run_name (Optional[str]): Name for the run. If not provided, a UUID will be generated.
+        output_dir (Path): Directory to write the output JSON file. Defaults to the current directory.
+        ingest (bool): If True, ingests the collected JSON data into the index.
+
+    Raises:
+        typer.BadParameter: If invalid parameters are provided.
+        Exception: If an error occurs during ingestion.
+
+    Side Effects:
+        - Writes collected JSON data to the specified output directory.
+        - Optionally ingests the collected data into the index.
+    """
     try:
         if not run_name: run_name = uuid.uuid4().hex
         base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
