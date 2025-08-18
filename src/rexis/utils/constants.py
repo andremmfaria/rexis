@@ -1,4 +1,5 @@
 from typing import Tuple
+
 from rexis.utils.config import config
 
 DATABASE_CONNECTION_CONNSTRING: str = (

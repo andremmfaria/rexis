@@ -1,12 +1,8 @@
-import json
-
-import requests
+import httpx
+from rexis.facade.pyghidra_mcp_client.api import list_project_binaries_sync_detailed
+from rexis.facade.pyghidra_mcp_client.client import AuthenticatedClient
 from rexis.utils.config import config
 from rexis.utils.utils import LOGGER
-
-# Base URL and headers for the decompiler service (do not log secrets)
-BASE = config.decompiler.ghidra_url.rstrip("/")
-HEADERS = {"X-Api-Key": config.decompiler.api_key}
 
 
 def find_tool(name_hints=("import", "ingest", "analyz")):
@@ -14,12 +10,18 @@ def find_tool(name_hints=("import", "ingest", "analyz")):
 
     Preference order is given by name_hints occurring in id/name.
     """
-    url = f"{BASE}/tools"
+    url = f"{config.decompiler.ghidra_url.rstrip("/")}/tools"
     LOGGER.info("Discovering decompiler tools at %s ...", url)
+    client = AuthenticatedClient(
+        base_url=config.decompiler.ghidra_url.rstrip("/"),
+        token=config.decompiler.api_key,
+        prefix="",  # do not add 'Bearer '
+        auth_header_name="X-Api-Key",
+    )
     try:
-        r = requests.get(url, headers=HEADERS, timeout=30)
+        r = client.get_httpx_client().get("/tools", timeout=30)
         r.raise_for_status()
-    except requests.RequestException as e:
+    except httpx.HTTPError as e:
         LOGGER.error("Failed to fetch tools from %s: %s", url, e, exc_info=True)
         raise
 
@@ -55,7 +57,7 @@ def trigger_import_and_analysis(container_path: str):
 
     Tries multiple common parameter shapes until one succeeds (HTTP 200).
     """
-    print("Triggering import/analyze for path: %s", container_path)
+    LOGGER.info("Triggering import/analyze for path: %s", container_path)
     tool = find_tool()
     if not tool:
         LOGGER.error("No import/analyze tool found via /tools")
@@ -70,21 +72,32 @@ def trigger_import_and_analysis(container_path: str):
         {"input_path": container_path},
     ]
     last_err = None
+    client = AuthenticatedClient(
+        base_url=config.decompiler.ghidra_url.rstrip("/"),
+        token=config.decompiler.api_key,
+        prefix="",  # do not add 'Bearer '
+        auth_header_name="X-Api-Key",
+    )
     for body in payloads:
         LOGGER.debug("Attempting invoke with payload keys: %s", list(body.keys()))
         try:
-            r = requests.post(
-                f"{BASE}/tools/{tool['id']}/invoke",
-                headers={**HEADERS, "Content-Type": "application/json"},
-                data=json.dumps(body),
+            r = client.get_httpx_client().post(
+                f"/tools/{tool['id']}/invoke",
+                json=body,
                 timeout=600,
             )
             LOGGER.debug("Invoke response status: %s", r.status_code)
             if r.status_code == 200:
-                print("Invoke succeeded for tool %s", tool.get("id"))
-                return r.json()
+                LOGGER.info("Invoke succeeded for tool %s", tool.get("id"))
+                result = r.json()
+                try:
+                    list_project_binaries_sync_detailed(client=client)
+                    LOGGER.debug("Ghidra client smoke test: list_project_binaries ok")
+                except Exception as e:
+                    LOGGER.debug("Ghidra client smoke test skipped/failed: %s", e)
+                return result
             last_err = f"{r.status_code} {r.text[:200]}"
-        except Exception as e:
+        except httpx.HTTPError as e:
             LOGGER.warning("Invoke attempt failed: %s", e)
             last_err = str(e)
 

@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Any, Dict, List, Optional
 
 from haystack import Document
 from rexis.facade.haystack import index_documents
@@ -90,11 +90,14 @@ def _ingest_json_single(path: Path, metadata: dict) -> None:
                 continue
 
             # Prefer top-level sha256_hash, fallback to data.sha256_hash, else hash record JSON
-            sha256 = (rec.get("sha256_hash") or (rec.get("data") or {}).get("sha256_hash"))
+            sha256 = rec.get("sha256_hash") or (rec.get("data") or {}).get("sha256_hash")
             if not sha256:
                 try:
                     import hashlib as _hl
-                    sha256 = _hl.sha256(json.dumps(rec, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+                    sha256 = _hl.sha256(
+                        json.dumps(rec, sort_keys=True, ensure_ascii=False).encode("utf-8")
+                    ).hexdigest()
                 except Exception:
                     LOGGER.debug("Failed to compute fallback hash; skipping record")
                     continue
@@ -164,18 +167,23 @@ def _ingest_json_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                 continue
 
             if not isinstance(data, list):
-                LOGGER.warning("Skipping %s: expected list of records, got %s", path, type(data).__name__)
+                LOGGER.warning(
+                    "Skipping %s: expected list of records, got %s", path, type(data).__name__
+                )
                 continue
 
             for rec in data:
                 if not isinstance(rec, dict):
                     continue
 
-                sha256 = (rec.get("sha256_hash") or (rec.get("data") or {}).get("sha256_hash"))
+                sha256 = rec.get("sha256_hash") or (rec.get("data") or {}).get("sha256_hash")
                 if not sha256:
                     try:
                         import hashlib as _hl
-                        sha256 = _hl.sha256(json.dumps(rec, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+                        sha256 = _hl.sha256(
+                            json.dumps(rec, sort_keys=True, ensure_ascii=False).encode("utf-8")
+                        ).hexdigest()
                     except Exception:
                         continue
 

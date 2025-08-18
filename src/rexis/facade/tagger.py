@@ -1,5 +1,8 @@
-import openai
+import ast
+import re
 from typing import List
+
+import openai
 from rexis.utils.config import config
 from rexis.utils.utils import LOGGER
 
@@ -26,7 +29,8 @@ def tag_chunk(text: str) -> List[str]:
             temperature=temperature,
             max_tokens=max_tokens,
         )
-        import ast, re
+
+
         content = response.choices[0].message.content.strip()
         try:
             tags_list = ast.literal_eval(content)
@@ -35,19 +39,19 @@ def tag_chunk(text: str) -> List[str]:
         except Exception:
             pass
         # Try to extract a list using regex (e.g., ["tag1", "tag2"])
-        match = re.search(r'\[(.*?)\]', content, re.DOTALL)
+        match = re.search(r"\[(.*?)\]", content, re.DOTALL)
         if match:
             items = match.group(1)
             # Split by comma, remove quotes and whitespace
-            tags = [i.strip().strip('"\'') for i in items.split(',') if i.strip()]
+            tags = [i.strip().strip("\"'") for i in items.split(",") if i.strip()]
             if tags:
                 return tags
         # Fallback: split by commas or lines
-        if ',' in content:
-            tags = [t.strip().strip('"\'') for t in content.split(',') if t.strip()]
+        if "," in content:
+            tags = [t.strip().strip("\"'") for t in content.split(",") if t.strip()]
             if tags:
                 return tags
-        tags = [t.strip().strip('"\'') for t in content.splitlines() if t.strip()]
+        tags = [t.strip().strip("\"'") for t in content.splitlines() if t.strip()]
         if tags:
             return tags
         LOGGER.warning("Tagger: LLM did not return a parseable list. Got: %s", content)

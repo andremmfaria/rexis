@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 import vt
-from rexis.utils.config import settings
+from rexis.utils.config import config
 from rexis.utils.utils import LOGGER
 
 
@@ -19,7 +19,7 @@ def query_virustotal(hash: str) -> Dict[Any, Any]:
         ValueError: If the metadata retrieval fails or the sample is not found.
     """
     print(f"Retrieving metadata for file hash: {hash}")
-    client = vt.Client(settings.virus_total_api_key)
+    client = vt.Client(config.virus_total.api_key)
 
     try:
         result: vt.Object = client.get_object(f"/files/{hash}")

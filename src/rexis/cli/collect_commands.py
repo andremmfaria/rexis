@@ -62,7 +62,8 @@ def collect_malpedia(
         - Optionally ingests collected files and prints progress information.
     """
     try:
-        if not run_name: run_name = uuid.uuid4().hex
+        if not run_name:
+            run_name = uuid.uuid4().hex
         base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path: Path = output_dir / f"{base}.json"
@@ -78,13 +79,13 @@ def collect_malpedia(
     except ValueError as error:
         raise typer.BadParameter(str(error))
     run_dir = output_dir / base
-    print(
-        f"Saved {num_saved} JSON objects to {output_path} and scrapes will be in {run_dir}"
-    )
+    print(f"Saved {num_saved} JSON objects to {output_path} and scrapes will be in {run_dir}")
 
     try:
         if ingest:
-            results = collect_documents_exec(input_path=output_path, metadata={"source": "malpedia"})
+            results = collect_documents_exec(
+                input_path=output_path, metadata={"source": "malpedia"}
+            )
             total = len(results)
             ingested = 0
             processed = 0
@@ -162,7 +163,8 @@ def collect_malwarebazaar(
         - Optionally ingests the collected data into the index.
     """
     try:
-        if not run_name: run_name = uuid.uuid4().hex
+        if not run_name:
+            run_name = uuid.uuid4().hex
         base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path: Path = output_dir / f"{base}.json"
@@ -183,7 +185,9 @@ def collect_malwarebazaar(
     try:
         if ingest and num_saved > 0:
             print("Ingesting MalwareBazaar JSON via ingest_file_exec...")
-            ingest_file_exec(ftype="json", target_file=output_path, metadata={"source": "malwarebazaar"})
+            ingest_file_exec(
+                ftype="json", target_file=output_path, metadata={"source": "malwarebazaar"}
+            )
             print(f"Ingested MalwareBazaar JSON from {output_path}")
     except Exception as e:
         print(f"Error ingesting MalwareBazaar data: {e}")

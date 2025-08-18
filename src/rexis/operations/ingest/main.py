@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Dict, List, Literal, Optional, Set
+
 from rexis.operations.ingest.ingest_html import _ingest_html_batch, _ingest_html_single
 from rexis.operations.ingest.ingest_json import _ingest_json_batch, _ingest_json_single
 from rexis.operations.ingest.ingest_pdf import _ingest_pdf_batch, _ingest_pdf_single
@@ -64,8 +65,8 @@ def ingest_file_exec(
 
     else:
         LOGGER.error("Unknown ingestion mode")
-        
-        
+
+
 def _discover_paths(ftype: str, root: Path) -> List[Path]:
     exts: Set = {
         "pdf": {".pdf"},

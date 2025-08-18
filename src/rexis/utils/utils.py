@@ -4,6 +4,8 @@ import os
 import tomli
 
 LOGGER = logging.getLogger(__name__)
+
+
 def setup_logging(verbosity: int):
     """
     Configure logging based on verbosity count.

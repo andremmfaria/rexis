@@ -39,10 +39,19 @@ def _copy_into_samples(src: Path, samples_dir: Path, overwrite: bool) -> Path:
 
 def decompile_binary(
     file: Path = typer.Option(
-        ..., "--file", "-f", exists=True, file_okay=True, dir_okay=False, help="Path to the binary to decompile"
+        ...,
+        "--file",
+        "-f",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="Path to the binary to decompile",
     ),
     overwrite: bool = typer.Option(
-        False, "--overwrite", "-o", help="Overwrite if a file with the same name already exists in samples dir"
+        False,
+        "--overwrite",
+        "-o",
+        help="Overwrite if a file with the same name already exists in samples dir",
     ),
 ) -> None:
     """

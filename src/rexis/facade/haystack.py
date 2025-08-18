@@ -1,4 +1,3 @@
-from rexis.facade.tagger import tag_chunk
 import json
 from typing import Dict, List, Literal
 
@@ -10,6 +9,7 @@ from haystack.dataclasses import Document
 from haystack.document_stores.types import DuplicatePolicy
 from haystack.utils import Secret
 from haystack_integrations.document_stores.pgvector import PgvectorDocumentStore
+from rexis.facade.tagger import tag_chunk
 from rexis.utils.config import config
 from rexis.utils.constants import DATABASE_CONNECTION_CONNSTRING
 from rexis.utils.utils import LOGGER
@@ -86,7 +86,7 @@ def _split_documents(documents: List[Document], doc_type: str = "prose") -> List
         # Split tokens into even chunks
         chunks = []
         for i in range(0, len(tokens), max_tokens):
-            chunk_tokens = tokens[i:i+max_tokens]
+            chunk_tokens = tokens[i : i + max_tokens]
             chunk_text = enc.decode(chunk_tokens)
             chunks.append(chunk_text)
         return chunks
