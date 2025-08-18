@@ -29,8 +29,6 @@ dependencies = [
     "fuzzywuzzy>=0.18.0",
     "python-Levenshtein>=0.27.1",
     "python-magic>=0.4.27",
-    "httpx>=0.28.1",
-    "attrs>=25.3.0",
 ]
 
 [project.scripts]

@@ -54,12 +54,3 @@ def ensure_unique(dest_dir: Path, name: str) -> Path:
         candidate = dest_dir / f"{base}_{idx}{suffix}"
         idx += 1
     return candidate
-
-
-def copy_into_samples(src: Path, samples_dir: Path, overwrite: bool) -> Path:
-    samples_dir.mkdir(parents=True, exist_ok=True)
-    dest: Path = samples_dir / src.name
-    if dest.exists() and not overwrite:
-        dest = ensure_unique(samples_dir, src.name)
-    shutil.copy2(src, dest)
-    return dest
