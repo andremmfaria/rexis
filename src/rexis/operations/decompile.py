@@ -1,46 +1,97 @@
-import hashlib
-import importlib
 import json
+import os
 import time
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Iterable, List, Optional
 
 import pyghidra
-from rexis.utils.utils import LOGGER
+from rexis.utils.types import DecompiledFunction, Features, FunctionInfo, ProgramInfo
+from rexis.utils.utils import LOGGER, sha256
+
+# Lazy placeholders for Ghidra APIs; will be populated after pyghidra.start()
+ConsoleTaskMonitor = None  # type: ignore[assignment]
+AnalysisScheduler = None  # type: ignore[assignment]
+SymbolType = None  # type: ignore[assignment]
+DecompInterface = None  # type: ignore[assignment]
 
 
-def _require_ghidra_env():
-    """Ensure Ghidra is installed at /opt/ghidra and make it available to PyGhidra.
+def _ensure_ghidra_imports_loaded() -> None:
+    """Best-effort import of Ghidra APIs after pyghidra.start()."""
+    global ConsoleTaskMonitor, AnalysisScheduler, SymbolType, DecompInterface
+    if ConsoleTaskMonitor is None:
+        try:
+            from ghidra.util.task import ConsoleTaskMonitor as _ConsoleTaskMonitor  # type: ignore
+
+            ConsoleTaskMonitor = _ConsoleTaskMonitor  # type: ignore
+        except Exception:
+            pass
+    if AnalysisScheduler is None:
+        try:
+            from ghidra.app.services import AnalysisScheduler as _AnalysisScheduler  # type: ignore
+
+            AnalysisScheduler = _AnalysisScheduler  # type: ignore
+        except Exception:
+            pass
+    if SymbolType is None:
+        try:
+            from ghidra.program.model.symbol import SymbolType as _SymbolType  # type: ignore
+
+            SymbolType = _SymbolType  # type: ignore
+        except Exception:
+            pass
+    if DecompInterface is None:
+        try:
+            from ghidra.app.decompiler import DecompInterface as _DecompInterface  # type: ignore
+
+            DecompInterface = _DecompInterface  # type: ignore
+        except Exception:
+            pass
+
+
+def _require_ghidra_env() -> None:
+    """
+    Ensure Ghidra is installed at /opt/ghidra and available to PyGhidra.
 
     We assume a flat install with the 'support' folder at /opt/ghidra/support.
+    Also ensures GHIDRA_INSTALL_DIR points to /opt/ghidra for bootstrap.
     """
-    gid_path = Path("/opt/ghidra")
+    print("Checking Ghidra install at /opt/ghidra…")
+    gid_path: Path = Path("/opt/ghidra")
     if not gid_path.exists():
         raise RuntimeError("Ghidra not found at /opt/ghidra. Please install it there.")
-    support = gid_path / "support"
+    support: Path = gid_path / "support"
     if not support.exists():
-        raise RuntimeError(
-            f"Invalid Ghidra install: missing 'support' folder at {support}."
-        )
+        raise RuntimeError(f"Invalid Ghidra install: missing 'support' folder at {support}.")
+    os.environ.setdefault("GHIDRA_INSTALL_DIR", str(gid_path))
+    print("Installation found. GHIDRA_INSTALL_DIR set to /opt/ghidra")
 
 
-def _wait_for_analysis(program):
-    """Ensure Ghidra analysis has run; safe to call repeatedly."""
-    ghidra_task = importlib.import_module("ghidra.util.task")
-    ghidra_services = importlib.import_module("ghidra.app.services")
+def _wait_for_analysis(program: Any) -> None:
+    """
+    Ensure Ghidra analysis has run; safe to call repeatedly.
+    """
+    print("Waiting for analysis to complete…")
+    try:
+        if ConsoleTaskMonitor is None or AnalysisScheduler is None:
+            LOGGER.warning(
+                "AnalysisScheduler or ConsoleTaskMonitor not available; skipping explicit analysis wait."
+            )
+            return
+        monitor: Any = ConsoleTaskMonitor()  # type: ignore[operator]
+        scheduler: Any = AnalysisScheduler.getAnalysisScheduler(program)  # type: ignore[operator]
+        scheduler.startAnalysis(monitor)
+        while scheduler.isAnalyzing(program):
+            time.sleep(0.1)
+        print("Analysis completed.")
+    except Exception as e:
+        LOGGER.error("Skipping explicit analysis wait due to error: %s", e)
 
-    monitor = ghidra_task.ConsoleTaskMonitor()
-    scheduler = ghidra_services.AnalysisScheduler.getAnalysisScheduler(program)
-    scheduler.startAnalysis(monitor)
-    # Busy-wait with a small sleep; inexpensive and avoids blocking UI tasks
-    while scheduler.isAnalyzing(program):
-        time.sleep(0.1)
 
-
-def _collect_functions(program) -> List[Dict[str, object]]:
-    listing = program.getListing()
-    funcs = []
-    it = listing.getFunctions(True)
+def _collect_functions(program: Any) -> List[FunctionInfo]:
+    print("Collecting functions...")
+    listing: Any = program.getListing()
+    funcs: List[FunctionInfo] = []
+    it: Iterable[Any] = listing.getFunctions(True)
     for f in it:
         try:
             funcs.append(
@@ -48,31 +99,81 @@ def _collect_functions(program) -> List[Dict[str, object]]:
                     "name": f.getName(),
                     "entry": str(f.getEntryPoint()),
                     "size": f.getBody().getNumAddresses(),
+                    "is_thunk": bool(getattr(f, "isThunk", lambda: False)()),
+                    "calling_convention": (
+                        f.getCallingConventionName()
+                        if hasattr(f, "getCallingConventionName")
+                        else None
+                    ),
                 }
             )
-        except Exception:
+        except Exception as e:
+            LOGGER.error("Skipping function %s due to error: %s", f.getName(), e)
             pass
+    print(f"Collected {len(funcs)} functions.")
     return funcs
 
 
-def _collect_imports(program) -> List[str]:
-    imports = []
-    ghidra_symbol = importlib.import_module("ghidra.program.model.symbol")
-    SymbolType = ghidra_symbol.SymbolType
+def _collect_imports(program: Any) -> List[str]:
+    print("Collecting imports...")
+    imports: List[str] = []
+    if SymbolType is None:  # type: ignore
+        LOGGER.warning("SymbolType not available; skipping import collection.")
+        return []
 
-    st = program.getSymbolTable()
+    st: Any = program.getSymbolTable()
     for s in st.getExternalSymbols():
-        if s.getSymbolType() == SymbolType.FUNCTION:
-            imports.append(s.getName())
-    return sorted(set(imports))
+        try:
+            if s.getSymbolType() == SymbolType.FUNCTION:
+                imports.append(s.getName())
+        except Exception as e:
+            LOGGER.error("Error collecting import %s: %s", s.getName(), e)
+            pass
+    unique_imports: List[str] = sorted(set(imports))
+    print(f"Collected {len(unique_imports)} imports.")
+    return unique_imports
 
 
-def _sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()
+def _decompile_all_functions(program: Any, timeout_sec: int = 30) -> List[DecompiledFunction]:
+    """
+    Decompile every function with Ghidra's Decompiler and return C-like pseudocode.
+    timeout_sec applies per-function.
+    """
+    print("Starting decompilation of all functions...")
+    if DecompInterface is None:
+        LOGGER.warning("DecompInterface not available; skipping decompilation.")
+        return []
+
+    decompiler: Any = DecompInterface()  # type: ignore[operator]
+    if not decompiler.openProgram(program):
+        LOGGER.warning("Decompiler failed to open the program; skipping decompilation.")
+        return []
+
+    results: List[DecompiledFunction] = []
+    fm: Any = program.getFunctionManager()
+    funcs: Iterable[Any] = fm.getFunctions(True)
+
+    for func in funcs:
+        try:
+            res: Any = decompiler.decompileFunction(func, timeout_sec, None)
+            c_text: str = (
+                res.getDecompiledFunction().getC() if res and res.decompileCompleted() else ""
+            )
+            results.append(
+                {"name": func.getName(), "entry": str(func.getEntryPoint()), "c": c_text}
+            )
+        except Exception as e:
+            LOGGER.error("Decompile error on %s: %s", func.getName(), e)
+            results.append(
+                {
+                    "name": func.getName(),
+                    "entry": str(func.getEntryPoint()),
+                    "c": "",
+                    "error": str(e),
+                }
+            )
+    print(f"Decompilation complete. Functions processed: {len(results)}.")
+    return results
 
 
 def decompile_binary_exec(
@@ -82,7 +183,8 @@ def decompile_binary_exec(
     project_dir: Optional[Path] = None,
     project_name: str = "rexis",
 ) -> Path:
-    """Analyze a binary with PyGhidra and write features JSON.
+    """
+    Analyze a binary with PyGhidra and write features + decompiled C to JSON.
 
     Args:
         file: Path to the binary to analyze.
@@ -93,11 +195,6 @@ def decompile_binary_exec(
 
     Returns:
         Path to the written JSON file.
-
-    Raises:
-        RuntimeError: If Ghidra install at /opt/ghidra is missing/invalid.
-        FileExistsError: If output exists and overwrite is False.
-        FileNotFoundError: If the input file does not exist.
     """
     _require_ghidra_env()
 
@@ -110,42 +207,54 @@ def decompile_binary_exec(
         project_dir = Path.home() / ".rexis" / "ghidra_projects"
     project_dir.mkdir(parents=True, exist_ok=True)
 
-    file_hash = _sha256(file)
-    out_path = out_dir / f"{file_hash}.features.json"
+    file_hash: str = sha256(file)
+    out_path: Path = out_dir / f"{file_hash}.features.json"
     if out_path.exists() and not overwrite:
         raise FileExistsError(f"Output exists: {out_path}")
 
-    LOGGER.info("Starting PyGhidra...")
-    pyghidra.start(False)
+    # Start PyGhidra here (after verifying env), then load Java APIs
+    print("Starting PyGhidra...")
+    pyghidra.start()
+    _ensure_ghidra_imports_loaded()
 
-    LOGGER.info("Opening Ghidra project at %s (name=%s)", project_dir, project_name)
-    with pyghidra.open_project(str(project_dir), project_name) as project:
-        program = (
-            project.openProgram(str(file))
-            if project.contains(str(file))
-            else project.importProgram(str(file))
-        )
-        try:
-            _wait_for_analysis(program)
+    print(
+        f"Opening Ghidra project at {project_dir} (name={project_name}). This might take some time. Please be patient."
+    )
+    with pyghidra.open_program(
+        str(file),
+        project_location=str(project_dir),
+        project_name=project_name,
+        analyze=True,
+        nested_project_location=True,
+    ) as flat_api:
+        program: Any = flat_api.getCurrentProgram()
 
-            prog_info = {
-                "name": program.getName(),
-                "format": program.getExecutableFormat(),
-                "language": str(program.getLanguage().getLanguageDescription()),
-                "compiler": str(program.getCompilerSpec().getCompilerSpecDescription()),
-                "image_base": str(program.getImageBase()),
-                "size": file.stat().st_size,
-                "sha256": file_hash,
-            }
-            features = {
-                "program": prog_info,
-                "functions": _collect_functions(program),
-                "imports": _collect_imports(program),
-            }
+        _wait_for_analysis(program)
 
-            with out_path.open("w") as f:
-                json.dump(features, f, indent=2)
-            LOGGER.info("Wrote features to %s", out_path)
-            return out_path
-        finally:
-            program.release(True)
+        prog_info: ProgramInfo = {
+            "name": program.getName(),
+            "format": program.getExecutableFormat(),
+            "language": str(program.getLanguage().getLanguageDescription()),
+            "compiler": str(program.getCompilerSpec().getCompilerSpecDescription()),
+            "image_base": str(program.getImageBase()),
+            "size": file.stat().st_size,
+            "sha256": file_hash,
+        }
+
+        print("Collecting features (functions, imports, decompiled)...")
+        functions: List[FunctionInfo] = _collect_functions(program)
+        imports: List[str] = _collect_imports(program)
+        decompiled: List[DecompiledFunction] = _decompile_all_functions(program, timeout_sec=30)
+
+        features: Features = {
+            "program": prog_info,
+            "functions": functions,
+            "imports": imports,
+            "decompiled": decompiled,
+        }
+
+        with out_path.open("w") as f:
+            json.dump(features, f, indent=2)
+
+        print(f"Wrote features to {out_path}")
+        return out_path

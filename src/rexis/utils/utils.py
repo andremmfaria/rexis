@@ -1,5 +1,7 @@
+import hashlib
 import logging
 import os
+from pathlib import Path
 
 import tomli
 
@@ -39,3 +41,11 @@ def get_version() -> str:
     with open(pyproject_path, "rb") as f:
         data = tomli.load(f)
     return data["project"]["version"]
+
+
+def sha256(path: Path) -> str:
+    h: "hashlib._Hash" = hashlib.sha256()
+    with path.open("rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
