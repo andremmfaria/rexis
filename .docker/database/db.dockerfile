@@ -21,4 +21,4 @@ RUN apt-get remove -y build-essential git && \
 # ENV POSTGRES_DB=rexis
 
 # Optional: Create the vector extension on init
-COPY .docker/db/init.sql /docker-entrypoint-initdb.d/init.sql
+COPY .docker/database/init.sql /docker-entrypoint-initdb.d/init.sql
