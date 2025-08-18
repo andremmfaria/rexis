@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 
 from bs4 import BeautifulSoup
 from haystack import Document
-from rexis.facade.haystack import index_documents
+from rexis.tools.haystack import index_documents
 from rexis.utils.utils import LOGGER
 
 

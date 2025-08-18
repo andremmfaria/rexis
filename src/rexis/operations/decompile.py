@@ -1,7 +1,6 @@
 import json
 import os
 import time
-import uuid
 from pathlib import Path
 from typing import Any, Iterable, List, Optional
 
@@ -204,9 +203,6 @@ def decompile_binary_exec(
     if not file.exists():
         raise FileNotFoundError(str(file))
 
-    # Ensure base run directory following collection pattern
-    if not run_name:
-        run_name = uuid.uuid4().hex
     base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime(start_ts))}"
     out_dir.mkdir(parents=True, exist_ok=True)
     run_dir: Path = out_dir / base

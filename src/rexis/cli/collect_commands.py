@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Optional
 
 import typer
-from rexis.operations.collect.documents import collect_documents_exec
+from rexis.tools.documents import collect_documents_exec
 from rexis.operations.collect.malpedia import collect_malpedia_exec
 from rexis.operations.collect.malwarebazaar import collect_malwarebazaar_exec
 from rexis.operations.ingest.main import ingest_file_exec

@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Optional
+import uuid
 
 import typer
 from rexis.operations.decompile import decompile_binary_exec
@@ -19,7 +20,6 @@ def decompile_binary(
         ...,
         "--out-dir",
         "-o",
-        "-s",
         exists=False,
         file_okay=False,
         dir_okay=True,
@@ -51,6 +51,8 @@ def decompile_binary(
         help="Run name (used to name the output run folder). Defaults to a UUID if omitted.",
     ),
 ) -> None:
+    if not run_name:
+        run_name = uuid.uuid4().hex
     try:
         out_path, report_path = decompile_binary_exec(
             file=file,

@@ -10,7 +10,7 @@ from rexis.cli.ingestion_commands import (
     ingest_file_pdf,
     ingest_file_text,
 )
-from rexis.cli.query_commands import baseline_query, llmrag_query
+from rexis.cli.analyse_commands import cmd_analyze_baseline
 from rexis.utils.utils import get_version, setup_logging
 
 cli_app = typer.Typer(
@@ -36,11 +36,11 @@ ingest_app.command("text")(ingest_file_text)
 ingest_app.command("json")(ingest_file_json)
 
 
-query_app = typer.Typer(help="Data query commands")
-cli_app.add_typer(query_app, name="query")
+query_app = typer.Typer(help="Data analysis commands")
+cli_app.add_typer(query_app, name="analyse")
 
-query_app.command("baseline")(baseline_query)
-query_app.command("llmrag")(llmrag_query)
+query_app.command("baseline")(cmd_analyze_baseline)
+# query_app.command("llmrag")(llmrag_query)
 
 
 # Decompile/analysis commands

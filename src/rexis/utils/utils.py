@@ -1,7 +1,10 @@
+import time
 import hashlib
+import json
 import logging
 import os
 from pathlib import Path
+from typing import Dict
 
 import tomli
 
@@ -49,3 +52,19 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def write_json(obj: Dict, path: Path) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w") as f:
+        json.dump(obj, f, indent=2)
+    return path
+
+
+def load_json(path: Path) -> Dict:
+    with path.open("r") as f:
+        return json.load(f)
+
+
+def now_iso() -> str:
+    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())

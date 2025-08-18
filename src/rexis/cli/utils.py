@@ -54,3 +54,21 @@ def ensure_unique(dest_dir: Path, name: str) -> Path:
         candidate = dest_dir / f"{base}_{idx}{suffix}"
         idx += 1
     return candidate
+
+
+def path_default(path: str) -> Path:
+    return Path(path).expanduser().resolve()
+
+
+def format_validator(value: str) -> str:
+    v = value.lower()
+    if v not in {"json"}:
+        raise typer.BadParameter("Currently supported: json")
+    return v
+
+
+def severity_validator(value: str) -> str:
+    v = value.lower()
+    if v not in {"info", "warn", "error"}:
+        raise typer.BadParameter("Must be one of: info, warn, error")
+    return v

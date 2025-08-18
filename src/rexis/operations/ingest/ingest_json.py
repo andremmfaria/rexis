@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from haystack import Document
-from rexis.facade.haystack import index_documents
+from rexis.tools.haystack import index_documents
 from rexis.utils.utils import LOGGER
 
 
