@@ -10,6 +10,7 @@ from rexis.cli.ingestion_commands import (
     ingest_file_json,
 )
 from rexis.cli.query_commands import baseline_query, llmrag_query
+from rexis.cli.decompile_commands import decompile_binary
 from rexis.utils.utils import get_version, setup_logging
 
 cli_app = typer.Typer(
@@ -40,6 +41,10 @@ cli_app.add_typer(query_app, name="query")
 
 query_app.command("baseline")(baseline_query)
 query_app.command("llmrag")(llmrag_query)
+
+
+# Decompile/analysis commands
+cli_app.command("decompile")(decompile_binary)
 
 
 # --- Global Callback ---

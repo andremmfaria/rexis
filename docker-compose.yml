@@ -14,7 +14,6 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      # Use env (escaped $$ inside YAML) with sane fallbacks
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-postgres} -d $${POSTGRES_DB:-rexis}"]
       interval: 10s
       timeout: 5s

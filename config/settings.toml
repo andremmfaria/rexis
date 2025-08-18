@@ -16,6 +16,11 @@ password = "@get db_password"
 malpedia_base_url = "https://malpedia.caad.fkie.fraunhofer.de"
 default_user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 
+[decompiler]
+enabled = true
+ghidra_url = "http://localhost:8000"
+api_key = "@get decompiler_api_key"
+
 # Model metadata
 [models]
 openai = {base_url = "https://api.openai.com/v1", api_key = "@get openai_api_key", embedding_model = "text-embedding-3-small", embedding_model_limit=8192, query_model = "gpt-4o-2024-08-06"}

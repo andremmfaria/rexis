@@ -4,7 +4,7 @@ from haystack.components.generators import OpenAIGenerator
 from haystack.utils import Secret
 from haystack_integrations.components.retrievers.pgvector import PgvectorKeywordRetriever
 from haystack_integrations.document_stores.pgvector import PgvectorDocumentStore
-from rexis.utils.config import settings
+from rexis.utils.config import config
 from rexis.utils.constants import DATABASE_CONNECTION_CONNSTRING
 from rexis.utils.utils import LOGGER
 
