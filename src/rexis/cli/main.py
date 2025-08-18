@@ -60,7 +60,7 @@ def entrypoint(
     version: bool = typer.Option(
         False, "--version", "-V", help="Show REXIS version and exit.", is_eager=True
     ),
-):
+) -> None:
     """
     REXIS CLI entry point.
     """

@@ -1,40 +1,11 @@
-import shutil
 from pathlib import Path
-from typing import Optional
+from typing import Any
+import os
+import stat
 
 import typer
-from rexis.operations.decompile import trigger_import_and_analysis
-
-
-def _find_repo_root(start: Optional[Path] = None) -> Path:
-    """Find the repository root by locating pyproject.toml walking up from start/cwd."""
-    cur = (start or Path.cwd()).resolve()
-    for p in [cur, *cur.parents]:
-        if (p / "pyproject.toml").exists():
-            return p
-    # Fallback to current directory if pyproject not found
-    return cur
-
-
-def _ensure_unique(dest_dir: Path, name: str) -> Path:
-    """Return a unique destination path inside dest_dir using name, adding numeric suffix if needed."""
-    base = Path(name).stem
-    suffix = Path(name).suffix
-    candidate = dest_dir / f"{base}{suffix}"
-    idx = 1
-    while candidate.exists():
-        candidate = dest_dir / f"{base}_{idx}{suffix}"
-        idx += 1
-    return candidate
-
-
-def _copy_into_samples(src: Path, samples_dir: Path, overwrite: bool) -> Path:
-    samples_dir.mkdir(parents=True, exist_ok=True)
-    dest = samples_dir / src.name
-    if dest.exists() and not overwrite:
-        dest = _ensure_unique(samples_dir, src.name)
-    shutil.copy2(src, dest)
-    return dest
+from rexis.cli.utils import copy_into_samples
+from rexis.operations.decompile import decompile_binary_exec
 
 
 def decompile_binary(
@@ -46,6 +17,16 @@ def decompile_binary(
         file_okay=True,
         dir_okay=False,
         help="Path to the binary to decompile",
+    ),
+    samples_dir: Path = typer.Option(
+        ...,
+        "--samples-dir",
+        "-s",
+        exists=True,
+        file_okay=False,
+        dir_okay=True,
+        resolve_path=True,
+        help="Directory where samples are placed/read for Ghidra",
     ),
     overwrite: bool = typer.Option(
         False,
@@ -64,23 +45,64 @@ def decompile_binary(
       - GHIDRA_API_URL: Base URL for the API gateway (default http://localhost:8000)
       - MCPO_API_KEY: API key for the service (default top-secret)
     """
-    repo_root = _find_repo_root()
-    samples_dir = repo_root / "data" / "ghidra" / "samples"
-
-    # If the file is already inside the samples dir, skip copy
     try:
-        file_resolved = file.resolve()
+        file_resolved: Path = file.resolve()
         if samples_dir in file_resolved.parents:
-            dest = file_resolved
+            dest: Path = file_resolved
         else:
-            dest = _copy_into_samples(file_resolved, samples_dir, overwrite)
+            # Verify we can write into the mounted samples directory before copying
+            perm_check_file = samples_dir / ".rexis_perm_check.tmp"
+            def _try_write_test() -> bool:
+                try:
+                    with open(perm_check_file, "w") as fh:
+                        fh.write("ok")
+                    perm_check_file.unlink(missing_ok=True)  # type: ignore[arg-type]
+                    return True
+                except PermissionError:
+                    return False
+                except Exception:
+                    # Any other failure shouldn't block the copy step—only permission matters here
+                    try:
+                        perm_check_file.unlink(missing_ok=True)  # type: ignore[arg-type]
+                    except Exception:
+                        pass
+                    return True
+
+            if not _try_write_test():
+                # Attempt to add user write/execute on the directory if we own it
+                try:
+                    current_mode = stat.S_IMODE(os.stat(samples_dir).st_mode)
+                    desired_mode = current_mode | stat.S_IWUSR | stat.S_IXUSR
+                    if desired_mode != current_mode:
+                        os.chmod(samples_dir, desired_mode)
+                except Exception:
+                    # Ignore; we'll re-test and then provide guidance if still failing
+                    pass
+
+            if not _try_write_test():
+                # Still no permission: provide actionable guidance and exit
+                fix_cmds = [
+                    f"sudo chown -R $USER:$(id -gn) '{samples_dir}'",
+                    f"sudo chmod -R u+rwX '{samples_dir}'",
+                    # ACL alternative if preferred:
+                    f"# or: sudo setfacl -m u:$USER:rwx '{samples_dir}'",
+                ]
+                tips = "\n".join(f"  {c}" for c in fix_cmds)
+                raise typer.BadParameter(
+                    "No permission to write into samples directory.\n"
+                    f"Directory: {samples_dir}\n"
+                    "Run one of the following to grant access and try again:\n"
+                    f"{tips}"
+                )
+
+            dest = copy_into_samples(file_resolved, samples_dir, overwrite)
     except Exception as e:
         raise typer.BadParameter(f"Failed to prepare sample file: {e}")
 
-    container_path = f"/binaries/{dest.name}"
+    container_path: str = f"/binaries/{dest.name}"
     print(f"Invoking Ghidra import+analysis for {container_path} (from {dest})...")
     try:
-        result = trigger_import_and_analysis(container_path)
+        result: Any = decompile_binary_exec(container_path)
     except Exception as e:
         raise typer.Exit(code=1) from e
 

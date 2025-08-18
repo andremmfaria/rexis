@@ -1,7 +1,7 @@
 from rexis.cli.main import cli_app
 
 
-def main():
+def main() -> None:
     cli_app()
 
 
