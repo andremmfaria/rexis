@@ -7,17 +7,17 @@ requires-python = "<3.14,>=3.11"
 readme = "README.md"
 license = { text = "MIT" }
 dependencies = [
-    "malwarebazaar>=0.2.7",
-    "dynaconf>=3.2.10",
-    "openai>=1.75.0",
-    "haystack-ai[openai,pgvector]>=2.12.2",
-    "pgvector-haystack>=3.2.0",
-    "vt-py>=0.20.0",
-    "pyfiglet>=1.0.2",
-    "rich>=14.0.0",
+    "malwarebazaar>=0.2.8",
+    "dynaconf>=3.2.11",
+    "openai>=1.99.9",
+    "haystack-ai[openai,pgvector]>=2.16.1",
+    "pgvector-haystack>=5.2.1",
+    "vt-py>=0.21.0",
+    "pyfiglet>=1.0.4",
+    "rich>=14.1.0",
     "typer>=0.16.0",
-    "pyghidra>=2.1.0",
-    "tiktoken>=0.10.0",
+    "pyghidra>=2.2.0",
+    "tiktoken>=0.11.0",
     "beautifulsoup4>=4.13.4",
     "pymupdf>=1.26.3",
     "cloudscraper>=1.2.71",
@@ -29,6 +29,8 @@ dependencies = [
     "fuzzywuzzy>=0.18.0",
     "python-Levenshtein>=0.27.1",
     "python-magic>=0.4.27",
+    "httpx>=0.28.1",
+    "attrs>=25.3.0",
 ]
 
 [project.scripts]
@@ -38,17 +40,17 @@ analyze-prompt = "rexis.main:analyze_prompt"
 
 [dependency-groups]
 dev = [
-    "pytest>=8.3.5",
-    "flake8>=7.2.0",
+    "pytest>=8.4.1",
+    "flake8>=7.3.0",
     "black>=25.1.0",
-    "mypy>=1.15.0",
-    "coverage>=7.8.0",
+    "mypy>=1.17.1",
+    "coverage>=7.10.4",
     "isort>=6.0.1",
-    "ipython>=9.1.0",
-    "pylint>=3.3.6",
+    "ipython>=9.4.0",
+    "pylint>=3.3.8",
     "tomli>=2.2.1",
     "pydocstyle>=6.3.0",
-    "pre-commit>=4.2.0",
+    "pre-commit>=4.3.0",
 ]
 
 [tool.black]
