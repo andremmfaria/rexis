@@ -44,16 +44,23 @@ def decompile_binary(
         "-n",
         help="Ghidra project name to reuse between runs.",
     ),
+    run_name: Optional[str] = typer.Option(
+        None,
+        "--run-name",
+        "-r",
+        help="Run name (used to name the output run folder). Defaults to a UUID if omitted.",
+    ),
 ) -> None:
     try:
-        out_path = decompile_binary_exec(
+        out_path, report_path = decompile_binary_exec(
             file=file,
             out_dir=out_dir,
             overwrite=overwrite,
             project_dir=project_dir,
             project_name=project_name,
+            run_name=run_name,
         )
-        typer.echo(f"Wrote {out_path}")
+        typer.echo(f"Features document: {out_path}\nRun report: {report_path}")
     except FileExistsError as e:
         raise typer.BadParameter(str(e))
     except FileNotFoundError as e:
