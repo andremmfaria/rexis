@@ -10,6 +10,14 @@ from rexis.tools.heuristics_analyser.rules import (
     rule_packer_artifacts,
     rule_shell_execution_indicators,
     rule_suspicious_api_combination,
+    rule_tiny_text_section,
+    rule_low_entropy_strings,
+    rule_dynamic_api_resolution,
+    rule_service_persistence,
+    rule_filesystem_modification,
+    rule_suspicious_urls_in_strings,
+    rule_anti_vm_strings,
+    rule_http_exfil_indicators,
 )
 from rexis.tools.heuristics_analyser.utils import (
     get_nested_value,
@@ -82,11 +90,19 @@ def heuristic_classify(
     ruleset: List[Tuple[str, Callable[[Dict[str, Any]], Optional[Evidence]]]] = [
         ("sus_api_combo", rule_suspicious_api_combination),
         ("packer_artifacts", rule_packer_artifacts),
+        ("tiny_text_section", rule_tiny_text_section),
+        ("low_entropy_strings", rule_low_entropy_strings),
         ("entry_in_writable", rule_entry_in_writable_section),
         ("networking_indicators", rule_networking_indicators),
+        ("http_exfil_indicators", rule_http_exfil_indicators),
         ("crypto_indicators", rule_crypto_indicators),
+        ("dynamic_api_resolution", rule_dynamic_api_resolution),
         ("shell_exec_indicators", rule_shell_execution_indicators),
         ("autorun_persistence", rule_autorun_persistence),
+        ("service_persistence", rule_service_persistence),
+        ("filesystem_mod", rule_filesystem_modification),
+        ("suspicious_urls_in_strings", rule_suspicious_urls_in_strings),
+        ("anti_vm_strings", rule_anti_vm_strings),
         ("dbg_anti_dbg", rule_debugger_anti_debug_indicators),
     ]
 

@@ -29,7 +29,7 @@ SOCIAL_DOMAINS: Tuple[str, ...] = (
 DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
     "scoring": {
         "base": 0.0,
-        "combine": "weighted_sum",  # or "max"
+        "combine": "weighted_sum",  # or "max"guidesguides
         "label_thresholds": {
             "malicious": 0.70,
             "suspicious": 0.40,
@@ -40,14 +40,20 @@ DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
         # weights cap each rule's score contribution
         "sus_api_combo": 0.30,
         "packer_artifacts": 0.25,
+        "tiny_text_section": 0.20,
         "entry_in_writable": 0.20,
         "low_entropy_strings": 0.10,
         "networking_indicators": 0.20,
+        "http_exfil_indicators": 0.20,
         "crypto_indicators": 0.15,
+        "dynamic_api_resolution": 0.15,
         "shell_exec_indicators": 0.25,
         "autorun_persistence": 0.20,
+        "service_persistence": 0.20,
+        "filesystem_mod": 0.10,
+        "suspicious_urls_in_strings": 0.15,
+        "anti_vm_strings": 0.10,
         "dbg_anti_dbg": 0.20,
-        "tiny_text_section": 0.15,
     },
     # Optional allow/deny lists
     "allow_rules": [],
