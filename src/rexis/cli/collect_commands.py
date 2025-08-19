@@ -8,6 +8,7 @@ from rexis.tools.process_documents import collect_documents_exec
 from rexis.operations.collect.malpedia import collect_malpedia_exec
 from rexis.operations.collect.malwarebazaar import collect_malwarebazaar_exec
 from rexis.operations.ingest.main import ingest_file_exec
+from rexis.utils.utils import LOGGER
 
 
 def collect_malpedia(
@@ -109,7 +110,7 @@ def collect_malpedia(
                 print(f"Ingest progress: {processed}/{total}")
             print(f"Ingested {ingested} items from {run_dir}")
     except Exception as e:
-        print(f"Error ingesting data: {e}")
+        LOGGER.error(f"Error ingesting data: {e}")
 
 
 def collect_malwarebazaar(
@@ -190,4 +191,4 @@ def collect_malwarebazaar(
             )
             print(f"Ingested MalwareBazaar JSON from {output_path}")
     except Exception as e:
-        print(f"Error ingesting MalwareBazaar data: {e}")
+        LOGGER.error(f"Error ingesting MalwareBazaar data: {e}")

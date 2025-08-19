@@ -2,6 +2,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 from datetime import datetime, timezone
 
 from rexis.utils.types import FusionWeights, HeuristicsData, ReconcileConfig, ReconcilePolicyOverrides, Thresholds, VirusTotalData
+from rexis.utils.utils import LOGGER
 
 
 def clip_to_unit_interval(value: float) -> float:
@@ -16,6 +17,7 @@ def epoch_seconds_to_iso_utc_date(epoch_seconds: Optional[int]) -> Optional[str]
     try:
         return datetime.fromtimestamp(epoch_seconds, tz=timezone.utc).strftime("%Y-%m-%d")
     except Exception:
+        LOGGER.error("Failed to convert epoch seconds to ISO date", exc_info=True)
         return None
 
 

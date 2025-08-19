@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -84,13 +85,11 @@ def _ingest_json_single(path: Path, metadata: dict) -> None:
             sha256 = rec.get("sha256_hash") or (rec.get("data") or {}).get("sha256_hash")
             if not sha256:
                 try:
-                    import hashlib as _hl
-
-                    sha256 = _hl.sha256(
+                    sha256 = hashlib.sha256(
                         json.dumps(rec, sort_keys=True, ensure_ascii=False).encode("utf-8")
                     ).hexdigest()
                 except Exception:
-                    LOGGER.debug("Failed to compute fallback hash; skipping record")
+                    LOGGER.error("Failed to compute fallback hash; skipping record")
                     continue
 
             meta = {
@@ -119,6 +118,7 @@ def _ingest_json_single(path: Path, metadata: dict) -> None:
 
     except Exception as e:
         LOGGER.error("Failed to ingest JSON %s: %s", path, e, exc_info=True)
+        return
 
     print("JSON ingestion complete")
 
@@ -170,12 +170,11 @@ def _ingest_json_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                 sha256 = rec.get("sha256_hash") or (rec.get("data") or {}).get("sha256_hash")
                 if not sha256:
                     try:
-                        import hashlib as _hl
-
-                        sha256 = _hl.sha256(
+                        sha256 = hashlib.sha256(
                             json.dumps(rec, sort_keys=True, ensure_ascii=False).encode("utf-8")
                         ).hexdigest()
                     except Exception:
+                        LOGGER.error("Failed to compute fallback hash; skipping record")
                         continue
 
                 meta = {

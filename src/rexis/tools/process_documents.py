@@ -86,7 +86,7 @@ def collect_documents_exec(input_path: Path, metadata: dict) -> List[Dict[str, A
                 results=results,
             )
         except Exception as e:
-            LOGGER.warning("Failed to download %s: %s", url, e)
+            LOGGER.error("Failed to download %s: %s", url, e)
         finally:
             processed_count += 1
             print(f"Progress: {processed_count}/{total_to_download} documents processed")
@@ -98,7 +98,7 @@ def collect_documents_exec(input_path: Path, metadata: dict) -> List[Dict[str, A
             json.dump(results, f, ensure_ascii=False, indent=2)
         print(f"Saved collection manifest: {manifest_path}")
     except Exception as e:
-        LOGGER.warning("Failed to write manifest for %s: %s", input_path, e)
+        LOGGER.error("Failed to write manifest for %s: %s", input_path, e)
 
     return results
 
@@ -259,6 +259,7 @@ def _download_and_store_url_content(
                 return
 
         except Exception as exc:
+            LOGGER.error("Error downloading %s: %s", url, exc)
             last_exception = exc
             if attempt_index < max_attempts - 1:
                 sleep_for_seconds = backoff_seconds

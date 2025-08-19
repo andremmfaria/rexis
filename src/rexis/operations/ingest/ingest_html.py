@@ -128,6 +128,7 @@ def _ingest_html_single(path: Path, metadata: dict) -> None:
 
     except Exception as e:
         LOGGER.error("Failed to ingest HTML %s: %s", path, e, exc_info=True)
+        return
 
     print("HTML ingestion complete.")
 

@@ -10,7 +10,7 @@ Use the helper script for a repeatable install that doesn’t touch system Java 
 
 - Path: `scripts/install-ghidra.sh`
 - What it does:
-	- Installs Temurin JDK 21 from Adoptium tarball under `/opt/java-temurin/<jdk…>` and a stable symlink at `/opt/java-temurin/current`.
+	- Installs Temurin JDK 21 from Adoptium tarball under `/opt/java-temurin/<jdk...>` and a stable symlink at `/opt/java-temurin/current`.
 	- Downloads Ghidra 11.4.1 and installs it to `/opt/ghidra` (so `ghidraRun` is at `/opt/ghidra/ghidraRun`).
 	- Adds env vars to your shell rc: `GHIDRA_INSTALL_DIR=/opt/ghidra`, `PATH+=:$GHIDRA_INSTALL_DIR/support`, and `GHIDRA_JAVA_HOME=/opt/java-temurin/current` (or detected JDK21).
 	- Skips checksum verification unless you set `GHIDRA_SHA256`/`TEMURIN_SHA256` env vars.

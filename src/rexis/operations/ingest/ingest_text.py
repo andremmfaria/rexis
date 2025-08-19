@@ -93,6 +93,7 @@ def _ingest_text_single(path: Path, metadata: dict) -> None:
 
     except Exception as e:
         LOGGER.error("Failed to ingest TEXT %s: %s", path, e, exc_info=True)
+        return
 
     print("TEXT ingestion complete")
 

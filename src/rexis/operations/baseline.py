@@ -142,7 +142,7 @@ def _process_one_sample(
 
     # 1) Decompile
     _audit("decompile_start")
-    print("Decompiling with Ghidra pipeline…")
+    print("Decompiling with Ghidra pipeline...")
     features_path: Path
     features_path, _ = decompile_binary_exec(
         file=binary,
@@ -161,7 +161,7 @@ def _process_one_sample(
 
     # 2) Heuristics
     _audit("heuristics_start")
-    print("Running heuristics…")
+    print("Running heuristics...")
     heur: Dict[str, Any] = heuristic_classify(
         features=features, rules_path=rules_path, min_severity=min_severity
     )
@@ -177,7 +177,7 @@ def _process_one_sample(
         if vt_rate_limiter:
             vt_rate_limiter.wait()
         _audit("vt_start")
-        print("Querying VirusTotal for enrichment…")
+        print("Querying VirusTotal for enrichment...")
         vt_result, vt_error = _vt_enrich_sha256(sha256, vt_cfg)
         _audit("vt_done", ok=vt_error is None, error=vt_error)
         if vt_error:
@@ -225,7 +225,7 @@ def _process_one_sample(
 
     report_path: Path = out_dir / f"{sha256}.report.json"
     write_json(report, report_path)
-    print(f"Report written: {report_path}")
+    LOGGER.info(f"Decompilation report written to {report_path}")
     _audit("pipeline_done", report=str(report_path))
     return report_path
 

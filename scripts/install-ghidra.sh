@@ -97,7 +97,7 @@ install_temurin_from_tarball() {
   ( cd "$tmp" && wget -O temurin.tar.gz "${TEMURIN_API_URL}" )
 
   if [ -n "${TEMURIN_SHA256}" ]; then
-    say "Verifying Temurin checksum…"
+    say "Verifying Temurin checksum..."
     ( cd "$tmp" && echo "${TEMURIN_SHA256}" | sha256sum -c - ) || err "Temurin checksum verification failed"
   else
     warn "Skipping Temurin checksum verification (set TEMURIN_SHA256 to enable)."
@@ -138,7 +138,7 @@ install_ghidra() {
   ( cd "$tmp" && wget -O ghidra.zip "${GHIDRA_URL}" )
 
   if [ -n "$GHIDRA_SHA256" ]; then
-    say "Verifying checksum…"
+    say "Verifying checksum..."
     ( cd "$tmp" && echo "${GHIDRA_SHA256}" | sha256sum -c - ) || err "Checksum verification failed"
   else
     warn "Skipping checksum verification (set GHIDRA_SHA256 to enable)."
@@ -198,7 +198,7 @@ ensure_env() {
 
 # ── Verify ───────────────────────────────────────────────────────────────────
 verify() {
-  say "Verifying install…"
+  say "Verifying install..."
   if [ -f "${GHIDRA_DIR}/Ghidra/application.properties" ]; then
     ver="$(grep -E '^application\.version=' "${GHIDRA_DIR}/Ghidra/application.properties" | cut -d'=' -f2)"
     say "Ghidra version: ${ver}"

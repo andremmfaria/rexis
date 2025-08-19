@@ -37,6 +37,7 @@ def tag_chunk(text: str) -> List[str]:
             if isinstance(tags_list, list):
                 return [str(t).strip() for t in tags_list if isinstance(t, str)]
         except Exception:
+            LOGGER.error("Tagger: LLM response is not a valid list: %s", content)
             pass
         # Try to extract a list using regex (e.g., ["tag1", "tag2"])
         match = re.search(r"\[(.*?)\]", content, re.DOTALL)

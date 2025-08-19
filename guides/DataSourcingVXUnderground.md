@@ -574,6 +574,6 @@ For a deeper walkthrough of CLI options, metadata, batching, and how deduplicati
 
 * **Keep the browser tab focused** while the batch script runs (some browsers throttle background tabs).
 * If the year page has a lot of entries, you can run the batch collector multiple times with short date‑ranges (e.g., 2012 Q1/Q2) by editing the list of tiles (or stopping early).
-* If downloads **open in a viewer** instead of saving: most browsers still keep a copy in the Downloads list; alternatively set your browser to “Always ask where to save files,” or right‑click → “Save link as…”.
+* If downloads **open in a viewer** instead of saving: most browsers still keep a copy in the Downloads list; alternatively set your browser to “Always ask where to save files,” or right‑click → “Save link as...”.
 
 Optional: prefer exporting URLs only (no downloads)? Comment out the `triggerDownload(...)` calls in the scripts, inspect `window.__vxuBatch` / `window.__vxuSingle` for collected URLs, and save them as needed.

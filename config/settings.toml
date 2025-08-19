@@ -18,7 +18,7 @@ default_user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
 
 [baseline]
 virus_total_url = "https://www.virustotal.com/api/v3/files"
-virus_total_api_key = "@get virustotal_api_key"
+virus_total_api_key = "@get virus_total_api_key"
 
 [decompiler]
 

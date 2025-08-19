@@ -55,7 +55,7 @@ def _require_ghidra_env() -> None:
     We assume a flat install with the 'support' folder at /opt/ghidra/support.
     Also ensures GHIDRA_INSTALL_DIR points to /opt/ghidra for bootstrap.
     """
-    print("Checking Ghidra install at /opt/ghidra…")
+    print("Checking Ghidra install at /opt/ghidra...")
     gid_path: Path = Path("/opt/ghidra")
     if not gid_path.exists():
         raise RuntimeError("Ghidra not found at /opt/ghidra. Please install it there.")
@@ -271,6 +271,7 @@ def decompile_binary_exec(
 
             LOGGER.info(f"Wrote features to {out_path}")
     except Exception as e:
+        LOGGER.error("Decompilation failed: %s", e)
         status = "error"
         error_message = str(e)
         # Re-raise after writing report

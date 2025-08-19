@@ -89,6 +89,7 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
 
     except Exception as e:
         LOGGER.error("Failed to ingest PDF %s: %s", path, e, exc_info=True)
+        return
 
     print("PDF ingestion complete.")
 

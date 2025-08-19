@@ -41,7 +41,8 @@ def _prepare_documents_for_indexing(documents: List[Document]) -> List[Document]
         if not isinstance(doc.content, str):
             try:
                 doc.content = json.dumps(doc.content)
-            except Exception:
+            except Exception as e:
+                LOGGER.error(f"Failed to serialize document content to JSON: {e}")
                 doc.content = str(doc.content)
         meta = dict(doc.meta or {})
         meta.setdefault("parent_id", doc.id)

@@ -295,7 +295,7 @@ def parse_any_date(s: Optional[str]) -> Optional[date]:
         LOGGER.debug(f"Parsed date string '{s}' -> {result}")
         return result
     except Exception as e:
-        LOGGER.warning(f"Failed to parse date string '{s}': {e}")
+        LOGGER.error(f"Failed to parse date string '{s}': {e}")
         return None
 
 
