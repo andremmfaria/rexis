@@ -1,4 +1,5 @@
-from typing import Any, Dict, Tuple
+import re
+from typing import Any, Dict, List, Tuple
 
 from rexis.utils.config import config
 
@@ -63,4 +64,59 @@ DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
         # Example: if "ransom_notes" fires, force label
         # "ransom_notes": "ransomware"
     },
+}
+
+DEFAULT_TAG_SCORES = {
+    # behavioral
+    "networking_indicators": {"trojan": 0.5, "backdoor": 0.5, "botnet": 0.3},
+    "http_exfil_indicators": {"stealer": 0.7, "spyware": 0.6, "exfiltration": 0.8},
+    "filesystem_mod": {"ransomware": 0.7, "wiper": 0.6, "dropper": 0.4},
+    "shell_exec_indicators": {"dropper": 0.7, "downloader": 0.6, "loader": 0.5},
+    "suspicious_urls_in_strings": {"downloader": 0.6, "trojan": 0.5},
+    # persistence / evasion
+    "autorun_persistence": {"persistence": 0.8, "trojan": 0.3},
+    "service_persistence": {"persistence": 0.8, "backdoor": 0.4},
+    "anti_vm_strings": {"evasive": 0.8},
+    "dbg_anti_dbg": {"evasive": 0.7},
+    # packing / obfuscation
+    "packer_artifacts": {"packed": 0.9, "obfuscated": 0.6},
+    "tiny_text_section": {"packed": 0.6},
+    "low_entropy_strings": {"packed": 0.4},
+    "entry_in_writable": {"loader": 0.5, "packed": 0.4},
+    "dynamic_api_resolution": {"obfuscated": 0.7, "packed": 0.4},
+    # crypto
+    "crypto_indicators": {"ransomware": 0.5, "crypto_malware": 0.7},
+    # generic suspicious API combo
+    "sus_api_combo": {"trojan": 0.4, "backdoor": 0.3, "stealer": 0.3},
+}
+
+# Default normalization rules for vendor/threat names → canonical families
+# Order matters (first match wins)
+DEFAULT_NORMALIZATION_RULES = [
+    (r"ransom|locker|crypt(?!o)|cryptolocker|encrypt", "ransomware"),
+    (r"(bank|banload)", "banker"),
+    (r"(steal|stealer|azoru?lt|redline|vidar|raccoon)", "stealer"),
+    (r"agenttesla", "stealer"),
+    (r"keylog", "keylogger"),
+    (r"(miner|xmrig)", "miner"),
+    (r"wiper", "wiper"),
+    (r"worm", "worm"),
+    (r"rootkit", "rootkit"),
+    (r"(downloader|dldr)\b", "downloader"),
+    (r"dropper", "dropper"),
+    (r"loader", "loader"),
+    (r"(botnet|\bbot\b)", "bot"),
+    (r"adware", "adware"),
+    (r"(pua|pup|riskware)", "riskware"),
+    (r"(spy|spyware)", "spyware"),
+    (r"backdoor|bdoor|\brat\b|remote access trojan", "backdoor"),
+    (r"trojan", "trojan"),
+]
+
+# Default fused-decision settings (heuristics + VirusTotal)
+DEFAULT_DECISION: Dict[str, Any] = {
+    "weights": {"w_h": 0.5, "w_vt": 0.5},
+    "thresholds": {"malicious": 0.70, "suspicious": 0.40},
+    # Keep policy minimal here; other keys use internal defaults from ReconcileConfig
+    "policy": {"gap_penalty_start": 0.35},
 }

@@ -2,7 +2,7 @@ import json
 import os
 import time
 from pathlib import Path
-from typing import Any, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional
 
 import pyghidra
 from rexis.utils.types import DecompiledFunction, Features, FunctionInfo, ProgramInfo
@@ -231,7 +231,7 @@ def decompile_binary_exec(
         _ensure_ghidra_imports_loaded()
 
         print(
-            f"Opening Ghidra project at {project_dir} (name={project_name}). This might take some time. Please be patient."
+            f"Opening Ghidra project at {project_dir} (name={project_name}). This might take some time."
         )
         with pyghidra.open_program(
             str(file),
@@ -259,7 +259,7 @@ def decompile_binary_exec(
             imports: List[str] = _collect_imports(program)
             decompiled: List[DecompiledFunction] = _decompile_all_functions(program, timeout_sec=30)
 
-            features = {
+            features: Features = {
                 "program": prog_info,
                 "functions": functions,
                 "imports": imports,

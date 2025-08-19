@@ -4,12 +4,15 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 import requests
-# from rexis.tools.decision import fuse_heuristics_and_virustotal_decision
-from rexis.tools.heuristics_analyser.main import heuristic_classify
 from rexis.operations.decompile import decompile_binary_exec
+from rexis.tools.decision import fuse_heuristics_and_virustotal_decision
+from rexis.tools.heuristics_analyser.main import heuristic_classify
+from rexis.tools.heuristics_analyser.normal import families_from_vt_compact
+from rexis.tools.heuristics_analyser.utils import get_nested_value, load_heuristic_rules
 from rexis.utils.config import config
+from rexis.utils.constants import DEFAULT_DECISION
 from rexis.utils.types import VTConfig
-from rexis.utils.utils import LOGGER, load_json, now_iso, write_json, get_version
+from rexis.utils.utils import LOGGER, get_version, load_json, now_iso, write_json
 
 
 class _SimpleRateLimiter:
@@ -184,20 +187,29 @@ def _process_one_sample(
         else:
             print("VirusTotal enrichment complete.")
 
-    # 4) Assemble final report
-    score: float = (
-        float(heur.get("score", 0.0)) if isinstance(heur.get("score"), (int, float)) else 0.0
+    # 4) Decision fusion (heuristics + VirusTotal) and taxonomy. Load heuristics config for decision defaults/overrides
+    try:
+        rules_cfg = load_heuristic_rules(rules_path)
+    except Exception:
+        rules_cfg = {}
+    # Resolve decision settings from config with constants fallback
+    d_weights = get_nested_value(rules_cfg, "decision.weights", DEFAULT_DECISION["weights"])  # type: ignore[index]
+    d_thresholds = get_nested_value(rules_cfg, "decision.thresholds", DEFAULT_DECISION["thresholds"])  # type: ignore[index]
+    d_policy = get_nested_value(rules_cfg, "decision.policy", DEFAULT_DECISION["policy"])  # type: ignore[index]
+
+    fusion: Dict[str, Any] = fuse_heuristics_and_virustotal_decision(
+        heuristics=heur,
+        vt=vt_result,
+        vt_error=vt_error,
+        weights=d_weights,
+        thresholds=d_thresholds,
+        policy=d_policy,
     )
-    label: str = heur.get("label") or ("malicious" if score >= 0.5 else "unknown")
-    
-    # fusion = fuse_heuristics_and_virustotal_decision(
-    #     heuristics=heur,                
-    #     vt=vt_result,                   
-    #     vt_error=vt_error,       
-    #     weights={"w_h": 0.5, "w_vt": 0.5},      
-    #     thresholds={"malicious": 0.70, "suspicious": 0.40},
-    #     policy={"gap_penalty_start": 0.35},
-    # )
+
+    # Vendor taxonomy harmonization. Load heuristics config to drive taxonomy normalization rules (reuses rules_cfg)
+    families = families_from_vt_compact(vt_result or {}, rules_cfg=rules_cfg) if vt_result else {}
+    # Include tags inferred by heuristics (already scored) as another taxonomy hint
+    tags = heur.get("tags") or []
 
     report: Dict[str, Any] = {
         "schema": "rexis.baseline.report.v1",
@@ -213,12 +225,14 @@ def _process_one_sample(
             "baseline_path": str(baseline_path),
         },
         "program": features.get("program", {}),
-        "heuristics": heur,  # expected to include evidence list, score, label, etc.
-        "enrichment": {"virustotal": vt_result, "error": vt_error} if vt_cfg.enabled else {},
-        "final": {
-            "score": score,
-            "label": label,
+        "taxonomy": {
+            "families": families,  # canonical family counts from VT names
+            "tags": tags,  # inferred tags from heuristics
         },
+        "final": fusion.get("final", {}),
+        "decision": fusion,
+        "heuristics": heur,  # includes evidence, score, label, tags
+        "virus_total": {"data": vt_result, "error": vt_error} if vt_cfg.enabled else {},
         "audit": audit_log if audit else [],
     }
 
@@ -259,15 +273,13 @@ def analyze_baseline_exec(
 
     # Create a per-run directory to align with decompile.py layout
     start_ts: float = time.time()
-    started_at: str = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(start_ts))
+    started_at: str = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start_ts))
     base_path: str = f"baseline-analysis-{run_name}"
 
     out_dir.mkdir(parents=True, exist_ok=True)
     run_dir: Path = out_dir / base_path
     run_dir.mkdir(parents=True, exist_ok=True)
-    print(
-        f"Starting baseline analysis (run={run_name}) -> {run_dir}"
-    )
+    print(f"Starting baseline analysis (run={run_name}) -> {run_dir}")
 
     # Determine targets
     targets: List[Path]
@@ -291,7 +303,11 @@ def analyze_baseline_exec(
     )
     print(
         "VirusTotal enrichment: "
-        + (f"ENABLED (qpm={vt_cfg.qpm}, timeout={vt_cfg.timeout}s)" if vt_cfg.enabled else "disabled")
+        + (
+            f"ENABLED (qpm={vt_cfg.qpm}, timeout={vt_cfg.timeout}s)"
+            if vt_cfg.enabled
+            else "disabled"
+        )
     )
 
     # Worker wrapper to pass through fixed parameters
@@ -370,7 +386,7 @@ def analyze_baseline_exec(
         exc = None
 
     end_ts: float = time.time()
-    ended_at: str = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(end_ts))
+    ended_at: str = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(end_ts))
     duration_sec: float = round(end_ts - start_ts, 3)
     run_report: Dict[str, Any] = {
         "run_id": run_name,
