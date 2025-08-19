@@ -301,7 +301,7 @@ def analyze_baseline_exec(
             return _process_one_sample(
                 binary=binary,
                 out_dir=run_dir,
-                run_name=run_name_str,
+                run_name=run_name,
                 overwrite=overwrite,
                 project_dir=project_dir,
                 rules_path=rules_path,
@@ -315,7 +315,7 @@ def analyze_baseline_exec(
             # Emit a minimal failure report to keep batch consistent
             fail_report: Dict[str, Any] = {
                 "schema": "rexis.baseline.report.v1",
-                "run_name": run_name_str,
+                "run_name": run_name,
                 "generated_at": now_iso(),
                 "sample": {"source_path": str(binary.resolve())},
                 "final": {"label": "error", "score": 0.0},
@@ -350,7 +350,7 @@ def analyze_baseline_exec(
             # Summary
             summary: Dict[str, Any] = {
                 "schema": "rexis.baseline.summary.v1",
-                "run_name": run_name_str,
+                "run_name": run_name,
                 "generated_at": now_iso(),
                 "inputs_root": str(input_path.resolve()),
                 "count": len(targets),
@@ -374,7 +374,7 @@ def analyze_baseline_exec(
     ended_at: str = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(end_ts))
     duration_sec: float = round(end_ts - start_ts, 3)
     run_report: Dict[str, Any] = {
-        "run_name": run_name_str,
+        "run_name": run_name,
         "base": base,
         "started_at": started_at,
         "ended_at": ended_at,

@@ -214,13 +214,15 @@ def _ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                 },
             )
             prepared.append(doc)
+
             if len(prepared) >= batch:
                 print(f"Indexing HTML batch: {len(prepared)} docs (progress {i}/{total})")
                 index_documents(documents=prepared, refresh=True, doc_type="prose")
-                prepared = []
+                prepared.clear()
 
         except Exception as e:
-            LOGGER.warning("Failed to process HTML %s: %s", path, e)
+            LOGGER.error("Failed to process html documents %s: %s", [doc.id for doc in prepared], e)
+            return
 
     if prepared:
         print(f"Indexing final HTML batch: {len(prepared)} docs")

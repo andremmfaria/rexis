@@ -138,15 +138,16 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
             prepared.append(doc)
 
             if len(prepared) >= batch:
-                print(f"Indexing batch: {len(prepared)} docs (progress {i}/{total})")
+                print(f"Indexing PDF batch: {len(prepared)} docs (progress {i}/{total})")
                 index_documents(documents=prepared, refresh=True, doc_type="prose")
-                prepared = []
+                prepared.clear()
 
         except Exception as e:
-            LOGGER.warning("Failed to process %s: %s", path, e)
+            LOGGER.error("Failed to process pdf documents %s: %s", [doc.id for doc in prepared], e)
+            return
 
     if prepared:
-        print(f"Indexing final batch: {len(prepared)} docs")
+        print(f"Indexing final PDF batch: {len(prepared)} docs")
         index_documents(prepared, refresh=True, doc_type="prose")
 
     print("PDF batch ingestion complete.")

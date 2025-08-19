@@ -146,16 +146,16 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                     "type": "text",
                 },
             )
-
             prepared.append(doc)
 
             if len(prepared) >= batch:
                 print(f"Indexing TEXT batch: {len(prepared)} docs (progress {i}/{total})")
                 index_documents(documents=prepared, refresh=True, doc_type="prose")
-                prepared = []
+                prepared.clear()
 
         except Exception as e:
-            LOGGER.warning("Failed to process text %s: %s", path, e)
+            LOGGER.error("Failed to process text documents %s: %s", [doc.id for doc in prepared], e)
+            return
 
     if prepared:
         print(f"Indexing final TEXT batch: {len(prepared)} docs")

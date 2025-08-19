@@ -198,10 +198,11 @@ def _ingest_json_batch(paths: List[Path], batch: int, metadata: dict) -> None:
             if len(prepared) >= batch:
                 print(f"Indexing JSON batch: {len(prepared)} docs (progress {i}/{total})")
                 index_documents(documents=prepared, refresh=True, doc_type="json")
-                prepared = []
+                prepared.clear()
 
         except Exception as e:
-            LOGGER.warning("Failed to process json %s: %s", path, e)
+            LOGGER.error("Failed to process json documents %s: %s", [doc.id for doc in prepared], e)
+            return
 
     if prepared:
         print(f"Indexing final JSON batch: {len(prepared)} docs")
