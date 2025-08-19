@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Any, Dict, Tuple
 
 from rexis.utils.config import config
 
@@ -25,3 +25,36 @@ SOCIAL_DOMAINS: Tuple[str, ...] = (
     "telegram.me",
     "t.me",
 )
+
+DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
+    "scoring": {
+        "base": 0.0,
+        "combine": "weighted_sum",  # or "max"
+        "label_thresholds": {
+            "malicious": 0.70,
+            "suspicious": 0.40,
+            "benign": 0.0,
+        },
+    },
+    "weights": {
+        # weights cap each rule's score contribution
+        "sus_api_combo": 0.30,
+        "packer_artifacts": 0.25,
+        "entry_in_writable": 0.20,
+        "low_entropy_strings": 0.10,
+        "networking_indicators": 0.20,
+        "crypto_indicators": 0.15,
+        "shell_exec_indicators": 0.25,
+        "autorun_persistence": 0.20,
+        "dbg_anti_dbg": 0.20,
+        "tiny_text_section": 0.15,
+    },
+    # Optional allow/deny lists
+    "allow_rules": [],
+    "deny_rules": [],
+    # Optional explicit label overrides by rule hits (rule_id -> label)
+    "label_overrides": {
+        # Example: if "ransom_notes" fires, force label
+        # "ransom_notes": "ransomware"
+    },
+}

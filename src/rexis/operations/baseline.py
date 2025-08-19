@@ -1,12 +1,11 @@
 import concurrent.futures
 import time
-import uuid
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 import requests
 # from rexis.tools.decision import fuse_heuristics_and_virustotal_decision
-from rexis.tools.heuristics import heuristic_classify
+from rexis.tools.heuristics_analyser.main import heuristic_classify
 from rexis.operations.decompile import decompile_binary_exec
 from rexis.utils.config import config
 from rexis.utils.types import VTConfig

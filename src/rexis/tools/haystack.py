@@ -9,7 +9,7 @@ from haystack.dataclasses import Document
 from haystack.document_stores.types import DuplicatePolicy
 from haystack.utils import Secret
 from haystack_integrations.document_stores.pgvector import PgvectorDocumentStore
-from rexis.tools.tagger import tag_chunk
+from rexis.tools.data_tagger import tag_chunk
 from rexis.utils.config import config
 from rexis.utils.constants import DATABASE_CONNECTION_CONNSTRING
 from rexis.utils.utils import LOGGER
