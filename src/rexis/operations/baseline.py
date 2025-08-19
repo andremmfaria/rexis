@@ -1,18 +1,18 @@
 import concurrent.futures
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
-import requests
 from rexis.operations.decompile import decompile_binary_exec
 from rexis.tools.decision import fuse_heuristics_and_virustotal_decision
 from rexis.tools.heuristics_analyser.main import heuristic_classify
 from rexis.tools.heuristics_analyser.normal import families_from_vt_compact
 from rexis.tools.heuristics_analyser.utils import get_nested_value, load_heuristic_rules
+from rexis.tools.virus_total import query_virus_total
 from rexis.utils.config import config
 from rexis.utils.constants import DEFAULT_DECISION
 from rexis.utils.types import VTConfig
-from rexis.utils.utils import LOGGER, get_version, load_json, now_iso, write_json
+from rexis.utils.utils import LOGGER, get_version, iter_pe_files, load_json, now_iso, write_json
 
 
 class _SimpleRateLimiter:
@@ -34,12 +34,6 @@ class _SimpleRateLimiter:
         if delta < self._interval:
             time.sleep(self._interval - delta)
         self._last = time.time()
-
-
-def _iter_pe_files(root: Path) -> List[Path]:
-    """Discover likely PE files by extension. Adjust if you want stricter checks."""
-    exts: Set[str] = {".exe", ".dll", ".sys"}
-    return [p for p in root.rglob("*") if p.is_file() and p.suffix.lower() in exts]
 
 
 def _extract_sha256_from_features(features: Dict[str, Any], fallback_name: str = "") -> str:
@@ -68,19 +62,10 @@ def _vt_enrich_sha256(
     if not vt.api_key:
         return None, "VT enabled but no API key provided"
 
-    url: str = f"{vt.url}/{sha256}"
-    headers: Dict[str, str] = {"x-apikey": vt.api_key}
     try:
-        resp: requests.Response = requests.get(url, headers=headers, timeout=vt.timeout)
-        if resp.status_code == 404:
-            return None, "VT: not found"
-        if resp.status_code == 401:
-            return None, "VT: unauthorized (bad/expired API key)"
-        if resp.status_code == 429:
-            return None, "VT: rate limited"
-        resp.raise_for_status()
-        data: Dict[str, Any] = resp.json()
-        attrs: Dict[str, Any] = (data.get("data") or {}).get("attributes") or {}
+        # Use vt-py based helper and compact the result to attributes-like view
+        data: Dict[str, Any] = query_virus_total(hash=sha256, api_key=vt.api_key)
+        attrs: Dict[str, Any] = data.get("attributes") or {}
         vt_compact: Dict[str, Any] = {
             "sha256": attrs.get("sha256") or sha256,
             "size": attrs.get("size"),
@@ -99,7 +84,7 @@ def _vt_enrich_sha256(
             ),
             "first_submission_date": attrs.get("first_submission_date"),
             "last_submission_date": attrs.get("last_submission_date"),
-            "names": attrs.get("names"),  # list of seen filenames
+            "names": attrs.get("names"),
         }
         return vt_compact, None
     except Exception as e:
@@ -107,7 +92,7 @@ def _vt_enrich_sha256(
         return None, f"VT error: {e}"
 
 
-def _process_one_sample(
+def _process_sample(
     binary: Path,
     out_dir: Path,
     run_name: Optional[str],
@@ -275,16 +260,16 @@ def analyze_baseline_exec(
     start_ts: float = time.time()
     started_at: str = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start_ts))
     base_path: str = f"baseline-analysis-{run_name}"
-
     out_dir.mkdir(parents=True, exist_ok=True)
     run_dir: Path = out_dir / base_path
     run_dir.mkdir(parents=True, exist_ok=True)
+
     print(f"Starting baseline analysis (run={run_name}) -> {run_dir}")
 
     # Determine targets
     targets: List[Path]
     if input_path.is_dir():
-        targets = _iter_pe_files(input_path)
+        targets = iter_pe_files(input_path)
         if not targets:
             raise FileNotFoundError(f"No PE files found under: {input_path}")
         print(f"Discovered {len(targets)} PE file(s) under {input_path}")
@@ -313,7 +298,7 @@ def analyze_baseline_exec(
     # Worker wrapper to pass through fixed parameters
     def _worker(binary: Path) -> Path:
         try:
-            return _process_one_sample(
+            return _process_sample(
                 binary=binary,
                 out_dir=run_dir,
                 run_name=run_name,
@@ -336,7 +321,6 @@ def analyze_baseline_exec(
                 "final": {"label": "error", "score": 0.0},
                 "error": str(e),
             }
-            # Try to use a stable filename
             safe_name: str = binary.name + ".error.report.json"
             fail_path: Path = run_dir / safe_name
             write_json(fail_report, fail_path)
@@ -380,7 +364,6 @@ def analyze_baseline_exec(
         LOGGER.error("Pipeline failed: %s", e)
         status = "error"
         error_message = str(e)
-        # Re-raise after writing run report
         exc = e
     else:
         exc = None

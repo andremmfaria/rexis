@@ -1,7 +1,15 @@
-from typing import Any, Dict, List, Optional, Set, Tuple
 from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional, Set, Tuple
 
-from rexis.utils.types import FusionWeights, HeuristicsData, ReconcileConfig, ReconcilePolicyOverrides, Thresholds, VirusTotalData
+from rexis.utils.types import (
+    EvidenceItem,
+    FusionWeights,
+    HeuristicsData,
+    ReconcileConfig,
+    ReconcilePolicyOverrides,
+    Thresholds,
+    VirusTotalData,
+)
 from rexis.utils.utils import LOGGER
 
 
@@ -176,7 +184,9 @@ def label_from_thresholds(fused_score: float, cfg: ReconcileConfig) -> str:
     return "benign"
 
 
-def compute_disagreement_penalty(heuristics_score: float, vt_score: float, cfg: ReconcileConfig) -> float:
+def compute_disagreement_penalty(
+    heuristics_score: float, vt_score: float, cfg: ReconcileConfig
+) -> float:
     gap: float = abs(heuristics_score - vt_score)
     if gap <= cfg.gap_penalty_start:
         return 0.0
@@ -246,7 +256,12 @@ def fuse_heuristics_and_virustotal_decision(
 
     # Extreme conflict override: high-confidence, large-gap disagreement → abstain to "suspicious"
     conflict_override_applied: bool = False
-    if (vt and not vt_error) and gap >= cfg.conflict_gap_hard and Ch >= cfg.high_conf and Cvt >= cfg.high_conf:
+    if (
+        (vt and not vt_error)
+        and gap >= cfg.conflict_gap_hard
+        and Ch >= cfg.high_conf
+        and Cvt >= cfg.high_conf
+    ):
         fused = cfg.conflict_override_score
         conflict_override_applied = True
 
@@ -268,12 +283,26 @@ def fuse_heuristics_and_virustotal_decision(
                 "score": round(Sh, 4),
                 "label": heuristics.get("label"),
                 "evidence_counts": {
-                    "info": sum(1 for e in (heuristics.get("evidence") or []) if str(e.get("severity","")).lower()=="info"),
-                    "warn": sum(1 for e in (heuristics.get("evidence") or []) if str(e.get("severity","")).lower()=="warn"),
-                    "error": sum(1 for e in (heuristics.get("evidence") or []) if str(e.get("severity","")).lower()=="error"),
+                    "info": sum(
+                        1
+                        for e in (heuristics.get("evidence") or [])
+                        if str(e.get("severity", "")).lower() == "info"
+                    ),
+                    "warn": sum(
+                        1
+                        for e in (heuristics.get("evidence") or [])
+                        if str(e.get("severity", "")).lower() == "warn"
+                    ),
+                    "error": sum(
+                        1
+                        for e in (heuristics.get("evidence") or [])
+                        if str(e.get("severity", "")).lower() == "error"
+                    ),
                 },
             },
-            "virustotal": vt_info if vt and not vt_error else {"error": vt_error or "not_available"},
+            "virustotal": (
+                vt_info if vt and not vt_error else {"error": vt_error or "not_available"}
+            ),
         },
         "confidence": {
             "C_h": round(Ch, 4),
@@ -299,4 +328,3 @@ def fuse_heuristics_and_virustotal_decision(
         "explanation": expl,
     }
     return result
-

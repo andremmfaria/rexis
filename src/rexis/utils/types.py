@@ -37,9 +37,7 @@ class Features(TypedDict):
 @dataclass
 class VTConfig:
     enabled: bool
-    url: str
     api_key: str
-    timeout: int
     qpm: int  # queries per minute (budget)
 
 

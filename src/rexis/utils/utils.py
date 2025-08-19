@@ -4,7 +4,7 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Set
 
 import tomli
 
@@ -68,3 +68,9 @@ def load_json(path: Path) -> Dict:
 
 def now_iso() -> str:
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+
+def iter_pe_files(root: Path) -> List[Path]:
+    """Discover likely PE files by extension. Adjust if you want stricter checks."""
+    exts: Set[str] = {".exe", ".dll", ".sys"}
+    return [p for p in root.rglob("*") if p.is_file() and p.suffix.lower() in exts]
