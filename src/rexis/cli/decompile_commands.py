@@ -51,8 +51,7 @@ def decompile_binary(
         help="Run name (used to name the output run folder). Defaults to a UUID if omitted.",
     ),
 ) -> None:
-    if not run_name:
-        run_name = uuid.uuid4().hex
+    run_name_str: str = f"decompile-{run_name or uuid.uuid4().hex}"
     try:
         out_path, report_path = decompile_binary_exec(
             file=file,
@@ -60,7 +59,7 @@ def decompile_binary(
             overwrite=overwrite,
             project_dir=project_dir,
             project_name=project_name,
-            run_name=run_name,
+            run_name=run_name_str,
         )
         typer.echo(f"Features document: {out_path}\nRun report: {report_path}")
     except FileExistsError as e:

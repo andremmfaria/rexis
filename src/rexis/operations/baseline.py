@@ -101,6 +101,7 @@ def _vt_enrich_sha256(
         }
         return vt_compact, None
     except Exception as e:
+        LOGGER.error("VirusTotal query failed: %s", e)
         return None, f"VT error: {e}"
 
 
@@ -137,9 +138,11 @@ def _process_one_sample(
             audit_log.append(item)
 
     _audit("pipeline_start", run_name=run_name, file=str(binary))
+    print(f"Analyzing file: {binary}")
 
     # 1) Decompile
     _audit("decompile_start")
+    print("Decompiling with Ghidra pipeline…")
     features_path: Path
     features_path, _ = decompile_binary_exec(
         file=binary,
@@ -154,15 +157,18 @@ def _process_one_sample(
     # Load features
     features: Dict[str, Any] = load_json(features_path)
     sha256: str = _extract_sha256_from_features(features, features_path.name)
+    print(f"Features loaded. sha256={sha256}")
 
     # 2) Heuristics
     _audit("heuristics_start")
+    print("Running heuristics…")
     heur: Dict[str, Any] = heuristic_classify(
         features=features, rules_path=rules_path, min_severity=min_severity
     )
     baseline_path: Path = out_dir / f"{sha256}.baseline.json"
     write_json(heur, baseline_path)
     _audit("heuristics_done", baseline=str(baseline_path))
+    print(f"Heuristics written: {baseline_path}")
 
     # 3) Optional VirusTotal enrichment
     vt_result: Optional[Dict[str, Any]] = None
@@ -171,8 +177,13 @@ def _process_one_sample(
         if vt_rate_limiter:
             vt_rate_limiter.wait()
         _audit("vt_start")
+        print("Querying VirusTotal for enrichment…")
         vt_result, vt_error = _vt_enrich_sha256(sha256, vt_cfg)
         _audit("vt_done", ok=vt_error is None, error=vt_error)
+        if vt_error:
+            print(f"VirusTotal enrichment error: {vt_error}")
+        else:
+            print("VirusTotal enrichment complete.")
 
     # 4) Assemble final report
     score: float = (
@@ -244,18 +255,20 @@ def analyze_baseline_exec(
       - primary_output_path: single-file -> <sha256>.report.json; directory -> baseline_summary.json
       - run_report_path:     <run_base>.report.json with inputs/outputs summary (like decompile.py)
     """
-    run_name_str: str = run_name or uuid.uuid4().hex
     if report_format.lower() != "json":
         raise ValueError("Only 'json' report format is currently supported")
 
     # Create a per-run directory to align with decompile.py layout
     start_ts: float = time.time()
     started_at: str = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(start_ts))
-    base: str = f"{run_name_str}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime(start_ts))}"
+    base: str = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime(start_ts))}"
 
     out_dir.mkdir(parents=True, exist_ok=True)
     run_dir: Path = out_dir / base
     run_dir.mkdir(parents=True, exist_ok=True)
+    print(
+        f"Starting baseline analysis (run={run_name}) -> {run_dir}"
+    )
 
     # Determine targets
     targets: List[Path]
@@ -263,6 +276,7 @@ def analyze_baseline_exec(
         targets = _iter_pe_files(input_path)
         if not targets:
             raise FileNotFoundError(f"No PE files found under: {input_path}")
+        print(f"Discovered {len(targets)} PE file(s) under {input_path}")
     else:
         targets = [input_path]
 
@@ -275,6 +289,10 @@ def analyze_baseline_exec(
     )
     vt_rate_limiter: Optional[_SimpleRateLimiter] = (
         _SimpleRateLimiter(vt_cfg.qpm) if vt_cfg.enabled else None
+    )
+    print(
+        "VirusTotal enrichment: "
+        + (f"ENABLED (qpm={vt_cfg.qpm}, timeout={vt_cfg.timeout}s)" if vt_cfg.enabled else "disabled")
     )
 
     # Worker wrapper to pass through fixed parameters
@@ -293,7 +311,7 @@ def analyze_baseline_exec(
                 audit=audit,
             )
         except Exception as e:
-            LOGGER.exception("Failed pipeline on %s: %s", binary, e)
+            LOGGER.error("Failed pipeline on %s: %s", binary, e)
             # Emit a minimal failure report to keep batch consistent
             fail_report: Dict[str, Any] = {
                 "schema": "rexis.baseline.report.v1",
@@ -320,10 +338,12 @@ def analyze_baseline_exec(
         else:
             # Batch mode
             if parallel > 1:
+                print(f"Batch mode: processing {len(targets)} files with parallel={parallel}")
                 with concurrent.futures.ProcessPoolExecutor(max_workers=parallel) as ex:
                     for path in ex.map(_worker, targets):
                         reports.append(path)
             else:
+                print(f"Batch mode: processing {len(targets)} files sequentially")
                 for t in targets:
                     reports.append(_worker(t))
 
@@ -342,6 +362,7 @@ def analyze_baseline_exec(
             print(f"Batch summary written: {summary_path}")
             primary_output = summary_path
     except Exception as e:
+        LOGGER.error("Pipeline failed: %s", e)
         status = "error"
         error_message = str(e)
         # Re-raise after writing run report

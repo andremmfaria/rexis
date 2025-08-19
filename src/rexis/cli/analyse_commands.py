@@ -1,12 +1,8 @@
-from pathlib import Path
 import uuid
+from pathlib import Path
 
 import typer
-from rexis.cli.utils import (
-    format_validator,
-    path_default,
-    severity_validator,
-)
+from rexis.cli.utils import format_validator, severity_validator
 from rexis.operations.baseline import analyze_baseline_exec
 
 
@@ -14,6 +10,8 @@ def cmd_analyze_baseline(
     # INPUT
     input_path: Path = typer.Option(
         ...,
+        "--input",
+        "-i",
         exists=True,
         dir_okay=True,
         file_okay=True,
@@ -22,25 +20,29 @@ def cmd_analyze_baseline(
     ),
     # OUTPUT / RUN CONTEXT
     out_dir: Path = typer.Option(
-        ...,
+        Path.cwd(),
         "--out-dir",
         "-o",
-        help="Directory for all artifacts (features, reports)",
+        help="Directory for all artifacts (features, reports). Defaults to current working directory.",
     ),
     run_name: str | None = typer.Option(
         None,
         "--run-name",
+        "-r",
         help="Optional logical name to tag this run. Defaults to a UUID if omitted.",
     ),
     overwrite: bool = typer.Option(
-        False, "--overwrite", help="Overwrite existing artifacts when present"
+        False, "--overwrite", "-y", help="Overwrite existing artifacts when present"
     ),
     format: str = typer.Option(
         "json", "--format", "-f", callback=format_validator, help="Report format (default: json)"
     ),
     # GHIDRA / DECOMPILER
     project_dir: Path | None = typer.Option(
-        None, "--project-dir", help="Ghidra project store (default: ~/.rexis/ghidra_projects)"
+        Path.home() / ".rexis" / "ghidra_projects",
+        "--project-dir",
+        "-d",
+        help="Ghidra project store (default: ~/.rexis/ghidra_projects)",
     ),
     parallel: int = typer.Option(
         1, "--parallel", "-p", help="Process multiple files in parallel (dir input only)"
@@ -50,6 +52,7 @@ def cmd_analyze_baseline(
     min_severity: str = typer.Option(
         "info",
         "--min-severity",
+        "-m",
         callback=severity_validator,
         help="Filter heuristic evidence: info|warn|error",
     ),
@@ -71,13 +74,11 @@ def cmd_analyze_baseline(
       - <sha256>.report.json      (final report with optional VT enrichment)
       - baseline_summary.json     (batch summary when INPUT_PATH is a directory)
     """
-    if not run_name:
-        run_name = uuid.uuid4().hex
-
+    run_name_str: str = f"baseline-analysis-{run_name or uuid.uuid4().hex}"
     primary_path, run_report_path = analyze_baseline_exec(
         input_path=input_path,
         out_dir=out_dir,
-        run_name=run_name,
+        run_name=run_name_str,
         overwrite=overwrite,
         report_format=format,
         # decompiler

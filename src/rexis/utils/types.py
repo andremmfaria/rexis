@@ -1,4 +1,5 @@
 from typing import List, Optional, TypedDict, Union
+from dataclasses import dataclass
 
 
 class FunctionInfo(TypedDict):
@@ -33,6 +34,7 @@ class Features(TypedDict):
     decompiled: List[DecompiledFunction]
 
 
+@dataclass
 class VTConfig:
     enabled: bool
     url: str
@@ -41,6 +43,7 @@ class VTConfig:
     qpm: int  # queries per minute (budget)
 
 
+@dataclass
 class Evidence:
     id: str
     title: str

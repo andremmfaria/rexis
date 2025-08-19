@@ -1,10 +1,14 @@
-import hashlib
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
-import pymupdf
 from haystack import Document
+from rexis.operations.ingest.utils import (
+    discover_paths,
+    normalize_whitespace,
+    pdf_to_text,
+    stable_doc_id_from_path,
+)
 from rexis.tools.haystack import index_documents
 from rexis.utils.utils import LOGGER
 
@@ -33,7 +37,7 @@ def ingest_pdf_exec(
         _ingest_pdf_single(target_file, metadata)
 
     elif target_dir:
-        paths: List[Path] = _discover_paths(target_dir)
+        paths: List[Path] = discover_paths("pdf", target_dir)
         if not paths:
             LOGGER.warning("No pdf files found under %s", target_dir)
             return
@@ -46,16 +50,6 @@ def ingest_pdf_exec(
         LOGGER.error("Unknown ingestion mode")
 
 
-def _discover_paths(root: Path) -> List[Path]:
-    results: List[Path] = []
-    for p in root.rglob("*"):
-        if p.is_file() and p.suffix.lower() in {".pdf"}:
-            results.append(p)
-    results.sort()
-    print(f"Discovered {len(results)} PDF file(s) under {root}")
-    return results
-
-
 def _ingest_pdf_single(path: Path, metadata: dict) -> None:
     print("Ingesting PDF file:", path)
     LOGGER.debug("PDF(single) path: %s (metadata=%s)", path, metadata)
@@ -64,18 +58,18 @@ def _ingest_pdf_single(path: Path, metadata: dict) -> None:
             LOGGER.warning("Skipping non-PDF file: %s", path)
             return
 
-        text = _pdf_to_text(path)
+        text: str = pdf_to_text(path)
         if not text.strip():
             LOGGER.warning("Empty text extracted from %s", path)
             return
 
-        payload = {
+        payload: Dict[str, Any] = {
             "title": path.stem,
-            "extracted_text": _normalize_whitespace(text),
+            "extracted_text": normalize_whitespace(text),
             "metadata": metadata or {},
         }
 
-        hash_val = _stable_doc_id_from_path(path)
+        hash_val: str = stable_doc_id_from_path(path)
 
         # Build Document
         doc = Document(
@@ -114,7 +108,7 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
                 LOGGER.debug("Skipping non-PDF: %s", path)
                 continue
 
-            text = _pdf_to_text(path)
+            text: str = pdf_to_text(path)
             if not text.strip():
                 LOGGER.warning("Empty text extracted from %s", path)
                 continue
@@ -122,13 +116,13 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
             print("Ingesting PDF file:", path)
             LOGGER.debug("PDF(batch) path: %s (metadata=%s)", path, metadata)
 
-            payload = {
+            payload: Dict[str, Any] = {
                 "title": path.stem,
-                "extracted_text": _normalize_whitespace(text),
+                "extracted_text": normalize_whitespace(text),
                 "metadata": metadata or {},
             }
 
-            hash_val = _stable_doc_id_from_path(path)
+            hash_val: str = stable_doc_id_from_path(path)
 
             doc = Document(
                 id=f"file_pdf::{hash_val}",
@@ -156,49 +150,3 @@ def _ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
         index_documents(prepared, refresh=True, doc_type="prose")
 
     print("PDF batch ingestion complete.")
-
-
-def _pdf_to_text(path: Path) -> str:
-    parts: List[str] = []
-    try:
-        with pymupdf.open(path) as doc:
-            for page in doc:
-                try:
-                    parts.append(page.get_text("text"))
-                except Exception as e:
-                    LOGGER.warning(f"MuPDF warning on page extraction ({path}): {e}")
-    except Exception as e:
-        LOGGER.error(f"Failed to open PDF {path}: {e}")
-        return ""
-    return "\n".join(parts)
-
-
-def _stable_doc_id_from_path(path: Path) -> str:
-    """
-    Generates a stable document identifier (SHA-256 hash) from the contents of a file.
-
-    Args:
-        path (Path): The path to the file whose contents will be hashed.
-
-    Returns:
-        str: The hexadecimal SHA-256 hash of the file's contents.
-
-    Raises:
-        FileNotFoundError: If the specified file does not exist.
-        PermissionError: If the file cannot be read due to permission issues.
-    """
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
-            h.update(chunk)
-    digest = h.hexdigest()
-    return digest
-
-
-def _normalize_whitespace(s: str) -> str:
-    s = s.replace("\r", "")
-    import re
-
-    s = re.sub(r"[ \t]+", " ", s)
-    s = re.sub(r"\n{3,}", "\n\n", s)
-    return s.strip()

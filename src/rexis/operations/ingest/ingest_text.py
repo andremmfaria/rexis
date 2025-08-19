@@ -1,9 +1,13 @@
-import hashlib
 import json
 from pathlib import Path
 from typing import Dict, List, Optional
 
 from haystack import Document
+from rexis.operations.ingest.utils import (
+    discover_paths,
+    normalize_whitespace,
+    stable_doc_id_from_path,
+)
 from rexis.tools.haystack import index_documents
 from rexis.utils.utils import LOGGER
 
@@ -32,7 +36,7 @@ def ingest_text_exec(
         _ingest_text_single(target_file, metadata)
 
     elif target_dir:
-        paths: List[Path] = _discover_paths(target_dir)
+        paths: List[Path] = discover_paths("text", target_dir)
         if not paths:
             LOGGER.warning("No text files found under %s", target_dir)
             return
@@ -43,16 +47,6 @@ def ingest_text_exec(
 
     else:
         LOGGER.error("Unknown ingestion mode")
-
-
-def _discover_paths(root: Path) -> List[Path]:
-    results: List[Path] = []
-    for p in root.rglob("*"):
-        if p.is_file() and p.suffix.lower() in {".txt", ".log"}:
-            results.append(p)
-    results.sort()
-    print(f"Discovered {len(results)} text/log file(s) under {root}")
-    return results
 
 
 def _ingest_text_single(path: Path, metadata: dict) -> None:
@@ -73,7 +67,7 @@ def _ingest_text_single(path: Path, metadata: dict) -> None:
             LOGGER.warning("Empty text content: %s", path)
             return
 
-        text = _normalize_whitespace(raw)
+        text: str = normalize_whitespace(raw)
 
         payload = {
             "title": path.stem,
@@ -81,7 +75,7 @@ def _ingest_text_single(path: Path, metadata: dict) -> None:
             "metadata": metadata or {},
         }
 
-        hash_val = _stable_doc_id_from_path(path)
+        hash_val: str = stable_doc_id_from_path(path)
 
         doc = Document(
             id=f"file_text::{hash_val}",
@@ -131,7 +125,7 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                 LOGGER.warning("Empty text content: %s", path)
                 continue
 
-            text = _normalize_whitespace(raw)
+            text: str = normalize_whitespace(raw)
 
             payload = {
                 "title": path.stem,
@@ -139,7 +133,7 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                 "metadata": metadata or {},
             }
 
-            hash_val = _stable_doc_id_from_path(path)
+            hash_val: str = stable_doc_id_from_path(path)
 
             doc = Document(
                 id=f"file_text::{hash_val}",
@@ -168,34 +162,3 @@ def _ingest_text_batch(paths: List[Path], batch: int, metadata: dict) -> None:
         index_documents(documents=prepared, refresh=True, doc_type="prose")
 
     print("TEXT batch ingestion complete.")
-
-
-def _stable_doc_id_from_path(path: Path) -> str:
-    """
-    Generates a stable document identifier (SHA-256 hash) from the contents of a file.
-
-    Args:
-        path (Path): The path to the file whose contents will be hashed.
-
-    Returns:
-        str: The hexadecimal SHA-256 hash of the file's contents.
-
-    Raises:
-        FileNotFoundError: If the specified file does not exist.
-        PermissionError: If the file cannot be read due to permission issues.
-    """
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
-            h.update(chunk)
-    digest = h.hexdigest()
-    return digest
-
-
-def _normalize_whitespace(s: str) -> str:
-    s = s.replace("\r", "")
-    import re
-
-    s = re.sub(r"[ \t]+", " ", s)
-    s = re.sub(r"\n{3,}", "\n\n", s)
-    return s.strip()

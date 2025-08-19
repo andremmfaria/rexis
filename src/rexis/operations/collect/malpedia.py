@@ -83,20 +83,20 @@ def collect_malpedia_exec(
     return saved
 
 
-def _headers() -> Dict[str, str]:
-    return {
-        "User-Agent": "rexis-malpedia/1.0 (+research; RAG build)",
-        "Accept": "*/*",
-    }
-
-
 def fetch_references_index() -> Dict[str, List[Dict[str, Any]]]:
     """
     GET /api/get/references → { url: [ {type,id,common_name,alt_names,url}, ... ], ... }
     """
     print(f"[GET] {REFS_ENDPOINT}")
     try:
-        r = requests.get(REFS_ENDPOINT, headers=_headers(), timeout=60)
+        r = requests.get(
+            REFS_ENDPOINT,
+            headers={
+                "User-Agent": "rexis-malpedia/1.0 (+research; RAG build)",
+                "Accept": "*/*",
+            },
+            timeout=60,
+        )
         r.raise_for_status()
         data: Dict[str, Dict[str, List[Any]]] = r.json().get("references", "")
         if not isinstance(data, Dict):

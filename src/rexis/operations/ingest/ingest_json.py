@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from haystack import Document
+from rexis.operations.ingest.utils import discover_paths
 from rexis.tools.haystack import index_documents
 from rexis.utils.utils import LOGGER
 
@@ -32,7 +33,7 @@ def ingest_json_exec(
         return
 
     elif target_dir:
-        paths: List[Path] = _discover_paths(target_dir)
+        paths: List[Path] = discover_paths("json", target_dir)
         if not paths:
             LOGGER.warning("No json files found under %s", target_dir)
             return
@@ -43,16 +44,6 @@ def ingest_json_exec(
 
     else:
         LOGGER.error("Unknown ingestion mode")
-
-
-def _discover_paths(root: Path) -> List[Path]:
-    results: List[Path] = []
-    for p in root.rglob("*"):
-        if p.is_file() and p.suffix.lower() in {".json"}:
-            results.append(p)
-    results.sort()
-    print(f"Discovered {len(results)} JSON file(s) under {root}")
-    return results
 
 
 def _ingest_json_single(path: Path, metadata: dict) -> None:

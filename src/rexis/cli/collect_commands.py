@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Optional
 
 import typer
-from rexis.tools.documents import collect_documents_exec
+from rexis.tools.process_documents import collect_documents_exec
 from rexis.operations.collect.malpedia import collect_malpedia_exec
 from rexis.operations.collect.malwarebazaar import collect_malwarebazaar_exec
 from rexis.operations.ingest.main import ingest_file_exec
@@ -62,11 +62,11 @@ def collect_malpedia(
         - Optionally ingests collected files and prints progress information.
     """
     try:
-        if not run_name:
-            run_name = uuid.uuid4().hex
-        base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
+        run_name_str: str = f"malpedia-collect-{run_name or uuid.uuid4().hex}"
+        base = f"{run_name_str}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path: Path = output_dir / f"{base}.json"
+
         num_saved: int = collect_malpedia_exec(
             family_id=family_id,
             actor_id=actor_id,
@@ -78,6 +78,7 @@ def collect_malpedia(
         )
     except ValueError as error:
         raise typer.BadParameter(str(error))
+
     run_dir = output_dir / base
     print(f"Saved {num_saved} JSON objects to {output_path} and scrapes will be in {run_dir}")
 
@@ -163,9 +164,8 @@ def collect_malwarebazaar(
         - Optionally ingests the collected data into the index.
     """
     try:
-        if not run_name:
-            run_name = uuid.uuid4().hex
-        base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
+        run_name_str: str = f"malwarebazaar-collect-{run_name or uuid.uuid4().hex}"
+        base = f"{run_name_str}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
         output_dir.mkdir(parents=True, exist_ok=True)
         output_path: Path = output_dir / f"{base}.json"
 

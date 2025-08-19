@@ -5,6 +5,7 @@ from rexis.operations.ingest.ingest_html import _ingest_html_batch, _ingest_html
 from rexis.operations.ingest.ingest_json import _ingest_json_batch, _ingest_json_single
 from rexis.operations.ingest.ingest_pdf import _ingest_pdf_batch, _ingest_pdf_single
 from rexis.operations.ingest.ingest_text import _ingest_text_batch, _ingest_text_single
+from rexis.operations.ingest.utils import discover_paths
 from rexis.utils.utils import LOGGER
 
 
@@ -45,7 +46,7 @@ def ingest_file_exec(
         return
 
     elif target_dir:
-        paths: List[Path] = _discover_paths(ftype, target_dir)
+        paths: List[Path] = discover_paths(ftype, target_dir)
         if not paths:
             LOGGER.warning("No %s files found under %s", ftype, target_dir)
             return
@@ -65,20 +66,3 @@ def ingest_file_exec(
 
     else:
         LOGGER.error("Unknown ingestion mode")
-
-
-def _discover_paths(ftype: str, root: Path) -> List[Path]:
-    exts: Set = {
-        "pdf": {".pdf"},
-        "html": {".html", ".htm"},
-        "text": {".txt"},
-        "json": {".json"},
-    }[ftype]
-
-    results: List[Path] = []
-    for p in root.rglob("*"):
-        if p.is_file() and p.suffix.lower() in exts:
-            results.append(p)
-    results.sort()
-    print(f"Discovered {len(results)} {ftype} file(s) under {root}")
-    return results

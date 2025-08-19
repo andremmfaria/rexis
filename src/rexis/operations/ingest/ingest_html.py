@@ -1,10 +1,14 @@
-import hashlib
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from bs4 import BeautifulSoup
 from haystack import Document
+from rexis.operations.ingest.utils import (
+    discover_paths,
+    normalize_whitespace,
+    stable_doc_id_from_path,
+)
 from rexis.tools.haystack import index_documents
 from rexis.utils.utils import LOGGER
 
@@ -34,7 +38,7 @@ def ingest_html_exec(
         return
 
     elif target_dir:
-        paths: List[Path] = _discover_paths(target_dir)
+        paths: List[Path] = discover_paths("html", target_dir)
         if not paths:
             LOGGER.warning("No HTML files found under %s", target_dir)
             return
@@ -45,16 +49,6 @@ def ingest_html_exec(
 
     else:
         LOGGER.error("Unknown ingestion mode")
-
-
-def _discover_paths(root: Path) -> List[Path]:
-    results: List[Path] = []
-    for p in root.rglob("*"):
-        if p.is_file() and p.suffix.lower() in {".html", ".htm"}:
-            results.append(p)
-    results.sort()
-    print(f"Discovered {len(results)} HTML file(s) under {root}")
-    return results
 
 
 def _ingest_html_single(path: Path, metadata: dict) -> None:
@@ -105,18 +99,18 @@ def _ingest_html_single(path: Path, metadata: dict) -> None:
             body = soup.body or soup
             main_text = body.get_text(separator="\n", strip=True)
 
-        text = _normalize_whitespace(main_text)
+        text: str = normalize_whitespace(main_text)
         if not text:
             LOGGER.warning("Empty text extracted from %s", path)
             return
 
-        payload = {
+        payload: Dict[str, Any] = {
             "title": title,
             "extracted_text": text,
             "metadata": metadata or {},
         }
 
-        hash_val = _stable_doc_id_from_path(path)
+        hash_val: str = stable_doc_id_from_path(path)
 
         doc = Document(
             id=f"file_html::{hash_val}",
@@ -195,18 +189,18 @@ def _ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
                 body = soup.body or soup
                 main_text = body.get_text(separator="\n", strip=True)
 
-            text = _normalize_whitespace(main_text)
+            text: str = normalize_whitespace(main_text)
             if not text:
                 LOGGER.warning("Empty text extracted from %s", path)
                 continue
 
-            payload = {
+            payload: Dict[str, Any] = {
                 "title": title,
                 "extracted_text": text,
                 "metadata": metadata or {},
             }
 
-            hash_val = _stable_doc_id_from_path(path)
+            hash_val: str = stable_doc_id_from_path(path)
 
             doc = Document(
                 id=f"file_html::{hash_val}",
@@ -233,34 +227,3 @@ def _ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
         index_documents(documents=prepared, refresh=True, doc_type="prose")
 
     print("HTML batch ingestion complete.")
-
-
-def _stable_doc_id_from_path(path: Path) -> str:
-    """
-    Generates a stable document identifier (SHA-256 hash) from the contents of a file.
-
-    Args:
-        path (Path): The path to the file whose contents will be hashed.
-
-    Returns:
-        str: The hexadecimal SHA-256 hash of the file's contents.
-
-    Raises:
-        FileNotFoundError: If the specified file does not exist.
-        PermissionError: If the file cannot be read due to permission issues.
-    """
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
-            h.update(chunk)
-    digest = h.hexdigest()
-    return digest
-
-
-def _normalize_whitespace(s: str) -> str:
-    s = s.replace("\r", "")
-    import re
-
-    s = re.sub(r"[ \t]+", " ", s)
-    s = re.sub(r"\n{3,}", "\n\n", s)
-    return s.strip()
