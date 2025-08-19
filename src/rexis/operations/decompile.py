@@ -203,9 +203,9 @@ def decompile_binary_exec(
     if not file.exists():
         raise FileNotFoundError(str(file))
 
-    base = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime(start_ts))}"
+    base_path = f"decompilation-{run_name}"
     out_dir.mkdir(parents=True, exist_ok=True)
-    run_dir: Path = out_dir / base
+    run_dir: Path = out_dir / base_path
     run_dir.mkdir(parents=True, exist_ok=True)
 
     file = file.resolve()
@@ -216,7 +216,7 @@ def decompile_binary_exec(
     # Prepare paths
     file_hash: str = sha256(file)
     out_path: Path = run_dir / f"{file_hash}.features.json"
-    report_path: Path = run_dir / f"{base}.report.json"
+    report_path: Path = run_dir / f"{base_path}.report.json"
     if out_path.exists() and not overwrite:
         raise FileExistsError(f"Output exists: {out_path}")
 
@@ -288,8 +288,8 @@ def decompile_binary_exec(
             "decompiled_count": len(features["decompiled"]) if features else None,
         }
         report = {
-            "run_name": run_name,
-            "base": base,
+            "run_id": run_name,
+            "base_path": base_path,
             "started_at": started_at,
             "ended_at": ended_at,
             "duration_seconds": duration_sec,

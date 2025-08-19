@@ -74,7 +74,7 @@ def cmd_analyze_baseline(
       - <sha256>.report.json      (final report with optional VT enrichment)
       - baseline_summary.json     (batch summary when INPUT_PATH is a directory)
     """
-    run_name_str: str = f"baseline-analysis-{run_name or uuid.uuid4().hex}"
+    run_name_str: str = run_name or uuid.uuid4().hex
     primary_path, run_report_path = analyze_baseline_exec(
         input_path=input_path,
         out_dir=out_dir,
@@ -95,4 +95,4 @@ def cmd_analyze_baseline(
         audit=audit,
     )
 
-    typer.echo(f"Primary output: {primary_path}\nRun report: {run_report_path}")
+    typer.echo(f"Baseline report: {primary_path}\nRun report: {run_report_path}")

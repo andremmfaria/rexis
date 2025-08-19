@@ -168,7 +168,7 @@ def _process_one_sample(
     baseline_path: Path = out_dir / f"{sha256}.baseline.json"
     write_json(heur, baseline_path)
     _audit("heuristics_done", baseline=str(baseline_path))
-    print(f"Heuristics written: {baseline_path}")
+    print(f"Heuristics report: {baseline_path}")
 
     # 3) Optional VirusTotal enrichment
     vt_result: Optional[Dict[str, Any]] = None
@@ -202,7 +202,7 @@ def _process_one_sample(
 
     report: Dict[str, Any] = {
         "schema": "rexis.baseline.report.v1",
-        "run_name": run_name,
+        "run_id": run_name,
         "generated_at": now_iso(),
         "duration_sec": round(time.time() - started, 3),
         "sample": {
@@ -261,10 +261,10 @@ def analyze_baseline_exec(
     # Create a per-run directory to align with decompile.py layout
     start_ts: float = time.time()
     started_at: str = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(start_ts))
-    base: str = f"{run_name}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime(start_ts))}"
+    base_path: str = f"baseline-analysis-{run_name}"
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    run_dir: Path = out_dir / base
+    run_dir: Path = out_dir / base_path
     run_dir.mkdir(parents=True, exist_ok=True)
     print(
         f"Starting baseline analysis (run={run_name}) -> {run_dir}"
@@ -315,7 +315,7 @@ def analyze_baseline_exec(
             # Emit a minimal failure report to keep batch consistent
             fail_report: Dict[str, Any] = {
                 "schema": "rexis.baseline.report.v1",
-                "run_name": run_name,
+                "run_id": run_name,
                 "generated_at": now_iso(),
                 "sample": {"source_path": str(binary.resolve())},
                 "final": {"label": "error", "score": 0.0},
@@ -350,7 +350,7 @@ def analyze_baseline_exec(
             # Summary
             summary: Dict[str, Any] = {
                 "schema": "rexis.baseline.summary.v1",
-                "run_name": run_name,
+                "run_id": run_name,
                 "generated_at": now_iso(),
                 "inputs_root": str(input_path.resolve()),
                 "count": len(targets),
@@ -374,8 +374,8 @@ def analyze_baseline_exec(
     ended_at: str = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(end_ts))
     duration_sec: float = round(end_ts - start_ts, 3)
     run_report: Dict[str, Any] = {
-        "run_name": run_name,
-        "base": base,
+        "run_id": run_name,
+        "base_path": base_path,
         "started_at": started_at,
         "ended_at": ended_at,
         "duration_seconds": duration_sec,
@@ -402,7 +402,7 @@ def analyze_baseline_exec(
             "project_dir": str(project_dir) if project_dir else None,
         },
     }
-    run_report_path: Path = run_dir / f"{base}.report.json"
+    run_report_path: Path = run_dir / f"{base_path}.report.json"
     try:
         write_json(run_report, run_report_path)
         LOGGER.info(f"Run report written to {run_report_path}")
