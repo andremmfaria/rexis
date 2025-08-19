@@ -261,7 +261,7 @@ def analyze_baseline_exec(
     vt_qpm: int,
     # audit
     audit: bool,
-) -> tuple[Path, Path]:
+) -> Tuple[Path, Path]:
     """
     Orchestrates the baseline pipeline for a file or directory.
     Returns (primary_output_path, run_report_path):

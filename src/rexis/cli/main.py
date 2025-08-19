@@ -1,6 +1,7 @@
 import pyfiglet
 import rich
 import typer
+from rexis.cli.analyse_commands import cmd_analyze_baseline, cmd_analyze_llmrag
 from rexis.cli.collect_commands import collect_malpedia, collect_malwarebazaar
 from rexis.cli.decompile_commands import decompile_binary
 from rexis.cli.ingestion_commands import (
@@ -10,7 +11,6 @@ from rexis.cli.ingestion_commands import (
     ingest_file_pdf,
     ingest_file_text,
 )
-from rexis.cli.analyse_commands import cmd_analyze_baseline
 from rexis.utils.utils import get_version, setup_logging
 
 cli_app = typer.Typer(
@@ -40,7 +40,7 @@ query_app = typer.Typer(help="Data analysis commands")
 cli_app.add_typer(query_app, name="analyse")
 
 query_app.command("baseline")(cmd_analyze_baseline)
-# query_app.command("llmrag")(llmrag_query)
+query_app.command("llmrag")(cmd_analyze_llmrag)
 
 
 # Decompile/analysis commands
