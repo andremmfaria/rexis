@@ -27,11 +27,39 @@ class ProgramInfo(TypedDict):
     sha256: str
 
 
-class Features(TypedDict):
+class Features(TypedDict, total=False):
     program: ProgramInfo
     functions: List[FunctionInfo]
     imports: List[str]
     decompiled: List[DecompiledFunction]
+    sections: List["MemorySection"]
+    libraries: List[str]
+    exports: List[str]
+    entry_points: List[str]
+
+
+class MemorySection(TypedDict, total=False):
+    name: str
+    start: str
+    end: str
+    size: int
+    initialized: bool
+    read: bool
+    write: bool
+    execute: bool
+    volatile: bool
+    overlay: bool
+    loaded: bool
+    type: Optional[str]
+    source_name: Optional[str]
+    comment: Optional[str]
+    # Enrichments
+    entropy: float
+    strings_count: int
+    functions_count: int
+    bytes_total: int
+    bytes_sampled: int
+    bytes_truncated: bool
 
 
 @dataclass
