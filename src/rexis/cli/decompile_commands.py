@@ -1,9 +1,9 @@
+import uuid
 from pathlib import Path
 from typing import Optional
-import uuid
 
 import typer
-from rexis.operations.decompile import decompile_binary_exec
+from rexis.operations.decompile.main import decompile_binary_exec
 
 
 def decompile_binary(
