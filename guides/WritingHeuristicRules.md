@@ -4,11 +4,13 @@ This guide explains how to author, register, and tune heuristic rules that score
 
 ## Quick mental model
 
-- Rules are pure functions that inspect a `features: Dict[str, Any]` structure and optionally return an `Evidence` object.
-- Evidence has an `id`, `title`, `detail`, `severity` (info|warn|error), and a raw `score` in [0,1].
-- Final classification uses a configurable combiner (weighted_sum or max) plus per-rule weights and label thresholds.
-- Rules can be allowed/denied, reweighted, or given label overrides via a YAML/JSON config file.
-- The analyser can also infer probable malware tags (e.g., ransomware, trojan) with per-tag scores, driven by a configurable `tagging` section.
+- Rules are pure functions that inspect a `features: Dict[str, Any]` structure and return a tuple `(Evidence|None, reason|None)`.
+  - On hit, return `(Evidence, "short reason")`.
+  - On miss, return `(None, "miss reason")` so the engine can log why.
+- Evidence has `id`, `title`, `detail`, `severity` (info|warn|error), and a raw `score` in [0,1]. In results, hits also include `reason`.
+- Final classification uses a configurable combiner (`weighted_sum` or `max`) plus per-rule weights and label thresholds.
+- Rules can be allowed/denied, reweighted, or given label overrides via a YAML/JSON config file (merged with defaults at load time).
+- The analyser can infer probable malware tags (e.g., ransomware, trojan) with per-tag scores, driven by a configurable `tagging` section (or built-in defaults).
 - Vendor names from VirusTotal can be normalized to canonical families using configurable `taxonomy.normalization_rules`.
 
 ## Data contract: features and evidence
@@ -28,6 +30,8 @@ Helpers in `rexis.tools.heuristics_analyser.utils` make reading these safe:
 - `has_tiny_text_section(features) -> bool`
 - `is_entry_section_writable(features) -> Optional[bool]`
 - `get_nested_value(features, path, default) -> Any`
+ - `severity_is_at_least(min, sev) -> bool`
+ - `load_heuristic_rules(path) -> Dict[str, Any]` (merges YAML/JSON with defaults)
 
 Evidence (from `rexis.utils.types.Evidence`):
 - `id: str` — unique id for the rule (see wiring below)
@@ -41,28 +45,31 @@ Evidence (from `rexis.utils.types.Evidence`):
 Create a pure function in `src/rexis/tools/heuristics_analyser/rules.py`:
 
 ```python
-from typing import Any, Dict, Optional, Set
+from typing import Any, Dict, Optional, Set, Tuple
 from rexis.tools.heuristics_analyser.utils import get_imports_set
 from rexis.utils.types import Evidence
 
-def rule_suspicious_mutex_creation(features: Dict[str, Any]) -> Optional[Evidence]:
+def rule_suspicious_mutex_creation(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
     imps: Set[str] = get_imports_set(features)
     mutex_apis = {"createmutexa", "createmutexw", "openmutexa", "openmutexw"}
     hits = imps & mutex_apis
     if not hits:
-        return None
-    return Evidence(
-        id="suspicious_mutex_creation",
-        title="Mutex creation/manipulation",
-        detail=f"Imports include: {', '.join(sorted(hits))}",
-        severity="info",
-        score=0.1,
-    )
+    return None, "no mutex-related imports found"
+  return (
+    Evidence(
+      id="suspicious_mutex_creation",
+      title="Mutex creation/manipulation",
+      detail=f"Imports include: {', '.join(sorted(hits))}",
+      severity="info",
+      score=0.1,
+    ),
+    f"matched mutex imports: {', '.join(sorted(hits))}",
+  )
 ```
 
 Guidelines:
 - Always handle missing fields gracefully; prefer helpers and defaults.
-- Return `None` if the rule doesn’t fire; never raise.
+- Always return a 2-tuple: on miss `(None, reason)`; on hit `(Evidence, brief_reason)`; never raise.
 - Keep `detail` short with key indicators; avoid huge dumps.
 - Choose severity by signal confidence (common capabilities => info; strong TTP combos => warn/error).
 - Keep scores moderate and let configuration weights shape final impact.
@@ -70,7 +77,7 @@ Guidelines:
 ## Wiring a rule (main.py)
 
 Add the import and register it in the `ruleset` list in `src/rexis/tools/heuristics_analyser/main.py`.
-The tuple’s first element is the canonical rule id; the engine sets `ev.id` to this value.
+The tuple’s first element is the canonical rule id; the engine sets `ev.id` to this value and preserves your reason in the output.
 
 ```python
 from rexis.tools.heuristics_analyser.rules import (
@@ -96,6 +103,10 @@ Key sections:
 - `label_overrides`: `rule_id -> label` to force a label if that rule fires.
 
 You can override defaults at runtime by providing a YAML/JSON rules file to the analyser; it is merged into the defaults.
+
+Notes:
+- In `max` mode, `base` acts as a floor only when there are no rule hits; otherwise the maximum weighted rule contribution is used.
+- `label_overrides` are applied first: if any hit rule id is present in `label_overrides`, its label wins regardless of score.
 
 ### Example YAML override
 
@@ -129,7 +140,7 @@ Key parts of the configuration:
 - `tagging.threshold`: minimum tag score to include in the output list (default 0.3).
 - `tagging.top_k`: maximum number of tags to return (default 5).
 
-There is a built-in fallback mapping `DEFAULT_TAG_SCORES` in `src/rexis/utils/constants.py`. If `tagging.map` is omitted, that default will be used.
+There is a built-in fallback mapping `DEFAULT_TAG_SCORES` in `src/rexis/utils/constants.py`. If `tagging.map` is omitted, that default will be used. You can globally emphasize/de-emphasize tags with `tagging.tag_weights`.
 
 ### Example YAML (tagging section)
 
@@ -172,18 +183,32 @@ tagging:
 
 ### Output shape
 
-The analyser adds a `tags` field to the result:
+The analyser returns a compact result with scoring, evidence, tags, and traceability:
 
 ```jsonc
 {
-  "tags": [
-    { "tag": "ransomware", "score": 0.61 },
-    { "tag": "packed", "score": 0.58 }
-  ]
+  "schema": "rexis.baseline.heuristics.v1",
+  "score": 0.73,
+  "label": "malicious",
+  "evidence": [
+    {
+      "id": "sus_api_combo",
+      "title": "Suspicious API combination",
+      "detail": "Hits: process-injection, networking",
+      "severity": "error",
+      "score": 0.8,
+      "reason": "hit sets: process-injection, networking"
+    }
+  ],
+  "counts": { "info": 1, "warn": 2, "error": 1 },
+  "tags": [ { "tag": "ransomware", "score": 0.61 } ],
+  "rule_misses": [ { "id": "low_entropy_strings", "reason": "program size below threshold (<100KB) for this heuristic" } ]
 }
 ```
 
-Tags are sorted by score (desc) and filtered by `threshold`, limited by `top_k`.
+Notes:
+- Evidence is filtered by `min_severity` for the returned payload only; scoring always considers all hits.
+- Tags are sorted by score (desc), filtered by `threshold`, limited by `top_k`.
 
 ## Taxonomy normalization: harmonizing vendor names
 
@@ -234,7 +259,7 @@ The baseline pipeline uses these rules to add a `taxonomy.families` section to t
 
 ## Decision fusion: configuring the final verdict
 
-The baseline pipeline fuses the heuristics score/label with VirusTotal signals to produce a final decision. This fusion is configurable via a `decision` section in the same heuristics rules file.
+The baseline pipeline fuses the heuristics score/label with VirusTotal signals to produce a final decision. This fusion is configurable via a `decision` section in the same heuristics rules file (see `DEFAULT_DECISION` in `constants.py`).
 
 Config keys:
 - `decision.weights`: relative influence of heuristics vs VirusTotal. Expected keys: `w_h` and `w_vt` in [0,1].
@@ -298,6 +323,7 @@ features = {
 result = heuristic_classify(features)
 print(result["score"], result["label"])  # and inspect result["evidence"]
 print(result.get("tags", []))             # list of {"tag": str, "score": float}
+print(result.get("rule_misses", []))      # list of {"id": str, "reason": str}
 ```
 
 ## Adding helpers
@@ -311,6 +337,8 @@ If a rule needs common utilities (e.g., more extractors or normalizers), add the
 3) Add a default weight in `DEFAULT_HEURISTIC_RULES["weights"]` (constants.py).
 4) Document the rule id and intended severity/score in your team notes.
 5) (Optional) Provide example YAML overrides for tuning/enablement.
+
+Tip: include clear hit/miss reasons — they’re surfaced in `evidence.reason` and `rule_misses` for easier tuning.
 
 ---
 

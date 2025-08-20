@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
-from rexis.tools.decision.main import fuse_heuristics_and_virustotal_decision
+from rexis.tools.reconciliation.main import fuse_heuristics_and_virustotal_decision
 from rexis.tools.heuristics_analyser.main import heuristic_classify
 from rexis.tools.heuristics_analyser.normal import families_from_vt_compact
 from rexis.tools.heuristics_analyser.utils import get_nested_value, load_heuristic_rules

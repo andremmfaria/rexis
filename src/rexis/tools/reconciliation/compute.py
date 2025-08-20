@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from rexis.tools.decision.constants import (
+from rexis.tools.reconciliation.constants import (
     CAT_MAP,
     DIVERSITY_BONUS_2,
     DIVERSITY_BONUS_3,
@@ -26,7 +26,7 @@ from rexis.tools.decision.constants import (
     VT_SUSP_WEIGHT,
     VT_THREAT_NAME_BONUS,
 )
-from rexis.tools.decision.utils import clip_to_unit_interval, epoch_seconds_to_iso_utc_date
+from rexis.tools.reconciliation.utils import clip_to_unit_interval, epoch_seconds_to_iso_utc_date
 from rexis.utils.types import EvidenceItem, HeuristicsData, ReconcileConfig, VirusTotalData
 
 

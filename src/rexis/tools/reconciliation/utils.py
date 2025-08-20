@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from rexis.tools.decision.constants import (
+from rexis.tools.reconciliation.constants import (
     LABEL_BENIGN,
     LABEL_MALICIOUS,
     LABEL_SUSPICIOUS,

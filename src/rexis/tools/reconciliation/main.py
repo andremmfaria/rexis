@@ -1,11 +1,11 @@
 from typing import Any, Dict, List, Optional
 
-from rexis.tools.decision.compute import (
+from rexis.tools.reconciliation.compute import (
     compute_disagreement_penalty,
     compute_heuristics_confidence,
     compute_vt_score_and_confidence,
 )
-from rexis.tools.decision.constants import (
+from rexis.tools.reconciliation.constants import (
     CH_CEIL,
     CH_FLOOR,
     CVT_CEIL,
@@ -14,7 +14,7 @@ from rexis.tools.decision.constants import (
     LABEL_ABSTAIN,
     LABEL_SUSPICIOUS,
 )
-from rexis.tools.decision.utils import clip_to_unit_interval, label_from_thresholds
+from rexis.tools.reconciliation.utils import clip_to_unit_interval, label_from_thresholds
 from rexis.utils.types import (
     FusionWeights,
     HeuristicsData,
