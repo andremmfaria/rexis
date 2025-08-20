@@ -1,4 +1,4 @@
-from typing import List, Optional, TypedDict, Union
+from typing import Dict, List, Optional, TypedDict, Union
 from dataclasses import dataclass
 
 
@@ -61,6 +61,9 @@ class MemorySection(TypedDict, total=False):
     bytes_total: int
     bytes_sampled: int
     bytes_truncated: bool
+
+
+RateLimitState = Dict[str, float]
 
 
 @dataclass

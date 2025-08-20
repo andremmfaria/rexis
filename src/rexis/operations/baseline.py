@@ -4,36 +4,23 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
-from rexis.tools.reconciliation.main import fuse_heuristics_and_virustotal_decision
 from rexis.tools.heuristics_analyser.main import heuristic_classify
 from rexis.tools.heuristics_analyser.normal import families_from_vt_compact
 from rexis.tools.heuristics_analyser.utils import get_nested_value, load_heuristic_rules
+from rexis.tools.reconciliation.main import fuse_heuristics_and_virustotal_decision
 from rexis.tools.virus_total import query_virus_total
 from rexis.utils.config import config
 from rexis.utils.constants import DEFAULT_DECISION
-from rexis.utils.types import VTConfig
-from rexis.utils.utils import LOGGER, get_version, iter_pe_files, load_json, now_iso, write_json
-
-
-class _SimpleRateLimiter:
-    """
-    Very small token-bucket-ish limiter based on QPM.
-    Not perfect, but good enough for CLI batch runs.
-    """
-
-    _interval: float
-    _last: float
-
-    def __init__(self, qpm: int) -> None:
-        self._interval = 60.0 / max(1, qpm)
-        self._last = 0.0
-
-    def wait(self) -> None:
-        now: float = time.time()
-        delta: float = now - self._last
-        if delta < self._interval:
-            time.sleep(self._interval - delta)
-        self._last = time.time()
+from rexis.utils.types import RateLimitState, VTConfig
+from rexis.utils.utils import (
+    LOGGER,
+    get_version,
+    iter_pe_files,
+    load_json,
+    now_iso,
+    wait_qpm,
+    write_json,
+)
 
 
 def _extract_sha256_from_features(features: Dict[str, Any], fallback_name: str = "") -> str:
@@ -105,7 +92,7 @@ def _process_sample(
     min_severity: str,
     # vt
     vt_cfg: VTConfig,
-    vt_rate_limiter: Optional[_SimpleRateLimiter],
+    vt_rate_state: Optional[RateLimitState],
     # audit
     audit: bool,
 ) -> Path:
@@ -162,8 +149,8 @@ def _process_sample(
     vt_result: Optional[Dict[str, Any]] = None
     vt_error: Optional[str] = None
     if vt_cfg.enabled:
-        if vt_rate_limiter:
-            vt_rate_limiter.wait()
+        if vt_rate_state is not None:
+            wait_qpm(vt_cfg.qpm, vt_rate_state)
         _audit("vt_start")
         print("[baseline] Querying VirusTotal for enrichment...")
         vt_result, vt_error = _vt_enrich_sha256(sha256, vt_cfg)
@@ -282,9 +269,7 @@ def analyze_baseline_exec(
         api_key=config.baseline.virus_total_api_key,
         qpm=max(1, vt_qpm),
     )
-    vt_rate_limiter: Optional[_SimpleRateLimiter] = (
-        _SimpleRateLimiter(vt_cfg.qpm) if vt_cfg.enabled else None
-    )
+    vt_rate_state: Optional[RateLimitState] = {"last": 0.0} if vt_cfg.enabled else None
     print(
         "[baseline] VirusTotal enrichment: "
         + (f"ENABLED (qpm={vt_cfg.qpm})" if vt_cfg.enabled else "disabled")
@@ -302,7 +287,7 @@ def analyze_baseline_exec(
                 rules_path=rules_path,
                 min_severity=min_severity,
                 vt_cfg=vt_cfg,
-                vt_rate_limiter=vt_rate_limiter,
+                vt_rate_state=vt_rate_state,
                 audit=audit,
             )
         except Exception as e:
@@ -332,7 +317,9 @@ def analyze_baseline_exec(
         else:
             # Batch mode
             if parallel > 1:
-                print(f"[baseline] Batch mode: processing {len(targets)} files with parallel={parallel}")
+                print(
+                    f"[baseline] Batch mode: processing {len(targets)} files with parallel={parallel}"
+                )
                 with concurrent.futures.ProcessPoolExecutor(max_workers=parallel) as ex:
                     for path in ex.map(_worker, targets):
                         reports.append(path)
