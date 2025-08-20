@@ -124,7 +124,8 @@ def heuristic_classify(
     rules: Dict[str, Any] = load_heuristic_rules(rules_path)
 
     # Collect evidence from built-in rules
-    ruleset: List[Tuple[str, Callable[[Dict[str, Any]], Optional[Evidence]]]] = [
+    # Each rule returns (Evidence|None, miss_reason|None)
+    ruleset: List[Tuple[str, Callable[[Dict[str, Any]], Tuple[Optional[Evidence], Optional[str]]]]] = [
         ("sus_api_combo", rule_suspicious_api_combination),
         ("packer_artifacts", rule_packer_artifacts),
         ("tiny_text_section", rule_tiny_text_section),
@@ -145,10 +146,11 @@ def heuristic_classify(
 
     all_ev: List[Evidence] = []
     hit_count: int = 0
+    miss_reasons: List[Dict[str, str]] = []
     for rid, rule_fn in ruleset:
         if not is_rule_enabled(rid, rules):
             continue
-        ev: Optional[Evidence] = rule_fn(features)
+        ev, miss = rule_fn(features)
         if ev:
             # Ensure the evidence id matches the configured rule id
             ev.id = rid
@@ -156,7 +158,9 @@ def heuristic_classify(
             hit_count += 1
             print(f"[heuristics] Rule hit: {rid} (sev={ev.severity}, score={ev.score:.2f})")
         else:
-            print(f"[heuristics] Rule miss: {rid}")
+            reason = miss or "no hit"
+            miss_reasons.append({"id": rid, "reason": reason})
+            print(f"[heuristics] Rule miss: {rid} (reason={reason})")
 
     print(f"[heuristics] Rules evaluated: {len(ruleset)}, hits: {hit_count}")
 
@@ -210,5 +214,6 @@ def heuristic_classify(
         ],
         "counts": counts,
         "tags": [{"tag": tag, "score": round(float(s), 4)} for tag, s in sorted_tags],
+        "rule_misses": miss_reasons,
     }
     return result
