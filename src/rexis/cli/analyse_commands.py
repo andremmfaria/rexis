@@ -96,7 +96,7 @@ def cmd_analyze_baseline(
         audit=audit,
     )
 
-    typer.echo(f"Baseline report: {primary_path}\nRun report: {run_report_path}")
+    typer.echo(f"[baseline] Baseline report: {primary_path}\n[baseline] Run report: {run_report_path}")
 
 
 def cmd_analyze_llmrag(
@@ -168,4 +168,4 @@ def cmd_analyze_llmrag(
         audit=audit,
     )
 
-    typer.echo(f"Baseline report: {primary_path}\nRun report: {run_report_path}")
+    typer.echo(f"[llmrag] Baseline report: {primary_path}\n[llmrag] Run report: {run_report_path}")

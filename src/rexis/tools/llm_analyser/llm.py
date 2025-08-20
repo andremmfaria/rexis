@@ -1,7 +1,7 @@
 from typing import Any, Dict, List
 
 
-def llm_classify_stub(
+def llm_classify(
     features: Dict[str, Any],
     passages: List[Dict[str, Any]],
 ) -> Dict[str, Any]:

@@ -22,7 +22,7 @@ def build_queries_from_features(features: Dict[str, Any], max_terms: int = 12) -
     return seeds[:max_terms]
 
 
-def retrieve_context_stub(
+def retrieve_context(
     queries: List[str],
     top_k: int = 8,
 ) -> Tuple[List[Dict[str, Any]], List[str]]:

@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
-from rexis.tools.llm_analyser.llm import llm_classify_stub
-from rexis.tools.llm_analyser.rag import build_queries_from_features, retrieve_context_stub
+from rexis.tools.llm_analyser.llm import llm_classify
+from rexis.tools.llm_analyser.rag import build_queries_from_features, retrieve_context
 from rexis.utils.utils import LOGGER, get_version, iter_pe_files, now_iso, sha256, write_json
 
 
@@ -35,7 +35,7 @@ def _decompile_target(
             features: Dict[str, Any] = json.load(f)
         return h, features_path, features
 
-    print("Decompiling with Ghidra pipeline...")
+    print("[llmrag] Decompiling with Ghidra pipeline...")
     features_path, _ = decompile_binary_exec(
         file=target,
         out_dir=run_dir,
@@ -76,7 +76,7 @@ def _process_sample(
             item.update(fields)
             audit_log.append(item)
 
-    print(f"Analyzing file: {target}")
+    print(f"[llmrag] Analyzing file: {target}")
     _audit("pipeline_start", run_name=run_name, file=str(target))
 
     # 1) Ensure features exist (use JSON or decompile a PE)
@@ -95,12 +95,12 @@ def _process_sample(
     queries: List[str] = build_queries_from_features(features)
     passages: List[Dict[str, Any]]
     rag_notes: Dict[str, Any] | str
-    passages, rag_notes = retrieve_context_stub(queries, top_k=8)
+    passages, rag_notes = retrieve_context(queries, top_k=8)
     _audit("rag_done", notes=rag_notes)
 
     # 3) (Stub) LLM classification using features + retrieved context
     _audit("llm_start")
-    llm_out: Dict[str, Any] = llm_classify_stub(features, passages)
+    llm_out: Dict[str, Any] = llm_classify(features, passages)
     llmrag_path: Path = out_dir / f"{sha256}.llmrag.json"
     write_json(llm_out, llmrag_path)
     _audit("llm_done", path=str(llmrag_path))
@@ -142,7 +142,7 @@ def _process_sample(
 
     report_path: Path = out_dir / f"{sha256}.report.json"
     write_json(report, report_path)
-    print(f"LLM+RAG report: {report_path}")
+    print(f"[llmrag] LLM+RAG report: {report_path}")
     _audit("pipeline_done", report=str(report_path))
     return report_path
 
@@ -174,7 +174,7 @@ def analyze_llmrag_exec(
     run_dir: Path = out_dir / base_path
     run_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"Starting llmrag analysis (run={run_name}) -> {run_dir}")
+    print(f"[llmrag] Starting llmrag analysis (run={run_name}) -> {run_dir}")
 
     # Determine targets (basic PE discovery for directory; single file otherwise)
     targets: List[Path]
@@ -182,7 +182,7 @@ def analyze_llmrag_exec(
         targets = iter_pe_files(input_path)
         if not targets:
             raise FileNotFoundError(f"No PE files found under: {input_path}")
-        print(f"Discovered {len(targets)} PE file(s) under {input_path}")
+        print(f"[llmrag] Discovered {len(targets)} PE file(s) under {input_path}")
     else:
         targets = [input_path]
 
@@ -220,16 +220,16 @@ def analyze_llmrag_exec(
     reports: List[Path] = []
     try:
         if len(targets) == 1:
-            print("Processing single file")
+            print("[llmrag] Processing single file")
             primary_output = _worker(targets[0])
         else:
             if parallel > 1:
-                print(f"Batch mode: processing {len(targets)} files with parallel={parallel}")
+                print(f"[llmrag] Batch mode: processing {len(targets)} files with parallel={parallel}")
                 with concurrent.futures.ProcessPoolExecutor(max_workers=parallel) as ex:
                     for path in ex.map(_worker, targets):
                         reports.append(path)
             else:
-                print(f"Batch mode: processing {len(targets)} files sequentially")
+                print(f"[llmrag] Batch mode: processing {len(targets)} files sequentially")
                 for t in targets:
                     reports.append(_worker(t))
 
@@ -245,7 +245,7 @@ def analyze_llmrag_exec(
             }
             summary_path: Path = run_dir / "llmrag_summary.json"
             write_json(summary, summary_path)
-            print(f"Batch summary written: {summary_path}")
+            print(f"[llmrag] Batch summary written: {summary_path}")
             primary_output = summary_path
     except Exception as e:
         LOGGER.error("LLM+RAG pipeline failed: %s", e)
