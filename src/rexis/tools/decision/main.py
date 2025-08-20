@@ -5,7 +5,15 @@ from rexis.tools.decision.compute import (
     compute_heuristics_confidence,
     compute_vt_score_and_confidence,
 )
-from rexis.tools.decision.constants import CH_CEIL, CH_FLOOR, CVT_CEIL, CVT_FLOOR, Label
+from rexis.tools.decision.constants import (
+    CH_CEIL,
+    CH_FLOOR,
+    CVT_CEIL,
+    CVT_FLOOR,
+    DECISION_CONFIG_DEFAULTS,
+    LABEL_ABSTAIN,
+    LABEL_SUSPICIOUS,
+)
 from rexis.tools.decision.utils import clip_to_unit_interval, label_from_thresholds
 from rexis.utils.types import (
     FusionWeights,
@@ -15,6 +23,7 @@ from rexis.utils.types import (
     Thresholds,
     VirusTotalData,
 )
+from rexis.utils.utils import LOGGER
 
 
 def fuse_heuristics_and_virustotal_decision(
@@ -37,29 +46,36 @@ def fuse_heuristics_and_virustotal_decision(
       - explanation: list[str]
     """
     # Config
-    cfg = ReconcileConfig()
+    print("[decision] Starting fusion: heuristics + VirusTotal")
+    cfg = ReconcileConfig(**DECISION_CONFIG_DEFAULTS)
     if weights:
         if "w_h" in weights:
-            cfg.w_h = float(weights["w_h"])
+            cfg.heuristics_weight = float(weights["w_h"])
         if "w_vt" in weights:
-            cfg.w_vt = float(weights["w_vt"])
+            cfg.virustotal_weight = float(weights["w_vt"])
     if thresholds:
         if "malicious" in thresholds:
-            cfg.t_malicious = float(thresholds["malicious"])
+            cfg.threshold_malicious = float(thresholds["malicious"])
         if "suspicious" in thresholds:
-            cfg.t_suspicious = float(thresholds["suspicious"])
+            cfg.threshold_suspicious = float(thresholds["suspicious"])
     if policy:
         cfg.gap_penalty_start = float(policy.get("gap_penalty_start", cfg.gap_penalty_start))
         cfg.gap_penalty_max = float(policy.get("gap_penalty_max", cfg.gap_penalty_max))
         cfg.gap_penalty_slope = float(policy.get("gap_penalty_slope", cfg.gap_penalty_slope))
         cfg.conflict_gap_hard = float(policy.get("conflict_gap_hard", cfg.conflict_gap_hard))
-        cfg.high_conf = float(policy.get("high_conf", cfg.high_conf))
+        cfg.high_confidence = float(policy.get("high_conf", cfg.high_confidence))
         cfg.conflict_override_score = float(
             policy.get("conflict_override_score", cfg.conflict_override_score)
         )
+    print(
+        f"[decision] Configuration: heuristics_weight (w_h)={cfg.heuristics_weight:.2f}, "
+        f"virustotal_weight (w_vt)={cfg.virustotal_weight:.2f}, "
+        f"thresholds(malicious={cfg.threshold_malicious:.2f}, suspicious={cfg.threshold_suspicious:.2f})"
+    )
 
     # Heuristics signal
-    Sh: float = clip_to_unit_interval(float(heuristics.get("score") or 0.0))
+    heuristics_score: float = clip_to_unit_interval(float(heuristics.get("score") or 0.0))
+    print(f"[decision] Heuristics signal: score (Sh)={heuristics_score:.2f}")
     # Policy-driven overrides for heuristics confidence and category mapping
     heur_conf_overrides: Optional[Dict[str, float]] = None
     cat_map_override: Optional[Dict[str, str]] = None
@@ -72,37 +88,90 @@ def fuse_heuristics_and_virustotal_decision(
             cat_map_override = policy.get("cat_map")  # type: ignore[assignment]
         except Exception:
             cat_map_override = None
-    Ch, h_notes = compute_heuristics_confidence(heuristics, heur_conf_overrides, cat_map_override)
+    heuristics_confidence, heuristics_notes = compute_heuristics_confidence(
+        heuristics, heur_conf_overrides, cat_map_override
+    )
+    print(f"[decision] Heuristics confidence: C_h={heuristics_confidence:.2f}")
 
     # VT signal
-    Svt, Cvt, vt_info, vt_notes = compute_vt_score_and_confidence(vt, vt_error)
+    virustotal_score, virustotal_confidence, virustotal_info, virustotal_notes = (
+        compute_vt_score_and_confidence(vt, vt_error)
+    )
+    if vt_error:
+        print(f"[decision] VirusTotal unavailable: vt_error='{vt_error}'")
+    elif not vt:
+        print("[decision] VT data not provided")
+    else:
+        print(
+            f"[decision] VirusTotal signal: score (S_vt)={virustotal_score:.2f}, "
+            f"confidence (C_vt)={virustotal_confidence:.2f}"
+        )
 
     # Confidence floors/ceilings (policy overridable)
-    C_h_floor: float = CH_FLOOR
-    C_h_ceil: float = CH_CEIL
-    C_vt_floor: float = CVT_FLOOR
-    C_vt_ceil: float = CVT_CEIL
+    heuristics_confidence_floor: float = CH_FLOOR
+    heuristics_confidence_ceiling: float = CH_CEIL
+    virustotal_confidence_floor: float = CVT_FLOOR
+    virustotal_confidence_ceiling: float = CVT_CEIL
     if policy:
         try:
-            C_h_floor = float(policy.get("C_h_floor", C_h_floor))
-            C_h_ceil = float(policy.get("C_h_ceil", C_h_ceil))
-            C_vt_floor = float(policy.get("C_vt_floor", C_vt_floor))
-            C_vt_ceil = float(policy.get("C_vt_ceil", C_vt_ceil))
+            heuristics_confidence_floor = float(
+                policy.get("C_h_floor", heuristics_confidence_floor)
+            )
+            heuristics_confidence_ceiling = float(
+                policy.get("C_h_ceil", heuristics_confidence_ceiling)
+            )
+            virustotal_confidence_floor = float(
+                policy.get("C_vt_floor", virustotal_confidence_floor)
+            )
+            virustotal_confidence_ceiling = float(
+                policy.get("C_vt_ceil", virustotal_confidence_ceiling)
+            )
         except Exception:
+            LOGGER.error("Error occurred while applying policy overrides")
             pass
-    Ch = max(C_h_floor, min(C_h_ceil, Ch))
-    Cvt = max(C_vt_floor, min(C_vt_ceil, Cvt))
+    previous_heuristics_confidence, previous_virustotal_confidence = (
+        heuristics_confidence,
+        virustotal_confidence,
+    )
+    heuristics_confidence = max(
+        heuristics_confidence_floor, min(heuristics_confidence_ceiling, heuristics_confidence)
+    )
+    virustotal_confidence = max(
+        virustotal_confidence_floor, min(virustotal_confidence_ceiling, virustotal_confidence)
+    )
+    if (
+        heuristics_confidence != previous_heuristics_confidence
+        or virustotal_confidence != previous_virustotal_confidence
+    ):
+        print(
+            f"[decision] Confidence clamped: C_h={heuristics_confidence:.2f} "
+            f"(previous={previous_heuristics_confidence:.2f}), "
+            f"C_vt={virustotal_confidence:.2f} (previous={previous_virustotal_confidence:.2f})"
+        )
 
     # Fusion
-    w_h: float = float(cfg.w_h)
-    w_vt: float = float(cfg.w_vt)
+    heuristics_weight: float = float(cfg.heuristics_weight)
+    virustotal_weight: float = float(cfg.virustotal_weight)
 
-    fused: float = w_h * Ch * Sh + w_vt * Cvt * Svt
+    pre_reconciliation_score: float = (
+        heuristics_weight * heuristics_confidence * heuristics_score
+        + virustotal_weight * virustotal_confidence * virustotal_score
+    )
+    reconciliation_score: float = pre_reconciliation_score
 
     # Disagreement penalty
-    gap: float = abs(Sh - Svt)
-    penalty: float = compute_disagreement_penalty(Sh, Svt, cfg) if (vt and not vt_error) else 0.0
-    fused = clip_to_unit_interval(fused - penalty)
+    score_gap: float = abs(heuristics_score - virustotal_score)
+    disagreement_penalty: float = (
+        compute_disagreement_penalty(heuristics_score, virustotal_score, cfg)
+        if (vt and not vt_error)
+        else 0.0
+    )
+    reconciliation_score = clip_to_unit_interval(reconciliation_score - disagreement_penalty)
+    print(
+        f"[decision] Reconciliation: pre_reconciliation_score={pre_reconciliation_score:.2f}, "
+        f"score_gap(|Sh-S_vt|)={abs(heuristics_score - virustotal_score):.2f}, "
+        f"disagreement_penalty={disagreement_penalty:.2f} → post_fused_score={reconciliation_score:.2f}"
+    )
 
     # Extreme conflict override: high-confidence, large-gap disagreement → abstain to "suspicious"
     conflict_override_applied: bool = False
@@ -112,32 +181,38 @@ def fuse_heuristics_and_virustotal_decision(
             abstain_on_conflict = bool(policy.get("abstain_on_conflict", True))
         except Exception:
             abstain_on_conflict = True
-    forced_label: Optional[Label] = None
+    forced_label: Optional[str] = None
     if (
         (vt and not vt_error)
-        and gap >= cfg.conflict_gap_hard
-        and Ch >= cfg.high_conf
-        and Cvt >= cfg.high_conf
+        and score_gap >= cfg.conflict_gap_hard
+        and heuristics_confidence >= cfg.high_confidence
+        and virustotal_confidence >= cfg.high_confidence
     ):
-        fused = cfg.conflict_override_score
+        reconciliation_score = cfg.conflict_override_score
         conflict_override_applied = True
         if abstain_on_conflict:
-            forced_label = Label.ABSTAIN
+            forced_label = LABEL_ABSTAIN
         else:
-            forced_label = Label.SUSPICIOUS
+            forced_label = LABEL_SUSPICIOUS
+        print(
+            f"[decision] Hard conflict override applied: gap={score_gap:.2f}, "
+            f"C_h={heuristics_confidence:.2f}, C_vt={virustotal_confidence:.2f} → "
+            f"forced_label={forced_label}, forced_score={reconciliation_score:.2f}"
+        )
 
-    label: str = label_from_thresholds(fused, cfg)
+    label: str = label_from_thresholds(reconciliation_score, cfg)
     if forced_label is not None:
         label = forced_label
+    print(f"[decision] Final decision: final_fused_score={reconciliation_score:.2f}, label={label}")
 
     # Build explanation
     expl: List[str] = []
-    expl.extend(h_notes)
-    expl.extend(vt_notes)
-    if penalty > 0:
-        expl.append(f"disagreement_penalty={penalty:.2f} due to gap={gap:.2f}")
+    expl.extend(heuristics_notes)
+    expl.extend(virustotal_notes)
+    if disagreement_penalty > 0:
+        expl.append(f"disagreement_penalty={disagreement_penalty:.2f} due to gap={score_gap:.2f}")
     if conflict_override_applied:
-        if forced_label == Label.ABSTAIN:
+        if forced_label == LABEL_ABSTAIN:
             expl.append("hard conflict override → abstain (set fused score to mid value)")
         else:
             expl.append("hard conflict override applied → set fused score to mid value")
@@ -146,7 +221,7 @@ def fuse_heuristics_and_virustotal_decision(
         "schema": "rexis.baseline.decision.v1",
         "inputs": {
             "heuristics": {
-                "score": round(Sh, 4),
+                "score": round(heuristics_score, 4),
                 "label": heuristics.get("label"),
                 "evidence_counts": {
                     "info": sum(
@@ -167,28 +242,33 @@ def fuse_heuristics_and_virustotal_decision(
                 },
             },
             "virustotal": (
-                vt_info if vt and not vt_error else {"error": vt_error or "not_available"}
+                virustotal_info if vt and not vt_error else {"error": vt_error or "not_available"}
             ),
         },
         "confidence": {
-            "C_h": round(Ch, 4),
-            "C_vt": round(Cvt, 4),
+            "heuristics_confidence": round(heuristics_confidence, 4),
+            "virustotal_confidence": round(virustotal_confidence, 4),
         },
         "weights": {
-            "w_h": round(w_h, 4),
-            "w_vt": round(w_vt, 4),
+            "heuristics_weight": round(heuristics_weight, 4),
+            "virustotal_weight": round(virustotal_weight, 4),
         },
-        "fusion": {
-            "gap": round(gap, 4),
-            "penalty": round(penalty, 4),
+        "comparison": {
             "conflict_override_applied": conflict_override_applied,
+            "score_gap": round(score_gap, 4),
+            "disagreement_penalty": round(disagreement_penalty, 4),
         },
         "final": {
-            "score": round(fused, 4),
+            "score": round(reconciliation_score, 4),
             "label": label,
+            "final_label": label,
             "thresholds": {
-                "malicious": cfg.t_malicious,
-                "suspicious": cfg.t_suspicious,
+                "malicious": cfg.threshold_malicious,
+                "suspicious": cfg.threshold_suspicious,
+            },
+            "decision_thresholds": {
+                "malicious": cfg.threshold_malicious,
+                "suspicious": cfg.threshold_suspicious,
             },
         },
         "explanation": expl,

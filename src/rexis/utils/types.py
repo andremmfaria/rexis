@@ -31,6 +31,7 @@ class Features(TypedDict, total=False):
     program: ProgramInfo
     functions: List[FunctionInfo]
     imports: List[str]
+    strings: List[str]
     decompiled: List[DecompiledFunction]
     sections: List["MemorySection"]
     libraries: List[str]
@@ -78,24 +79,25 @@ class Evidence:
     score: float = 0.0  # contribution to final score in [0,1]
 
 
+@dataclass
 class ReconcileConfig:
-    # fusion weights for the two signals
-    w_h: float = 0.5  # heuristics weight
-    w_vt: float = 0.5  # VirusTotal weight
+    # Fusion weights for the two signals
+    heuristics_weight: float  # Weight for heuristics signal
+    virustotal_weight: float  # Weight for VirusTotal signal
 
-    # final label thresholds on the fused score
-    t_malicious: float = 0.70
-    t_suspicious: float = 0.40
+    # Final label thresholds on the fused score
+    threshold_malicious: float  # Threshold for 'malicious' label
+    threshold_suspicious: float  # Threshold for 'suspicious' label
 
-    # disagreement settings
-    gap_penalty_start: float = 0.35  # start penalizing when |Sh - Svt| exceeds this
-    gap_penalty_max: float = 0.10  # cap penalty
-    gap_penalty_slope: float = 0.20  # penalty per unit gap beyond start
+    # Disagreement settings
+    gap_penalty_start: float      # Start penalizing when |Sh - Svt| exceeds this value
+    gap_penalty_max: float        # Maximum penalty cap
+    gap_penalty_slope: float      # Penalty per unit gap beyond start
 
-    # conflict override (extreme disagreement with high confidence)
-    conflict_gap_hard: float = 0.50
-    high_conf: float = 0.70
-    conflict_override_score: float = 0.50  # set fused score to this when hard conflict triggers
+    # Conflict override (extreme disagreement with high confidence)
+    conflict_gap_hard: float      # Hard gap threshold for conflict override
+    high_confidence: float        # Confidence threshold for override
+    conflict_override_score: float  # Fused score to set when hard conflict triggers
 
 
 # Typed inputs for stronger type safety

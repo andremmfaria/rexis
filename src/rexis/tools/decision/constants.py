@@ -1,5 +1,4 @@
 from typing import Dict
-from enum import Enum
 
 # Mapping from heuristic rule IDs to broader categories for diversity/confidence calc
 CAT_MAP: Dict[str, str] = {
@@ -22,11 +21,11 @@ CAT_MAP: Dict[str, str] = {
 }
 
 
-class Label(Enum):
-    MALICIOUS = "malicious"
-    SUSPICIOUS = "suspicious"
-    BENIGN = "benign"
-    ABSTAIN = "abstain"
+# Simple string label constants (avoid Enums to keep JSON serialization straightforward)
+LABEL_MALICIOUS: str = "malicious"
+LABEL_SUSPICIOUS: str = "suspicious"
+LABEL_BENIGN: str = "benign"
+LABEL_ABSTAIN: str = "abstain"
 
 
 # Heuristics confidence tuning defaults
@@ -61,3 +60,21 @@ VT_RECENT_DAYS_THRESHOLD: int = 90
 VT_RECENT_BONUS: float = 0.05
 VT_OLD_DAYS_THRESHOLD: int = 730
 VT_OLD_PENALTY: float = 0.05
+
+# Centralized defaults used by ReconcileConfig (fusion behavior)
+DECISION_CONFIG_DEFAULTS: Dict[str, float] = {
+    # Fusion weights for the two signals
+    "heuristics_weight": 0.5,  # Weight for heuristics signal
+    "virustotal_weight": 0.5,  # Weight for VirusTotal signal
+    # Final label thresholds on the fused score
+    "threshold_malicious": 0.70,  # Threshold for 'malicious' label
+    "threshold_suspicious": 0.40,  # Threshold for 'suspicious' label
+    # Disagreement settings
+    "gap_penalty_start": 0.35,  # Start penalizing when |Sh - Svt| exceeds this value
+    "gap_penalty_max": 0.10,  # Maximum penalty cap
+    "gap_penalty_slope": 0.20,  # Penalty per unit gap beyond start
+    # Conflict override (extreme disagreement with high confidence)
+    "conflict_gap_hard": 0.50,  # Hard gap threshold for conflict override
+    "high_confidence": 0.70,  # Confidence threshold for override
+    "conflict_override_score": 0.50,  # Fused score to set when hard conflict triggers
+}

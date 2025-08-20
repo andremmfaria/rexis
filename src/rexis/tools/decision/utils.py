@@ -1,7 +1,11 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from rexis.tools.decision.constants import Label
+from rexis.tools.decision.constants import (
+    LABEL_BENIGN,
+    LABEL_MALICIOUS,
+    LABEL_SUSPICIOUS,
+)
 from rexis.utils.types import ReconcileConfig
 from rexis.utils.utils import LOGGER
 
@@ -23,8 +27,8 @@ def epoch_seconds_to_iso_utc_date(epoch_seconds: Optional[int]) -> Optional[str]
 
 
 def label_from_thresholds(fused_score: float, cfg: ReconcileConfig) -> str:
-    if fused_score >= cfg.t_malicious:
-        return Label.MALICIOUS
-    if fused_score >= cfg.t_suspicious:
-        return Label.SUSPICIOUS
-    return Label.BENIGN
+    if fused_score >= cfg.threshold_malicious:
+        return LABEL_MALICIOUS
+    if fused_score >= cfg.threshold_suspicious:
+        return LABEL_SUSPICIOUS
+    return LABEL_BENIGN

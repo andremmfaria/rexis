@@ -27,12 +27,7 @@ from rexis.tools.decision.constants import (
     VT_THREAT_NAME_BONUS,
 )
 from rexis.tools.decision.utils import clip_to_unit_interval, epoch_seconds_to_iso_utc_date
-from rexis.utils.types import (
-    EvidenceItem,
-    HeuristicsData,
-    ReconcileConfig,
-    VirusTotalData,
-)
+from rexis.utils.types import EvidenceItem, HeuristicsData, ReconcileConfig, VirusTotalData
 
 
 def compute_heuristics_confidence(
@@ -180,7 +175,6 @@ def compute_vt_score_and_confidence(
     if denom < 5:
         notes.append("low engine coverage on VT → reduced confidence")
     return S_vt, C_vt, info, notes
-
 
 
 def compute_disagreement_penalty(

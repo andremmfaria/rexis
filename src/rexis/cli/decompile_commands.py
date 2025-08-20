@@ -51,7 +51,7 @@ def decompile_binary(
         help="Run name (used to name the output run folder). Defaults to a UUID if omitted.",
     ),
 ) -> None:
-    run_name_str: str = f"decompile-{run_name or uuid.uuid4().hex}"
+    run_name_str: str = run_name or uuid.uuid4().hex
     try:
         out_path, report_path = decompile_binary_exec(
             file=file,

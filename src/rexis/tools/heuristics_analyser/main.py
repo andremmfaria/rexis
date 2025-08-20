@@ -118,6 +118,9 @@ def heuristic_classify(
       "counts": {"info": 1, "warn": 2, "error": 1}
     }
     """
+    print(
+        f"[heuristics] Starting heuristic classification (min_sev={min_severity}, rules={rules_path or 'default'})"
+    )
     rules: Dict[str, Any] = load_heuristic_rules(rules_path)
 
     # Collect evidence from built-in rules
@@ -141,6 +144,7 @@ def heuristic_classify(
     ]
 
     all_ev: List[Evidence] = []
+    hit_count: int = 0
     for rid, rule_fn in ruleset:
         if not is_rule_enabled(rid, rules):
             continue
@@ -149,11 +153,18 @@ def heuristic_classify(
             # Ensure the evidence id matches the configured rule id
             ev.id = rid
             all_ev.append(ev)
+            hit_count += 1
+            print(f"[heuristics] Rule hit: {rid} (sev={ev.severity}, score={ev.score:.2f})")
+        else:
+            print(f"[heuristics] Rule miss: {rid}")
+
+    print(f"[heuristics] Rules evaluated: {len(ruleset)}, hits: {hit_count}")
 
     # Combine + label
     score: float = _combine_evidence_score(all_ev, rules)
     override_hits: List[str] = [ev.id for ev in all_ev]
     label: str = _label_from_combined_score(score, rules, override_hits)
+    print(f"[heuristics] Combined score={score:.2f} → label={label}")
 
     # Filter evidence by min severity for the *returned* payload (score is computed on full set)
     returned_ev: List[Evidence] = [
@@ -162,6 +173,13 @@ def heuristic_classify(
     counts: Dict[str, int] = {"info": 0, "warn": 0, "error": 0}
     for ev in returned_ev:
         counts[ev.severity] = counts.get(ev.severity, 0) + 1
+    if len(returned_ev) != len(all_ev):
+        print(
+            f"[heuristics] Evidence filtered by min severity: returned={len(returned_ev)} / total={len(all_ev)}"
+        )
+    print(
+        f"[heuristics] Evidence counts: info={counts['info']}, warn={counts['warn']}, error={counts['error']}"
+    )
 
     # Compute tags
     tag_scores: Dict[str, float] = _compute_tag_scores(all_ev, rules)
@@ -172,6 +190,9 @@ def heuristic_classify(
         ((t, s) for t, s in tag_scores.items() if s >= tag_threshold),
         key=lambda x: (-x[1], x[0]),
     )[: max(0, top_k)]
+    print(
+        f"[heuristics] Tags selected: {len(sorted_tags)} (threshold={tag_threshold:.2f}, top_k={top_k})"
+    )
 
     result: Dict[str, Any] = {
         "schema": "rexis.baseline.heuristics.v1",
