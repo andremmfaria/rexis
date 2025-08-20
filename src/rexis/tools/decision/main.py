@@ -261,7 +261,6 @@ def fuse_heuristics_and_virustotal_decision(
         "final": {
             "score": round(reconciliation_score, 4),
             "label": label,
-            "final_label": label,
             "thresholds": {
                 "malicious": cfg.threshold_malicious,
                 "suspicious": cfg.threshold_suspicious,

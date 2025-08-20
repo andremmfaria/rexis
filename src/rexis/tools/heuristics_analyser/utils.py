@@ -3,9 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Set
 
 import yaml
-
 from rexis.utils.constants import DEFAULT_HEURISTIC_RULES
-
 
 SEVERITY_ORDER: Dict[str, int] = {"info": 0, "warn": 1, "error": 2}
 

@@ -1,14 +1,22 @@
 import re
 from typing import Any, Dict, List, Optional, Set, Tuple
+
 from rexis.tools.heuristics_analyser.utils import (
     get_imports_set,
+    get_nested_value,
     get_strings_list,
     has_tiny_text_section,
     is_entry_section_writable,
-    get_nested_value,
 )
-from rexis.utils.types import Evidence
 from rexis.utils.constants import SOCIAL_DOMAINS
+from rexis.utils.types import Evidence
+
+
+def _match_imports_substring(imps: Set[str], tokens: Set[str]) -> Set[str]:
+    if not imps or not tokens:
+        return set()
+    toks = {t.lower() for t in tokens}
+    return {imp for imp in imps if any(t in imp for t in toks)}
 
 
 def rule_entry_in_writable_section(
@@ -27,7 +35,7 @@ def rule_entry_in_writable_section(
             severity="error",
             score=0.6,
         ),
-        None,
+        "entry section is writable and executable",
     )
 
 
@@ -50,16 +58,17 @@ def rule_networking_indicators(
         "winhttpopen",
         "winhttpopenrequest",
     }
-    if imps & net:
+    matches = _match_imports_substring(imps, net)
+    if matches:
         return (
             Evidence(
                 id="networking_indicators",
                 title="Networking-capable binary",
-                detail=f"Imports include: {', '.join(sorted(imps & net))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
                 score=0.25,
             ),
-            None,
+            f"matched networking imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no networking-related imports found")
 
@@ -74,16 +83,17 @@ def rule_crypto_indicators(features: Dict[str, Any]) -> Tuple[Optional[Evidence]
         "bcryptencrypt",
         "bcryptdecrypt",
     }
-    if imps & crypto:
+    matches = _match_imports_substring(imps, crypto)
+    if matches:
         return (
             Evidence(
                 id="crypto_indicators",
                 title="Cryptographic API usage",
-                detail=f"Imports include: {', '.join(sorted(imps & crypto))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
                 score=0.2,
             ),
-            None,
+            f"matched crypto imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no cryptographic API imports found")
 
@@ -93,16 +103,17 @@ def rule_shell_execution_indicators(
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     imps: Set[str] = get_imports_set(features)
     shell: Set[str] = {"winexec", "shellexecutea", "shellexecutew", "system"}
-    if imps & shell:
+    matches = _match_imports_substring(imps, shell)
+    if matches:
         return (
             Evidence(
                 id="shell_exec_indicators",
                 title="Shell execution capability",
-                detail=f"Imports include: {', '.join(sorted(imps & shell))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="error",
                 score=0.35,
             ),
-            None,
+            f"matched shell-exec imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no shell/execution-related imports found")
 
@@ -117,16 +128,17 @@ def rule_autorun_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
         "regopenkeya",
         "regopenkeyw",
     }
-    if imps & reg:
+    matches = _match_imports_substring(imps, reg)
+    if matches:
         return (
             Evidence(
                 id="autorun_persistence",
                 title="Potential persistence via registry",
-                detail=f"Registry APIs present: {', '.join(sorted(imps & reg))}",
+                detail=f"Registry APIs present: {', '.join(sorted(matches))}",
                 severity="warn",
                 score=0.25,
             ),
-            None,
+            f"matched registry imports: {', '.join(sorted(matches))}",
         )
     return None, (
         "no imports present" if not imps else "no registry persistence-related imports found"
@@ -143,16 +155,17 @@ def rule_debugger_anti_debug_indicators(
         "outputdebugstringa",
         "outputdebugstringw",
     }
-    if imps & dbg:
+    matches = _match_imports_substring(imps, dbg)
+    if matches:
         return (
             Evidence(
                 id="dbg_anti_dbg",
                 title="Debugger/anti-debug indicators",
-                detail=f"Imports include: {', '.join(sorted(imps & dbg))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
                 score=0.2,
             ),
-            None,
+            f"matched debug/anti-debug imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no debugger/anti-debug imports found")
 
@@ -167,10 +180,10 @@ def rule_packer_artifacts(features: Dict[str, Any]) -> Tuple[Optional[Evidence],
     packer_tokens: Set[str] = {"upx", "mpress", "aspack", "petite", "themida"}
 
     hits: List[str] = []
-    if any(tok in (strings or []) for tok in packer_tokens):
+    if any(any(tok in s for s in (strings or [])) for tok in packer_tokens):
         hits.append("packer-string")
     res_apis: Set[str] = {"loadresource", "findresource", "lockresource"}
-    if res_apis & imps:
+    if _match_imports_substring(imps, res_apis):
         hits.append("resource-packaging")
 
     tiny_text: bool = has_tiny_text_section(features)
@@ -191,7 +204,7 @@ def rule_packer_artifacts(features: Dict[str, Any]) -> Tuple[Optional[Evidence],
             severity=sev,
             score=0.4 if "tiny-.text" in hits else 0.2,
         ),
-        None,
+        f"signals: {', '.join(hits)}",
     )
 
 
@@ -222,13 +235,13 @@ def rule_suspicious_api_combination(
 
     score: float = 0.0
     hit_sets: List[str] = []
-    if inj & imps:
+    if _match_imports_substring(imps, inj):
         score += 0.5
         hit_sets.append("process-injection")
-    if net & imps:
+    if _match_imports_substring(imps, net):
         score += 0.3
         hit_sets.append("networking")
-    if reg & imps:
+    if _match_imports_substring(imps, reg):
         score += 0.2
         hit_sets.append("registry")
 
@@ -242,7 +255,7 @@ def rule_suspicious_api_combination(
             severity="error" if score >= 0.5 else "warn",
             score=min(1.0, score),
         ),
-        None,
+        f"hit sets: {', '.join(hit_sets)}",
     )
 
 
@@ -277,7 +290,7 @@ def rule_tiny_text_section(features: Dict[str, Any]) -> Tuple[Optional[Evidence]
             severity="warn",
             score=0.25,
         ),
-        None,
+        "tiny .text section detected",
     )
 
 
@@ -299,7 +312,7 @@ def rule_low_entropy_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
                 severity="info",
                 score=0.1,
             ),
-            None,
+            f"low string count: {total} strings for {prog_size} bytes",
         )
     # Alternatively, if there are strings but most are very short (<4 chars), also weak signal
     short = sum(1 for s in strings if len(s) < 4)
@@ -312,7 +325,7 @@ def rule_low_entropy_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
                 severity="info",
                 score=0.08,
             ),
-            None,
+            f"short strings ratio: {short}/{total}",
         )
     # Miss reason
     if prog_size < 100 * 1024:
@@ -330,16 +343,17 @@ def rule_dynamic_api_resolution(
     """
     imps: Set[str] = get_imports_set(features)
     dyn: Set[str] = {"loadlibrarya", "loadlibraryw", "getprocaddress"}
-    if imps & dyn:
+    matches = _match_imports_substring(imps, dyn)
+    if matches:
         return (
             Evidence(
                 id="dynamic_api_resolution",
                 title="Dynamic API resolution",
-                detail=f"Imports include: {', '.join(sorted(imps & dyn))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
                 score=0.2,
             ),
-            None,
+            f"matched dynamic resolution imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no dynamic API resolution imports found")
 
@@ -363,17 +377,17 @@ def rule_service_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
         "changeserviceconfiga",
         "changeserviceconfigw",
     }
-    hits = imps & svc
-    if hits:
+    matches = _match_imports_substring(imps, svc)
+    if matches:
         return (
             Evidence(
                 id="service_persistence",
                 title="Service manipulation",
-                detail=f"Imports include: {', '.join(sorted(hits))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
                 score=0.25,
             ),
-            None,
+            f"matched service control imports: {', '.join(sorted(matches))}",
         )
     return None, (
         "no imports present" if not imps else "no service control manager API imports found"
@@ -401,17 +415,17 @@ def rule_filesystem_modification(
         "setfileattributesa",
         "setfileattributesw",
     }
-    hits = imps & fs
-    if hits:
+    matches = _match_imports_substring(imps, fs)
+    if matches:
         return (
             Evidence(
                 id="filesystem_mod",
                 title="Filesystem modification capability",
-                detail=f"Imports include: {', '.join(sorted(hits))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="info",
                 score=0.1,
             ),
-            None,
+            f"matched filesystem imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no filesystem modification imports found")
 
@@ -461,7 +475,7 @@ def rule_suspicious_urls_in_strings(
             severity="warn" if total_hits >= 3 else "info",
             score=0.15 if total_hits >= 3 else 0.08,
         ),
-        None,
+        f"found {total_hits} endpoints",
     )
 
 
@@ -494,7 +508,7 @@ def rule_anti_vm_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidence], 
             severity="warn",
             score=0.15,
         ),
-        None,
+        f"tokens: {', '.join(sorted(hits))}",
     )
 
 
@@ -514,17 +528,17 @@ def rule_http_exfil_indicators(
         "winhttpsendrequest",
         "winhttpwritedata",
     }
-    hits = imps & http
-    if hits:
+    matches = _match_imports_substring(imps, http)
+    if matches:
         return (
             Evidence(
                 id="http_exfil_indicators",
                 title="HTTP request/POST capability",
-                detail=f"Imports include: {', '.join(sorted(hits))}",
+                detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
                 score=0.2,
             ),
-            None,
+            f"matched HTTP exfil imports: {', '.join(sorted(matches))}",
         )
     return None, (
         "no imports present" if not imps else "no HTTP request/exfiltration imports found"

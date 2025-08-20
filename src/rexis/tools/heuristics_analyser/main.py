@@ -147,18 +147,21 @@ def heuristic_classify(
     all_ev: List[Evidence] = []
     hit_count: int = 0
     miss_reasons: List[Dict[str, str]] = []
+    hit_reasons: Dict[str, str] = {}
     for rid, rule_fn in ruleset:
         if not is_rule_enabled(rid, rules):
             continue
-        ev, miss = rule_fn(features)
+        ev, note = rule_fn(features)
         if ev:
             # Ensure the evidence id matches the configured rule id
             ev.id = rid
             all_ev.append(ev)
             hit_count += 1
+            if note:
+                hit_reasons[rid] = str(note)
             print(f"[heuristics] Rule hit: {rid} (sev={ev.severity}, score={ev.score:.2f})")
         else:
-            reason = miss or "no hit"
+            reason = note or "no hit"
             miss_reasons.append({"id": rid, "reason": reason})
             print(f"[heuristics] Rule miss: {rid} (reason={reason})")
 
@@ -209,6 +212,7 @@ def heuristic_classify(
                 "detail": ev.detail,
                 "severity": ev.severity,
                 "score": round(float(ev.score), 4),
+                "reason": hit_reasons.get(ev.id),
             }
             for ev in returned_ev
         ],
