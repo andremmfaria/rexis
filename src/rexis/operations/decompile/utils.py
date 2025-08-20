@@ -8,6 +8,8 @@ from rexis.utils.utils import LOGGER
 ConsoleTaskMonitor = None  # type: ignore[assignment]
 AnalysisScheduler = None  # type: ignore[assignment]
 SymbolType = None  # type: ignore[assignment]
+DefinedStringsIterator = None  # type: ignore[assignment]
+StringDataInstance = None  # type: ignore[assignment]
 
 
 def ensure_ghidra_imports_loaded() -> None:
@@ -15,7 +17,7 @@ def ensure_ghidra_imports_loaded() -> None:
 
     Also loads SymbolType for use by collectors after the JVM has started.
     """
-    global ConsoleTaskMonitor, AnalysisScheduler, SymbolType
+    global ConsoleTaskMonitor, AnalysisScheduler, SymbolType, DefinedStringsIterator, StringDataInstance
     if ConsoleTaskMonitor is None:
         try:
             from ghidra.util.task import ConsoleTaskMonitor as _ConsoleTaskMonitor  # type: ignore
@@ -37,6 +39,20 @@ def ensure_ghidra_imports_loaded() -> None:
             SymbolType = _SymbolType  # type: ignore
         except Exception:
             SymbolType = None  # type: ignore
+    if DefinedStringsIterator is None:
+        try:
+            from ghidra.program.util import DefinedStringsIterator as _DefinedStringsIterator  # type: ignore
+
+            DefinedStringsIterator = _DefinedStringsIterator  # type: ignore
+        except Exception:
+            DefinedStringsIterator = None  # type: ignore
+    if StringDataInstance is None:
+        try:
+            from ghidra.program.model.data import StringDataInstance as _StringDataInstance  # type: ignore
+
+            StringDataInstance = _StringDataInstance  # type: ignore
+        except Exception:
+            StringDataInstance = None  # type: ignore
 
 
 def require_ghidra_env() -> None:

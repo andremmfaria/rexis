@@ -52,6 +52,7 @@ def decompile_binary(
     ),
 ) -> None:
     run_name_str: str = run_name or uuid.uuid4().hex
+    print(f"[decompile] Starting decompilation (run={run_name_str})")
     try:
         out_path, report_path = decompile_binary_exec(
             file=file,
