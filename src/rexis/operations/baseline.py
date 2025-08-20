@@ -3,7 +3,7 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-from rexis.operations.decompile import decompile_binary_exec
+from rexis.operations.decompile.main import decompile_binary_exec
 from rexis.tools.decision import fuse_heuristics_and_virustotal_decision
 from rexis.tools.heuristics_analyser.main import heuristic_classify
 from rexis.tools.heuristics_analyser.normal import families_from_vt_compact
@@ -69,22 +69,23 @@ def _vt_enrich_sha256(
         vt_compact: Dict[str, Any] = {
             "sha256": attrs.get("sha256") or sha256,
             "size": attrs.get("size"),
+            "names": attrs.get("names"),
+            "tags": attrs.get("tags"),
+            "type_tags": attrs.get("type_tags"),
             "type_description": attrs.get("type_description"),
             "meaningful_name": attrs.get("meaningful_name"),
             "harmless": (attrs.get("last_analysis_stats") or {}).get("harmless"),
             "malicious": (attrs.get("last_analysis_stats") or {}).get("malicious"),
             "suspicious": (attrs.get("last_analysis_stats") or {}).get("suspicious"),
             "undetected": (attrs.get("last_analysis_stats") or {}).get("undetected"),
-            "timeout": (attrs.get("last_analysis_stats") or {}).get("timeout"),
-            "popular_threat_category": (
-                (attrs.get("popular_threat_classification") or {}).get("popular_threat_category")
+            "popular_threat_category": (attrs.get("popular_threat_classification") or {}).get(
+                "popular_threat_category"
             ),
-            "popular_threat_name": (
-                (attrs.get("popular_threat_classification") or {}).get("popular_threat_name")
+            "popular_threat_name": (attrs.get("popular_threat_classification") or {}).get(
+                "popular_threat_name"
             ),
             "first_submission_date": attrs.get("first_submission_date"),
             "last_submission_date": attrs.get("last_submission_date"),
-            "names": attrs.get("names"),
         }
         return vt_compact, None
     except Exception as e:
@@ -278,9 +279,7 @@ def analyze_baseline_exec(
 
     vt_cfg: VTConfig = VTConfig(
         enabled=vt_enabled,
-        url=config.baseline.virus_total_url,
         api_key=config.baseline.virus_total_api_key,
-        timeout=max(5, vt_timeout),
         qpm=max(1, vt_qpm),
     )
     vt_rate_limiter: Optional[_SimpleRateLimiter] = (
@@ -288,11 +287,7 @@ def analyze_baseline_exec(
     )
     print(
         "VirusTotal enrichment: "
-        + (
-            f"ENABLED (qpm={vt_cfg.qpm}, timeout={vt_cfg.timeout}s)"
-            if vt_cfg.enabled
-            else "disabled"
-        )
+        + (f"ENABLED (qpm={vt_cfg.qpm})" if vt_cfg.enabled else "disabled")
     )
 
     # Worker wrapper to pass through fixed parameters
