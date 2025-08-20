@@ -80,8 +80,17 @@ def get_imports_set(features: Dict[str, Any]) -> Set[str]:
 
 
 def get_strings_list(features: Dict[str, Any]) -> List[str]:
-    # If you later add strings to features["strings"]
-    return [s for s in get_nested_value(features, "strings", []) if isinstance(s, str)]
+    vals = get_nested_value(features, "strings", [])
+    if not isinstance(vals, list):
+        return []
+    out: List[str] = []
+    for s in vals:
+        if isinstance(s, str):
+            try:
+                out.append(s)
+            except Exception:
+                pass
+    return out
 
 
 def get_sections(features: Dict[str, Any]) -> List[Dict[str, Any]]:

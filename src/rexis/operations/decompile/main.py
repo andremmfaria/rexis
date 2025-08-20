@@ -14,8 +14,7 @@ from rexis.operations.decompile.collectors import (
     collect_sections,
 )
 from rexis.operations.decompile.engine import decompile_all_functions
-from rexis.operations.decompile.env import (
-    SymbolType,
+from rexis.operations.decompile.utils import (
     ensure_ghidra_imports_loaded,
     require_ghidra_env,
     wait_for_analysis,
@@ -51,7 +50,7 @@ def decompile_binary_exec(
     if not file.exists():
         raise FileNotFoundError(str(file))
 
-    base_path = f"decompilation-{run_name}"
+    base_path = f"decompile-{run_name}"
     out_dir.mkdir(parents=True, exist_ok=True)
     run_dir: Path = out_dir / base_path
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -73,15 +72,18 @@ def decompile_binary_exec(
     error_message: Optional[str] = None
     features: Optional[Features] = None
     try:
+        print("[decompile] Validating Ghidra environment...")
         require_ghidra_env()
-        print("Starting PyGhidra...")
+        print("[decompile] Starting PyGhidra...")
         pyghidra.start()
+        print("[decompile] PyGhidra started.")
 
         # Ensure required Ghidra imports and load SymbolType in env
         ensure_ghidra_imports_loaded()
+        print("[decompile] Ghidra imports loaded.")
 
         print(
-            f"Opening Ghidra project at {project_dir} (name={project_name}). This might take some time."
+            f"[decompile] Opening Ghidra project at {project_dir} (name={project_name}). This might take some time."
         )
         with pyghidra.open_program(
             str(file),
@@ -91,8 +93,9 @@ def decompile_binary_exec(
             nested_project_location=True,
         ) as flat_api:
             program: Any = flat_api.getCurrentProgram()
-
+            print("[decompile] Waiting for Ghidra analysis to complete...")
             wait_for_analysis(program)
+            print("[decompile] Analysis complete.")
 
             prog_info: ProgramInfo = {
                 "name": program.getName(),
@@ -105,20 +108,31 @@ def decompile_binary_exec(
             }
 
             print(
-                "Collecting features (functions, imports, sections, libraries, exports, entry points, decompiled)..."
+                "[decompile] Collecting features (functions, imports, sections, libraries, exports, entry points, decompiled)..."
             )
             functions: List[FunctionInfo] = collect_functions(program)
-            imports: List[str] = collect_imports(program, SymbolType)
+            imports: List[str] = collect_imports(program)
+            strings: List[str] = collect_strings(program)
             sections: List[MemorySection] = collect_sections(program)
             libraries: List[str] = collect_libraries(program)
-            exports: List[str] = collect_exports(program, SymbolType)
+            exports: List[str] = collect_exports(program)
             entry_points: List[str] = collect_entry_points(program)
+            print(
+                f"[decompile] Summary so far: functions={len(functions)}, imports={len(imports)}, strings={len(strings)}, sections={len(sections)}, libraries={len(libraries)}, exports={len(exports)}, entry_points={len(entry_points)}"
+            )
+            t0 = time.time()
+            print("[decompile] Starting decompilation of functions (timeout=30s per function)...")
             decompiled: List[DecompiledFunction] = decompile_all_functions(program, timeout_sec=30)
+            t1 = time.time()
+            print(
+                f"[decompile] Decompilation finished: decompiled={len(decompiled)} functions in {round(t1 - t0, 2)}s"
+            )
 
             features: Features = {
                 "program": prog_info,
                 "functions": functions,
                 "imports": imports,
+                "strings": strings,
                 "sections": sections,
                 "libraries": libraries,
                 "exports": exports,
@@ -142,9 +156,13 @@ def decompile_binary_exec(
         end_ts = time.time()
         ended_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(end_ts))
         duration_sec = round(end_ts - start_ts, 3)
+        print(f"[decompile] Preparing run report (status={status}, duration={duration_sec}s)...")
         summary = {
             "functions_count": len(features["functions"]) if features else None,
             "imports_count": len(features["imports"]) if features else None,
+            "strings_count": (
+                len(features["strings"]) if features and "strings" in features else None
+            ),
             "sections_count": (
                 len(features["sections"]) if features and "sections" in features else None
             ),
@@ -189,7 +207,10 @@ def decompile_binary_exec(
             LOGGER.info(f"Run report written to {report_path}")
         except Exception as re:
             LOGGER.error("Failed to write run report %s: %s", report_path, re)
+            print(f"[decompile] Failed to write run report {report_path}: {re}")
 
     if exc:
+        print(f"[decompile] Exiting with error: {error_message}")
         raise exc
+    print(f"[decompile] Completed successfully in {duration_sec}s")
     return out_path, report_path

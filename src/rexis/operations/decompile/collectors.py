@@ -1,5 +1,5 @@
 import math
-from typing import Any, Iterable, List
+from typing import Any, List, Set
 
 from rexis.utils.types import FunctionInfo, MemorySection
 from rexis.utils.utils import LOGGER
@@ -20,7 +20,9 @@ def collect_functions(program: Any) -> List[FunctionInfo]:
                     "size": f.getBody().getNumAddresses(),
                     "is_thunk": bool(getattr(f, "isThunk", lambda: False)()),
                     "calling_convention": (
-                        f.getCallingConventionName() if hasattr(f, "getCallingConventionName") else None
+                        f.getCallingConventionName()
+                        if hasattr(f, "getCallingConventionName")
+                        else None
                     ),
                 }
             )
@@ -29,19 +31,24 @@ def collect_functions(program: Any) -> List[FunctionInfo]:
     return results
 
 
-def collect_imports(program: Any, SymbolType: Any) -> List[str]:
-    if SymbolType is None:
-        LOGGER.warning("SymbolType not available; skipping import collection.")
-        return []
-    imports: List[str] = []
-    st: Any = program.getSymbolTable()
-    for s in st.getExternalSymbols():
-        try:
-            if s.getSymbolType() == SymbolType.FUNCTION:
-                imports.append(s.getName())
-        except Exception as e:
-            LOGGER.error("Error collecting import %s: %s", s.getName(), e)
-    return sorted(set(imports))
+def collect_imports(program: Any) -> List[str]:
+    """
+    Collect names of external symbols as a proxy for imported APIs.
+    Some Ghidra versions/types may not tag imports strictly as FUNCTION; be permissive.
+    """
+    imports: Set[str] = set()
+    try:
+        st: Any = program.getSymbolTable()
+        for s in st.getExternalSymbols():
+            try:
+                name = s.getName()
+                if name:
+                    imports.add(str(name))
+            except Exception:
+                pass
+    except Exception as e:
+        LOGGER.error("Failed collecting external symbols: %s", e)
+    return sorted(imports)
 
 
 def collect_sections(program: Any) -> List[MemorySection]:
@@ -98,7 +105,7 @@ def collect_sections(program: Any) -> List[MemorySection]:
                 try:
                     bytes_read = memory.getBytes(block.getStart(), sample_bytes) or 0
                     if bytes_read < sample_len:
-                        sample_bytes = sample_bytes[:max(0, bytes_read)]
+                        sample_bytes = sample_bytes[: max(0, bytes_read)]
                 except Exception as read_err:
                     LOGGER.error("Failed reading block bytes for %s: %s", sec["name"], read_err)
                     sample_bytes = bytearray()
@@ -158,7 +165,9 @@ def collect_sections(program: Any) -> List[MemorySection]:
                 if sample_bytes:
                     try:
                         data_bytes = bytes(sample_bytes)
-                        strings_count = _count_ascii_strings(data_bytes) + _count_utf16le_strings(data_bytes)
+                        strings_count = _count_ascii_strings(data_bytes) + _count_utf16le_strings(
+                            data_bytes
+                        )
                     except Exception:
                         strings_count = 0
 
@@ -225,7 +234,7 @@ def collect_libraries(program: Any) -> List[str]:
     return libraries
 
 
-def collect_exports(program: Any, SymbolType: Any) -> List[str]:
+def collect_exports(program: Any) -> List[str]:
     exports: List[str] = []
     try:
         st = program.getSymbolTable()
@@ -234,8 +243,7 @@ def collect_exports(program: Any, SymbolType: Any) -> List[str]:
                 if getattr(s, "isExternal", lambda: False)():
                     continue
                 if getattr(s, "isGlobal", lambda: False)():
-                    if SymbolType is None or s.getSymbolType() == SymbolType.FUNCTION:
-                        exports.append(s.getName())
+                    exports.append(s.getName())
             except Exception:
                 pass
     except Exception:
