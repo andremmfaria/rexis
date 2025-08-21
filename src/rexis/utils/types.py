@@ -147,3 +147,53 @@ class ReconcilePolicyOverrides(TypedDict, total=False):
     conflict_gap_hard: float
     high_conf: float
     conflict_override_score: float
+
+
+class RagProgramInfo(TypedDict, total=False):
+    format: str
+    compiler: str
+    language: str
+
+
+class RagFeatures(TypedDict, total=False):
+    imports: List[str]
+    program: RagProgramInfo
+
+
+class RagPassage(TypedDict, total=False):
+    doc_id: str
+    source: Optional[str]
+    title: Optional[str]
+    score: Optional[float]
+    text: str
+
+
+class RagNotes(TypedDict, total=False):
+    query_count: int
+    top_k_dense: int
+    top_k_keyword: int
+    join_mode: str
+    rerank_top_k: int
+    final_top_k: int
+    filters: Dict[str, Union[str, List[str], Dict[str, Union[str, List[str]]]]]
+    ranker_model: str
+    embedding_model: str
+    metric: str
+    dense_hits: int
+    keyword_hits: int
+    fused_unique: int
+    elapsed_ms: int
+    error: str
+    note: str
+
+
+class RagChatMessage(TypedDict):
+    role: str
+    content: str
+
+
+class RagCandidateRow(TypedDict, total=False):
+    doc_id: str
+    source: Optional[str]
+    title: Optional[str]
+    excerpt: str

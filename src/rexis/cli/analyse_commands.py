@@ -96,7 +96,9 @@ def cmd_analyze_baseline(
         audit=audit,
     )
 
-    typer.echo(f"[baseline] Baseline report: {primary_path}\n[baseline] Run report: {run_report_path}")
+    typer.echo(
+        f"[baseline] Baseline report: {primary_path}\n[baseline] Run report: {run_report_path}"
+    )
 
 
 def cmd_analyze_llmrag(
@@ -128,7 +130,11 @@ def cmd_analyze_llmrag(
         False, "--overwrite", "-y", help="Overwrite existing artifacts when present"
     ),
     format: str = typer.Option(
-        "json", "--format", "-f", callback=format_validator, help="Report format (default: json)"
+        "json",
+        "--format",
+        "-f",
+        callback=format_validator,
+        help="Report format (default: json)",
     ),
     # GHIDRA / DECOMPILER
     project_dir: Path | None = typer.Option(
@@ -140,19 +146,76 @@ def cmd_analyze_llmrag(
     parallel: int = typer.Option(
         1, "--parallel", "-p", help="Process multiple files in parallel (dir input only)"
     ),
+    # --- RAG knobs ---
+    top_k_dense: int = typer.Option(
+        50, "--top-k-dense", "-td", help="Top-k for dense (semantic) retriever"
+    ),
+    top_k_keyword: int = typer.Option(
+        50, "--top-k-keyword", "-tk", help="Top-k for keyword (lexical) retriever"
+    ),
+    final_top_k: int = typer.Option(
+        8, "--final-top-k", "-fk", help="How many passages to send to the LLM"
+    ),
+    join_mode: str = typer.Option(
+        "rrf",
+        "--join",
+        "-j",
+        help="How to fuse dense + keyword results: rrf|merge",
+        show_default=True,
+    ),
+    rerank_top_k: int = typer.Option(
+        20,
+        "--rerank-top-k",
+        "-rk",
+        help="How many fused docs to pass through the cross-encoder ranker before selecting final_top_k",
+    ),
+    ranker_model: str = typer.Option(
+        "cross-encoder/ms-marco-MiniLM-L-6-v2",
+        "--ranker-model",
+        "-rm",
+        help="Cross-encoder re-ranker model id",
+        show_default=True,
+    ),
+    platform_filter: str = typer.Option(
+        "windows",
+        "--platform",
+        "-pf",
+        help="Metadata filter for retrieval (e.g., windows|linux|macos)",
+        show_default=True,
+    ),
+    source_filter: list[str] = typer.Option(
+        [],
+        "--source",
+        "-s",
+        help="Repeatable. Restrict retrieval to these sources (e.g., --source malpedia --source vendor)",
+    ),
+    # --- LLM generator knobs ---
+    model: str = typer.Option(
+        "gpt-4o-mini",
+        "--model",
+        "-m",
+        help="Generator model identifier",
+        show_default=True,
+    ),
+    temperature: float = typer.Option(
+        0.0, "--temperature", "-t", help="LLM temperature", show_default=True
+    ),
+    max_tokens: int = typer.Option(
+        800, "--max-tokens", "-mt", help="Max tokens in LLM response", show_default=True
+    ),
+    seed: int = typer.Option(
+        42, "--seed", "-sd", help="Randomness seed for the LLM (if supported)", show_default=True
+    ),
+    json_mode: bool = typer.Option(
+        True, "--json-mode/--no-json-mode", "-jm/--no-jm", help="Force JSON-only response"
+    ),
     # LOGGING / AUDIT
-    audit: bool = typer.Option(True, "--audit/--no-audit", help="Include audit trail in report"),
+    audit: bool = typer.Option(
+        True, "--audit/--no-audit", "-a/--no-a", help="Include audit trail in report"
+    ),
 ) -> None:
     """
-    LLMRAG pipeline (decompile → LLMRAG analysis → report).
-
-    If INPUT_PATH is a file: runs the pipeline for a single sample.
-    If INPUT_PATH is a directory: recursively discovers PE files (.exe/.dll/.sys) and batches them.
-    Outputs:
-      - <sha256>.features.json    (decompiler features)
-      - <sha256>.llmrag.json      (LLMRAG analysis)
-      - <sha256>.report.json      (final report)
-      - llmrag_summary.json       (batch summary when INPUT_PATH is a directory)
+    LLM+RAG pipeline (features → hybrid retrieval → re-rank → LLM JSON → report).
     """
     run_name_str: str = run_name or uuid.uuid4().hex
     primary_path, run_report_path = analyze_llmrag_exec(
@@ -164,8 +227,22 @@ def cmd_analyze_llmrag(
         # decompiler
         project_dir=project_dir,
         parallel=parallel,
+        # rag
+        top_k_dense=top_k_dense,
+        top_k_keyword=top_k_keyword,
+        final_top_k=final_top_k,
+        join_mode=join_mode,
+        rerank_top_k=rerank_top_k,
+        ranker_model=ranker_model,
+        platform_filter=platform_filter,
+        source_filter=source_filter,
+        # llm
+        model=model,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        seed=seed,
+        json_mode=json_mode,
         # audit
         audit=audit,
     )
-
-    typer.echo(f"[llmrag] Baseline report: {primary_path}\n[llmrag] Run report: {run_report_path}")
+    typer.echo(f"[llmrag] LLMRAG report: {primary_path}\n[llmrag] Run report: {run_report_path}")

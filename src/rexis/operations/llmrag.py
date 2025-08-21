@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
-from rexis.tools.llm_analyser.llm import llm_classify
-from rexis.tools.llm_analyser.rag import build_queries_from_features, retrieve_context
+from rexis.tools.llm.main import llm_classify
+from rexis.tools.retrieval.main import build_queries_from_features, retrieve_context
 from rexis.utils.utils import LOGGER, get_version, iter_pe_files, now_iso, sha256, write_json
 
 
@@ -18,8 +18,8 @@ def _decompile_target(
     run_name: Optional[str],
 ) -> Tuple[str, Path, Dict[str, Any]]:
     """
-    Returns (sha256, features_path, features_dict). If `target` is a PE, decompiles;
-    if it's a <sha>.features.json, uses it directly.
+    Returns (sha256, features_path, features_dict).
+    If `target` is a PE, decompiles; if it's a .features.json, uses it directly.
     """
     if target.suffix.lower() == ".json" and target.name.endswith(".features.json"):
         features_path: Path = target
@@ -44,12 +44,9 @@ def _decompile_target(
         project_name="rexis",
         run_name=run_name,
     )
-    
     with features_path.open("r", encoding="utf-8") as f:
         features: Dict[str, Any] = json.load(f)
-  
     hash: str = (features.get("program") or {}).get("sha256") or sha256(target)
-
     return hash, features_path, features
 
 
@@ -60,12 +57,28 @@ def _process_sample(
     overwrite: bool,
     project_dir: Optional[Path],
     audit: bool,
+    *,
+    # rag
+    top_k_dense: int,
+    top_k_keyword: int,
+    final_top_k: int,
+    join_mode: str,
+    rerank_top_k: int,
+    ranker_model: str,
+    platform_filter: str,
+    source_filter: List[str],
+    # llm
+    model: str,
+    temperature: float,
+    max_tokens: int,
+    seed: int,
+    json_mode: bool,
 ) -> Path:
     """
-    Process a single sample with the LLM+RAG stub flow and return the final report path.
+    Process a single sample with the LLM+RAG flow and return the final report path.
     Produces per-sample artifacts:
-      - <sha256>.llmrag.json
-      - <sha256>.report.json
+      - .llmrag.json
+      - .report.json
     """
     started: float = time.time()
     audit_log: List[Dict[str, Any]] = []
@@ -81,7 +94,7 @@ def _process_sample(
 
     # 1) Ensure features exist (use JSON or decompile a PE)
     _audit("decompile_start")
-    sha256, features_path, features = _decompile_target(
+    sha256_hex, features_path, features = _decompile_target(
         target=target,
         run_dir=out_dir,
         overwrite=overwrite,
@@ -90,42 +103,76 @@ def _process_sample(
     )
     _audit("decompile_ready", path=str(features_path))
 
-    # 2) Build retrieval queries + (stub) retrieve context
-    _audit("rag_start")
+    # 2) Build retrieval queries + retrieve context (hybrid; will use these knobs)
+    _audit(
+        "rag_start",
+        params={
+            "top_k_dense": top_k_dense,
+            "top_k_keyword": top_k_keyword,
+            "final_top_k": final_top_k,
+            "join_mode": join_mode,
+            "rerank_top_k": rerank_top_k,
+            "ranker_model": ranker_model,
+            "platform": platform_filter,
+            "sources": source_filter,
+        },
+    )
     queries: List[str] = build_queries_from_features(features)
-    passages: List[Dict[str, Any]]
-    rag_notes: Dict[str, Any] | str
-    passages, rag_notes = retrieve_context(queries, top_k=8)
+    passages, rag_notes = retrieve_context(
+        queries,
+        # pass through config for the real implementation
+        top_k_dense=top_k_dense,
+        top_k_keyword=top_k_keyword,
+        final_top_k=final_top_k,
+        join_mode=join_mode,
+        rerank_top_k=rerank_top_k,
+        ranker_model=ranker_model,
+        platform=platform_filter,
+        sources=source_filter,
+    )
     _audit("rag_done", notes=rag_notes)
 
-    # 3) (Stub) LLM classification using features + retrieved context
-    _audit("llm_start")
-    llm_out: Dict[str, Any] = llm_classify(features, passages)
-    llmrag_path: Path = out_dir / f"{sha256}.llmrag.json"
+    # 3) LLM classification using features + retrieved context (JSON-mode)
+    _audit(
+        "llm_start",
+        params={
+            "model": model,
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "seed": seed,
+            "json_mode": json_mode,
+        },
+    )
+    llm_out: Dict[str, Any] = llm_classify(
+        features,
+        passages,
+        model=model,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        seed=seed,
+        json_mode=json_mode,
+    )
+    llmrag_path: Path = out_dir / f"{sha256_hex}.llmrag.json"
     write_json(llm_out, llmrag_path)
     _audit("llm_done", path=str(llmrag_path))
 
-    # Compute final label from score
+    # Compute final label from score (keep same thresholds as baseline)
     score: float = float(llm_out.get("score") or 0.0)
     if score >= 0.70:
         final_label: str = "malicious"
     elif score >= 0.40:
         final_label = "suspicious"
     else:
-        final_label = (
-            "benign" if llm_out.get("label") == "benign" else llm_out.get("label", "unknown")
-        )
+        final_label = "benign" if llm_out.get("label") == "benign" else llm_out.get("label", "unknown")
 
-    program_block: Dict[str, Any] = (
-        features.get("program", {}) if isinstance(features, dict) else {}
-    )
+    program_block: Dict[str, Any] = features.get("program", {}) if isinstance(features, dict) else {}
 
     report: Dict[str, Any] = {
         "schema": "rexis.llmrag.report.v1",
         "run_name": run_name,
         "generated_at": now_iso(),
         "duration_sec": round(time.time() - started, 3),
-        "sample": {"sha256": sha256, "source_path": str(target.resolve())},
+        "sample": {"sha256": sha256_hex, "source_path": str(target.resolve())},
         "program": program_block,
         "artifacts": {
             "features_path": str(features_path),
@@ -140,7 +187,7 @@ def _process_sample(
         "audit": audit_log if audit else [],
     }
 
-    report_path: Path = out_dir / f"{sha256}.report.json"
+    report_path: Path = out_dir / f"{sha256_hex}.report.json"
     write_json(report, report_path)
     print(f"[llmrag] LLM+RAG report: {report_path}")
     _audit("pipeline_done", report=str(report_path))
@@ -156,6 +203,21 @@ def analyze_llmrag_exec(
     project_dir: Path | None,
     parallel: int,
     audit: bool,
+    # rag
+    top_k_dense: int,
+    top_k_keyword: int,
+    final_top_k: int,
+    join_mode: str,
+    rerank_top_k: int,
+    ranker_model: str,
+    platform_filter: str,
+    source_filter: List[str],
+    # llm
+    model: str,
+    temperature: float,
+    max_tokens: int,
+    seed: int,
+    json_mode: bool,
 ) -> Tuple[Path, Path]:
     """
     Orchestrates the llm+rag pipeline for a file or directory.
@@ -176,7 +238,7 @@ def analyze_llmrag_exec(
 
     print(f"[llmrag] Starting llmrag analysis (run={run_name}) -> {run_dir}")
 
-    # Determine targets (basic PE discovery for directory; single file otherwise)
+    # Determine targets
     targets: List[Path]
     if input_path.is_dir():
         targets = iter_pe_files(input_path)
@@ -186,7 +248,7 @@ def analyze_llmrag_exec(
     else:
         targets = [input_path]
 
-    # Worker wrapper to pass through fixed parameters
+    # Worker
     def _worker(binary: Path) -> Path:
         try:
             return _process_sample(
@@ -196,10 +258,24 @@ def analyze_llmrag_exec(
                 overwrite=overwrite,
                 project_dir=project_dir,
                 audit=audit,
+                # rag
+                top_k_dense=top_k_dense,
+                top_k_keyword=top_k_keyword,
+                final_top_k=final_top_k,
+                join_mode=join_mode,
+                rerank_top_k=rerank_top_k,
+                ranker_model=ranker_model,
+                platform_filter=platform_filter,
+                source_filter=source_filter,
+                # llm
+                model=model,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                seed=seed,
+                json_mode=json_mode,
             )
         except Exception as e:
             LOGGER.error("Failed LLM+RAG on %s: %s", binary, e)
-            # Emit a minimal failure report to keep batch consistent
             fail_report: Dict[str, Any] = {
                 "schema": "rexis.llmrag.report.v1",
                 "run_id": run_name,
@@ -208,8 +284,7 @@ def analyze_llmrag_exec(
                 "final": {"label": "error", "score": 0.0},
                 "error": str(e),
             }
-            safe_name: str = binary.name + ".error.report.json"
-            fail_path: Path = run_dir / safe_name
+            fail_path: Path = run_dir / (binary.name + ".error.report.json")
             write_json(fail_report, fail_path)
             return fail_path
 
@@ -218,6 +293,7 @@ def analyze_llmrag_exec(
     error_message: Optional[str] = None
     primary_output: Optional[Path] = None
     reports: List[Path] = []
+
     try:
         if len(targets) == 1:
             print("[llmrag] Processing single file")
@@ -233,7 +309,6 @@ def analyze_llmrag_exec(
                 for t in targets:
                     reports.append(_worker(t))
 
-            # Summary (baseline-like)
             summary: Dict[str, Any] = {
                 "schema": "rexis.llmrag.summary.v1",
                 "run_id": run_name,
@@ -258,6 +333,8 @@ def analyze_llmrag_exec(
     end_ts: float = time.time()
     ended_at: str = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(end_ts))
     duration_sec: float = round(end_ts - start_ts, 3)
+
+    # Run-level report (record config for reproducibility)
     run_report: Dict[str, Any] = {
         "run_id": run_name,
         "base_path": base_path,
@@ -272,6 +349,23 @@ def analyze_llmrag_exec(
             "report_format": report_format,
             "project_dir": str(project_dir) if project_dir else None,
             "audit": audit,
+            "rag": {
+                "top_k_dense": top_k_dense,
+                "top_k_keyword": top_k_keyword,
+                "final_top_k": final_top_k,
+                "join_mode": join_mode,
+                "rerank_top_k": rerank_top_k,
+                "ranker_model": ranker_model,
+                "platform": platform_filter,
+                "sources": source_filter,
+            },
+            "llm": {
+                "model": model,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+                "seed": seed,
+                "json_mode": json_mode,
+            },
         },
         "outputs": {
             "primary": str(primary_output) if primary_output else None,
