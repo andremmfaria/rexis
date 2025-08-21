@@ -25,6 +25,20 @@ def validate_dir_or_file(dir: Optional[Path], file: Optional[Path]) -> None:
     if len(provided) != 1:
         raise typer.BadParameter("Exactly one of --dir or --file must be provided.")
 
+    # If a directory is provided, ensure it exists and is a directory
+    if dir is not None:
+        if not dir.exists():
+            raise typer.BadParameter(f"Directory not found: {dir}")
+        if not dir.is_dir():
+            raise typer.BadParameter(f"Not a directory: {dir}")
+
+    # If a file is provided, ensure it exists and is a file
+    if file is not None:
+        if not file.exists():
+            raise typer.BadParameter(f"File not found: {file}")
+        if not file.is_file():
+            raise typer.BadParameter(f"Not a file: {file}")
+
 
 def validate_file_type(value: str) -> str:
     allowed = {"pdf", "html", "text", "json"}
