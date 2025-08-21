@@ -81,7 +81,7 @@ def collect_malpedia(
         raise typer.BadParameter(str(error))
 
     run_dir = output_dir / base_path
-    print(f"Saved {num_saved} JSON objects to {output_path} and scrapes will be in {run_dir}")
+    print(f"Saved {num_saved} JSON objects to {output_path} and artifacts in {run_dir} (report: {run_dir / (base_path + '.report.json')})")
 
     try:
         if ingest:
@@ -181,7 +181,8 @@ def collect_malwarebazaar(
     except ValueError as error:
         raise typer.BadParameter(str(error))
 
-    print(f"Saved {num_saved} JSON objects to {output_path}")
+    run_dir = output_dir / base_path
+    print(f"Saved {num_saved} JSON objects to {output_path} and artifacts in {run_dir} (report: {run_dir / (base_path + '.report.json')})")
 
     try:
         if ingest and num_saved > 0:

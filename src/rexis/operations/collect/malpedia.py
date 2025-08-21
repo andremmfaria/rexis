@@ -1,6 +1,7 @@
 import json
 import pathlib
 import re
+import time
 from datetime import date, timezone
 from typing import Any, Dict, List, Optional, Set
 from urllib.parse import urlparse
@@ -9,7 +10,7 @@ import requests
 from dateutil import parser as dtparse
 from fuzzywuzzy import fuzz
 from rexis.utils.config import config
-from rexis.utils.utils import LOGGER
+from rexis.utils.utils import LOGGER, get_version
 
 MALPEDIA_BASE: str = config.ingestion.malpedia_base_url.rstrip("/")
 REFS_ENDPOINT: str = f"{MALPEDIA_BASE}/api/get/references"
@@ -32,6 +33,14 @@ def collect_malpedia_exec(
     Output a JSON file with merged entries including families/actors arrays.
     All flags apply with AND semantics.
     """
+    start_ts = time.time()
+    started_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start_ts))
+
+    # Derive run directory and base name from output_path (e.g., malpedia-collect-<run>.json)
+    base_path: str = output_path.stem
+    run_dir: pathlib.Path = output_path.parent / base_path
+    run_dir.mkdir(parents=True, exist_ok=True)
+
     params: Dict[str, Any] = {
         "family_id": family_id,
         "actor_id": actor_id,
@@ -44,41 +53,108 @@ def collect_malpedia_exec(
     params_str: str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
     print(f"[collect-mp] Starting collect_malpedia_exec with params: {params_str}")
 
-    # If the user provided a start date but no end date, set end date to today and inform the user.
-    if start_date and not end_date:
-        end_date = date.today().isoformat()
-        print(f"[collect-mp] --start-date set without --end-date. Using end={end_date} (today).")
+    status: str = "success"
+    error_message: Optional[str] = None
+    metrics: Dict[str, Any] = {
+        "refs_index_url_keys": None,
+        "bib_entries_total": None,
+        "merged_entries": None,
+        "filtered_entries": None,
+        "saved_entries": None,
+    }
+    saved: int = 0
 
-    # 1) fetch sources
-    print("[collect-mp] Fetching references index from Malpedia API.")
-    refs_index: Dict[str, List[Dict[str, Any]]] = fetch_references_index()
-    print("[collect-mp] Fetching BibTeX dump from Malpedia API.")
-    bib_text: str = fetch_bibtex_dump()
+    try:
+        # If the user provided a start date but no end date, set end date to today and inform the user.
+        if start_date and not end_date:
+            end_date = date.today().isoformat()
+            print(
+                f"[collect-mp] --start-date set without --end-date. Using end={end_date} (today)."
+            )
 
-    bib_refs: List[Dict[str, Any]] = parse_bibtex_entries(bib_text)
+        # 1) fetch sources
+        print("[collect-mp] Fetching references index from Malpedia API.")
+        refs_index: Dict[str, List[Dict[str, Any]]] = fetch_references_index()
+        metrics["refs_index_url_keys"] = len(refs_index)
+        print("[collect-mp] Fetching BibTeX dump from Malpedia API.")
+        bib_text: str = fetch_bibtex_dump()
 
-    # 2) join
-    print("[collect-mp] Cross-referencing BibTeX entries with references index.")
-    merged: List[Dict[str, Any]] = cross_reference(refs_index, bib_refs)
-    LOGGER.info(f"[merge] merged entries: {len(merged)}")
+        bib_refs: List[Dict[str, Any]] = parse_bibtex_entries(bib_text)
+        metrics["bib_entries_total"] = len(bib_refs)
 
-    # 3) AND filters
-    print("[collect-mp] Applying AND filters to merged entries.")
-    filtered: List[Dict[str, Any]] = filter_and_semantics(
-        rows=merged,
-        family_id=family_id,
-        actor_id=actor_id,
-        search_term=search_term,
-        start_date=start_date,
-        end_date=end_date,
-        max_items=max_items,
-    )
-    LOGGER.info(f"[filter] after AND filters: {len(filtered)}")
+        # 2) join
+        print("[collect-mp] Cross-referencing BibTeX entries with references index.")
+        merged: List[Dict[str, Any]] = cross_reference(refs_index, bib_refs)
+        metrics["merged_entries"] = len(merged)
+        LOGGER.info(f"[merge] merged entries: {len(merged)}")
 
-    # 4) save
-    print(f"[collect-mp] Saving filtered entries to {output_path}")
-    saved: int = save_json(filtered, output_path)
-    print(f"[collect-mp] Saved {saved} entries to {output_path}")
+        # 3) AND filters
+        print("[collect-mp] Applying AND filters to merged entries.")
+        filtered: List[Dict[str, Any]] = filter_and_semantics(
+            rows=merged,
+            family_id=family_id,
+            actor_id=actor_id,
+            search_term=search_term,
+            start_date=start_date,
+            end_date=end_date,
+            max_items=max_items,
+        )
+        metrics["filtered_entries"] = len(filtered)
+        LOGGER.info(f"[filter] after AND filters: {len(filtered)}")
+
+        # 4) save
+        print(f"[collect-mp] Saving filtered entries to {output_path}")
+        saved = save_json(filtered, output_path)
+        metrics["saved_entries"] = saved
+        print(f"[collect-mp] Saved {saved} entries to {output_path}")
+    except Exception as e:
+        LOGGER.error("Malpedia collection failed: %s", e)
+        status = "error"
+        error_message = str(e)
+        exc = e
+    else:
+        exc = None
+    finally:
+        end_ts = time.time()
+        ended_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(end_ts))
+        duration_sec = round(end_ts - start_ts, 3)
+        print(f"[collect-mp] Preparing run report (status={status}, duration={duration_sec}s)...")
+        report: Dict[str, Any] = {
+            "run_id": base_path,
+            "base_path": base_path,
+            "started_at": started_at,
+            "ended_at": ended_at,
+            "duration_seconds": duration_sec,
+            "status": status,
+            "error": error_message,
+            "summary": metrics,
+            "inputs": {
+                "family_id": family_id,
+                "actor_id": actor_id,
+                "search_term": search_term,
+                "start_date": start_date,
+                "end_date": end_date,
+                "max_items": max_items,
+            },
+            "outputs": {
+                "output_path": str(output_path),
+                "run_dir": str(run_dir),
+            },
+            "environment": {
+                "rexis_version": get_version(),
+                "malpedia_base_url": MALPEDIA_BASE,
+            },
+        }
+        report_path: pathlib.Path = run_dir / f"{base_path}.report.json"
+        try:
+            report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+            LOGGER.info(f"Run report written to {report_path}")
+        except Exception as rexc:
+            LOGGER.error("Failed to write run report %s: %s", report_path, rexc)
+
+    if exc:
+        raise exc
+
     return saved
 
 
@@ -179,7 +255,9 @@ def parse_bibtex_entries(bibtex_text: str) -> List[Dict[str, Any]]:
             or field_map.get("venue", "")
             or (urlparse(url_value).netloc if url_value else "")
         )
-        date_str: str = field_map.get("date", "") or field_map.get("year", "") or field_map.get("published", "")
+        date_str: str = (
+            field_map.get("date", "") or field_map.get("year", "") or field_map.get("published", "")
+        )
         meta: Dict[str, Any] = {
             "author": field_map.get("author", ""),
             "language": field_map.get("language", ""),
@@ -375,7 +453,9 @@ def filter_and_semantics(
         "max_items": max_items,
     }
     params_str: str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
-    print(f"[collect-mp] Filtering {len(rows)} rows" + (f" with {params_str}" if params_str else ""))
+    print(
+        f"[collect-mp] Filtering {len(rows)} rows" + (f" with {params_str}" if params_str else "")
+    )
 
     def matches_family(r: Dict[str, Any]) -> bool:
         if not family_id:
