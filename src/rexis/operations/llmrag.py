@@ -6,7 +6,12 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
 from rexis.tools.llm.main import llm_classify
+from rexis.utils.constants import (
+    SCORE_THRESHOLD_MALICIOUS,
+    SCORE_THRESHOLD_SUSPICIOUS,
+)
 from rexis.tools.retrieval.main import build_queries_from_features, retrieve_context
+from rexis.utils.types import Passage, RagNotes
 from rexis.utils.utils import LOGGER, get_version, iter_pe_files, now_iso, sha256, write_json
 
 
@@ -117,7 +122,11 @@ def _process_sample(
             "sources": source_filter,
         },
     )
+
     queries: List[str] = build_queries_from_features(features)
+
+    passages: List[Passage]
+    rag_notes: RagNotes
     passages, rag_notes = retrieve_context(
         queries,
         # pass through config for the real implementation
@@ -158,9 +167,9 @@ def _process_sample(
 
     # Compute final label from score (keep same thresholds as baseline)
     score: float = float(llm_out.get("score") or 0.0)
-    if score >= 0.70:
+    if score >= SCORE_THRESHOLD_MALICIOUS:
         final_label: str = "malicious"
-    elif score >= 0.40:
+    elif score >= SCORE_THRESHOLD_SUSPICIOUS:
         final_label = "suspicious"
     else:
         final_label = "benign" if llm_out.get("label") == "benign" else llm_out.get("label", "unknown")

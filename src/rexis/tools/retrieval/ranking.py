@@ -7,7 +7,6 @@ from haystack.components.joiners import DocumentJoiner
 from haystack.utils import Secret
 from rexis.utils.config import config
 from rexis.utils.constants import AUTH_BONUS
-from rexis.utils.types import RagCandidateRow, RagChatMessage
 from rexis.utils.utils import LOGGER
 
 
@@ -19,7 +18,7 @@ def _truncate(text: str, max_chars: int = 1000) -> str:
     return text[: max_chars - 3] + "..."
 
 
-def build_llm_rerank_messages(query: str, candidates: List[Document]) -> List[RagChatMessage]:
+def build_llm_rerank_messages(query: str, candidates: List[Document]) -> List[Dict[str, str]]:
     """
     Build a compact, JSON-only rerank prompt for OpenAI.
     """
@@ -33,7 +32,7 @@ def build_llm_rerank_messages(query: str, candidates: List[Document]) -> List[Ra
         '[{"doc_id": str, "score": float in [0,1]} ...], highest scores for most relevant items. '
         "Do not include any text outside the JSON. Consider exact API names, capabilities, family hints, and technical fit."
     )
-    lines: List[RagCandidateRow] = []
+    lines: List[Dict[str, Any]] = []
     for d in candidates:
         meta: Dict[str, Any] = d.meta or {}
         lines.append(
@@ -150,7 +149,7 @@ def fuse_and_rerank(
             f"[ranking] Reranking top {rerank_top_k} candidates with model '{ranker_model}'…",
             flush=True,
         )
-        messages: List[RagChatMessage] = build_llm_rerank_messages(query_for_ranker, candidates)
+        messages: List[Dict[str, str]] = build_llm_rerank_messages(query_for_ranker, candidates)
         gen: OpenAIChatGenerator = OpenAIChatGenerator(
             api_key=Secret.from_token(config.models.openai.api_key),
             model=ranker_model,

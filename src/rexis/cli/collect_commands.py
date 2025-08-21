@@ -63,10 +63,10 @@ def collect_malpedia(
         - Optionally ingests collected files and prints progress information.
     """
     try:
-        run_name_str: str = f"malpedia-collect-{run_name or uuid.uuid4().hex}"
-        base = f"{run_name_str}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
+        run_name_str: str = run_name or uuid.uuid4().hex
+        base_path: str = f"malpedia-collect-{run_name_str}"
         output_dir.mkdir(parents=True, exist_ok=True)
-        output_path: Path = output_dir / f"{base}.json"
+        output_path: Path = output_dir / f"{base_path}.json"
 
         num_saved: int = collect_malpedia_exec(
             family_id=family_id,
@@ -80,7 +80,7 @@ def collect_malpedia(
     except ValueError as error:
         raise typer.BadParameter(str(error))
 
-    run_dir = output_dir / base
+    run_dir = output_dir / base_path
     print(f"Saved {num_saved} JSON objects to {output_path} and scrapes will be in {run_dir}")
 
     try:
@@ -165,10 +165,10 @@ def collect_malwarebazaar(
         - Optionally ingests the collected data into the index.
     """
     try:
-        run_name_str: str = f"malwarebazaar-collect-{run_name or uuid.uuid4().hex}"
-        base = f"{run_name_str}-{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}"
+        run_name_str: str = run_name or uuid.uuid4().hex
+        base_path: str = f"malwarebazaar-collect-{run_name_str}"
         output_dir.mkdir(parents=True, exist_ok=True)
-        output_path: Path = output_dir / f"{base}.json"
+        output_path: Path = output_dir / f"{base_path}.json"
 
         num_saved: int = collect_malwarebazaar_exec(
             tags=tags,

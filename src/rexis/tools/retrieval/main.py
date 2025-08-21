@@ -7,11 +7,11 @@ from rexis.tools.retrieval.searches import dense_search, keyword_search
 from rexis.tools.retrieval.store import init_store
 from rexis.utils.config import config
 from rexis.utils.constants import CAPABILITY_BUCKETS
-from rexis.utils.types import RagFeatures, RagNotes, RagPassage, RagProgramInfo
+from rexis.utils.types import RagNotes, Passage
 from rexis.utils.utils import LOGGER
 
 
-def build_queries_from_features(features: RagFeatures, max_terms: int = 12) -> List[str]:
+def build_queries_from_features(features: Dict[str, Any], max_terms: int = 12) -> List[str]:
     """
     Build a small, deterministic set of hybrid-friendly queries out of the decompiler features.
     Returns short strings suitable for both dense and keyword retrieval.
@@ -45,7 +45,7 @@ def build_queries_from_features(features: RagFeatures, max_terms: int = 12) -> L
             else:
                 queries.append(f"{bucket} features: " + ", ".join(hits))
 
-    prog: RagProgramInfo = features.get("program") or {}
+    prog: Dict[str, Any] = features.get("program") or {}
     fmt: Optional[str] = prog.get("format")
     comp: Optional[str] = prog.get("compiler")
     lang: Optional[str] = prog.get("language")
@@ -72,7 +72,7 @@ def retrieve_context(
     ranker_model: str = "gpt-4o-mini",
     platform: Optional[str] = None,  # default None because your ingestion didn't set this meta
     sources: Optional[List[str]] = None,  # default None; only use if you indexed "source"
-) -> Tuple[List[RagPassage], RagNotes]:
+) -> Tuple[List[Passage], RagNotes]:
     """
     Hybrid retrieval (dense + keyword) → RRF/merge → optional re-rank.
     Returns:
@@ -155,7 +155,10 @@ def retrieve_context(
         )
     except Exception as e:
         LOGGER.warning("Fusion/rerank failed: %s", e)
-        print(f"[retrieval] WARNING: Fusion/rerank failed: {e}. Falling back to simple merge.", flush=True)
+        print(
+            f"[retrieval] WARNING: Fusion/rerank failed: {e}. Falling back to simple merge.",
+            flush=True,
+        )
         all_docs: List[Document] = dense_docs + keyword_docs
         seen: Set[str] = set()
         deduped: List[Document] = []
@@ -167,7 +170,7 @@ def retrieve_context(
         final_docs = deduped[:final_top_k]
 
     # Format passages for the LLM
-    passages: List[RagPassage] = []
+    passages: List[Passage] = []
     for d in final_docs:
         meta: Dict[str, Any] = d.meta or {}
         passages.append(

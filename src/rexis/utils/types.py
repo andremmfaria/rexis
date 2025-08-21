@@ -93,13 +93,13 @@ class ReconcileConfig:
     threshold_suspicious: float  # Threshold for 'suspicious' label
 
     # Disagreement settings
-    gap_penalty_start: float      # Start penalizing when |Sh - Svt| exceeds this value
-    gap_penalty_max: float        # Maximum penalty cap
-    gap_penalty_slope: float      # Penalty per unit gap beyond start
+    gap_penalty_start: float  # Start penalizing when |Sh - Svt| exceeds this value
+    gap_penalty_max: float  # Maximum penalty cap
+    gap_penalty_slope: float  # Penalty per unit gap beyond start
 
     # Conflict override (extreme disagreement with high confidence)
-    conflict_gap_hard: float      # Hard gap threshold for conflict override
-    high_confidence: float        # Confidence threshold for override
+    conflict_gap_hard: float  # Hard gap threshold for conflict override
+    high_confidence: float  # Confidence threshold for override
     conflict_override_score: float  # Fused score to set when hard conflict triggers
 
 
@@ -149,25 +149,6 @@ class ReconcilePolicyOverrides(TypedDict, total=False):
     conflict_override_score: float
 
 
-class RagProgramInfo(TypedDict, total=False):
-    format: str
-    compiler: str
-    language: str
-
-
-class RagFeatures(TypedDict, total=False):
-    imports: List[str]
-    program: RagProgramInfo
-
-
-class RagPassage(TypedDict, total=False):
-    doc_id: str
-    source: Optional[str]
-    title: Optional[str]
-    score: Optional[float]
-    text: str
-
-
 class RagNotes(TypedDict, total=False):
     query_count: int
     top_k_dense: int
@@ -187,13 +168,9 @@ class RagNotes(TypedDict, total=False):
     note: str
 
 
-class RagChatMessage(TypedDict):
-    role: str
-    content: str
-
-
-class RagCandidateRow(TypedDict, total=False):
+class Passage(TypedDict, total=False):
     doc_id: str
     source: Optional[str]
     title: Optional[str]
-    excerpt: str
+    score: Optional[float]
+    text: str

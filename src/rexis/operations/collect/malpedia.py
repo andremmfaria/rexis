@@ -11,9 +11,9 @@ from fuzzywuzzy import fuzz
 from rexis.utils.config import config
 from rexis.utils.utils import LOGGER
 
-MALPEDIA_BASE = config.ingestion.malpedia_base_url.rstrip("/")
-REFS_ENDPOINT = f"{MALPEDIA_BASE}/api/get/references"
-BIB_ENDPOINT = f"{MALPEDIA_BASE}/api/get/bib"
+MALPEDIA_BASE: str = config.ingestion.malpedia_base_url.rstrip("/")
+REFS_ENDPOINT: str = f"{MALPEDIA_BASE}/api/get/references"
+BIB_ENDPOINT: str = f"{MALPEDIA_BASE}/api/get/bib"
 
 
 def collect_malpedia_exec(
@@ -32,7 +32,7 @@ def collect_malpedia_exec(
     Output a JSON file with merged entries including families/actors arrays.
     All flags apply with AND semantics.
     """
-    params = {
+    params: Dict[str, Any] = {
         "family_id": family_id,
         "actor_id": actor_id,
         "search_term": search_term,
@@ -41,30 +41,29 @@ def collect_malpedia_exec(
         "max_items": max_items,
         "output_path": output_path,
     }
-    params_str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
-    print(f"Starting collect_malpedia_exec with params: {params_str}")
+    params_str: str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
+    print(f"[collect-mp] Starting collect_malpedia_exec with params: {params_str}")
 
     # If the user provided a start date but no end date, set end date to today and inform the user.
     if start_date and not end_date:
         end_date = date.today().isoformat()
-        msg = f"[date] --start-date set without --end-date. Using end={end_date} (today)."
-        print(msg)
+        print(f"[collect-mp] --start-date set without --end-date. Using end={end_date} (today).")
 
     # 1) fetch sources
-    print("Fetching references index from Malpedia API.")
+    print("[collect-mp] Fetching references index from Malpedia API.")
     refs_index: Dict[str, List[Dict[str, Any]]] = fetch_references_index()
-    print("Fetching BibTeX dump from Malpedia API.")
+    print("[collect-mp] Fetching BibTeX dump from Malpedia API.")
     bib_text: str = fetch_bibtex_dump()
 
     bib_refs: List[Dict[str, Any]] = parse_bibtex_entries(bib_text)
 
     # 2) join
-    print("Cross-referencing BibTeX entries with references index.")
+    print("[collect-mp] Cross-referencing BibTeX entries with references index.")
     merged: List[Dict[str, Any]] = cross_reference(refs_index, bib_refs)
     LOGGER.info(f"[merge] merged entries: {len(merged)}")
 
     # 3) AND filters
-    print("Applying AND filters to merged entries.")
+    print("[collect-mp] Applying AND filters to merged entries.")
     filtered: List[Dict[str, Any]] = filter_and_semantics(
         rows=merged,
         family_id=family_id,
@@ -77,19 +76,24 @@ def collect_malpedia_exec(
     LOGGER.info(f"[filter] after AND filters: {len(filtered)}")
 
     # 4) save
-    print(f"Saving filtered entries to {output_path}")
+    print(f"[collect-mp] Saving filtered entries to {output_path}")
     saved: int = save_json(filtered, output_path)
-    print(f"Saved {saved} entries to {output_path}")
+    print(f"[collect-mp] Saved {saved} entries to {output_path}")
     return saved
 
 
 def fetch_references_index() -> Dict[str, List[Dict[str, Any]]]:
     """
-    GET /api/get/references → { url: [ {type,id,common_name,alt_names,url}, ... ], ... }
+    Retrieve the references index from Malpedia.
+
+    Returns:
+        Dict[str, List[Dict[str, Any]]]: Mapping of URL (string) to a list of entity dicts
+        where each entity describes either a family or an actor with fields like
+        'type', 'id', 'common_name', and 'alt_names'.
     """
-    print(f"[GET] {REFS_ENDPOINT}")
+    print(f"[collect-mp] [GET] {REFS_ENDPOINT}")
     try:
-        r = requests.get(
+        response = requests.get(
             REFS_ENDPOINT,
             headers={
                 "User-Agent": "rexis-malpedia/1.0 (+research; RAG build)",
@@ -97,12 +101,12 @@ def fetch_references_index() -> Dict[str, List[Dict[str, Any]]]:
             },
             timeout=60,
         )
-        r.raise_for_status()
-        data: Dict[str, Dict[str, List[Any]]] = r.json().get("references", "")
-        if not isinstance(data, Dict):
-            LOGGER.error("Unexpected /api/get/references response type: %s", type(data))
-            raise RuntimeError("Unexpected /api/get/references response")
-        print(f"[refs] loaded {len(data)} URL keys")
+        response.raise_for_status()
+        json_payload: Dict[str, Any] = response.json()
+        data: Dict[str, List[Dict[str, Any]]] = json_payload.get("references", {})  # type: ignore[assignment]
+        if not isinstance(data, dict):
+            raise RuntimeError(f"Unexpected /api/get/references response type: {type(data)}")
+        print(f"[collect-mp] Loaded {len(data)} URL keys")
         return data
     except Exception as e:
         LOGGER.error(f"Failed to fetch references index: {e}")
@@ -111,62 +115,79 @@ def fetch_references_index() -> Dict[str, List[Dict[str, Any]]]:
 
 def fetch_bibtex_dump() -> str:
     """
-    GET /api/get/bib → BibTeX of all references
+    Retrieve the complete BibTeX dump from Malpedia.
+
+    Returns:
+        str: Raw BibTeX text containing multiple @online entries.
     """
-    print(f"[GET] {BIB_ENDPOINT}")
+    print(f"[collect-mp] [GET] {BIB_ENDPOINT}")
     try:
-        r = requests.get(BIB_ENDPOINT, timeout=90)
-        r.raise_for_status()
-        LOGGER.info(f"[bibtex] size={len(r.text)} bytes")
-        return r.text
+        response = requests.get(BIB_ENDPOINT, timeout=90)
+        response.raise_for_status()
+        LOGGER.info(f"[bibtex] size={len(response.text)} bytes")
+        return response.text
     except Exception as e:
         LOGGER.error(f"Failed to fetch BibTeX dump: {e}")
         raise
 
 
-def _strip_braces(val: str) -> str:
-    v = val.strip()
-    if v.startswith("{"):
-        v = v[1:]
-    if v.endswith("}"):
-        v = v[:-1]
-    result = v.strip()
-    LOGGER.debug(f"Stripped braces: '{val}' -> '{result}'")
+def _strip_braces(value: str) -> str:
+    """Strip one leading and trailing brace from a BibTeX value, if present.
+
+    Args:
+        value: The raw string potentially wrapped with braces.
+
+    Returns:
+        A cleaned string without the outermost braces.
+    """
+    working: str = value.strip()
+    if working.startswith("{"):
+        working = working[1:]
+    if working.endswith("}"):
+        working = working[:-1]
+    result: str = working.strip()
+    LOGGER.debug(f"Stripped braces: '{value}' -> '{result}'")
     return result
 
 
 def parse_bibtex_entries(bibtex_text: str) -> List[Dict[str, Any]]:
     """
-    Minimal parser for @online{...} entries we see in Malpedia’s dump.
-    Produces dicts with (title, url, source, date, meta{author,language,urldate,...})
-    """
-    entries = re.split(r"@online\s*{", bibtex_text, flags=re.IGNORECASE)[1:]
-    out: List[Dict[str, Any]] = []
-    print(f"Parsing {len(entries)} BibTeX entries.")
+    Parse @online BibTeX entries from Malpedia's dump.
 
-    for entry in entries:
-        fields = dict(
+    Args:
+        bibtex_text: Raw BibTeX text containing multiple @online entries.
+
+    Returns:
+        List[Dict[str, Any]]: Deduplicated list of reference dicts, each containing
+        'title', 'url', 'source', 'date', and 'meta'.
+    """
+    raw_entries: List[str] = re.split(r"@online\s*{", bibtex_text, flags=re.IGNORECASE)[1:]
+    parsed_entries: List[Dict[str, Any]] = []
+    print(f"[collect-mp] Parsing {len(raw_entries)} BibTeX entries.")
+
+    for entry in raw_entries:
+        field_map: Dict[str, str] = dict(
             (k.lower(), _strip_braces(v))
             for k, v in re.findall(r'(\w+)\s*=\s*[{{"]([^}}"]+)[}}"]', entry, flags=re.IGNORECASE)
         )
-        title = fields.get("title", "")
-        url = (fields.get("url", "") or "").strip()
-        source = (
-            fields.get("organization", "")
-            or fields.get("publisher", "")
-            or fields.get("journal", "")
-            or fields.get("venue", "")
-            or (urlparse(url).netloc if url else "")
+        title: str = field_map.get("title", "")
+        url_value: str = (field_map.get("url", "") or "").strip()
+        source: str = (
+            field_map.get("organization", "")
+            or field_map.get("publisher", "")
+            or field_map.get("journal", "")
+            or field_map.get("venue", "")
+            or (urlparse(url_value).netloc if url_value else "")
         )
-        date_str = fields.get("date", "") or fields.get("year", "") or fields.get("published", "")
-        meta = {
-            "author": fields.get("author", ""),
-            "language": fields.get("language", ""),
-            "urldate": fields.get("urldate", ""),
+        date_str: str = field_map.get("date", "") or field_map.get("year", "") or field_map.get("published", "")
+        meta: Dict[str, Any] = {
+            "author": field_map.get("author", ""),
+            "language": field_map.get("language", ""),
+            "urldate": field_map.get("urldate", ""),
         }
         # keep any extra unknown fields
-        for k, v in fields.items():
-            if k not in {
+        for key, value in field_map.items():
+            if key not in {
                 "title",
                 "url",
                 "organization",
@@ -180,63 +201,89 @@ def parse_bibtex_entries(bibtex_text: str) -> List[Dict[str, Any]]:
                 "language",
                 "urldate",
             }:
-                meta[k] = v
+                meta[key] = value
 
-        if url:
-            out.append(
+        if url_value:
+            parsed_entries.append(
                 {
                     "title": title,
-                    "url": url,
+                    "url": url_value,
                     "source": source,
                     "date": date_str,
                     "meta": meta,
                 }
             )
         else:
-            LOGGER.warning(f"BibTeX entry missing URL: {fields}")
+            LOGGER.warning(f"BibTeX entry missing URL: {field_map}")
 
-    print(f"Parsed {len(out)} BibTeX entries with URLs.")
-    return dedupe_by_url(out)
+    print(f"[collect-mp] Parsed {len(parsed_entries)} BibTeX entries with URLs.")
+    return dedupe_by_url(parsed_entries)
 
 
 def dedupe_by_url(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    seen: Set[str] = set()
-    out: List[Dict[str, Any]] = []
-    for it in items:
-        u = (it.get("url") or "").strip()
-        if not u or u in seen:
-            LOGGER.debug(f"Duplicate or empty URL skipped: {u}")
+    """Deduplicate a list of reference dicts by their 'url' field.
+
+    Args:
+        items: List of reference dicts, each expected to have a 'url' key.
+
+    Returns:
+        List[Dict[str, Any]]: A new list preserving order with unique URLs only.
+    """
+    seen_urls: Set[str] = set()
+    unique_items: List[Dict[str, Any]] = []
+    for item in items:
+        url_value: str = (item.get("url") or "").strip()
+        if not url_value or url_value in seen_urls:
+            LOGGER.debug(f"Duplicate or empty URL skipped: {url_value}")
             continue
-        seen.add(u)
-        out.append(it)
-    print(f"Deduplicated to {len(out)} unique URLs.")
-    return out
+        seen_urls.add(url_value)
+        unique_items.append(item)
+    print(f"[collect-mp] Deduplicated to {len(unique_items)} unique URLs.")
+    return unique_items
 
 
 def normalize_url_key(u: str) -> str:
     """
-    Normalize URL for cross-ref:
-    - strip whitespace
-    - lower scheme/host (netloc)
-    - remove trailing slash
+    Normalize a URL to a canonical key for cross-referencing.
+
+    Steps:
+      - Strip surrounding whitespace
+      - Lowercase scheme and host (netloc)
+      - Remove trailing slash from path (but keep at least '/')
+      - Preserve query string if present
+
+    Args:
+        u: Input URL string.
+
+    Returns:
+        str: Normalized URL string.
     """
     u = (u or "").strip()
     try:
-        p = urlparse(u)
-        netloc = p.netloc.lower()
-        scheme = (p.scheme or "http").lower()
-        path = p.path.rstrip("/") or "/"
-        norm = f"{scheme}://{netloc}{path}"
-        if p.query:
-            norm += f"?{p.query}"
-        return norm
+        parsed_url = urlparse(u)
+        netloc: str = parsed_url.netloc.lower()
+        scheme: str = (parsed_url.scheme or "http").lower()
+        path: str = parsed_url.path.rstrip("/") or "/"
+        normalized_url: str = f"{scheme}://{netloc}{path}"
+        if parsed_url.query:
+            normalized_url += f"?{parsed_url.query}"
+        return normalized_url
     except Exception as e:
         LOGGER.warning(f"Failed to normalize URL '{u}': {e}")
         return u.rstrip("/")
 
 
 def concat_common_name_with_alts(common_name: str, alts: List[str]) -> str:
-    alts = [a for a in (alts or []) if a]
+    """Concatenate a common name with its alternative names for display.
+
+    Args:
+        common_name: Primary name.
+        alts: List of alternative names.
+
+    Returns:
+        str: A combined label like "Name (alt1 | alt2)" or just the common_name if no alts.
+    """
+    alts = [alt for alt in (alts or []) if alt]
     return f"{common_name} ({' | '.join(alts)})" if alts else common_name
 
 
@@ -253,20 +300,20 @@ def cross_reference(
 
     merged: List[Dict[str, Any]] = []
     for ref in bib_refs:
-        u_norm = normalize_url_key(ref["url"])
-        entities = mapping.get(u_norm, [])
-        fams: List[Dict[str, str]] = []
-        acts: List[Dict[str, str]] = []
-        for e in entities:
-            typ = e.get("type")
-            cid = e.get("id")
-            cname = e.get("common_name") or ""
-            alts = e.get("alt_names") or []
-            label = concat_common_name_with_alts(cname, alts)
+        normalized = normalize_url_key(ref["url"])
+        entities_for_url: List[Dict[str, Any]] = mapping.get(normalized, [])
+        families: List[Dict[str, str]] = []
+        actors: List[Dict[str, str]] = []
+        for entity in entities_for_url:
+            typ: Optional[str] = entity.get("type")
+            entity_id: Optional[str] = entity.get("id")
+            common_name: str = entity.get("common_name") or ""
+            alt_names: List[str] = entity.get("alt_names") or []
+            label: str = concat_common_name_with_alts(common_name, alt_names)
             if typ == "family":
-                fams.append({"id": cid, "common_name": label})
+                families.append({"id": entity_id, "common_name": label})
             elif typ == "actor":
-                acts.append({"id": cid, "common_name": label})
+                actors.append({"id": entity_id, "common_name": label})
 
         merged.append(
             {
@@ -274,8 +321,8 @@ def cross_reference(
                 "url": ref.get("url", ""),
                 "source": ref.get("source", ""),
                 "date": ref.get("date", ""),
-                "families": fams,
-                "actors": acts,
+                "families": families,
+                "actors": actors,
                 "meta": ref.get("meta", {}),
             }
         )
@@ -284,14 +331,22 @@ def cross_reference(
 
 
 def parse_any_date(s: Optional[str]) -> Optional[date]:
+    """Parse an arbitrary date string to a date object (UTC if no tzinfo).
+
+    Args:
+        s: Date string in any common format (ISO 8601 preferred).
+
+    Returns:
+        Optional[date]: Parsed date, or None if parsing fails or input is empty.
+    """
     if not s:
         LOGGER.debug("No date string provided to parse_any_date.")
         return None
     try:
-        dt = dtparse.parse(s)
-        if not dt.tzinfo:
-            dt = dt.replace(tzinfo=timezone.utc)
-        result = dt.date()
+        dt_value = dtparse.parse(s)
+        if not dt_value.tzinfo:
+            dt_value = dt_value.replace(tzinfo=timezone.utc)
+        result: date = dt_value.date()
         LOGGER.debug(f"Parsed date string '{s}' -> {result}")
         return result
     except Exception as e:
@@ -308,10 +363,10 @@ def filter_and_semantics(
     end_date: Optional[str],
     max_items: Optional[int],
 ) -> List[Dict[str, Any]]:
-    sdate = parse_any_date(start_date) if start_date else None
-    edate = parse_any_date(end_date) if end_date else None
+    start_date_parsed: Optional[date] = parse_any_date(start_date) if start_date else None
+    end_date_parsed: Optional[date] = parse_any_date(end_date) if end_date else None
 
-    params = {
+    params: Dict[str, Any] = {
         "family_id": family_id,
         "actor_id": actor_id,
         "search_term": search_term,
@@ -319,8 +374,8 @@ def filter_and_semantics(
         "end_date": end_date,
         "max_items": max_items,
     }
-    params_str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
-    print(f"Filtering {len(rows)} rows" + (f" with {params_str}" if params_str else ""))
+    params_str: str = ", ".join(f"{k}={v}" for k, v in params.items() if v is not None)
+    print(f"[collect-mp] Filtering {len(rows)} rows" + (f" with {params_str}" if params_str else ""))
 
     def matches_family(r: Dict[str, Any]) -> bool:
         if not family_id:
@@ -365,7 +420,7 @@ def filter_and_semantics(
             pattern = None
 
         def all_searchable_strings(row: Dict[str, Any]) -> list:
-            vals = []
+            vals: List[str] = []
             # Families and actors: id, common_name, alt_names
             for ent in (row.get("families") or []) + (row.get("actors") or []):
                 vals.append(ent.get("id") or "")
@@ -382,38 +437,47 @@ def filter_and_semantics(
                     vals.append(v)
             return vals
 
-        vals = all_searchable_strings(r)
+        vals: List[str] = all_searchable_strings(r)
         # Try regex match first, fallback to fuzzy if regex fails or doesn't match
         if pattern:
             if any(pattern.search(n) for n in vals):
                 return True
         # fallback to fuzzywuzzy partial ratio
-        needle = search_term.lower()
+        needle: str = search_term.lower()
         return any(fuzz.partial_ratio(needle, n.lower()) >= 85 for n in vals)
 
     def matches_date(r: Dict[str, Any]) -> bool:
         # If neither start nor end → keep all (no date filter)
-        if not (sdate or edate):
+        if not (start_date_parsed or end_date_parsed):
             return True
         d = parse_any_date(r.get("date"))
-        if sdate and (not d or d < sdate):
+        if start_date_parsed and (not d or d < start_date_parsed):
             return False
-        if edate and (not d or d > edate):
+        if end_date_parsed and (not d or d > end_date_parsed):
             return False
         return True
 
-    out = [
+    filtered_rows: List[Dict[str, Any]] = [
         r
         for r in rows
         if matches_family(r) and matches_actor(r) and matches_search(r) and matches_date(r)
     ]
     if max_items and max_items > 0:
-        out = out[:max_items]
-    LOGGER.info(f"Filtered down from search patternto {len(out)} rows.")
-    return out
+        filtered_rows = filtered_rows[:max_items]
+    LOGGER.info(f"Filtered down from search pattern to {len(filtered_rows)} rows.")
+    return filtered_rows
 
 
 def save_json(rows: List[Dict[str, Any]], path: pathlib.Path) -> int:
+    """Persist rows as pretty-printed JSON to the given path.
+
+    Args:
+        rows: The list of reference dicts to save.
+        path: Output filesystem path.
+
+    Returns:
+        int: Number of rows written.
+    """
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

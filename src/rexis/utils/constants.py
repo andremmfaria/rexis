@@ -6,6 +6,8 @@ DATABASE_CONNECTION_CONNSTRING: str = (
     f"postgresql://{config.db.user}:{config.db.password}@{config.db.host}:{config.db.port}/{config.db.name}"
 )
 
+MALWAREBAZAAR_QUERY_MAX_LIMIT: int = 1000
+
 SOCIAL_DOMAINS: Tuple[str, ...] = (
     "twitter.com",
     "x.com",
@@ -64,6 +66,18 @@ DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
         # "ransom_notes": "ransomware"
     },
 }
+
+# Centralized score thresholds for label assignment used across the codebase
+# Note: "benign" here is treated as an upper-bound cutoff used when the label is
+# absent or outside the allowed set; keep it conservative and configurable.
+SCORE_THRESHOLD_MALICIOUS: float = float(
+    DEFAULT_HEURISTIC_RULES["scoring"]["label_thresholds"].get("malicious", 0.70)
+)
+SCORE_THRESHOLD_SUSPICIOUS: float = float(
+    DEFAULT_HEURISTIC_RULES["scoring"]["label_thresholds"].get("suspicious", 0.40)
+)
+SCORE_THRESHOLD_BENIGN_MAX: float = 0.20
+
 
 DEFAULT_TAG_SCORES = {
     # behavioral

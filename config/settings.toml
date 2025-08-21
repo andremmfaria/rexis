@@ -11,6 +11,9 @@ name = "rexis"
 user = "postgres"
 password = "@get db_password"
 
+[collection]
+malware_bazaar_api_key = "@get malware_bazaar_api_key"
+
 # Ingestion settings
 [ingestion]
 malpedia_base_url = "https://malpedia.caad.fkie.fraunhofer.de"
@@ -19,9 +22,6 @@ default_user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML,
 [baseline]
 virus_total_url = "https://www.virustotal.com/api/v3/files"
 virus_total_api_key = "@get virus_total_api_key"
-
-[decompiler]
-
 
 # Model metadata
 [models]

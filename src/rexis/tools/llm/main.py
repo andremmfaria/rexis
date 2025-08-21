@@ -13,12 +13,18 @@ from rexis.tools.llm.utils import (
     repair_and_parse,
 )
 from rexis.utils.config import config
+from rexis.utils.types import Passage
+from rexis.utils.constants import (
+    SCORE_THRESHOLD_MALICIOUS,
+    SCORE_THRESHOLD_SUSPICIOUS,
+    SCORE_THRESHOLD_BENIGN_MAX,
+)
 from rexis.utils.utils import LOGGER
 
 
 def llm_classify(
     features: Dict[str, Any],
-    passages: List[Dict[str, Any]],
+    passages: List[Passage],
     model: str,
     temperature: float = 0.0,
     max_tokens: int = 800,
@@ -134,11 +140,11 @@ def _validate_and_normalize(obj: Dict[str, Any]) -> Dict[str, Any]:
 
     label: str = str(obj.get("label", "unknown")).lower()
     if label not in {"malicious", "suspicious", "benign", "unknown"}:
-        if score >= 0.70:
+        if score >= SCORE_THRESHOLD_MALICIOUS:
             label = "malicious"
-        elif score >= 0.40:
+        elif score >= SCORE_THRESHOLD_SUSPICIOUS:
             label = "suspicious"
-        elif score <= 0.20:
+        elif score <= SCORE_THRESHOLD_BENIGN_MAX:
             label = "benign"
         else:
             label = "unknown"
