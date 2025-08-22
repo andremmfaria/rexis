@@ -119,7 +119,7 @@ def decompile_binary_exec(
             exports: List[str] = collect_exports(program)
             entry_points: List[str] = collect_entry_points(program)
             print(
-                f"[decompile] Summary so far: functions={len(functions)}, imports={len(imports)}, strings={len(strings)}, sections={len(sections)}, libraries={len(libraries)}, exports={len(exports)}, entry_points={len(entry_points)}"
+                f"[decompile] Summary: functions={len(functions)}, imports={len(imports)}, strings={len(strings)}, sections={len(sections)}, libraries={len(libraries)}, exports={len(exports)}, entry_points={len(entry_points)}"
             )
             t0 = time.time()
             print("[decompile] Starting decompilation of functions (timeout=30s per function)...")

@@ -51,6 +51,34 @@ def decompile_binary(
         help="Run name (used to name the output run folder). Defaults to a UUID if omitted.",
     ),
 ) -> None:
+    """Decompile a binary and write analysis artifacts.
+
+    This Typer command orchestrates Ghidra-based decompilation via
+    ``rexis.operations.decompile.main.decompile_binary_exec`` and prints the
+    paths of the generated artifacts on success.
+
+    Args:
+        file: Path to the input binary to decompile. Must exist.
+        out_dir: Output directory root where artifacts for this run will be
+            written. A per-run subdirectory may be created under this path.
+        overwrite: If True, allows overwriting existing outputs; otherwise a
+            conflict raises an error.
+        project_dir: Optional directory to store/reuse the local Ghidra project
+            (cached analysis). Defaults to ``~/.rexis/ghidra_projects`` when
+            omitted.
+        project_name: Name of the Ghidra project to reuse between runs.
+        run_name: Optional explicit run name used to name the output folder; if
+            omitted, a random UUID4 hex string is generated.
+
+    Returns:
+        None. On success, prints the "Features document" and "Run report"
+        absolute paths to stdout.
+
+    Raises:
+        typer.BadParameter: Wraps common issues such as invalid paths
+        (FileNotFoundError), pre-existing outputs without ``--overwrite``
+        (FileExistsError), or environment/tooling problems (RuntimeError).
+    """
     run_name_str: str = run_name or uuid.uuid4().hex
     print(f"[decompile] Starting decompilation (run={run_name_str})")
     try:

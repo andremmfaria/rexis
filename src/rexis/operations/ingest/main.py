@@ -3,7 +3,6 @@ import time
 import uuid
 from pathlib import Path
 from typing import Dict, List, Literal, Optional
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from rexis.operations.ingest.ingest_html import ingest_html_batch, ingest_html_single
 from rexis.operations.ingest.ingest_json import ingest_json_batch, ingest_json_single
@@ -145,7 +144,6 @@ def ingest_file_exec(
         try:
             report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
             LOGGER.info("Run report written to %s", report_path)
-            print(f"[ingest] Run report: {report_path}")
         except Exception as rexc:
             LOGGER.error("Failed to write run report %s: %s", report_path, rexc)
     return report_path

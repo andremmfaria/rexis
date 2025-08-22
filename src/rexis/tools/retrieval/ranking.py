@@ -153,8 +153,7 @@ def fuse_and_rerank(
         gen: OpenAIChatGenerator = OpenAIChatGenerator(
             api_key=Secret.from_token(config.models.openai.api_key),
             model=ranker_model,
-            temperature=0.0,
-            max_tokens=400,
+            generation_kwargs={"temperature": 0.0, "max_tokens": 400},
         )
 
         res: Dict[str, Any] = gen.run(messages=messages)

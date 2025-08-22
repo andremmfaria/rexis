@@ -119,7 +119,7 @@ def collect_malwarebazaar(
         None, "--fetch-limit", "-l", help="How many entries to fetch per tag", min=1
     ),
     batch: Optional[int] = typer.Option(
-        10, "--batch", "-b", help="Batch size for ingestion (also required with --tags)", min=1
+        5, "--batch", "-b", help="Batch size for ingestion (also required with --tags)", min=1
     ),
     hash: Optional[str] = typer.Option(None, "--hash", "-s", help="Single SHA256 hash to fetch"),
     hash_file: Optional[Path] = typer.Option(

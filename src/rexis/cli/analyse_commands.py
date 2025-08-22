@@ -164,13 +164,13 @@ def cmd_analyze_llmrag(
         show_default=True,
     ),
     rerank_top_k: int = typer.Option(
-        20,
+        0,
         "--rerank-top-k",
         "-rk",
-        help="How many fused docs to pass through the cross-encoder ranker before selecting final_top_k",
+        help="How many fused docs to pass through the cross-encoder ranker before selecting final_top_k. 0 (zero) means no reranking. (Default: 0)",
     ),
     ranker_model: str = typer.Option(
-        "cross-encoder/ms-marco-MiniLM-L-6-v2",
+        "gpt-4o-mini",
         "--ranker-model",
         "-rm",
         help="Cross-encoder re-ranker model id",

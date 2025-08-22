@@ -15,7 +15,6 @@ _TAGGER_SEM: Optional[threading.BoundedSemaphore] = None
 def _ensure_semaphore() -> threading.BoundedSemaphore:
     global _TAGGER_SEM
     if _TAGGER_SEM is None:
-        # default to 2 concurrent LLM calls to reduce 429s during batch ingest
         max_conc = max(1, int(getattr(getattr(config, "tagger", {}), "max_concurrency", 2)))
         _TAGGER_SEM = threading.BoundedSemaphore(value=max_conc)
     return _TAGGER_SEM
