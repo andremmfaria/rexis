@@ -21,15 +21,11 @@ Built for cybersecurity research, **REXIS** focuses on analyzing static features
   - [Haystack](https://github.com/deepset-ai/haystack) — used to build the pipeline between decompiled malware samples and the LLM
 
 - **AI Engine:**  
-  - [OpenAI](https://platform.openai.com/) — for general-purpose, high-accuracy LLM queries  
-  - [DeepSeek](https://github.com/deepseek-ai) — for code-centric language understanding and reasoning
+  - [OpenAI](https://platform.openai.com/) - for general-purpose, high-accuracy LLM queries  
+  - [DeepSeek](https://github.com/deepseek-ai) - for code-centric language understanding and reasoning
 
 - **Static Analysis Input:**  
-  - Decompiled source code and structural features from known malware datasets  
-  - Recommended decompilation tools include:  
-    - [IDA Pro](https://hex-rays.com/ida-pro/)  
-    - [Ghidra](https://ghidra-sre.org/)  
-    - Any tool producing readable code or bytecode representations suitable for static analysis
+  - [Ghidra](https://ghidra-sre.org/) - Decompiled source code and structural features from known malware datasets
 
 - **Datastore (Vector Database):**  
   - [PostgreSQL](https://www.postgresql.org/) with [pgvector](https://github.com/pgvector/pgvector) extension  
@@ -39,9 +35,24 @@ Built for cybersecurity research, **REXIS** focuses on analyzing static features
 
 ---
 
-## 📂 Project Structure _(Coming Soon)_
+## 📂 Project Structure
 
-> This section will outline the repo structure, including modules for data ingestion, RAG querying, LLM prompts, and evaluation.
+High-level layout you’ll interact with most:
+
+- `src/rexis/cli` — Typer-based CLI entrypoints
+  - `collect` (Malpedia, MalwareBazaar)
+  - `ingest` (pdf, html, text, json, or generic `file`)
+  - `analyse` (baseline, llmrag)
+  - `decompile` (Ghidra/pyghidra-based feature extraction)
+- `src/rexis/operations` — implementation modules
+  - `collect/` — Malpedia and MalwareBazaar collectors
+  - `ingest/` — content parsers and indexers
+  - `baseline.py` — static heuristic baseline pipeline
+  - `llmrag.py` — RAG + LLM analysis pipeline
+  - `decompile/` — Ghidra integration
+- `config/` — Dynaconf settings and secrets
+- `data/` — sample datasets and collected artifacts (local only)
+- `.docker/` — Docker build context for Postgres + pgvector
 
 ---
 
@@ -57,12 +68,12 @@ Built for cybersecurity research, **REXIS** focuses on analyzing static features
 
 ## ⚙️ Installation & Setup
 
-REXIS uses Python `3.13+` and is managed using [PDM](https://pdm.fming.dev/).  
-Ensure you have Python 3.13 installed and [PostgreSQL](https://www.postgresql.org/) running with the [pgvector](https://github.com/pgvector/pgvector) extension enabled.
+REXIS targets Python `3.11–3.13` and is managed with [PDM](https://pdm.fming.dev/).  
+You’ll also need [PostgreSQL](https://www.postgresql.org/) with the [pgvector](https://github.com/pgvector/pgvector) extension enabled.
 
 ### 📦 Prerequisites
 
-- Python 3.13+
+- Python 3.11–3.13
 - PDM (`pip install pdm`)
 - PostgreSQL with pgvector extension
 - OpenAI and/or DeepSeek API credentials
@@ -81,20 +92,33 @@ pdm install
 cp ./config/.secrets_template.toml ./config/.secrets.toml
 ```
 
+Secrets keys are read by Dynaconf via `config/settings.toml`. Ensure your `.secrets.toml` contains the following keys (values are placeholders):
+
+```
+db_password = "super_secret_password-..."
+openai_api_key = "sk-..."
+deepseek_api_key = "dseek-..."
+malware_bazaar_api_key = "malw-bazaar-..."
+virus_total_api_key = "vt-..."
+decompiler_api_key = "decomp-..."
+```
+Note: The provided template file may contain a typo for the MalwareBazaar key. Use `malware_bazaar_api_key` exactly as shown above to match `config/settings.toml`.
+
 ---
 
 ## 🧪 Usage
 
-REXIS is containerized for reproducibility and ease of development. The project uses `docker-compose` to manage two main services:
+REXIS uses Docker primarily for the database. Run the app locally (via PDM) and connect to Postgres running in Docker.
 
-- `app`: The main application (e.g. RAG pipeline, interface, analysis logic)
+Services:
+
 - `db`: PostgreSQL with the `pgvector` extension for vector-based semantic search
 
 ---
 
 ### 🐳 Step-by-Step Instructions
 
-1. **Create your `.env` file** in the root of the project by copying from the template file (`.env-template`):
+1. **Create your `.env` file** in the root of the project by copying from the example file (`.env.example`):
 
 ```dotenv
 POSTGRES_USER=postgres
@@ -102,15 +126,15 @@ POSTGRES_PASSWORD=super_secret_password
 POSTGRES_DB=rexis
 ```
 
-2. **Build and start the containers**:
+2. **Build and start the database container**:
 
 ```bash
 docker compose up --build
 ```
 
 3. **App source code and configuration**:
-   - Application code lives in `./src/`
-   - Configuration files (via Dynaconf) are in `./config/`
+  - Application code lives in `./src/`
+  - Configuration files (via Dynaconf) are in `./config/`
 
 4. **Stopping the containers**:
 
@@ -120,6 +144,9 @@ docker compose down
 
 5. **Persistent data**:  
 PostgreSQL data is stored in a Docker volume named `pgdata` and will persist between restarts.
+
+6. **Verify DB connection from app** (optional):
+  - DB connection parameters are read from `config/settings.toml` (`[db]` section) and secrets in `config/.secrets.toml`.
 
 ---
 
@@ -144,11 +171,12 @@ Subcommands:
 
 - `collect` — fetch raw data from sources
 - `ingest` — index files into the vector store
-- `query` — run analysis queries over the indexed data
+- `analyse` — run analysis pipelines over samples
+- `decompile` — decompile a binary and extract features
 
 ---
 
-## � collect
+## 🧺 collect
 
 Helpers to gather raw intel before (optionally) ingesting.
 
@@ -207,16 +235,16 @@ Index files into the vector store. Provide exactly one of `--dir` or `--file`.
 ### generic file
 
 ```bash
-rexis ingest file --type [pdf|html|text|json] (--dir DIR | --file FILE) [--batch N] [-m key=value ...]
+rexis ingest file --type [pdf|html|text|json] (--dir DIR | --file FILE) [--batch N] [-m key=value ...] [--out-dir PATH] [--run-name NAME]
 ```
 
 ### convenience shortcuts
 
 ```bash
-rexis ingest pdf  (--dir DIR | --file FILE) [--batch N] [-m key=value ...]
-rexis ingest html (--dir DIR | --file FILE) [--batch N] [-m key=value ...]
-rexis ingest text (--dir DIR | --file FILE) [--batch N] [-m key=value ...]
-rexis ingest json (--dir DIR | --file FILE) [--batch N] [-m key=value ...]
+rexis ingest pdf  (--dir DIR | --file FILE) [--batch N] [-m key=value ...] [--out-dir PATH] [--run-name NAME]
+rexis ingest html (--dir DIR | --file FILE) [--batch N] [-m key=value ...] [--out-dir PATH] [--run-name NAME]
+rexis ingest text (--dir DIR | --file FILE) [--batch N] [-m key=value ...] [--out-dir PATH] [--run-name NAME]
+rexis ingest json (--dir DIR | --file FILE) [--batch N] [-m key=value ...] [--out-dir PATH] [--run-name NAME]
 ```
 
 Notes:
@@ -233,24 +261,42 @@ rexis ingest json --file data/malwarebazaar/MbExe-20250816T161546Z.json -m sourc
 
 ---
 
-## 🔎 query
+## 🔎 analyse
 
-Run analysis over the indexed corpus.
+Run analysis over samples with either a static baseline or an LLM+RAG pipeline.
 
 Two subcommands are exposed; depending on your branch/state, they may be WIP:
 
+Common options:
+
 ```bash
-rexis query baseline --sha256 SHA256
-rexis query llmrag   --sha256 SHA256 [--top-k N] [--temperature F] [--model NAME]
+rexis analyse baseline \
+  --input PATH [--out-dir PATH] [--run-name NAME] [--overwrite] [--format json] \
+  [--project-dir PATH] [--parallel N] [--rules FILE] [--min-severity info|warn|error] \
+  [--vt] [--vt-timeout SEC] [--vt-qpm N] [--audit/--no-audit]
+
+rexis analyse llmrag \
+  --input PATH [--out-dir PATH] [--run-name NAME] [--overwrite] [--format json] \
+  [--project-dir PATH] [--parallel N] \
+  [--top-k-dense N] [--top-k-keyword N] [--final-top-k N] [--join rrf|merge] \
+  [--rerank-top-k N] [--ranker-model NAME] [--source NAME ...] \
+  [--model NAME] [--temperature F] [--max-tokens N] [--seed N] [--json-mode/--no-json-mode] \
+  [--audit/--no-audit]
 ```
 
-- `baseline` is intended for a static, non-LLM baseline
-- `llmrag` retrieves context and queries an LLM (defaults to `gpt-4o`)
+Notes:
 
-Example:
+- Baseline can optionally enrich with VirusTotal (`--vt`).
+- LLMRAG defaults: retriever fusion via RRF, generator model `gpt-4o-2024-08-06`.
+
+Examples:
 
 ```bash
-rexis query llmrag --sha256 abcdef... --top-k 5 --temperature 0.2 --model gpt-4o
+# Baseline over a single PE sample
+pdm run rexis analyse baseline -i ./data/samples/c6e3....exe -o ./data/analysis/baseline
+
+# LLM+RAG over a sample (as used in development)
+pdm run rexis analyse llmrag -i ./data/samples/c6e3....exe -o ./data/analysis/llmrag --final-top-k 8
 ```
 
 ---
@@ -259,16 +305,17 @@ rexis query llmrag --sha256 abcdef... --top-k 5 --temperature 0.2 --model gpt-4o
 
 1) `collect` writes JSON manifests and optional scraped artifacts
 2) `ingest` normalizes and indexes content into pgvector
-3) `query` retrieves semantically relevant docs and asks the LLM
+3) `analyse` retrieves context (for LLMRAG) and produces reports
 
 ---
 
 ## 🧭 Project Structure (high level)
 
-- `src/rexis/cli` — Typer-based CLI (collect, ingest, query)
+- `src/rexis/cli` — Typer-based CLI (collect, ingest, analyse, decompile)
 - `src/rexis/operations/ingest` — file-type-specific ingestion
-- `src/rexis/operations/analyse.py` — query pipeline (Haystack + OpenAI)
-- `src/rexis/facade` — service facades (e.g., VirusTotal, MalwareBazaar, Haystack)
+- `src/rexis/operations/baseline.py` — static baseline pipeline
+- `src/rexis/operations/llmrag.py` — LLMRAG pipeline (Haystack + OpenAI)
+- `src/rexis/operations/decompile` — decompiler integration (Ghidra)
 - `config/` — Dynaconf settings and secrets
 - `data/` — sample datasets and collected artifacts (gitignored in real usage)
 
