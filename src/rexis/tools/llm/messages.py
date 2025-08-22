@@ -5,7 +5,7 @@ from haystack.dataclasses import ChatMessage
 from rexis.tools.llm.utils import truncate
 
 
-def build_messages(
+def build_prompt_messages(
     feat_summary: Dict[str, Any],
     passages: List[Dict[str, Any]],
     json_mode: bool = True,

@@ -5,7 +5,7 @@ from haystack.components.generators.chat import OpenAIChatGenerator
 from haystack.dataclasses import ChatMessage
 from haystack.utils import Secret
 from rexis.tools.llm.features import summarize_features
-from rexis.tools.llm.messages import build_messages, compact_passages
+from rexis.tools.llm.messages import build_prompt_messages, compact_passages
 from rexis.tools.llm.utils import (
     coerce_severity,
     coerce_source,
@@ -59,7 +59,7 @@ def llm_classify(
     compact: List[Dict[str, Any]] = compact_passages(passages, max_items=8, max_chars=900)
     print(f"[llm] Passages after compaction: {len(compact)} (limit 8)", flush=True)
 
-    messages: List[ChatMessage] = build_messages(feat_summary, compact, json_mode=json_mode)
+    messages: List[ChatMessage] = build_prompt_messages(feat_summary, compact, json_mode=json_mode)
     prompt_hash: str = hash_messages(messages)
     print(f"[llm] Built {len(messages)} messages | prompt_hash={prompt_hash[:20]}...", flush=True)
 
@@ -116,6 +116,7 @@ def llm_classify(
         "json_mode": json_mode,
         "prompt_hash": prompt_hash,
         "passages_used": [p.get("doc_id") for p in compact],
+        "prompts": [{"role": m.role, "text": m.text} for m in messages]
     }
 
     print("[llm] Classification complete", flush=True)
