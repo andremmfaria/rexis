@@ -58,34 +58,32 @@ def llm_classify(
     print(f"[llm] Passages after compaction: {len(compact)} (limit 8)", flush=True)
     messages: List[Dict[str, str]] = build_messages(feat_summary, compact, json_mode=json_mode)
     prompt_hash: str = hash_messages(messages)
-    print(f"[llm] Built {len(messages)} messages | prompt_hash={prompt_hash[:10]}…", flush=True)
+    print(f"[llm] Built {len(messages)} messages | prompt_hash={prompt_hash[:10]}...", flush=True)
 
     # 2) Call OpenAI
     try:
-        print(f"[llm] Calling LLM provider (OpenAI) with model '{model}'…", flush=True)
+        print(f"[llm] Calling LLM provider (OpenAI) with model '{model}'...", flush=True)
         gen: OpenAIChatGenerator = OpenAIChatGenerator(
             api_key=Secret.from_token(config.models.openai.api_key),
             model=model,
-            temperature=temperature,
-            max_tokens=max_tokens,
+            generation_kwargs={"temperature": temperature, "max_tokens": max_tokens},
         )
-        gen.warm_up()
+
         res: Dict[str, Any] = gen.run(messages=messages)
         raw_reply: str = (res.get("replies") or [""])[0]
+
         print(f"[llm] LLM reply received ({len(raw_reply)} chars)", flush=True)
     except Exception as e:
         LOGGER.error("LLM classify call failed: %s", e)
-        print(f"[llm] ERROR: LLM classify call failed: {e}", flush=True)
         return fallback_result(error=f"llm_call_failed: {e}", prompt_hash=prompt_hash)
 
     # 3) Parse / repair JSON
     try:
-        print("[llm] Parsing JSON (strict)…", flush=True)
+        print("[llm] Parsing JSON (strict)...", flush=True)
         parsed: Dict[str, Any] = parse_json_strict(raw_reply)
         print("[llm] Strict JSON parse: OK", flush=True)
     except Exception as e:
         LOGGER.warning("Strict JSON parse failed; attempting repair: %s", e)
-        print("[llm] Strict parse failed; attempting repair…", flush=True)
         try:
             parsed = repair_and_parse(raw_reply)
             print("[llm] JSON repair parse: OK", flush=True)

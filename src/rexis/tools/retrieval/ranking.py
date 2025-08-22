@@ -23,7 +23,7 @@ def build_llm_rerank_messages(query: str, candidates: List[Document]) -> List[Di
     Build a compact, JSON-only rerank prompt for OpenAI.
     """
     print(
-        f"[ranking] Building LLM rerank messages for {len(candidates)} candidates…",
+        f"[ranking] Building LLM rerank messages for {len(candidates)} candidates...",
         flush=True,
     )
     sys: str = (
@@ -63,7 +63,7 @@ def apply_authority_bias_and_diversify(
     Apply small source-based boosts and ensure we don't over-sample one source.
     """
     print(
-        f"[ranking] Applying authority bias and diversification (max_per_source={max_per_source}, final_top_k={final_top_k})…",
+        f"[ranking] Applying authority bias and diversification (max_per_source={max_per_source}, final_top_k={final_top_k})...",
         flush=True,
     )
 
@@ -121,7 +121,7 @@ def fuse_and_rerank(
     joiner_mode: str = "reciprocal_rank_fusion" if join_mode.lower() == "rrf" else "merge"
     cand_k: int = max(final_top_k, rerank_top_k or 0) or final_top_k
     print(
-        f"[ranking] Fusing dense+keyword with {joiner_mode} (K={cand_k})…",
+        f"[ranking] Fusing dense+keyword with {joiner_mode} (K={cand_k})...",
         flush=True,
     )
     joiner = DocumentJoiner(join_mode=joiner_mode, top_k=cand_k)
@@ -146,7 +146,7 @@ def fuse_and_rerank(
     # 3) LLM listwise rerank with OpenAI (JSON-only)
     try:
         print(
-            f"[ranking] Reranking top {rerank_top_k} candidates with model '{ranker_model}'…",
+            f"[ranking] Reranking top {rerank_top_k} candidates with model '{ranker_model}'...",
             flush=True,
         )
         messages: List[Dict[str, str]] = build_llm_rerank_messages(query_for_ranker, candidates)
@@ -156,7 +156,7 @@ def fuse_and_rerank(
             temperature=0.0,
             max_tokens=400,
         )
-        gen.warm_up()
+
         res: Dict[str, Any] = gen.run(messages=messages)
         reply: str = (res.get("replies") or [""])[0]
         data: List[Dict[str, Any]] = json.loads(reply)

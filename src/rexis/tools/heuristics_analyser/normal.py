@@ -72,7 +72,7 @@ def _iter_name_tokens(names: Iterable[str]) -> Iterable[str]:
 
 
 def normalize_vendor_names_to_families(
-    vendor_names: Iterable[str], *, rules_cfg: Dict[str, object] | None = None
+    vendor_names: Iterable[str], rules_cfg: Dict[str, object] | None = None
 ) -> Dict[str, int]:
     """Map a list of vendor/VT threat names to canonical families with simple counts.
 
@@ -89,7 +89,7 @@ def normalize_vendor_names_to_families(
 
 
 def families_from_vt_compact(
-    vt: Dict[str, object], *, rules_cfg: Dict[str, object] | None = None
+    vt: Dict[str, object], rules_cfg: Dict[str, object] | None = None
 ) -> Dict[str, int]:
     """Extract families from our compact VT record using normalization rules."""
     names: List[str] = []

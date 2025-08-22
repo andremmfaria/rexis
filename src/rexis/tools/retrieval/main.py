@@ -16,7 +16,7 @@ def build_queries_from_features(features: Dict[str, Any], max_terms: int = 12) -
     Build a small, deterministic set of hybrid-friendly queries out of the decompiler features.
     Returns short strings suitable for both dense and keyword retrieval.
     """
-    print("[retrieval] Building queries from features…", flush=True)
+    print("[retrieval] Building queries from features...", flush=True)
     queries: List[str] = []
     imports: List[str] = [i for i in (features.get("imports") or []) if isinstance(i, str)]
     imports_lc: List[str] = [i.lower() for i in imports]
@@ -70,7 +70,6 @@ def retrieve_context(
     join_mode: str = "rrf",
     rerank_top_k: int = 0,
     ranker_model: str = "gpt-4o-mini",
-    platform: Optional[str] = None,  # default None because your ingestion didn't set this meta
     sources: Optional[List[str]] = None,  # default None; only use if you indexed "source"
 ) -> Tuple[List[Passage], RagNotes]:
     """
@@ -85,17 +84,15 @@ def retrieve_context(
         print("[retrieval] No queries provided. Skipping retrieval.", flush=True)
         return [], RagNotes(note="no_queries")
 
-    # Build filters only for known metadata keys; your ingestion doesn't set 'platform' by default.
+    # Build filters only for known metadata keys
     filters: Optional[Dict[str, Any]] = {}
-    if platform:
-        filters["platform"] = platform
     if sources:
         filters["source"] = {"$in": list(sources)}
     if not filters:
         filters = None
 
     try:
-        print("[retrieval] Initializing document store…", flush=True)
+        print("[retrieval] Initializing document store...", flush=True)
         store = init_store()
         print("[retrieval] Document store ready", flush=True)
     except Exception as e:
@@ -106,7 +103,7 @@ def retrieve_context(
     # Dense + keyword retrieval
     try:
         print(
-            f"[retrieval] Running dense search (top_k={top_k_dense})…",
+            f"[retrieval] Running dense search (top_k={top_k_dense})...",
             flush=True,
         )
         dense_docs: List[Document] = dense_search(
@@ -120,7 +117,7 @@ def retrieve_context(
 
     try:
         print(
-            f"[retrieval] Running keyword search (top_k={top_k_keyword})…",
+            f"[retrieval] Running keyword search (top_k={top_k_keyword})...",
             flush=True,
         )
         keyword_docs: List[Document] = keyword_search(
@@ -141,7 +138,7 @@ def retrieve_context(
 
     try:
         print(
-            f"[retrieval] Fusing results (mode={join_mode}, rerank_top_k={rerank_top_k}, final_top_k={final_top_k})…",
+            f"[retrieval] Fusing results (mode={join_mode}, rerank_top_k={rerank_top_k}, final_top_k={final_top_k})...",
             flush=True,
         )
         final_docs: List[Document] = fuse_and_rerank(
@@ -190,7 +187,7 @@ def retrieve_context(
         "join_mode": join_mode,
         "rerank_top_k": rerank_top_k,
         "final_top_k": final_top_k,
-        "filters": {"platform": platform, "sources": sources or []},
+        "filters": {"sources": sources or []},
         "ranker_model": ranker_model,
         "embedding_model": config.models.openai.embedding_model,
         "metric": "cosine_similarity",

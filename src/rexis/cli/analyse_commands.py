@@ -176,13 +176,6 @@ def cmd_analyze_llmrag(
         help="Cross-encoder re-ranker model id",
         show_default=True,
     ),
-    platform_filter: str = typer.Option(
-        "windows",
-        "--platform",
-        "-pf",
-        help="Metadata filter for retrieval (e.g., windows|linux|macos)",
-        show_default=True,
-    ),
     source_filter: list[str] = typer.Option(
         [],
         "--source",
@@ -234,7 +227,6 @@ def cmd_analyze_llmrag(
         join_mode=join_mode,
         rerank_top_k=rerank_top_k,
         ranker_model=ranker_model,
-        platform_filter=platform_filter,
         source_filter=source_filter,
         # llm
         model=model,

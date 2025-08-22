@@ -62,7 +62,6 @@ def _process_sample(
     overwrite: bool,
     project_dir: Optional[Path],
     audit: bool,
-    *,
     # rag
     top_k_dense: int,
     top_k_keyword: int,
@@ -70,7 +69,6 @@ def _process_sample(
     join_mode: str,
     rerank_top_k: int,
     ranker_model: str,
-    platform_filter: str,
     source_filter: List[str],
     # llm
     model: str,
@@ -118,7 +116,6 @@ def _process_sample(
             "join_mode": join_mode,
             "rerank_top_k": rerank_top_k,
             "ranker_model": ranker_model,
-            "platform": platform_filter,
             "sources": source_filter,
         },
     )
@@ -128,15 +125,13 @@ def _process_sample(
     passages: List[Passage]
     rag_notes: RagNotes
     passages, rag_notes = retrieve_context(
-        queries,
-        # pass through config for the real implementation
+        queries=queries,
         top_k_dense=top_k_dense,
         top_k_keyword=top_k_keyword,
         final_top_k=final_top_k,
         join_mode=join_mode,
         rerank_top_k=rerank_top_k,
         ranker_model=ranker_model,
-        platform=platform_filter,
         sources=source_filter,
     )
     _audit("rag_done", notes=rag_notes)
@@ -156,8 +151,6 @@ def _process_sample(
         features,
         passages,
         model=model,
-        temperature=temperature,
-        max_tokens=max_tokens,
         seed=seed,
         json_mode=json_mode,
     )
@@ -176,6 +169,18 @@ def _process_sample(
 
     program_block: Dict[str, Any] = features.get("program", {}) if isinstance(features, dict) else {}
 
+    # Prepare explicit retrieval info for the report (beyond artifacts)
+    retrieval_block: Dict[str, Any] = {
+        "query_count": len(queries),
+        "passage_count": len(passages),
+        "queries": queries,
+        "notes": rag_notes,
+        "passages": [
+            {k: p.get(k) for k in ("doc_id", "source", "title", "score", "text")}
+            for p in passages
+        ],
+    }
+
     report: Dict[str, Any] = {
         "schema": "rexis.llmrag.report.v1",
         "run_name": run_name,
@@ -191,6 +196,7 @@ def _process_sample(
                 for p in passages
             ],
         },
+        "retrieval": retrieval_block,
         "llmrag": llm_out,
         "final": {"score": round(score, 4), "label": final_label},
         "audit": audit_log if audit else [],
@@ -219,7 +225,6 @@ def analyze_llmrag_exec(
     join_mode: str,
     rerank_top_k: int,
     ranker_model: str,
-    platform_filter: str,
     source_filter: List[str],
     # llm
     model: str,
@@ -274,7 +279,6 @@ def analyze_llmrag_exec(
                 join_mode=join_mode,
                 rerank_top_k=rerank_top_k,
                 ranker_model=ranker_model,
-                platform_filter=platform_filter,
                 source_filter=source_filter,
                 # llm
                 model=model,
@@ -365,7 +369,6 @@ def analyze_llmrag_exec(
                 "join_mode": join_mode,
                 "rerank_top_k": rerank_top_k,
                 "ranker_model": ranker_model,
-                "platform": platform_filter,
                 "sources": source_filter,
             },
             "llm": {

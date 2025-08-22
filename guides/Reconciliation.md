@@ -103,13 +103,13 @@ The reconciler returns a structured object with the following sections:
 * `weights`: `{ heuristics_weight, virustotal_weight }` in effect.
 * `comparison`: `{ score_gap, disagreement_penalty, conflict_override_applied }`.
 * `final`: `{ score, label, thresholds: { malicious, suspicious }, decision_thresholds: { malicious, suspicious } }`.
-* `explanation`: list of notes from heuristics and VirusTotal, plus entries like `disagreement_penalty=…` and whether a hard conflict override fired.
+* `explanation`: list of notes from heuristics and VirusTotal, plus entries like `disagreement_penalty=...` and whether a hard conflict override fired.
 
 Include in the report a concise summary of VT consensus (weighted ratio, key vendors, recency, prevalence) and top heuristic evidence by severity. Document any policy choices that materially affected the outcome (e.g., packer reduced `C_h`; VT rate-limited; hard conflict override).
 
 # 8) Handling special cases
 
-* **No VirusTotal data or error** → set VT block to `{ error: … }`; skip disagreement penalty; rely on heuristics confidence/score.
+* **No VirusTotal data or error** → set VT block to `{ error: ... }`; skip disagreement penalty; rely on heuristics confidence/score.
 * **Rate-limited VirusTotal** → mark enrichment as “incomplete”, don’t penalize heuristics.
 * **PUP/grayware** → allow a distinct label path: moderate scores with distinct thresholds or separate mapping table.
 * **Installers/updaters** often have networking/registry APIs; require **co-occurrence** of stronger signals (e.g., injection) before elevating to malicious.
