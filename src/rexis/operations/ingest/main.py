@@ -2,6 +2,7 @@ import json
 import time
 from pathlib import Path
 from typing import Dict, List, Literal, Optional
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from rexis.operations.ingest.ingest_html import ingest_html_batch, ingest_html_single
 from rexis.operations.ingest.ingest_json import ingest_json_batch, ingest_json_single
