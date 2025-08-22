@@ -1,7 +1,4 @@
 import json
-import sys
-import time
-import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -9,8 +6,10 @@ from typing import Any, Dict, List, Optional
 from bs4 import BeautifulSoup
 from haystack import Document
 from rexis.operations.ingest.utils import (
+    Progress,
     discover_paths,
     normalize_whitespace,
+    print_progress,
     stable_doc_id_from_path,
 )
 from rexis.tools.haystack import index_documents
@@ -173,8 +172,8 @@ def ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
             chunks.append(chunk)
 
     # Progress bar shared across threads
-    progress = _Progress(total=len(filtered), prefix="HTML")
-    _print_progress(0, progress.total, progress.start_ts, progress.prefix)
+    progress = Progress(total=len(filtered), prefix="HTML")
+    print_progress(0, progress.total, progress.start_ts, progress.prefix)
 
     # Run one thread per chunk concurrently
     with ThreadPoolExecutor(max_workers=len(chunks)) as executor:
@@ -188,7 +187,7 @@ def ingest_html_batch(paths: List[Path], batch: int, metadata: dict) -> None:
     print("HTML batch ingestion complete.")
 
 
-def process_html_batch(paths: List[Path], batch: int, metadata: dict, progress: "_Progress") -> None:
+def process_html_batch(paths: List[Path], batch: int, metadata: dict, progress: Progress) -> None:
     prepared: List[Document] = []
     total = len(paths)
     print(f"Preparing {total} HTML file(s) for indexing (batch={batch})...")
@@ -213,39 +212,3 @@ def process_html_batch(paths: List[Path], batch: int, metadata: dict, progress: 
     if prepared:
         print(f"Indexing final HTML batch: {len(prepared)} docs")
         index_documents(documents=prepared, refresh=True, doc_type="prose")
-
-
-class _Progress:
-    def __init__(self, total: int, prefix: str = "INGEST") -> None:
-        self.total = max(total, 1)
-        self.done = 0
-        self.prefix = prefix
-        self.start_ts = time.time()
-        self._lock = threading.Lock()
-
-    def tick(self, n: int = 1) -> None:
-        with self._lock:
-            self.done += n
-            _print_progress(self.done, self.total, self.start_ts, self.prefix)
-
-
-def _print_progress(done: int, total: int, start_ts: float, prefix: str) -> None:
-    try:
-        total = max(total, 1)
-        pct = min(max(done / total, 0.0), 1.0)
-        bar_len = 28
-        filled = int(bar_len * pct)
-        bar = "#" * filled + "-" * (bar_len - filled)
-        elapsed = max(time.time() - start_ts, 1e-6)
-        rate = done / elapsed
-        remaining = max(total - done, 0)
-        eta = remaining / rate if rate > 0 else 0.0
-        sys.stdout.write(
-            f"\r[{prefix}] [{bar}] {done}/{total} ({pct*100:5.1f}%) | {rate:0.2f}/s | ETA: {eta:0.0f}s"
-        )
-        sys.stdout.flush()
-        if done >= total:
-            sys.stdout.write("\n")
-            sys.stdout.flush()
-    except Exception:
-        pass

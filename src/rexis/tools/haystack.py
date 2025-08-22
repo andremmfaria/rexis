@@ -1,5 +1,6 @@
 import json
-from typing import Dict, List, Literal
+import threading
+from typing import Dict, List, Literal, Optional
 
 import tiktoken
 from haystack.components.embedders import OpenAIDocumentEmbedder
@@ -13,6 +14,12 @@ from rexis.tools.data_tagger import tag_chunk
 from rexis.utils.config import config
 from rexis.utils.constants import DATABASE_CONNECTION_CONNSTRING
 from rexis.utils.utils import LOGGER
+
+# --- Thread-safe singletons to avoid concurrent index creation in Postgres ---
+_DOC_STORE: Optional[PgvectorDocumentStore] = None
+_WRITER: Optional[DocumentWriter] = None
+_INIT_LOCK = threading.Lock()
+_WRITE_LOCK = threading.Lock()
 
 
 def index_documents(
@@ -154,18 +161,31 @@ def _embed_chunks(chunked_docs: List[Document]) -> List[Document]:
 
 
 def _write_documents_to_db(documents: List[Document], refresh: bool = True) -> None:
-    LOGGER.info("Connecting to PgvectorDocumentStore...")
-    doc_store: PgvectorDocumentStore = PgvectorDocumentStore(
-        connection_string=Secret.from_token(DATABASE_CONNECTION_CONNSTRING),
-        embedding_dimension=1536,
-        vector_function="cosine_similarity",
-        recreate_table=False,
-        search_strategy="hnsw",
-        hnsw_recreate_index_if_exists=True,
-    )
-    writer: DocumentWriter = DocumentWriter(
-        document_store=doc_store,
-        policy=DuplicatePolicy.OVERWRITE if refresh else DuplicatePolicy.SKIP,
-    )
+    global _DOC_STORE, _WRITER
+
+    # Initialize store/writer once to prevent concurrent index creation
+    if _WRITER is None:
+        with _INIT_LOCK:
+            if _WRITER is None:
+                LOGGER.info("Connecting to PgvectorDocumentStore (init once)...")
+                _DOC_STORE = PgvectorDocumentStore(
+                    connection_string=Secret.from_token(DATABASE_CONNECTION_CONNSTRING),
+                    embedding_dimension=1536,
+                    vector_function="cosine_similarity",
+                    recreate_table=False,
+                    search_strategy="hnsw",
+                    # Avoid aggressive re-creation; first initializer ensures index exists
+                    hnsw_recreate_index_if_exists=False,
+                )
+                _WRITER = DocumentWriter(
+                    document_store=_DOC_STORE,
+                    policy=DuplicatePolicy.OVERWRITE if refresh else DuplicatePolicy.SKIP,
+                )
+    # Update policy per call (refresh may differ between calls)
+    assert _DOC_STORE is not None and _WRITER is not None
+    _WRITER.policy = DuplicatePolicy.OVERWRITE if refresh else DuplicatePolicy.SKIP
+
+    # Serialize writes to avoid race conditions inside the writer/store
     LOGGER.info("Writing %d documents to database (refresh=%s)...", len(documents), refresh)
-    writer.run(documents=documents)
+    with _WRITE_LOCK:
+        _WRITER.run(documents=documents)

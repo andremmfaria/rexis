@@ -36,7 +36,7 @@ def ingest_file(
         help="Single file to ingest",
     ),
     batch: int = typer.Option(
-        10, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
+        5, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
     ),
     metadata: Optional[List[str]] = typer.Option(
         None,
@@ -119,7 +119,7 @@ def ingest_file_pdf(
         help="Single PDF file to ingest",
     ),
     batch: int = typer.Option(
-        10, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
+        5, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
     ),
     metadata: Optional[List[str]] = typer.Option(
         None,
@@ -198,7 +198,7 @@ def ingest_file_html(
         help="Single HTML file to ingest",
     ),
     batch: int = typer.Option(
-        10, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
+        5, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
     ),
     metadata: Optional[List[str]] = typer.Option(
         None,
@@ -277,7 +277,7 @@ def ingest_file_text(
         help="Single TEXT file to ingest",
     ),
     batch: int = typer.Option(
-        10, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
+        5, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
     ),
     metadata: Optional[List[str]] = typer.Option(
         None,
@@ -356,7 +356,7 @@ def ingest_file_json(
         help="Single JSON file to ingest",
     ),
     batch: int = typer.Option(
-        10, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
+        5, "--batch", "-b", min=1, help="Batch size for indexing (when using --dir)"
     ),
     metadata: Optional[List[str]] = typer.Option(
         None,
