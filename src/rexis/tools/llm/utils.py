@@ -27,7 +27,7 @@ def truncate(text: str, max_chars: int) -> str:
 def hash_messages(messages: List[Dict[str, str]]) -> str:
     m = hashlib.sha256()
     for msg in messages:
-        m.update((msg.get("role", "") + "\n" + (msg.get("content") or "") + "\n").encode("utf-8"))
+        m.update((msg.role + "\n" + (msg.text or "") + "\n").encode("utf-8"))
     return m.hexdigest()
 
 

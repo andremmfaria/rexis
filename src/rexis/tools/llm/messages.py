@@ -1,6 +1,7 @@
 import json
 from typing import Any, Dict, List
 
+from haystack.dataclasses import ChatMessage
 from rexis.tools.llm.utils import truncate
 
 
@@ -8,7 +9,7 @@ def build_messages(
     feat_summary: Dict[str, Any],
     passages: List[Dict[str, Any]],
     json_mode: bool = True,
-) -> List[Dict[str, str]]:
+) -> List[ChatMessage]:
     schema_hint: str = (
         "Return STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n"
         '  schema="rexis.llmrag.classification.v1", score (0..1), label ("malicious"|"suspicious"|"benign"|"unknown"),\n'
@@ -37,8 +38,8 @@ def build_messages(
     }
 
     return [
-        {"role": "system", "content": sys + "\n\n" + schema_hint},
-        {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
+        ChatMessage.from_system(sys + "\n\n" + schema_hint),
+        ChatMessage.from_user(json.dumps(user_payload, ensure_ascii=False)),
     ]
 
 

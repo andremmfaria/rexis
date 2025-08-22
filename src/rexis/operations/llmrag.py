@@ -148,8 +148,8 @@ def _process_sample(
         },
     )
     llm_out: Dict[str, Any] = llm_classify(
-        features,
-        passages,
+        features=features,
+        passages=passages,
         model=model,
         seed=seed,
         json_mode=json_mode,
@@ -165,9 +165,13 @@ def _process_sample(
     elif score >= SCORE_THRESHOLD_SUSPICIOUS:
         final_label = "suspicious"
     else:
-        final_label = "benign" if llm_out.get("label") == "benign" else llm_out.get("label", "unknown")
+        final_label = (
+            "benign" if llm_out.get("label") == "benign" else llm_out.get("label", "unknown")
+        )
 
-    program_block: Dict[str, Any] = features.get("program", {}) if isinstance(features, dict) else {}
+    program_block: Dict[str, Any] = (
+        features.get("program", {}) if isinstance(features, dict) else {}
+    )
 
     # Prepare explicit retrieval info for the report (beyond artifacts)
     retrieval_block: Dict[str, Any] = {
@@ -176,8 +180,7 @@ def _process_sample(
         "queries": queries,
         "notes": rag_notes,
         "passages": [
-            {k: p.get(k) for k in ("doc_id", "source", "title", "score", "text")}
-            for p in passages
+            {k: p.get(k) for k in ("doc_id", "source", "title", "score")} for p in passages
         ],
     }
 
@@ -191,12 +194,8 @@ def _process_sample(
         "artifacts": {
             "features_path": str(features_path),
             "llmrag_path": str(llmrag_path),
-            "retrieval": [
-                {k: v for k, v in p.items() if k in {"doc_id", "source", "title", "score"}}
-                for p in passages
-            ],
+            "retrieval": retrieval_block,
         },
-        "retrieval": retrieval_block,
         "llmrag": llm_out,
         "final": {"score": round(score, 4), "label": final_label},
         "audit": audit_log if audit else [],
@@ -313,7 +312,9 @@ def analyze_llmrag_exec(
             primary_output = _worker(targets[0])
         else:
             if parallel > 1:
-                print(f"[llmrag] Batch mode: processing {len(targets)} files with parallel={parallel}")
+                print(
+                    f"[llmrag] Batch mode: processing {len(targets)} files with parallel={parallel}"
+                )
                 with concurrent.futures.ProcessPoolExecutor(max_workers=parallel) as ex:
                     for path in ex.map(_worker, targets):
                         reports.append(path)

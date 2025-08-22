@@ -70,7 +70,7 @@ def retrieve_context(
     join_mode: str = "rrf",
     rerank_top_k: int = 0,
     ranker_model: str = "gpt-4o-mini",
-    sources: Optional[List[str]] = None,  # default None; only use if you indexed "source"
+    sources: Optional[List[str]] = None,
 ) -> Tuple[List[Passage], RagNotes]:
     """
     Hybrid retrieval (dense + keyword) → RRF/merge → optional re-rank.

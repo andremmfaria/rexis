@@ -184,7 +184,7 @@ def cmd_analyze_llmrag(
     ),
     # --- LLM generator knobs ---
     model: str = typer.Option(
-        "gpt-4o-mini",
+        "gpt-4o-2024-08-06",
         "--model",
         "-m",
         help="Generator model identifier",

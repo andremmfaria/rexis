@@ -1,6 +1,8 @@
+import json
 from typing import Any, Dict, List, Optional
 
 from haystack.components.generators.chat import OpenAIChatGenerator
+from haystack.dataclasses import ChatMessage
 from haystack.utils import Secret
 from rexis.tools.llm.features import summarize_features
 from rexis.tools.llm.messages import build_messages, compact_passages
@@ -13,12 +15,12 @@ from rexis.tools.llm.utils import (
     repair_and_parse,
 )
 from rexis.utils.config import config
-from rexis.utils.types import Passage
 from rexis.utils.constants import (
+    SCORE_THRESHOLD_BENIGN_MAX,
     SCORE_THRESHOLD_MALICIOUS,
     SCORE_THRESHOLD_SUSPICIOUS,
-    SCORE_THRESHOLD_BENIGN_MAX,
 )
+from rexis.utils.types import Passage
 from rexis.utils.utils import LOGGER
 
 
@@ -56,9 +58,10 @@ def llm_classify(
     feat_summary: Dict[str, Any] = summarize_features(features)
     compact: List[Dict[str, Any]] = compact_passages(passages, max_items=8, max_chars=900)
     print(f"[llm] Passages after compaction: {len(compact)} (limit 8)", flush=True)
-    messages: List[Dict[str, str]] = build_messages(feat_summary, compact, json_mode=json_mode)
+
+    messages: List[ChatMessage] = build_messages(feat_summary, compact, json_mode=json_mode)
     prompt_hash: str = hash_messages(messages)
-    print(f"[llm] Built {len(messages)} messages | prompt_hash={prompt_hash[:10]}...", flush=True)
+    print(f"[llm] Built {len(messages)} messages | prompt_hash={prompt_hash[:20]}...", flush=True)
 
     # 2) Call OpenAI
     try:
@@ -69,8 +72,11 @@ def llm_classify(
             generation_kwargs={"temperature": temperature, "max_tokens": max_tokens},
         )
 
-        res: Dict[str, Any] = gen.run(messages=messages)
-        raw_reply: str = (res.get("replies") or [""])[0]
+        res: Dict[str, List[ChatMessage]] = gen.run(messages=messages)
+
+        LOGGER.debug(f"[llm] LLM response: {res}")
+
+        raw_reply: str = (res.get("replies") or [""])[0].text
 
         print(f"[llm] LLM reply received ({len(raw_reply)} chars)", flush=True)
     except Exception as e:
