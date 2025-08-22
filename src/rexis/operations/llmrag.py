@@ -204,7 +204,7 @@ def _process_sample(
 
     report_path: Path = out_dir / f"{sha256_hex}.report.json"
     write_json(report, report_path)
-    print(f"[llmrag] LLM+RAG report: {report_path}")
+    LOGGER.info(f"[llmrag] LLM+RAG report: {report_path}")
     _audit("pipeline_done", report=str(report_path))
     return report_path
 

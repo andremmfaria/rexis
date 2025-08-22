@@ -1,5 +1,6 @@
 import json
 import time
+import uuid
 from pathlib import Path
 from typing import Dict, List, Literal, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -18,7 +19,9 @@ def ingest_file_exec(
     target_file: Optional[Path] = None,
     batch: int = 5,
     metadata: Dict[str, str] = {},
-) -> None:
+    out_dir: Path = Path.cwd(),
+    run_name: Optional[str] = None,
+) -> Path:
     """
     Interface-only router for file ingestion.
     Supports:
@@ -30,11 +33,11 @@ def ingest_file_exec(
     start_ts = time.time()
     started_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(start_ts))
 
-    # Derive run context
-    base_label = "file" if target_file else ("dir" if target_dir else "unknown")
-    subject = (target_file.name if target_file else (target_dir.name if target_dir else "none"))
-    base_path = f"ingest-{base_label}-{subject}"
-    run_dir = Path.cwd() / base_path
+    # Derive run context aligned with analysis workflows
+    run_id: str = run_name or uuid.uuid4().hex
+    base_path = f"ingest-analysis-{run_id}"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    run_dir = out_dir / base_path
     run_dir.mkdir(parents=True, exist_ok=True)
     report_path = run_dir / f"{base_path}.report.json"
 
@@ -51,13 +54,13 @@ def ingest_file_exec(
             LOGGER.error(msg)
             status = "error"
             error_message = msg
-            return
+            return report_path
         if not target_dir and not target_file:
             msg = "Neither --dir nor --file provided; one is required."
             LOGGER.error(msg)
             status = "error"
             error_message = msg
-            return
+            return report_path
 
         if target_file:
             mode = "single"
@@ -82,7 +85,7 @@ def ingest_file_exec(
             if not paths:
                 LOGGER.warning("No %s files found under %s", ftype, target_dir)
                 files_processed = 0
-                return
+                return report_path
 
             LOGGER.info("[batch] %s -> %d file(s), batch=%d", ftype, len(paths), batch)
 
@@ -102,7 +105,7 @@ def ingest_file_exec(
             LOGGER.error("Unknown ingestion mode")
             status = "error"
             error_message = "Unknown ingestion mode"
-            return
+            return report_path
     except Exception as e:
         status = "error"
         error_message = str(e)
@@ -118,7 +121,7 @@ def ingest_file_exec(
             "batch": batch,
         }
         report: Dict[str, object] = {
-            "run_id": base_path,
+            "run_id": run_id,
             "base_path": base_path,
             "started_at": started_at,
             "ended_at": ended_at,
@@ -145,3 +148,4 @@ def ingest_file_exec(
             print(f"[ingest] Run report: {report_path}")
         except Exception as rexc:
             LOGGER.error("Failed to write run report %s: %s", report_path, rexc)
+    return report_path
