@@ -108,8 +108,7 @@ def llm_classify(
     except Exception:
         print("[llm] Validation complete", flush=True)
 
-    # Add minimal debug fields (non-breaking; useful for audits)
-    validated["_debug"] = {
+    validated["meta"] = {
         "model": model,
         "temperature": temperature,
         "max_tokens": max_tokens,

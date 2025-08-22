@@ -358,3 +358,72 @@ CAPABILITY_BUCKETS = {
         "setsystemtime",
     },
 }
+
+# Features extraction constants
+STRING_CAP_PER_CATEGORY = 20
+EXPORTS_CAP = 50
+RESOURCE_CAP = 20
+
+# Packer markers used to hint at common packers/obfuscators in import names or strings
+PACKER_MARKERS: Tuple[str] = (
+    "upx",
+    "mpress",
+    "aspack",
+    "asprotect",
+    "themida",
+    "pecompact",
+    "petite",
+    "upack",
+    "mew",
+    "nspack",
+    "fsg",
+    "armadillo",
+    "execryptor",
+    "molebox",
+    "yoda",
+    "yodaprotector",
+    "kkrunchy",
+    "crinkler",
+    "vmprotect",
+    "enigma",
+    "obsidium",
+    "dotfuscator",
+    "confuser",
+    "confuserex",
+    "smartassembly",
+    "eazfuscator",
+    "dnprotect",
+    "netreactor",
+    "agiledotnet",
+    "codevirtualizer",
+    "oreans",
+)
+
+# Regex patterns for string categorization. Patterns are raw strings; compile at use sites.
+# Categories may contain multiple patterns (e.g., file_paths for Windows and *nix paths).
+STRING_CATEGORY_PATTERNS: Dict[str, Tuple[str, ...]] = {
+    "urls": (r"\bhttps?://[\w\-._~:/?#\[\]@!$&'()*+,;=%]+",),
+    "domains": (
+        r"\b(?:(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)\.)+[a-z]{2,}\b",
+    ),
+    "ips": (
+        r"\b(?:25[0-5]|2[0-4]\d|1?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|1?\d?\d)){3}\b",
+    ),
+    "emails": (r"\b[\w.+-]+@[\w-]+\.[\w.-]+\b",),
+    "registry_keys": (
+        r"\b(?:HKEY_[A-Z_]+|HKLM|HKCU|HKCR|HKU|\\Registry\\Machine|\\Registry\\User)\\[^\s\"]+",
+    ),
+    "mutexes": (
+        r"\b(?:Mutex|\\Global\\[^\s]+|\\BaseNamedObjects\\[^\s]+)\b",
+    ),
+    "file_paths": (
+        r"(?:[A-Za-z]:\\(?:[^\\/:*?\"<>|\r\n]+\\)*[^\\/:*?\"<>|\r\n]*)",
+        r"\b/(?:[\w.-]+/)*[\w.-]+\b",
+    ),
+    "user_agents": (
+        r"\b(?:Mozilla/\d|User-Agent|AppleWebKit|Chrome/\d|Safari/\d)\b",
+    ),
+    "errors": (
+        r"\b(?:error|failed|exception|fatal|unable to|cannot)\b",
+    ),
+}
