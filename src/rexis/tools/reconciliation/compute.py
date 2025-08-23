@@ -89,7 +89,7 @@ def compute_heuristics_confidence(
         f"categories={len(categories)})"
     )
     if "packer_artifacts" in ids:
-        explanations.append("packer indicators present → slight confidence reduction")
+        explanations.append("packer indicators present -> slight confidence reduction")
     return C_h, explanations
 
 
@@ -173,7 +173,7 @@ def compute_vt_score_and_confidence(
         f"vt_score={S_vt:.2f} vt_confidence={C_vt:.2f} (mal={mal}, sus={sus}, denom={denom})"
     )
     if denom < 5:
-        notes.append("low engine coverage on VT → reduced confidence")
+        notes.append("low engine coverage on VT -> reduced confidence")
     return S_vt, C_vt, info, notes
 
 

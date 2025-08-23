@@ -73,7 +73,7 @@ def retrieve_context(
     sources: Optional[List[str]] = None,
 ) -> Tuple[List[Passage], RagNotes]:
     """
-    Hybrid retrieval (dense + keyword) → RRF/merge → optional re-rank.
+    Hybrid retrieval (dense + keyword) -> RRF/merge -> optional re-rank.
     Returns:
       passages: [{doc_id, source, title, score, text}]
       rag_notes: dict with debug metrics and settings

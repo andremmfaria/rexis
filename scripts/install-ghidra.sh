@@ -83,7 +83,7 @@ install_temurin_from_tarball() {
     return 0
   fi
 
-  say "Installing Temurin ${TEMURIN_MAJOR} (linux x64 tarball) → ${TEMURIN_DIR}"
+  say "Installing Temurin ${TEMURIN_MAJOR} (linux x64 tarball) -> ${TEMURIN_DIR}"
   sudo mkdir -p "${TEMURIN_DIR}"
 
   # Try to ensure tools exist (best-effort on Debian/Ubuntu)
@@ -114,7 +114,7 @@ install_temurin_from_tarball() {
   if [ -d "$dest" ]; then
     local ts
     ts="$(date +%Y%m%d%H%M%S)"
-    say "Backing up existing ${dest} → ${dest}.bak-${ts}"
+    say "Backing up existing ${dest} -> ${dest}.bak-${ts}"
     sudo mv "$dest" "${dest}.bak-${ts}"
   fi
   sudo rm -rf "$dest"
@@ -129,7 +129,7 @@ install_temurin_from_tarball() {
 
 # ── Install Ghidra 11.4.1 ────────────────────────────────────────────────────
 install_ghidra() {
-  say "Installing Ghidra ${GHIDRA_VERSION} → ${GHIDRA_DIR}"
+  say "Installing Ghidra ${GHIDRA_VERSION} -> ${GHIDRA_DIR}"
   sudo mkdir -p "$(dirname "${GHIDRA_DIR}")"
   sudo apt-get update >/dev/null 2>&1 || true
   sudo apt-get install -y unzip wget >/dev/null 2>&1 || true
@@ -153,7 +153,7 @@ install_ghidra() {
   if [ -d "${GHIDRA_DIR}" ]; then
     local ts
     ts="$(date +%Y%m%d%H%M%S)"
-    say "Backing up existing ${GHIDRA_DIR} → ${GHIDRA_DIR}.bak-${ts}"
+    say "Backing up existing ${GHIDRA_DIR} -> ${GHIDRA_DIR}.bak-${ts}"
     sudo mv "${GHIDRA_DIR}" "${GHIDRA_DIR}.bak-${ts}"
   fi
   sudo rm -rf "${GHIDRA_DIR}"

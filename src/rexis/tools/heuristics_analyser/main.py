@@ -181,7 +181,7 @@ def heuristic_classify(
     score: float = _combine_evidence_score(all_ev, rules)
     override_hits: List[str] = [ev.id for ev in all_ev]
     label: str = _label_from_combined_score(score, rules, override_hits)
-    print(f"[heuristics] Combined score={score:.2f} → label={label}")
+    print(f"[heuristics] Combined score={score:.2f} -> label={label}")
 
     # Filter evidence by min severity for the *returned* payload (score is computed on full set)
     returned_ev: List[Evidence] = [
@@ -221,7 +221,7 @@ def heuristic_classify(
         )[: max(0, classification_top_k)]
         classification = [t for t, _ in fallback_sorted]
 
-    # Prepare per-evidence category hints based on rule→tag map
+    # Prepare per-evidence category hints based on rule->tag map
     cfg_map: Dict[str, Dict[str, float]] = (
         get_nested_value(rules, "tagging.map", {}) or DEFAULT_TAG_SCORES
     )

@@ -22,8 +22,8 @@ SCHEMA_HINT: str = (
     "use source=retrieval and doc_ref=<doc_id> to cite passages. "
     "Map capability names to analyst terminology (injection, persistence, networking, crypto, anti-debug, "
     "exfiltration, obfuscation, c2). "
-    "Calibrate score heuristically: strong diverse capabilities with corroboration → 0.75–0.95; "
-    "single strong signal → 0.45–0.65; weak/ambiguous → 0.15–0.35; none → ≤0.15. "
+    "Calibrate score heuristically: strong diverse capabilities with corroboration -> 0.75–0.95; "
+    "single strong signal -> 0.45–0.65; weak/ambiguous -> 0.15–0.35; none -> ≤0.15. "
     "Prefer 1–3 concise classification tags that best describe the sample's high-level type."
 )
 
@@ -80,13 +80,13 @@ def _render_feature_bullets(feature_summary: Dict[str, Any]) -> List[str]:
             if not imports:
                 continue
             sample = ", ".join(_clip_text(name, 40) for name in imports[:6])
-            lines.append(f"- capability:{capability} → imports: {sample}{'...' if len(imports) > 6 else ''}")
+            lines.append(f"- capability:{capability} -> imports: {sample}{'...' if len(imports) > 6 else ''}")
 
     # Packer hints (if any)
     packer_hints: Dict[str, Any] = (feature_summary or {}).get("packer_hints") or {}
     if packer_hints:
         for hint_key, hint_value in packer_hints.items():
-            lines.append(f"- packer_hint:{hint_key} → {_clip_text(str(hint_value), 80)}")
+            lines.append(f"- packer_hint:{hint_key} -> {_clip_text(str(hint_value), 80)}")
 
     # Sections (name / perms / entropy / size)
     sections: List[Dict[str, Any]] = (feature_summary or {}).get("sections") or []

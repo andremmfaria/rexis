@@ -527,7 +527,7 @@ def filter_and_semantics(
         return any(fuzz.partial_ratio(needle, n.lower()) >= 85 for n in vals)
 
     def matches_date(r: Dict[str, Any]) -> bool:
-        # If neither start nor end → keep all (no date filter)
+        # If neither start nor end -> keep all (no date filter)
         if not (start_date_parsed or end_date_parsed):
             return True
         d = parse_any_date(r.get("date"))

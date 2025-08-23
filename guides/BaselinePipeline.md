@@ -1,5 +1,5 @@
 
-## Baseline pipeline: end-to-end workflow (decompile → heuristics → optional VT → decision → report)
+## Baseline pipeline: end-to-end workflow (decompile -> heuristics -> optional VT -> decision -> report)
 
 This guide explains the Baseline analysis workflow in detail: what it does, how to run it, what files it produces, how scores and labels are computed, and where each step is implemented.
 
@@ -18,7 +18,7 @@ Key entry points in the codebase:
 
 For each input PE binary (.exe/.dll/.sys):
 1) Decompile and extract features with Ghidra via PyGhidra
-2) Run built-in heuristic rules over the extracted features → score, label, evidence, tags
+2) Run built-in heuristic rules over the extracted features -> score, label, evidence, tags
 3) Optionally enrich with VirusTotal (VT) by SHA-256
 4) Fuse the heuristic signal with the VT signal into a final decision (score + label)
 5) Emit JSON artifacts per sample and per-run summaries
@@ -147,9 +147,9 @@ Implementation: `fuse_heuristics_and_virustotal_decision` in `../src/rexis/tools
 Configuration sources:
 - Defaults for the fusion are in `DEFAULT_DECISION` (`../src/rexis/utils/constants.py`).
 - The heuristics rules file may optionally include a `decision.*` section to override:
-	- `decision.weights` → `{w_h, w_vt}`
-	- `decision.thresholds` → `{malicious, suspicious}`
-	- `decision.policy` → keys like `gap_penalty_start`, `gap_penalty_max`, `gap_penalty_slope`, `conflict_gap_hard`, `high_conf`, `conflict_override_score`, and more supported by `ReconcileConfig`.
+	- `decision.weights` -> `{w_h, w_vt}`
+	- `decision.thresholds` -> `{malicious, suspicious}`
+	- `decision.policy` -> keys like `gap_penalty_start`, `gap_penalty_max`, `gap_penalty_slope`, `conflict_gap_hard`, `high_conf`, `conflict_override_score`, and more supported by `ReconcileConfig`.
 
 Decision output shape (subset, embedded under `decision` in the final report):
 - `inputs.{heuristics,virustotal}` compact summaries
@@ -179,7 +179,7 @@ The per-sample final report (`H.report.json`) includes:
 - `audit`: chronological events if `--audit` is enabled (default on)
 
 Audit events (emitted by `_process_sample`):
-- `pipeline_start` → input file and run id
+- `pipeline_start` -> input file and run id
 - `decompile_start` / `decompile_done`
 - `heuristics_start` / `heuristics_done`
 - `vt_start` / `vt_done` (includes fields `ok` and `error`)

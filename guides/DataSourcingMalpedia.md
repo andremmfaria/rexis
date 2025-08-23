@@ -5,7 +5,7 @@ This guide shows how to collect Malpedia references with the REXIS CLI command `
 ### What it does
 
 - Fetches two Malpedia datasets:
-	- References index mapping URL → families/actors
+	- References index mapping URL -> families/actors
 	- BibTeX dump containing title, source, date, metadata for each reference
 - Cross-references both by URL and emits a JSON array of merged entries with:
 	- title, source, url, date

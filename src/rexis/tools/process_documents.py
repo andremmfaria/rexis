@@ -348,7 +348,7 @@ def _guess_file_type_from_url(url_str: str) -> str:
         return "html"
     if path.endswith(".txt"):
         return "text"
-    # Common office docs → other (we don't ingest these yet)
+    # Common office docs -> other (we don't ingest these yet)
     if path.endswith((".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx", ".odt", ".rtf")):
         return "other"
     return "unknown"
@@ -357,10 +357,10 @@ def _guess_file_type_from_url(url_str: str) -> str:
 def _classify_file_type(ctype: Optional[str], magic_mime: Optional[str], guess: str) -> str:
     """Classify into pdf/html/text/other using magic, headers, and URL guess.
     Rules:
-      - If magic or header says PDF → pdf
-      - If magic/header says text/plain → text
-      - If magic/header says HTML → html
-      - If URL guess says office doc → other
+      - If magic or header says PDF -> pdf
+      - If magic/header says text/plain -> text
+      - If magic/header says HTML -> html
+      - If URL guess says office doc -> other
       - Else default to html (per requirement)
     """
 

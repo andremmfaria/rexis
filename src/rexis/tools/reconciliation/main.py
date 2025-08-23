@@ -170,10 +170,10 @@ def fuse_heuristics_and_virustotal_decision(
     print(
         f"[decision] Reconciliation: pre_reconciliation_score={pre_reconciliation_score:.2f}, "
         f"score_gap(|Sh-S_vt|)={abs(heuristics_score - virustotal_score):.2f}, "
-        f"disagreement_penalty={disagreement_penalty:.2f} → post_fused_score={reconciliation_score:.2f}"
+        f"disagreement_penalty={disagreement_penalty:.2f} -> post_fused_score={reconciliation_score:.2f}"
     )
 
-    # Extreme conflict override: high-confidence, large-gap disagreement → abstain to "suspicious"
+    # Extreme conflict override: high-confidence, large-gap disagreement -> abstain to "suspicious"
     conflict_override_applied: bool = False
     abstain_on_conflict: bool = True
     if policy:
@@ -196,7 +196,7 @@ def fuse_heuristics_and_virustotal_decision(
             forced_label = LABEL_SUSPICIOUS
         print(
             f"[decision] Hard conflict override applied: gap={score_gap:.2f}, "
-            f"C_h={heuristics_confidence:.2f}, C_vt={virustotal_confidence:.2f} → "
+            f"C_h={heuristics_confidence:.2f}, C_vt={virustotal_confidence:.2f} -> "
             f"forced_label={forced_label}, forced_score={reconciliation_score:.2f}"
         )
 
@@ -213,9 +213,9 @@ def fuse_heuristics_and_virustotal_decision(
         expl.append(f"disagreement_penalty={disagreement_penalty:.2f} due to gap={score_gap:.2f}")
     if conflict_override_applied:
         if forced_label == LABEL_ABSTAIN:
-            expl.append("hard conflict override → abstain (set fused score to mid value)")
+            expl.append("hard conflict override -> abstain (set fused score to mid value)")
         else:
-            expl.append("hard conflict override applied → set fused score to mid value")
+            expl.append("hard conflict override applied -> set fused score to mid value")
 
     result: Dict[str, Any] = {
         "schema": "rexis.baseline.decision.v1",

@@ -1,4 +1,4 @@
-## LLM+RAG pipeline: end-to-end workflow (features → hybrid retrieval → re-rank → LLM JSON → report)
+## LLM+RAG pipeline: end-to-end workflow (features -> hybrid retrieval -> re-rank -> LLM JSON -> report)
 
 This document explains the LLM+RAG pipeline in detail: inputs, control knobs, retrieval and re-ranking internals, LLM classification schema, outputs, and where each piece lives in the repo.
 

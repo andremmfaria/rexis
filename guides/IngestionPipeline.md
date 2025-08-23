@@ -1,4 +1,4 @@
-## Ingestion pipeline: end-to-end workflow (files → parse/normalize → chunk → embed → index)
+## Ingestion pipeline: end-to-end workflow (files -> parse/normalize -> chunk -> embed -> index)
 
 This guide explains how textual sources get ingested into the PgVector document store used by retrieval. It covers CLI usage, per-type processing, chunking/embedding/indexing, metadata, configuration, and outputs—with exact references to the code.
 
@@ -11,7 +11,7 @@ Key code entry points:
 	- TEXT: `../src/rexis/operations/ingest/ingest_text.py`
 	- JSON: `../src/rexis/operations/ingest/ingest_json.py`
 - Utilities: `../src/rexis/operations/ingest/utils.py`
-- Indexing pipeline (chunk → embed → write): `../src/rexis/tools/haystack.py`
+- Indexing pipeline (chunk -> embed -> write): `../src/rexis/tools/haystack.py`
 - Vector store init (for retrieval side): `../src/rexis/tools/retrieval/store.py`
 - Config/Constants: `../config/settings.toml`, `../src/rexis/utils/constants.py`
 
@@ -109,7 +109,7 @@ Indexing call: `index_documents(documents=[...], refresh=True, doc_type=...)` in
 	- `--batch` is number of batches; JSON uses larger internal mini-batches of size 50 for DB writes.
 
 
-## Indexing pipeline: chunking → embeddings → write
+## Indexing pipeline: chunking -> embeddings -> write
 
 Implementation: `../src/rexis/tools/haystack.py`.
 

@@ -1,4 +1,4 @@
-# VX‑Underground → URL Collection → Download → Ingest (Rexis)
+# VX‑Underground -> URL Collection -> Download -> Ingest (Rexis)
 
 This guide shows how to use your browser to **collect signed PDF links and trigger downloads** from VX‑Underground, then **ingest** the PDFs into your RAG datastore.
 
@@ -12,8 +12,8 @@ This guide shows how to use your browser to **collect signed PDF links and trigg
 
 1. **Open VX‑Underground** in your browser (Chrome/Firefox/Edge).
 2. **Run one of the scripts below** in the DevTools Console to **collect PDF links and trigger downloads**:
-   - **Year page walker** → collects from every APT’s `Paper/` page.
-   - **Single Paper page** → collects just that folder’s PDFs.
+   - **Year page walker** -> collects from every APT’s `Paper/` page.
+   - **Single Paper page** -> collects just that folder’s PDFs.
 3. **Ingest** with `rexis ingest file -t pdf -d ./files ...`.
 
 ---
@@ -22,7 +22,7 @@ This guide shows how to use your browser to **collect signed PDF links and trigg
 
 Use this on a page like: `https://vx-underground.org/APTs/2012/`
 
-It **navigates the UI**, visits each APT → `Paper/`, scrapes PDF links from the DOM, then **buffers** them and periodically **flushes as downloads** to avoid overwhelming the browser.
+It **navigates the UI**, visits each APT -> `Paper/`, scrapes PDF links from the DOM, then **buffers** them and periodically **flushes as downloads** to avoid overwhelming the browser.
 
 ```javascript
 (async () => {
@@ -325,8 +325,8 @@ It **navigates the UI**, visits each APT → `Paper/`, scrapes PDF links from th
 **How to run it**
 
 1. Open the year page (e.g. `/APTs/2012/`).
-2. Press **F12 → Console**.
-3. Paste the script → **Enter**.
+2. Press **F12 -> Console**.
+3. Paste the script -> **Enter**.
 4. The apt files will be downloaded to your computer (probably on the Downloads folder)
 
 ---
@@ -545,8 +545,8 @@ It collects just that folder’s PDFs and triggers their download.
 **How to run it**
 
 1. Open the target **Paper** page.
-2. **F12 → Console**.
-3. Paste → **Enter**.
+2. **F12 -> Console**.
+3. Paste -> **Enter**.
 4. The target apt file will be downloaded on your computer (probably on the Downloads folder)
 
 ---
@@ -574,6 +574,6 @@ For a deeper walkthrough of CLI options, metadata, batching, and how deduplicati
 
 * **Keep the browser tab focused** while the batch script runs (some browsers throttle background tabs).
 * If the year page has a lot of entries, you can run the batch collector multiple times with short date‑ranges (e.g., 2012 Q1/Q2) by editing the list of tiles (or stopping early).
-* If downloads **open in a viewer** instead of saving: most browsers still keep a copy in the Downloads list; alternatively set your browser to “Always ask where to save files,” or right‑click → “Save link as...”.
+* If downloads **open in a viewer** instead of saving: most browsers still keep a copy in the Downloads list; alternatively set your browser to “Always ask where to save files,” or right‑click -> “Save link as...”.
 
 Optional: prefer exporting URLs only (no downloads)? Comment out the `triggerDownload(...)` calls in the scripts, inspect `window.__vxuBatch` / `window.__vxuSingle` for collected URLs, and save them as needed.

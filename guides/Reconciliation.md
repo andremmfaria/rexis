@@ -24,15 +24,15 @@ These limits are policy-overridable (see Policy/Overrides below) and default to 
 
 * **Evidence quality**: proportion of high-severity rules (error > warn > info), diversity of independent signals (injection + persistence + networking > networking alone).
 * **Coverage/fit**: did we see enough features (imports/sections/strings)? If the sample looks heavily **packed/obfuscated**, *reduce* `C_h`.
-* **Historical precision** of each rule (if there is corpus validation), e.g., `CreateRemoteThread+WriteProcessMemory` had high PPV → bump `C_h`.
+* **Historical precision** of each rule (if there is corpus validation), e.g., `CreateRemoteThread+WriteProcessMemory` had high PPV -> bump `C_h`.
 
 **For VirusTotal, `C_vt` can depend on:**
 
 * **Consensus strength**: malicious ratio after engine weighting.
 * **Engine diversity**: hits across multiple vendor “families” (not all forks of one engine).
 * **Recency**: last submission freshness; very old detections get a small decay.
-* **Prevalence**: extremely common clean files → bump confidence for benign; extremely rare → increase uncertainty (don’t over-trust a single hit).
-* **Stability**: popular threat name/category consistent across time/vendors → higher `C_vt`.
+* **Prevalence**: extremely common clean files -> bump confidence for benign; extremely rare -> increase uncertainty (don’t over-trust a single hit).
+* **Stability**: popular threat name/category consistent across time/vendors -> higher `C_vt`.
 
 Optional policy hooks:
 
@@ -73,19 +73,19 @@ This creates a conservative path when high-confidence sources disagree sharply.
 
 Additional guidance when no hard override triggers:
 
-* If **both high** and **agree** → keep the stronger behavior label; optionally annotate with VT names.
-* If **high VirusTotal but low heuristics** → check for packer indicators; let VT contribute but expect lower overall confidence.
-* If **high heuristics but low VirusTotal** → treat as **emerging/low-prevalence**; keep label, mark limited external consensus.
-* If **both low** → label **benign**.
-* If **mid/discordant** → label **suspicious** and recommend dynamic analysis.
+* If **both high** and **agree** -> keep the stronger behavior label; optionally annotate with VT names.
+* If **high VirusTotal but low heuristics** -> check for packer indicators; let VT contribute but expect lower overall confidence.
+* If **high heuristics but low VirusTotal** -> treat as **emerging/low-prevalence**; keep label, mark limited external consensus.
+* If **both low** -> label **benign**.
+* If **mid/discordant** -> label **suspicious** and recommend dynamic analysis.
 
 # 6) Deciding the label using calibrated thresholds
 
 Same three bands the baseline uses, but applied to `S_final`:
 
-* `S_final ≥ T_mal` → **malicious**
-* `T_susp ≤ S_final < T_mal` → **suspicious**
-* `< T_susp` → **benign**
+* `S_final ≥ T_mal` -> **malicious**
+* `T_susp ≤ S_final < T_mal` -> **suspicious**
+* `< T_susp` -> **benign**
 
 Keep thresholds adjustable (e.g., `T_mal = 0.70`, `T_susp = 0.40`) and **calibrate** them on a validation set (Platt/Isotonic if probability calibration is warranted).
 
@@ -109,9 +109,9 @@ Include in the report a concise summary of VT consensus (weighted ratio, key ven
 
 # 8) Handling special cases
 
-* **No VirusTotal data or error** → set VT block to `{ error: ... }`; skip disagreement penalty; rely on heuristics confidence/score.
-* **Rate-limited VirusTotal** → mark enrichment as “incomplete”, don’t penalize heuristics.
-* **PUP/grayware** → allow a distinct label path: moderate scores with distinct thresholds or separate mapping table.
+* **No VirusTotal data or error** -> set VT block to `{ error: ... }`; skip disagreement penalty; rely on heuristics confidence/score.
+* **Rate-limited VirusTotal** -> mark enrichment as “incomplete”, don’t penalize heuristics.
+* **PUP/grayware** -> allow a distinct label path: moderate scores with distinct thresholds or separate mapping table.
 * **Installers/updaters** often have networking/registry APIs; require **co-occurrence** of stronger signals (e.g., injection) before elevating to malicious.
 
 # 9) Continuous calibration & QA
@@ -125,14 +125,14 @@ Include in the report a concise summary of VT consensus (weighted ratio, key ven
 
 1) Moderate disagreement with penalty (no hard override):
 
-* Heuristics: `S_h = 0.68`, evidence includes injection + autorun; packer present → `C_h = 0.8`.
-* VirusTotal: 9/70 vendors flag; weighted consensus ~0.35; first seen 2 days ago; mixed names → `S_vt = 0.35`, `C_vt = 0.6`.
+* Heuristics: `S_h = 0.68`, evidence includes injection + autorun; packer present -> `C_h = 0.8`.
+* VirusTotal: 9/70 vendors flag; weighted consensus ~0.35; first seen 2 days ago; mixed names -> `S_vt = 0.35`, `C_vt = 0.6`.
 * Fusion (example weights 0.5/0.5): `S_fused_pre = 0.5*(0.8*0.68) + 0.5*(0.6*0.35) ≈ 0.377`.
 * Apply small disagreement penalty (since gap=0.33 > start): `S_final ≈ 0.36`.
-* With `T_susp=0.40`, `T_mal=0.70` → borderline suspicious/benign → label **suspicious** if caution is preferred, with note “low external consensus; strong injection evidence; packed—recommend sandbox run.”
+* With `T_susp=0.40`, `T_mal=0.70` -> borderline suspicious/benign -> label **suspicious** if caution is preferred, with note “low external consensus; strong injection evidence; packed—recommend sandbox run.”
 
 2) Hard conflict override:
 
 * Heuristics: `S_h = 0.85`, `C_h = 0.9`.
 * VirusTotal: `S_vt = 0.10`, `C_vt = 0.9`.
-* Gap = 0.75 ≥ `conflict_gap_hard`, both confidences high → set `S_final = conflict_override_score` and force label to `abstain` (or `suspicious` if configured). Explain the override in the audit trail.
+* Gap = 0.75 ≥ `conflict_gap_hard`, both confidences high -> set `S_final = conflict_override_score` and force label to `abstain` (or `suspicious` if configured). Explain the override in the audit trail.

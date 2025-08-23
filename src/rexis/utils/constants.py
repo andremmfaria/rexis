@@ -140,7 +140,7 @@ DEFAULT_TAG_SCORES = {
     "sus_api_combo": {"trojan": 0.4, "backdoor": 0.3, "stealer": 0.3},
 }
 
-# Default normalization rules for vendor/threat names → canonical families
+# Default normalization rules for vendor/threat names -> canonical families
 # Order matters (first match wins)
 DEFAULT_NORMALIZATION_RULES = [
     (r"ransom|locker|crypt(?!o)|cryptolocker|encrypt", "ransomware"),

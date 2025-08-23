@@ -65,7 +65,7 @@ def cmd_analyze_baseline(
     audit: bool = typer.Option(True, "--audit/--no-audit", help="Include audit trail in report"),
 ) -> None:
     """
-    Baseline pipeline (decompile → heuristics → optional VT → report).
+    Baseline pipeline (decompile -> heuristics -> optional VT -> report).
 
     If INPUT_PATH is a file: runs the pipeline for a single sample.
     If INPUT_PATH is a directory: recursively discovers PE files (.exe/.dll/.sys) and batches them.
@@ -208,7 +208,7 @@ def cmd_analyze_llmrag(
     ),
 ) -> None:
     """
-    LLM+RAG pipeline (features → hybrid retrieval → re-rank → LLM JSON → report).
+    LLM+RAG pipeline (features -> hybrid retrieval -> re-rank -> LLM JSON -> report).
     """
     run_name_str: str = run_name or uuid.uuid4().hex
     primary_path, run_report_path = analyze_llmrag_exec(
