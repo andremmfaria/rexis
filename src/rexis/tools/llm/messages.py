@@ -1,5 +1,4 @@
-import json
-from typing import Any, Dict, List, Optional
+from typing import Dict, List
 
 from haystack.dataclasses import ChatMessage
 from rexis.tools.llm.utils import clip_text, format_key_value, truncate
@@ -34,6 +33,30 @@ SCHEMA_HINT: str = (
     "single strong signal -> 0.45–0.65; weak/ambiguous -> 0.15–0.35; none -> ≤0.15. "
     "Prefer 1–3 concise classification tags that best describe the sample's high-level type."
 )
+
+DEFAULT_TASK_BLOCK: Dict[str, str] = {
+    # classification: Requests classification labels based on static features and retrieved context.
+    "classification": (
+        "Tasks:\n"
+        "- Classify the sample into a known malware classifications (or 'unknown' if undecidable) using static features and retrieved context.\n"
+        "- Return STRICT JSON only, following the required schema."
+    ),
+    # justification: Requires the model to cite both static features and retrieved evidence when assigning a label.
+    "justification": (
+        "Tasks:\n"
+        "- Classify the sample into a known malware classifications (or 'unknown' if undecidable).\n"
+        "- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n"
+        "- Return STRICT JSON only, following the required schema."
+    ),
+    # comparison: Adds a comparative element relating the sample to known classifications or behaviors.
+    "comparison": (
+        "Tasks:\n"
+        "- Classify the sample into a known malware classifications (or 'unknown' if undecidable).\n"
+        "- Justify the label with static features and retrieved evidence; cite doc ids in 'evidence'.\n"
+        "- Compare concisely with 1–2 related classifications or behaviors, noting key similarities vs differences.\n"
+        "- Return STRICT JSON only, following the required schema."
+    ),
+}
 
 MAX_FEATURE_LINES: int = 20
 MAX_LINE_CHARS: int = 200
@@ -101,7 +124,7 @@ def _render_retrieved_docs_block(retrieved_passages: List[Passage]) -> str:
 def build_prompt_messages(
     feat_summary: SummarizedFeatures,
     retrieved_passages: List[Passage],
-    json_mode: bool = True,
+    prompt_variant: str = "classification",
 ) -> List[ChatMessage]:
     """Build ChatMessage list for LLM classification prompt.
 
@@ -109,10 +132,7 @@ def build_prompt_messages(
     message with structured context, retrieved documents, and task guidance.
     """
     system_text: str = (
-        SYSTEM_PROMPT_BASE
-        + (" Output must be JSON only." if json_mode else "")
-        + "\n\n"
-        + SCHEMA_HINT
+        SYSTEM_PROMPT_BASE + "\n\n" + " Output must be JSON only." + "\n\n" + SCHEMA_HINT
     )
 
     # Context block (features summarized as short bullets)
@@ -124,18 +144,11 @@ def build_prompt_messages(
     # Retrieved documents block (ID + source + clipped snippet)
     docs_block: str = "Retrieved Documents:\n" + _render_retrieved_docs_block(retrieved_passages)
 
-    # Task instructions (explicit, stable)
-    task_block: str = (
-        "Tasks:\n"
-        "- Classify the sample into a known malware family (or 'unknown' if undecidable).\n"
-        "- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n"
-        "- Optionally compare with related families if relevant.\n"
-        "- Return STRICT JSON only, following the required schema."
-    )
+    # Select the task block based on the requested prompt variant.
+    task_block: str = DEFAULT_TASK_BLOCK.get(prompt_variant.lower())
 
-    parts: List[str] = [context_block, docs_block, task_block]
-
-    user_text: str = "\n\n".join(parts)
+    # Joined parts of the prompt
+    user_text: str = "\n\n".join([context_block, docs_block, task_block])
 
     return [
         ChatMessage.from_system(system_text),

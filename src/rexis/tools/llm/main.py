@@ -30,8 +30,7 @@ def llm_classify(
     model: str,
     temperature: float = 0.0,
     max_tokens: int = 800,
-    seed: Optional[int] = None,
-    json_mode: bool = True,
+    prompt_variant: str = "classification",
 ) -> Dict[str, Any]:
     """Classify a sample with an OpenAI chat model using extracted features and retrieved passages.
 
@@ -42,10 +41,11 @@ def llm_classify(
     """
     # 1) Build messages
     print(
-        f"[llm] Starting classification | model={model} temp={temperature} max_tokens={max_tokens} json_mode={json_mode}",
+        f"[llm] Starting classification | model={model} temp={temperature} max_tokens={max_tokens}",
         flush=True,
     )
     print(f"[llm] Passages provided: {len(passages)} (will compact)", flush=True)
+
     # Summarize the extracted features and compact passages to fit model context.
     features_summary: SummarizedFeatures = summarize_features(features)
     compacted_passages: List[Passage] = compact_passages(passages, max_items=8, max_chars=900)
@@ -53,7 +53,7 @@ def llm_classify(
 
     # Build chat messages and compute a prompt hash to trace this request.
     prompt_messages: List[ChatMessage] = build_prompt_messages(
-        features_summary, compacted_passages, json_mode=json_mode
+        features_summary, compacted_passages, prompt_variant=prompt_variant
     )
     prompt_hash: str = hash_messages(prompt_messages)
     print(
@@ -111,8 +111,7 @@ def llm_classify(
         "model": model,
         "temperature": temperature,
         "max_tokens": max_tokens,
-        "seed": seed,
-        "json_mode": json_mode,
+        "prompt_variant": prompt_variant,
         "prompt_hash": prompt_hash,
         "passages_used": [p.get("doc_id") for p in compacted_passages],
         "prompts": [{"role": m.role, "text": m.text} for m in prompt_messages],

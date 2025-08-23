@@ -1,8 +1,8 @@
 import uuid
 from pathlib import Path
-import typer
 
-from rexis.cli.utils import format_validator, severity_validator
+import typer
+from rexis.cli.utils import json_format_validator, prompt_variant_validator, severity_validator
 from rexis.operations.baseline import analyze_baseline_exec
 from rexis.operations.llmrag import analyze_llmrag_exec
 
@@ -36,7 +36,11 @@ def cmd_analyze_baseline(
         False, "--overwrite", "-y", help="Overwrite existing artifacts when present"
     ),
     format: str = typer.Option(
-        "json", "--format", "-f", callback=format_validator, help="Report format (default: json)"
+        "json",
+        "--format",
+        "-f",
+        callback=json_format_validator,
+        help="Report format (default: json)",
     ),
     # GHIDRA / DECOMPILER
     project_dir: Path | None = typer.Option(
@@ -133,7 +137,7 @@ def cmd_analyze_llmrag(
         "json",
         "--format",
         "-f",
-        callback=format_validator,
+        callback=json_format_validator,
         help="Report format (default: json)",
     ),
     # GHIDRA / DECOMPILER
@@ -196,11 +200,13 @@ def cmd_analyze_llmrag(
     max_tokens: int = typer.Option(
         800, "--max-tokens", "-mt", help="Max tokens in LLM response", show_default=True
     ),
-    seed: int = typer.Option(
-        42, "--seed", "-sd", help="Randomness seed for the LLM (if supported)", show_default=True
-    ),
-    json_mode: bool = typer.Option(
-        True, "--json-mode/--no-json-mode", "-jm/--no-jm", help="Force JSON-only response"
+    prompt_variant: str = typer.Option(
+        "classification",
+        "--prompt-variant",
+        "-pv",
+        help="Prompt style: classification | justification | comparison",
+        show_default=True,
+        callback=prompt_variant_validator,
     ),
     # LOGGING / AUDIT
     audit: bool = typer.Option(
@@ -232,8 +238,7 @@ def cmd_analyze_llmrag(
         model=model,
         temperature=temperature,
         max_tokens=max_tokens,
-        seed=seed,
-        json_mode=json_mode,
+        prompt_variant=prompt_variant,
         # audit
         audit=audit,
     )

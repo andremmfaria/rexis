@@ -6,11 +6,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
 from rexis.tools.llm.main import llm_classify
-from rexis.utils.constants import (
-    SCORE_THRESHOLD_MALICIOUS,
-    SCORE_THRESHOLD_SUSPICIOUS,
-)
 from rexis.tools.retrieval.main import build_queries_from_features, retrieve_context
+from rexis.utils.constants import SCORE_THRESHOLD_MALICIOUS, SCORE_THRESHOLD_SUSPICIOUS
 from rexis.utils.types import Passage, RagNotes
 from rexis.utils.utils import LOGGER, get_version, iter_pe_files, now_iso, sha256, write_json
 
@@ -76,8 +73,7 @@ def _process_sample(
     model: str,
     temperature: float,
     max_tokens: int,
-    seed: int,
-    json_mode: bool,
+    prompt_variant: str,
 ) -> Path:
     """
     Process a single sample with the LLM+RAG flow and return the final report path.
@@ -145,8 +141,7 @@ def _process_sample(
             "model": model,
             "temperature": temperature,
             "max_tokens": max_tokens,
-            "seed": seed,
-            "json_mode": json_mode,
+            "prompt_variant": prompt_variant,
         },
     )
     llm_out: Dict[str, Any] = llm_classify(
@@ -155,8 +150,7 @@ def _process_sample(
         model=model,
         temperature=temperature,
         max_tokens=max_tokens,
-        seed=seed,
-        json_mode=json_mode,
+        prompt_variant=prompt_variant,
     )
     llmrag_path: Path = out_dir / f"{sha256_hex}.llmrag.json"
     write_json(llm_out, llmrag_path)
@@ -234,8 +228,7 @@ def analyze_llmrag_exec(
     model: str,
     temperature: float,
     max_tokens: int,
-    seed: int,
-    json_mode: bool,
+    prompt_variant: str,
 ) -> Tuple[Path, Path]:
     """
     Orchestrates the llm+rag pipeline for a file or directory.
@@ -288,8 +281,7 @@ def analyze_llmrag_exec(
                 model=model,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                seed=seed,
-                json_mode=json_mode,
+                prompt_variant=prompt_variant,
             )
         except Exception as e:
             LOGGER.error("Failed LLM+RAG on %s: %s", binary, e)
@@ -381,8 +373,7 @@ def analyze_llmrag_exec(
                 "model": model,
                 "temperature": temperature,
                 "max_tokens": max_tokens,
-                "seed": seed,
-                "json_mode": json_mode,
+                "prompt_variant": prompt_variant,
             },
         },
         "outputs": {

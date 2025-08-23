@@ -69,7 +69,7 @@ def ensure_unique(dest_dir: Path, name: str) -> Path:
     return candidate
 
 
-def format_validator(value: str) -> str:
+def json_format_validator(value: str) -> str:
     v = value.lower()
     if v not in {"json"}:
         raise typer.BadParameter("Currently supported: json")
@@ -80,4 +80,14 @@ def severity_validator(value: str) -> str:
     v = value.lower()
     if v not in {"info", "warn", "error"}:
         raise typer.BadParameter("Must be one of: info, warn, error")
+    return v
+
+
+def prompt_variant_validator(value: str) -> str:
+    v = value.lower() if isinstance(value, str) else ""
+    allowed = {"classification", "justification", "comparison"}
+    if v not in allowed:
+        raise typer.BadParameter(
+            "Invalid value for --prompt-variant. Choose from: classification, justification, comparison."
+        )
     return v
