@@ -13,7 +13,7 @@ Key code entry points:
 
 ## What the LLM+RAG pipeline does
 
-For each input sample, it ensures features exist (reuse `*.features.json` or decompile a PE), builds retrieval queries, performs hybrid retrieval (dense + keyword), optionally re-ranks with a cross-encoder LLM, then prompts a chat LLM to produce a strict JSON classification that includes score, label, families, capabilities, evidence, and uncertainty. It writes an `.llmrag.json` per sample and a final `.report.json` summarizing everything.
+For each input sample, it ensures features exist (reuse `*.features.json` or decompile a PE), builds retrieval queries, performs hybrid retrieval (dense + keyword), optionally re-ranks with a cross-encoder LLM, then prompts a chat LLM to produce a strict JSON classification that includes score, label, classification tags (e.g., ransomware, trojan), families, capabilities, evidence, and uncertainty. It writes an `.llmrag.json` per sample and a final `.report.json` summarizing everything.
 
 
 ## How to run
@@ -111,6 +111,7 @@ Implementation: `llm_classify` in `../src/rexis/tools/llm/main.py`.
 	- `schema`: `rexis.llmrag.classification.v1`
 	- `score`: [0,1], coerced
 	- `label`: `malicious|suspicious|benign|unknown` coerced with thresholds from `../src/rexis/utils/constants.py`
+	- `classification`: list of high-level malware tags (e.g., ransomware, trojan, worm), bounded length
 	- `families`, `capabilities`, `tactics`: bounded lists
 	- `evidence`: up to 8 items `{id,title,detail,severity,source,doc_ref}` with coercions
 	- `uncertainty`: `low|medium|high`
@@ -130,7 +131,8 @@ Implementation: `_process_sample` in `../src/rexis/operations/llmrag.py`.
 	- `sample`: `{sha256, source_path}`
 	- `program`: from features
 	- `artifacts`: `features_path`, `llmrag_path`, and an explicit retrieval block with `queries`, `notes`, `passages` (metadata only)
-	- `llmrag`: the raw LLM classification JSON
+	- `llmrag`: the raw LLM classification JSON (now includes `classification` tags)
+	- `classification`: `{ "llm": [...] }` convenience block surfacing the tags at the top level
 	- `final`: `{score, label}`
 	- `audit`: chronological events if enabled
 

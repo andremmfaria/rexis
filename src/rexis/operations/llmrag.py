@@ -151,6 +151,8 @@ def _process_sample(
         features=features,
         passages=passages,
         model=model,
+        temperature=temperature,
+        max_tokens=max_tokens,
         seed=seed,
         json_mode=json_mode,
     )
@@ -197,6 +199,7 @@ def _process_sample(
             "retrieval": retrieval_block,
         },
         "llmrag": llm_out,
+        "classification": {"llm": llm_out.get("classification", [])},
         "final": {"score": round(score, 4), "label": final_label},
         "audit": audit_log if audit else [],
     }
