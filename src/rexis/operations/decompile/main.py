@@ -4,6 +4,7 @@ import time
 from pathlib import Path
 from typing import Any, List, Optional
 
+import jpype
 import pyghidra
 from rexis.operations.decompile.collectors import (
     collect_entry_points,
@@ -75,8 +76,11 @@ def decompile_binary_exec(
     try:
         print("[decompile] Validating Ghidra environment...")
         require_ghidra_env()
+
         print("[decompile] Starting PyGhidra...")
-        pyghidra.start()
+        if not jpype.isJVMStarted():
+            pyghidra.start(False)
+
         print("[decompile] PyGhidra started.")
 
         # Ensure required Ghidra imports and load SymbolType in env
@@ -92,18 +96,18 @@ def decompile_binary_exec(
             project_name=project_name,
             analyze=True,
             nested_project_location=True,
-        ) as flat_api:
-            program: Any = flat_api.getCurrentProgram()
+        ) as program_pointer:
+            program_instance: Any = program_pointer.getCurrentProgram()
             print("[decompile] Waiting for Ghidra analysis to complete...")
-            wait_for_analysis(program)
+            wait_for_analysis(program_instance)
             print("[decompile] Analysis complete.")
 
             prog_info: ProgramInfo = {
-                "name": program.getName(),
-                "format": program.getExecutableFormat(),
-                "language": str(program.getLanguage().getLanguageDescription()),
-                "compiler": str(program.getCompilerSpec().getCompilerSpecDescription()),
-                "image_base": str(program.getImageBase()),
+                "name": program_instance.getName(),
+                "format": program_instance.getExecutableFormat(),
+                "language": str(program_instance.getLanguage().getLanguageDescription()),
+                "compiler": str(program_instance.getCompilerSpec().getCompilerSpecDescription()),
+                "image_base": str(program_instance.getImageBase()),
                 "size": file.stat().st_size,
                 "sha256": file_hash,
             }
@@ -111,19 +115,19 @@ def decompile_binary_exec(
             print(
                 "[decompile] Collecting features (functions, imports, sections, libraries, exports, entry points, decompiled)..."
             )
-            functions: List[FunctionInfo] = collect_functions(program)
-            imports: List[str] = collect_imports(program)
-            strings: List[str] = collect_strings(program)
-            sections: List[MemorySection] = collect_sections(program)
-            libraries: List[str] = collect_libraries(program)
-            exports: List[str] = collect_exports(program)
-            entry_points: List[str] = collect_entry_points(program)
+            functions: List[FunctionInfo] = collect_functions(program_instance)
+            imports: List[str] = collect_imports(program_instance)
+            strings: List[str] = collect_strings(program_pointer, program_instance)
+            sections: List[MemorySection] = collect_sections(program_instance)
+            libraries: List[str] = collect_libraries(program_instance)
+            exports: List[str] = collect_exports(program_instance)
+            entry_points: List[str] = collect_entry_points(program_instance)
             print(
                 f"[decompile] Summary: functions={len(functions)}, imports={len(imports)}, strings={len(strings)}, sections={len(sections)}, libraries={len(libraries)}, exports={len(exports)}, entry_points={len(entry_points)}"
             )
             t0 = time.time()
             print("[decompile] Starting decompilation of functions (timeout=30s per function)...")
-            decompiled: List[DecompiledFunction] = decompile_all_functions(program, timeout_sec=30)
+            decompiled: List[DecompiledFunction] = decompile_all_functions(program_instance, timeout_sec=30)
             t1 = time.time()
             print(
                 f"[decompile] Decompilation finished: decompiled={len(decompiled)} functions in {round(t1 - t0, 2)}s"

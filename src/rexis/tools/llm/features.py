@@ -89,6 +89,7 @@ def _categorize_strings(strings: List[str]) -> Optional[Dict[str, List[str]]]:
         if items:
             deduped = list(dict.fromkeys(items))
             out[key] = deduped[:STRING_CAP_PER_CATEGORY]
+
     return out or None
 
 

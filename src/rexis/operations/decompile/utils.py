@@ -1,6 +1,7 @@
+import math
 import os
 from pathlib import Path
-from typing import Any, List
+from typing import Any
 
 from rexis.utils.utils import LOGGER
 
@@ -8,8 +9,7 @@ from rexis.utils.utils import LOGGER
 ConsoleTaskMonitor = None  # type: ignore[assignment]
 AnalysisScheduler = None  # type: ignore[assignment]
 SymbolType = None  # type: ignore[assignment]
-DefinedStringsIterator = None  # type: ignore[assignment]
-StringDataInstance = None  # type: ignore[assignment]
+DecompInterface = None  # type: ignore[assignment]
 
 
 def ensure_ghidra_imports_loaded() -> None:
@@ -17,7 +17,7 @@ def ensure_ghidra_imports_loaded() -> None:
 
     Also loads SymbolType for use by collectors after the JVM has started.
     """
-    global ConsoleTaskMonitor, AnalysisScheduler, SymbolType, DefinedStringsIterator, StringDataInstance
+    global ConsoleTaskMonitor, AnalysisScheduler, SymbolType, DecompInterface, AddressSet
     if ConsoleTaskMonitor is None:
         try:
             from ghidra.util.task import ConsoleTaskMonitor as _ConsoleTaskMonitor  # type: ignore
@@ -39,24 +39,13 @@ def ensure_ghidra_imports_loaded() -> None:
             SymbolType = _SymbolType  # type: ignore
         except Exception:
             SymbolType = None  # type: ignore
-    if DefinedStringsIterator is None:
+    if DecompInterface is None:
         try:
-            from ghidra.program.util import (  # type: ignore
-                DefinedStringsIterator as _DefinedStringsIterator,
-            )
+            from ghidra.app.decompiler import DecompInterface as _DecompInterface  # type: ignore
 
-            DefinedStringsIterator = _DefinedStringsIterator  # type: ignore
+            DecompInterface = _DecompInterface  # type: ignore
         except Exception:
-            DefinedStringsIterator = None  # type: ignore
-    if StringDataInstance is None:
-        try:
-            from ghidra.program.model.data import (  # type: ignore
-                StringDataInstance as _StringDataInstance,
-            )
-
-            StringDataInstance = _StringDataInstance  # type: ignore
-        except Exception:
-            StringDataInstance = None  # type: ignore
+            DecompInterface = None  # type: ignore
 
 
 def require_ghidra_env() -> None:
@@ -72,7 +61,6 @@ def require_ghidra_env() -> None:
 
 def wait_for_analysis(program: Any) -> None:
     """Block until program analysis completes (best-effort)."""
-    global ConsoleTaskMonitor, AnalysisScheduler
     try:
         if ConsoleTaskMonitor is None or AnalysisScheduler is None:
             LOGGER.warning(
@@ -88,3 +76,46 @@ def wait_for_analysis(program: Any) -> None:
             _t.sleep(0.1)
     except Exception as e:
         LOGGER.error("Skipping explicit analysis wait due to error: %s", e)
+
+
+def count_ascii_strings(data: bytes, min_len: int = 4) -> int:
+    count = run = 0
+    for ch in data:
+        if 32 <= ch <= 126:
+            run += 1
+        else:
+            if run >= min_len:
+                count += 1
+            run = 0
+    if run >= min_len:
+        count += 1
+    return count
+
+
+def count_utf16le_strings(data: bytes, min_len: int = 4) -> int:
+    count = run = 0
+    i, limit = 0, len(data) - 1
+    while i < limit:
+        low, high = data[i], data[i + 1]
+        if 32 <= low <= 126 and high == 0:
+            run += 1
+            i += 2
+            continue
+        if run >= min_len:
+            count += 1
+        run = 0
+        i += 2
+    if run >= min_len:
+        count += 1
+    return count
+
+
+def calc_entropy(data: bytes) -> float:
+    if not data:
+        return 0.0
+    counts = [0] * 256
+    for b in data:
+        counts[b & 0xFF] += 1
+    total = float(len(data))
+    entropy = abs(-sum((cnt / total) * math.log(cnt / total, 2) for cnt in counts if cnt))
+    return round(entropy, 4)

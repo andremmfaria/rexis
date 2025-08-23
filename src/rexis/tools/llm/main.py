@@ -57,7 +57,7 @@ def llm_classify(
     )
     prompt_hash: str = hash_messages(prompt_messages)
     print(
-        f"[llm] Built {len(prompt_messages)} messages | prompt_hash={prompt_hash[:20]}...",
+        f"[llm] Built {len(prompt_messages)} messages | prompt_hash={prompt_hash}",
         flush=True,
     )
 
