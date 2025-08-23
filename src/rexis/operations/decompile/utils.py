@@ -41,14 +41,18 @@ def ensure_ghidra_imports_loaded() -> None:
             SymbolType = None  # type: ignore
     if DefinedStringsIterator is None:
         try:
-            from ghidra.program.util import DefinedStringsIterator as _DefinedStringsIterator  # type: ignore
+            from ghidra.program.util import (  # type: ignore
+                DefinedStringsIterator as _DefinedStringsIterator,
+            )
 
             DefinedStringsIterator = _DefinedStringsIterator  # type: ignore
         except Exception:
             DefinedStringsIterator = None  # type: ignore
     if StringDataInstance is None:
         try:
-            from ghidra.program.model.data import StringDataInstance as _StringDataInstance  # type: ignore
+            from ghidra.program.model.data import (  # type: ignore
+                StringDataInstance as _StringDataInstance,
+            )
 
             StringDataInstance = _StringDataInstance  # type: ignore
         except Exception:

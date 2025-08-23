@@ -1,6 +1,6 @@
+import uuid
 from pathlib import Path
 from typing import List, Optional
-import uuid
 
 import typer
 from rexis.cli.utils import parse_metadata_list, validate_dir_or_file, validate_file_type

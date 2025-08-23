@@ -1,8 +1,8 @@
 import hashlib
-from pathlib import Path
 import sys
 import threading
 import time
+from pathlib import Path
 from typing import List, Set
 
 import pymupdf
@@ -93,6 +93,3 @@ def normalize_whitespace(s: str) -> str:
     s = re.sub(r"[ \t]+", " ", s)
     s = re.sub(r"\n{3,}", "\n\n", s)
     return s.strip()
-
-
-

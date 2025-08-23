@@ -134,7 +134,9 @@ def ingest_pdf_batch(paths: List[Path], batch: int, metadata: Dict) -> None:
 
     # Run one thread per chunk concurrently
     with ThreadPoolExecutor(max_workers=len(chunks)) as executor:
-        futures = [executor.submit(process_pdf_batch, chunk, 3, metadata, progress) for chunk in chunks]
+        futures = [
+            executor.submit(process_pdf_batch, chunk, 3, metadata, progress) for chunk in chunks
+        ]
         for fut in as_completed(futures):
             try:
                 fut.result()

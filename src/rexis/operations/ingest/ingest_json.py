@@ -163,7 +163,9 @@ def ingest_json_batch(paths: List[Path], batch: int, metadata: dict) -> None:
 
     # Run one thread per chunk concurrently
     with ThreadPoolExecutor(max_workers=len(chunks)) as executor:
-        futures = [executor.submit(process_json_batch, chunk, 50, metadata, progress) for chunk in chunks]
+        futures = [
+            executor.submit(process_json_batch, chunk, 50, metadata, progress) for chunk in chunks
+        ]
         for fut in as_completed(futures):
             try:
                 fut.result()

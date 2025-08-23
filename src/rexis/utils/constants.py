@@ -440,27 +440,17 @@ PACKER_MARKERS: Tuple[str] = (
 # Categories may contain multiple patterns (e.g., file_paths for Windows and *nix paths).
 STRING_CATEGORY_PATTERNS: Dict[str, Tuple[str, ...]] = {
     "urls": (r"\bhttps?://[\w\-._~:/?#\[\]@!$&'()*+,;=%]+",),
-    "domains": (
-        r"\b(?:(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)\.)+[a-z]{2,}\b",
-    ),
-    "ips": (
-        r"\b(?:25[0-5]|2[0-4]\d|1?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|1?\d?\d)){3}\b",
-    ),
+    "domains": (r"\b(?:(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)\.)+[a-z]{2,}\b",),
+    "ips": (r"\b(?:25[0-5]|2[0-4]\d|1?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|1?\d?\d)){3}\b",),
     "emails": (r"\b[\w.+-]+@[\w-]+\.[\w.-]+\b",),
     "registry_keys": (
         r"\b(?:HKEY_[A-Z_]+|HKLM|HKCU|HKCR|HKU|\\Registry\\Machine|\\Registry\\User)\\[^\s\"]+",
     ),
-    "mutexes": (
-        r"\b(?:Mutex|\\Global\\[^\s]+|\\BaseNamedObjects\\[^\s]+)\b",
-    ),
+    "mutexes": (r"\b(?:Mutex|\\Global\\[^\s]+|\\BaseNamedObjects\\[^\s]+)\b",),
     "file_paths": (
         r"(?:[A-Za-z]:\\(?:[^\\/:*?\"<>|\r\n]+\\)*[^\\/:*?\"<>|\r\n]*)",
         r"\b/(?:[\w.-]+/)*[\w.-]+\b",
     ),
-    "user_agents": (
-        r"\b(?:Mozilla/\d|User-Agent|AppleWebKit|Chrome/\d|Safari/\d)\b",
-    ),
-    "errors": (
-        r"\b(?:error|failed|exception|fatal|unable to|cannot)\b",
-    ),
+    "user_agents": (r"\b(?:Mozilla/\d|User-Agent|AppleWebKit|Chrome/\d|Safari/\d)\b",),
+    "errors": (r"\b(?:error|failed|exception|fatal|unable to|cannot)\b",),
 }

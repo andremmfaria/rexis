@@ -180,7 +180,9 @@ def fuse_and_rerank(
             key=lambda d: (score_by_id.get(d.id, 0.0), -fused_order.get(d.id, 0)),
             reverse=True,
         )
-        final_docs: List[Document] = apply_authority_bias_and_diversify(ordered, score_by_id, final_top_k)
+        final_docs: List[Document] = apply_authority_bias_and_diversify(
+            ordered, score_by_id, final_top_k
+        )
 
         # If something went wrong or we got too few, back off to fused
         if len(final_docs) < final_top_k:

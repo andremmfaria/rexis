@@ -4,10 +4,10 @@ from pathlib import Path
 from typing import Optional
 
 import typer
-from rexis.tools.process_documents import collect_documents_exec
 from rexis.operations.collect.malpedia import collect_malpedia_exec
 from rexis.operations.collect.malwarebazaar import collect_malwarebazaar_exec
 from rexis.operations.ingest.main import ingest_file_exec
+from rexis.tools.process_documents import collect_documents_exec
 from rexis.utils.utils import LOGGER
 
 
@@ -81,7 +81,9 @@ def collect_malpedia(
         raise typer.BadParameter(str(error))
 
     run_dir = output_dir / base_path
-    print(f"Saved {num_saved} JSON objects to {output_path} and artifacts in {run_dir} (report: {run_dir / (base_path + '.report.json')})")
+    print(
+        f"Saved {num_saved} JSON objects to {output_path} and artifacts in {run_dir} (report: {run_dir / (base_path + '.report.json')})"
+    )
 
     try:
         if ingest:
@@ -182,7 +184,9 @@ def collect_malwarebazaar(
         raise typer.BadParameter(str(error))
 
     run_dir = output_dir / base_path
-    print(f"Saved {num_saved} JSON objects to {output_path} and artifacts in {run_dir} (report: {run_dir / (base_path + '.report.json')})")
+    print(
+        f"Saved {num_saved} JSON objects to {output_path} and artifacts in {run_dir} (report: {run_dir / (base_path + '.report.json')})"
+    )
 
     try:
         if ingest and num_saved > 0:

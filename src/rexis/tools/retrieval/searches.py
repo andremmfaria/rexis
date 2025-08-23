@@ -31,7 +31,8 @@ def dense_search(
 
     best_by_id: Dict[str, Document] = {}
     for q in queries:
-        emb: List[float] = text_embedder.run(q)["embedding"]  # returns a single vector for the query
+        # returns a single vector for the query
+        emb: List[float] = text_embedder.run(q)["embedding"]
         out: Dict[str, List[Document]] = retriever.run(query_embedding=emb, top_k=top_k_dense)
         for d in out["documents"]:
             prev: Optional[Document] = best_by_id.get(d.id)

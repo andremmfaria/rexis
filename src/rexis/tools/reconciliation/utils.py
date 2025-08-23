@@ -1,11 +1,7 @@
 from datetime import datetime, timezone
 from typing import Optional
 
-from rexis.tools.reconciliation.constants import (
-    LABEL_BENIGN,
-    LABEL_MALICIOUS,
-    LABEL_SUSPICIOUS,
-)
+from rexis.tools.reconciliation.constants import LABEL_BENIGN, LABEL_MALICIOUS, LABEL_SUSPICIOUS
 from rexis.utils.types import ReconcileConfig
 from rexis.utils.utils import LOGGER
 

@@ -7,7 +7,7 @@ from rexis.tools.retrieval.searches import dense_search, keyword_search
 from rexis.tools.retrieval.store import init_store
 from rexis.utils.config import config
 from rexis.utils.constants import CAPABILITY_BUCKETS
-from rexis.utils.types import RagNotes, Passage
+from rexis.utils.types import Passage, RagNotes
 from rexis.utils.utils import LOGGER
 
 

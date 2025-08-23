@@ -157,7 +157,9 @@ def heuristic_classify(
         if rule_id in rule_args_config and isinstance(rule_args_config[rule_id], (list, tuple)):
             args_tuple = rule_args_config[rule_id]
             rule_score = float(args_tuple[0]) if len(args_tuple) > 0 else 0.2
-            rule_params = args_tuple[1] if len(args_tuple) > 1 and isinstance(args_tuple[1], dict) else {}
+            rule_params = (
+                args_tuple[1] if len(args_tuple) > 1 and isinstance(args_tuple[1], dict) else {}
+            )
         else:
             rule_score = 0.2
             rule_params = {}
@@ -169,7 +171,9 @@ def heuristic_classify(
             hit_count += 1
             if explanation:
                 hit_reasons[rule_id] = str(explanation)
-            print(f"[heuristics] Rule hit: {rule_id} (sev={evidence.severity}, score={evidence.score:.2f})")
+            print(
+                f"[heuristics] Rule hit: {rule_id} (sev={evidence.severity}, score={evidence.score:.2f})"
+            )
         else:
             miss_reason = explanation or "no hit"
             miss_reasons.append({"id": rule_id, "reason": miss_reason})
@@ -227,6 +231,7 @@ def heuristic_classify(
     )
     tag_weights: Dict[str, float] = get_nested_value(rules, "tagging.tag_weights", {}) or {}
     ev_top_k: int = int(get_nested_value(rules, "tagging.evidence_top_k", 3) or 3)
+
     def _ev_categories(ev: Evidence) -> List[Dict[str, Any]]:
         mapping: Dict[str, float] = cfg_map.get(ev.id, {})
         if not mapping:

@@ -77,27 +77,27 @@ def iter_pe_files(root: Path) -> List[Path]:
 
 
 def wait_qpm(qpm: int, state: Optional[Dict[str, float]] = None) -> Dict[str, float]:
-        """
-        Simple rate limiter helper to enforce a maximum queries-per-minute (QPM).
+    """
+    Simple rate limiter helper to enforce a maximum queries-per-minute (QPM).
 
-        Usage:
-            state = {}
-            wait_qpm(30, state)  # blocks as needed, updates state["last"]
+    Usage:
+        state = {}
+        wait_qpm(30, state)  # blocks as needed, updates state["last"]
 
-        Args:
-            qpm: Max queries per minute (>=1). If <=0, will be treated as 1.
-            state: Mutable dict used to track last call timestamp. If None, a new dict is created.
+    Args:
+        qpm: Max queries per minute (>=1). If <=0, will be treated as 1.
+        state: Mutable dict used to track last call timestamp. If None, a new dict is created.
 
-        Returns:
-            The (possibly newly created) state dict with updated "last" timestamp.
-        """
-        interval: float = 60.0 / max(1, int(qpm))
-        if state is None:
-                state = {"last": 0.0}
-        last: float = float(state.get("last", 0.0))
-        now: float = time.time()
-        delta: float = now - last
-        if delta < interval:
-                time.sleep(interval - delta)
-        state["last"] = time.time()
-        return state
+    Returns:
+        The (possibly newly created) state dict with updated "last" timestamp.
+    """
+    interval: float = 60.0 / max(1, int(qpm))
+    if state is None:
+        state = {"last": 0.0}
+    last: float = float(state.get("last", 0.0))
+    now: float = time.time()
+    delta: float = now - last
+    if delta < interval:
+        time.sleep(interval - delta)
+    state["last"] = time.time()
+    return state

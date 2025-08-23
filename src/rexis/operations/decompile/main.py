@@ -11,8 +11,8 @@ from rexis.operations.decompile.collectors import (
     collect_functions,
     collect_imports,
     collect_libraries,
-    collect_strings,
     collect_sections,
+    collect_strings,
 )
 from rexis.operations.decompile.engine import decompile_all_functions
 from rexis.operations.decompile.utils import (

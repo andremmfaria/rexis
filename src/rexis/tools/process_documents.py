@@ -212,12 +212,14 @@ def _download_and_store_url_content(
                 response.raise_for_status()
                 final_url_after_get: str = str(response.url)
                 response_headers: Dict[str, str] = response.headers or {}
-                content_type_header: Optional[str] = (response_headers.get("Content-Type") or "").split(";", 1)[
-                    0
-                ].strip().lower() or None
-                content_disposition: Optional[str] = response_headers.get("Content-Disposition") or None
-                content_disposition_filename: Optional[str] = _extract_filename_from_content_disposition(
-                    content_disposition
+                content_type_header: Optional[str] = (
+                    response_headers.get("Content-Type") or ""
+                ).split(";", 1)[0].strip().lower() or None
+                content_disposition: Optional[str] = (
+                    response_headers.get("Content-Disposition") or None
+                )
+                content_disposition_filename: Optional[str] = (
+                    _extract_filename_from_content_disposition(content_disposition)
                 )
 
                 # Read first chunk for magic detection

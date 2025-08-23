@@ -1,15 +1,15 @@
 import math
 from typing import Any, List, Set
 
+from rexis.operations.decompile.utils import DefinedStringsIterator, StringDataInstance
 from rexis.utils.types import FunctionInfo, MemorySection
 from rexis.utils.utils import LOGGER
-from rexis.operations.decompile.utils import DefinedStringsIterator, StringDataInstance, ensure_ghidra_imports_loaded
 
 # Public constants
 MAX_SECTION_SAMPLE_BYTES = 262_144  # 256 KiB
 # Strings collection limits
 MIN_STRING_LEN = 4
-MAX_STRING_LEN = 512
+MAX_STRING_LEN = 1024
 MAX_STRINGS = 10000
 MAX_BLOCK_SCAN_BYTES = 2 * 1024 * 1024  # scan up to 2 MiB per block (head and tail)
 
@@ -386,9 +386,7 @@ def collect_strings_defined_data(program: Any) -> List[str]:
                 except Exception:
                     s_val = None
                 try:
-                    inst = StringDataInstance.getStringDataInstance(
-                        program, d.getAddress()
-                    )
+                    inst = StringDataInstance.getStringDataInstance(program, d.getAddress())
                     if inst is not None:
                         s_val = inst.getStringValue()
                 except Exception:
@@ -404,6 +402,7 @@ def collect_strings_bytescan(program: Any) -> List[str]:
     """
     Byte-scan head/tail of initialized memory blocks for ASCII and UTF-16LE strings.
     """
+
     def _extract_ascii(data: bytes) -> List[str]:
         out: List[str] = []
         run: bytearray = bytearray()
@@ -450,9 +449,7 @@ def collect_strings_bytescan(program: Any) -> List[str]:
             if run_len >= MIN_STRING_LEN and len(out) < MAX_STRINGS:
                 begin = i - (run_len * 2)
                 end = i
-                s = data[begin:end][: MAX_STRING_LEN * 2].decode(
-                    "utf-16le", errors="ignore"
-                )
+                s = data[begin:end][: MAX_STRING_LEN * 2].decode("utf-16le", errors="ignore")
                 if s:
                     out.append(s)
         return out
