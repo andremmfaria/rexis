@@ -23,7 +23,7 @@ For each input PE binary (.exe/.dll/.sys):
 4) Fuse the heuristic signal with the VT signal into a final decision (score + label)
 5) Emit JSON artifacts per sample and per-run summaries
 
-Single-file mode produces one final `…report.json`. Directory mode discovers PE files recursively and processes them (optionally in parallel), plus a batch summary.
+Single-file mode produces one final `...report.json`. Directory mode discovers PE files recursively and processes them (optionally in parallel), plus a batch summary.
 
 
 ## How to run

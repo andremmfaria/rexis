@@ -464,23 +464,3 @@ STRING_CATEGORY_PATTERNS: Dict[str, Tuple[str, ...]] = {
         r"\b(?:error|failed|exception|fatal|unable to|cannot)\b",
     ),
 }
-
-# Prompt constants to keep text close to where it's used and editable.
-SYSTEM_PROMPT_BASE: str = (
-    "You are a precise malware analyst. You must produce a JSON verdict following the given schema. "
-    "If uncertain, set label='unknown' and uncertainty='high'. Prefer concise, actionable evidence."
-)
-
-SCHEMA_HINT: str = (
-    "Return STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n"
-    '  schema="rexis.llmrag.classification.v1", score (0..1), label ("malicious"|"suspicious"|"benign"|"unknown"),\n'
-    "  classification (list of strings; e.g., ransomware, trojan, worm, downloader, dropper, rootkit, banker, stealer, backdoor, botnet, keylogger, adware, spyware, wiper, rat, cryptominer),\n"
-    "  families (list of strings), capabilities (list of strings), tactics (list of strings),\n"
-    "  evidence (list of objects with: id, title, detail, severity in {info,warn,error}, source in {features,retrieval}, doc_ref),\n"
-    '  uncertainty in {"low","medium","high"} and optional notes.\n'
-    "Constrain evidence to 4-8 diverse items. Use source=features for imports/sections-based inferences; "
-    "use source=retrieval and doc_ref=<doc_id> to cite passages. "
-    "Map capability names to malware analyst terminology (injection, persistence, networking, crypto, anti-debug, exfiltration, obfuscation, c2). "
-    "Calibrate score heuristically: strong diverse capabilities with corroboration → 0.75–0.95; single strong signal → 0.45–0.65; weak/ambiguous → 0.15–0.35; none → ≤0.15. "
-    "Prefer 1–3 concise classification tags that best describe the sample's high-level type."
-)
