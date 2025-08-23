@@ -20,7 +20,7 @@ def _match_imports_substring(imps: Set[str], tokens: Set[str]) -> Set[str]:
 
 
 def rule_entry_in_writable_section(
-    features: Dict[str, Any],
+    features: Dict[str, Any], rule_score: float = 0.60, params: Dict[str, Any] = {}
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     w: Optional[bool] = is_entry_section_writable(features)
     if w is None:
@@ -33,14 +33,14 @@ def rule_entry_in_writable_section(
             title="Entrypoint in writable/executable section",
             detail="Entry section has both EXECUTE and WRITE permissions.",
             severity="error",
-            score=0.6,
+            score=float(rule_score),
         ),
         "entry section is writable and executable",
     )
 
 
 def rule_networking_indicators(
-    features: Dict[str, Any],
+    features: Dict[str, Any], rule_score: float = 0.25, params: Dict[str, Any] = {}
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     imps: Set[str] = get_imports_set(features)
     net: Set[str] = {
@@ -66,14 +66,16 @@ def rule_networking_indicators(
                 title="Networking-capable binary",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
-                score=0.25,
+                score=float(rule_score),
             ),
             f"matched networking imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no networking-related imports found")
 
 
-def rule_crypto_indicators(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
+def rule_crypto_indicators(
+    features: Dict[str, Any], rule_score: float = 0.20, params: Dict[str, Any] = {}
+) -> Tuple[Optional[Evidence], Optional[str]]:
     imps: Set[str] = get_imports_set(features)
     crypto: Set[str] = {
         "cryptacquirecontexta",
@@ -91,7 +93,7 @@ def rule_crypto_indicators(features: Dict[str, Any]) -> Tuple[Optional[Evidence]
                 title="Cryptographic API usage",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
-                score=0.2,
+                score=float(rule_score),
             ),
             f"matched crypto imports: {', '.join(sorted(matches))}",
         )
@@ -99,7 +101,7 @@ def rule_crypto_indicators(features: Dict[str, Any]) -> Tuple[Optional[Evidence]
 
 
 def rule_shell_execution_indicators(
-    features: Dict[str, Any],
+    features: Dict[str, Any], rule_score: float = 0.35, params: Dict[str, Any] = {}
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     imps: Set[str] = get_imports_set(features)
     shell: Set[str] = {"winexec", "shellexecutea", "shellexecutew", "system"}
@@ -111,14 +113,16 @@ def rule_shell_execution_indicators(
                 title="Shell execution capability",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="error",
-                score=0.35,
+                score=float(rule_score),
             ),
             f"matched shell-exec imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no shell/execution-related imports found")
 
 
-def rule_autorun_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
+def rule_autorun_persistence(
+    features: Dict[str, Any], rule_score: float = 0.25, params: Dict[str, Any] = {}
+) -> Tuple[Optional[Evidence], Optional[str]]:
     imps: Set[str] = get_imports_set(features)
     reg: Set[str] = {
         "regsetvaluea",
@@ -136,7 +140,7 @@ def rule_autorun_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
                 title="Potential persistence via registry",
                 detail=f"Registry APIs present: {', '.join(sorted(matches))}",
                 severity="warn",
-                score=0.25,
+                score=float(rule_score),
             ),
             f"matched registry imports: {', '.join(sorted(matches))}",
         )
@@ -146,7 +150,7 @@ def rule_autorun_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
 
 
 def rule_debugger_anti_debug_indicators(
-    features: Dict[str, Any],
+    features: Dict[str, Any], rule_score: float = 0.20, params: Dict[str, Any] = {}
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     imps: Set[str] = get_imports_set(features)
     dbg: Set[str] = {
@@ -163,14 +167,18 @@ def rule_debugger_anti_debug_indicators(
                 title="Debugger/anti-debug indicators",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
-                score=0.2,
+                score=float(rule_score),
             ),
             f"matched debug/anti-debug imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no debugger/anti-debug imports found")
 
 
-def rule_packer_artifacts(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
+def rule_packer_artifacts(
+    features: Dict[str, Any],
+    rule_score: float = 0.40,
+    params: Dict[str, Any] = {"no_tiny_text_factor": 0.5},
+) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Packer/obfuscation hints: presence of imports like 'LoadResource', 'FindResource',
     extremely small .text, or known packer strings (UPX, MPRESS, ASPack).
@@ -196,13 +204,14 @@ def rule_packer_artifacts(features: Dict[str, Any]) -> Tuple[Optional[Evidence],
             "no packer indicators: no known packer strings, no resource-packaging APIs, and .text not tiny",
         )
     sev: str = "warn" if "tiny-.text" in hits else "info"
+    score_val: float = float(rule_score)
     return (
         Evidence(
             id="packer_artifacts",
             title="Packer / obfuscation indicators",
             detail=f"Signals: {', '.join(hits)}",
             severity=sev,
-            score=0.4 if "tiny-.text" in hits else 0.2,
+            score=score_val,
         ),
         f"signals: {', '.join(hits)}",
     )
@@ -210,6 +219,13 @@ def rule_packer_artifacts(features: Dict[str, Any]) -> Tuple[Optional[Evidence],
 
 def rule_suspicious_api_combination(
     features: Dict[str, Any],
+    rule_score: float = 1.00,
+    params: Dict[str, Any] = {
+        "inj_weight": 0.5,
+        "net_weight": 0.3,
+        "reg_weight": 0.2,
+        "severity_error_threshold": 0.5,
+    },
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Suspicious API combinations frequently used by droppers/injectors:
@@ -236,13 +252,13 @@ def rule_suspicious_api_combination(
     score: float = 0.0
     hit_sets: List[str] = []
     if _match_imports_substring(imps, inj):
-        score += 0.5
+        score += params.get("inj_weight")
         hit_sets.append("process-injection")
     if _match_imports_substring(imps, net):
-        score += 0.3
+        score += params.get("net_weight")
         hit_sets.append("networking")
     if _match_imports_substring(imps, reg):
-        score += 0.2
+        score += params.get("reg_weight")
         hit_sets.append("registry")
 
     if score == 0.0:
@@ -252,14 +268,20 @@ def rule_suspicious_api_combination(
             id="sus_api_combo",
             title="Suspicious API combination",
             detail=f"Hits: {', '.join(hit_sets)}",
-            severity="error" if score >= 0.5 else "warn",
-            score=min(1.0, score),
+            severity=(
+                "error" if score >= float(params.get("severity_error_threshold")) else "warn"
+            ),
+            score=min(1.0, float(rule_score) * score),
         ),
         f"hit sets: {', '.join(hit_sets)}",
     )
 
 
-def rule_tiny_text_section(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
+def rule_tiny_text_section(
+    features: Dict[str, Any],
+    rule_score: float = 0.25,
+    params: Dict[str, Any] = {"tiny_text_size_threshold": 4096},
+) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Dedicated signal when .text section is unusually small (< 4KB).
     Even if covered in packer_artifacts, expose as its own rule for scoring flexibility.
@@ -279,7 +301,8 @@ def rule_tiny_text_section(features: Dict[str, Any]) -> Tuple[Optional[Evidence]
             except Exception:
                 size_info = None
             break
-    detail = "Detected tiny .text section (<4KB)"
+    thr = int(params.get("tiny_text_size_threshold"))
+    detail = f"Detected tiny .text section (<{thr}B)"
     if size_info is not None and size_info > 0:
         detail += f"; size={size_info} bytes"
     return (
@@ -288,13 +311,22 @@ def rule_tiny_text_section(features: Dict[str, Any]) -> Tuple[Optional[Evidence]
             title="Tiny .text section",
             detail=detail,
             severity="warn",
-            score=0.25,
+            score=float(rule_score),
         ),
         "tiny .text section detected",
     )
 
 
-def rule_low_entropy_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
+def rule_low_entropy_strings(
+    features: Dict[str, Any],
+    rule_score: float = 0.10,
+    params: Dict[str, Any] = {
+        "min_prog_size": 102400,
+        "low_strings_threshold": 8,
+        "short_ratio_threshold": 0.8,
+        "short_case_factor": 0.8,
+    },
+) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Very few or no human-readable strings can indicate packing or heavy obfuscation.
     We treat low string count as a proxy for "low information in strings".
@@ -302,33 +334,36 @@ def rule_low_entropy_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
     strings: List[str] = get_strings_list(features)
     total: int = len(strings)
     prog_size: int = int(get_nested_value(features, "program.size", 0) or 0)
-    # Heuristic: if program is sizable (>100KB) but has very few strings, flag.
-    if prog_size >= 100 * 1024 and total <= 8:
+    min_prog = int(params.get("min_prog_size"))
+    low_thresh = int(params.get("low_strings_threshold"))
+    # Heuristic: if program is sizable but has very few strings, flag.
+    if prog_size >= min_prog and total <= low_thresh:
         return (
             Evidence(
                 id="low_entropy_strings",
                 title="Sparse strings (possible packing)",
                 detail=f"Binary size={prog_size} bytes but only {total} extracted strings",
                 severity="info",
-                score=0.1,
+                score=float(rule_score),
             ),
             f"low string count: {total} strings for {prog_size} bytes",
         )
     # Alternatively, if there are strings but most are very short (<4 chars), also weak signal
     short = sum(1 for s in strings if len(s) < 4)
-    if total > 0 and short / max(1, total) > 0.8 and prog_size >= 100 * 1024:
+    short_ratio_thr = float(params.get("short_ratio_threshold"))
+    if total > 0 and short / max(1, total) > short_ratio_thr and prog_size >= min_prog:
         return (
             Evidence(
                 id="low_entropy_strings",
                 title="Mostly short strings (possible packing)",
                 detail=f"{short}/{total} strings <4 chars",
                 severity="info",
-                score=0.08,
+                score=float(rule_score),
             ),
             f"short strings ratio: {short}/{total}",
         )
     # Miss reason
-    if prog_size < 100 * 1024:
+    if prog_size < min_prog:
         return None, "program size below threshold (<100KB) for this heuristic"
     if total == 0:
         return None, "no extracted strings"
@@ -336,7 +371,7 @@ def rule_low_entropy_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
 
 
 def rule_dynamic_api_resolution(
-    features: Dict[str, Any],
+    features: Dict[str, Any], rule_score: float = 0.20, params: Dict[str, Any] = {}
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     LoadLibrary/GetProcAddress patterns used for late binding and API hashing.
@@ -351,14 +386,16 @@ def rule_dynamic_api_resolution(
                 title="Dynamic API resolution",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
-                score=0.2,
+                score=float(rule_score),
             ),
             f"matched dynamic resolution imports: {', '.join(sorted(matches))}",
         )
     return None, ("no imports present" if not imps else "no dynamic API resolution imports found")
 
 
-def rule_service_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
+def rule_service_persistence(
+    features: Dict[str, Any], rule_score: float = 0.25, params: Dict[str, Any] = {}
+) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Windows Service creation/manipulation APIs used for persistence/privileged execution.
     """
@@ -385,7 +422,7 @@ def rule_service_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
                 title="Service manipulation",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
-                score=0.25,
+                score=float(rule_score),
             ),
             f"matched service control imports: {', '.join(sorted(matches))}",
         )
@@ -395,7 +432,7 @@ def rule_service_persistence(features: Dict[str, Any]) -> Tuple[Optional[Evidenc
 
 
 def rule_filesystem_modification(
-    features: Dict[str, Any],
+    features: Dict[str, Any], rule_score: float = 0.10, params: Dict[str, Any] = {}
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Filesystem modification capability. On its own it's common, so low severity unless paired elsewhere.
@@ -423,7 +460,7 @@ def rule_filesystem_modification(
                 title="Filesystem modification capability",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="info",
-                score=0.1,
+                score=float(rule_score),
             ),
             f"matched filesystem imports: {', '.join(sorted(matches))}",
         )
@@ -445,6 +482,8 @@ def _extract_urls_and_ips(strings: List[str]) -> Tuple[List[str], List[str]]:
 
 def rule_suspicious_urls_in_strings(
     features: Dict[str, Any],
+    rule_score: float = 0.15,
+    params: Dict[str, Any] = {"warn_hits_threshold": 3, "below_threshold_ratio": 0.08},
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Detect hard-coded URLs/IPs excluding well-known social domains.
@@ -465,21 +504,34 @@ def rule_suspicious_urls_in_strings(
         if urls or ips:
             return None, "only benign/social domains or invalid endpoints found"
         return None, "no URLs or IP addresses found in strings"
-    # Show up to 3 indicators in detail
-    preview = filtered_urls[:3] + ips[: max(0, 3 - len(filtered_urls))]
+    # Show up to warn_hits_threshold indicators in detail
+    preview = (
+        filtered_urls[: int(params.get("warn_hits_threshold"))]
+        + ips[: max(0, int(params.get("warn_hits_threshold")) - len(filtered_urls))]
+    )
+    final_score = float(
+        rule_score
+        * (
+            1.0
+            if total_hits >= int(params.get("warn_hits_threshold"))
+            else float(params.get("below_threshold_ratio") / rule_score)
+        )
+    )
     return (
         Evidence(
             id="suspicious_urls_in_strings",
             title="Embedded external endpoints",
             detail=f"Found {total_hits} URL/IP indicators; e.g., {', '.join(preview)}",
-            severity="warn" if total_hits >= 3 else "info",
-            score=0.15 if total_hits >= 3 else 0.08,
+            severity=("warn" if total_hits >= int(params.get("warn_hits_threshold")) else "info"),
+            score=float(final_score),
         ),
         f"found {total_hits} endpoints",
     )
 
 
-def rule_anti_vm_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidence], Optional[str]]:
+def rule_anti_vm_strings(
+    features: Dict[str, Any], rule_score: float = 0.15, params: Dict[str, Any] = {}
+) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Anti-VM/analysis hints via strings.
     """
@@ -506,14 +558,14 @@ def rule_anti_vm_strings(features: Dict[str, Any]) -> Tuple[Optional[Evidence], 
             title="Anti-VM indicators (strings)",
             detail=f"Tokens: {', '.join(sorted(hits))}",
             severity="warn",
-            score=0.15,
+            score=float(rule_score),
         ),
         f"tokens: {', '.join(sorted(hits))}",
     )
 
 
 def rule_http_exfil_indicators(
-    features: Dict[str, Any],
+    features: Dict[str, Any], rule_score: float = 0.20, params: Dict[str, Any] = {}
 ) -> Tuple[Optional[Evidence], Optional[str]]:
     """
     Specific HTTP exfil/POST indicators from WinINet/WinHTTP APIs.
@@ -536,7 +588,7 @@ def rule_http_exfil_indicators(
                 title="HTTP request/POST capability",
                 detail=f"Imports include: {', '.join(sorted(matches))}",
                 severity="warn",
-                score=0.2,
+                score=float(rule_score),
             ),
             f"matched HTTP exfil imports: {', '.join(sorted(matches))}",
         )

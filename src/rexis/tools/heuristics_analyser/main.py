@@ -125,7 +125,9 @@ def heuristic_classify(
 
     # Collect evidence from built-in rules
     # Each rule returns (Evidence|None, miss_reason|None)
-    ruleset: List[Tuple[str, Callable[[Dict[str, Any]], Tuple[Optional[Evidence], Optional[str]]]]] = [
+    ruleset: List[
+        Tuple[str, Callable[[Dict[str, Any]], Tuple[Optional[Evidence], Optional[str]]]]
+    ] = [
         ("sus_api_combo", rule_suspicious_api_combination),
         ("packer_artifacts", rule_packer_artifacts),
         ("tiny_text_section", rule_tiny_text_section),
@@ -148,22 +150,30 @@ def heuristic_classify(
     hit_count: int = 0
     miss_reasons: List[Dict[str, str]] = []
     hit_reasons: Dict[str, str] = {}
-    for rid, rule_fn in ruleset:
-        if not is_rule_enabled(rid, rules):
+    rule_args_config: Dict[str, Any] = get_nested_value(rules, "rule_args", {}) or {}
+    for rule_id, rule_func in ruleset:
+        if not is_rule_enabled(rule_id, rules):
             continue
-        ev, note = rule_fn(features)
-        if ev:
-            # Ensure the evidence id matches the configured rule id
-            ev.id = rid
-            all_ev.append(ev)
-            hit_count += 1
-            if note:
-                hit_reasons[rid] = str(note)
-            print(f"[heuristics] Rule hit: {rid} (sev={ev.severity}, score={ev.score:.2f})")
+        if rule_id in rule_args_config and isinstance(rule_args_config[rule_id], (list, tuple)):
+            args_tuple = rule_args_config[rule_id]
+            rule_score = float(args_tuple[0]) if len(args_tuple) > 0 else 0.2
+            rule_params = args_tuple[1] if len(args_tuple) > 1 and isinstance(args_tuple[1], dict) else {}
         else:
-            reason = note or "no hit"
-            miss_reasons.append({"id": rid, "reason": reason})
-            print(f"[heuristics] Rule miss: {rid} (reason={reason})")
+            rule_score = 0.2
+            rule_params = {}
+        evidence, explanation = rule_func(features, rule_score, rule_params)
+        if evidence:
+            # Ensure the evidence id matches the configured rule id
+            evidence.id = rule_id
+            all_ev.append(evidence)
+            hit_count += 1
+            if explanation:
+                hit_reasons[rule_id] = str(explanation)
+            print(f"[heuristics] Rule hit: {rule_id} (sev={evidence.severity}, score={evidence.score:.2f})")
+        else:
+            miss_reason = explanation or "no hit"
+            miss_reasons.append({"id": rule_id, "reason": miss_reason})
+            print(f"[heuristics] Rule miss: {rule_id} (reason={miss_reason})")
 
     print(f"[heuristics] Rules evaluated: {len(ruleset)}, hits: {hit_count}")
 
@@ -201,6 +211,33 @@ def heuristic_classify(
         f"[heuristics] Tags selected: {len(sorted_tags)} (threshold={tag_threshold:.2f}, top_k={top_k})"
     )
 
+    # Derive a simple classification list from the top tags (names only)
+    classification_top_k: int = int(get_nested_value(rules, "tagging.classification_top_k", 3) or 3)
+    classification: List[str] = [t for t, _ in sorted_tags[: max(0, classification_top_k)]]
+    # Fallback: if no tag met the threshold but we have scores, pick the best few anyway
+    if not classification and tag_scores:
+        fallback_sorted: List[Tuple[str, float]] = sorted(
+            tag_scores.items(), key=lambda x: (-x[1], x[0])
+        )[: max(0, classification_top_k)]
+        classification = [t for t, _ in fallback_sorted]
+
+    # Prepare per-evidence category hints based on rule→tag map
+    cfg_map: Dict[str, Dict[str, float]] = (
+        get_nested_value(rules, "tagging.map", {}) or DEFAULT_TAG_SCORES
+    )
+    tag_weights: Dict[str, float] = get_nested_value(rules, "tagging.tag_weights", {}) or {}
+    ev_top_k: int = int(get_nested_value(rules, "tagging.evidence_top_k", 3) or 3)
+    def _ev_categories(ev: Evidence) -> List[Dict[str, Any]]:
+        mapping: Dict[str, float] = cfg_map.get(ev.id, {})
+        if not mapping:
+            return []
+        scored = [
+            (tag, min(1.0, float(w) * float(tag_weights.get(tag, 1.0)) * float(ev.score)))
+            for tag, w in mapping.items()
+        ]
+        scored.sort(key=lambda x: (-x[1], x[0]))
+        return [{"tag": tag, "score": round(float(s), 4)} for tag, s in scored[: max(0, ev_top_k)]]
+
     result: Dict[str, Any] = {
         "schema": "rexis.baseline.heuristics.v1",
         "score": round(float(score), 4),
@@ -213,11 +250,13 @@ def heuristic_classify(
                 "severity": ev.severity,
                 "score": round(float(ev.score), 4),
                 "reason": hit_reasons.get(ev.id),
+                "categories": _ev_categories(ev),
             }
             for ev in returned_ev
         ],
         "counts": counts,
         "tags": [{"tag": tag, "score": round(float(s), 4)} for tag, s in sorted_tags],
+        "classification": classification,
         "rule_misses": miss_reasons,
     }
     return result

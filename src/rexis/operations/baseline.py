@@ -184,6 +184,24 @@ def _process_sample(
     # Include tags inferred by heuristics (already scored) as another taxonomy hint
     tags = heur.get("tags") or []
 
+    # Classification output: heuristics-derived labels from tags, and VT-derived families/names when available
+    heur_cls = heur.get("classification") or []
+    vt_cls: List[str] = []
+    if vt_result:
+        # Prefer normalized families; fallback to vendor names
+        if families:
+            vt_cls = sorted(families.keys())
+        else:
+            # try popular_threat_name or meaningful_name strings
+            ptn = vt_result.get("popular_threat_name") if isinstance(vt_result, dict) else None
+            if isinstance(ptn, list):
+                vt_cls.extend([str(x) for x in ptn])
+            elif isinstance(ptn, str):
+                vt_cls.extend([s.strip() for s in ptn.split(",") if s.strip()])
+            mn = vt_result.get("meaningful_name") if isinstance(vt_result, dict) else None
+            if isinstance(mn, str):
+                vt_cls.append(mn)
+
     report: Dict[str, Any] = {
         "schema": "rexis.baseline.report.v1",
         "run_id": run_name,
@@ -201,6 +219,10 @@ def _process_sample(
         "taxonomy": {
             "families": families,  # canonical family counts from VT names
             "tags": tags,  # inferred tags from heuristics
+        },
+        "classification": {
+            "heuristics": heur_cls,
+            "virustotal": vt_cls,
         },
         "final": fusion.get("final", {}),
         "decision": fusion,

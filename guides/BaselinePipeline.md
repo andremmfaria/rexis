@@ -92,8 +92,11 @@ In the baseline orchestrator (`_process_sample` in `../src/rexis/operations/base
 
 Implementation: `../src/rexis/tools/heuristics_analyser/main.py`
 - Applies a suite of built-in rules (see `rules.py` and helpers in `utils.py`), e.g.:
-	- Suspicious API combinations, packer artifacts, tiny .text, writable entry section, networking/HTTP indicators, crypto usage, dynamic API resolution, shell execution, autorun/service persistence, filesystem modification, suspicious URLs, anti-VM, anti-debug.
+	- Suspicious API combinations, packer artifacts, tiny .text, low-entropy strings, writable entry section, networking indicators, HTTP exfil indicators, crypto usage, dynamic API resolution, shell execution, autorun/service persistence, filesystem modification, suspicious URLs, anti-VM, anti-debug.
 - Each rule can emit an Evidence item: `{id, title, detail, severity, score}`.
+- Evidence now also records:
+	- `reason`: short human-readable hit explanation when available
+	- `categories`: top tags relevant to this evidence with per-tag scores
 - Evidence set is combined into a score using a configurable strategy:
 	- Default is weighted sum with per-rule caps (`weights`) and optional `base` contribution.
 	- Label is assigned by thresholds (`malicious`, `suspicious`), with optional per-rule label overrides.
@@ -107,16 +110,17 @@ Configuration knobs and defaults (see `../src/rexis/utils/constants.py` and load
 	- `weights`: per-rule weight caps
 	- `allow_rules` / `deny_rules`: enable/disable subsets of rules
 	- `label_overrides`: map certain rule hits directly to labels
-	- `tagging`: `map`, `tag_weights`, `threshold`, `top_k`
+	- `tagging`: `map`, `tag_weights`, `threshold`, `top_k`, `classification_top_k`, `evidence_top_k`
 	- `taxonomy.normalization_rules`: regex-to-family mapping for VT name normalization (used later)
 
 Heuristics output shape (subset):
 - `schema`: `rexis.baseline.heuristics.v1`
 - `score`: float in [0,1]
 - `label`: `malicious|suspicious|benign`
-- `evidence`: filtered by `--min-severity`
+- `evidence`: filtered by `--min-severity`, each item may include `reason` and `categories`
 - `counts`: evidence counts by severity
 - `tags`: ranked tag list with scores
+- `classification`: list of top tags (names) used as a light-weight heuristic classification summary
 - `rule_misses`: non-hit reasons per rule
 
 
@@ -152,7 +156,7 @@ Decision output shape (subset, embedded under `decision` in the final report):
 - `confidence.{heuristics_confidence, virustotal_confidence}`
 - `weights.{heuristics_weight, virustotal_weight}`
 - `comparison.{score_gap, disagreement_penalty, conflict_override_applied}`
-- `final.{score, label, thresholds}`
+- `final.{score, label, thresholds, decision_thresholds}`
 - `explanation`: human-readable notes
 
 
@@ -167,6 +171,7 @@ The per-sample final report (`H.report.json`) includes:
 - `taxonomy`:
 	- `families`: counts derived from VT “popular threat name/category” and `meaningful_name`, normalized via regex rules in the heuristics config (or defaults in `DEFAULT_NORMALIZATION_RULES` from `../src/rexis/utils/constants.py`). Implementation in `../src/rexis/tools/heuristics_analyser/normal.py`.
 	- `tags`: top tags inferred from heuristics evidence
+- `classification`: `{heuristics: [..], virustotal: [..]}` — top heuristic tags and VT-derived families/names
 - `final`: shortcut to fused `score` and `label`
 - `decision`: full fusion object
 - `heuristics`: full heuristics object
@@ -177,7 +182,7 @@ Audit events (emitted by `_process_sample`):
 - `pipeline_start` → input file and run id
 - `decompile_start` / `decompile_done`
 - `heuristics_start` / `heuristics_done`
-- `vt_start` / `vt_done`
+- `vt_start` / `vt_done` (includes fields `ok` and `error`)
 - `pipeline_done`
 
 Per-run report (`baseline-analysis-<RUN_ID>.report.json`) captures:

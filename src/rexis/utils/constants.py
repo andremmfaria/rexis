@@ -65,6 +65,43 @@ DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
         # Example: if "ransom_notes" fires, force label
         # "ransom_notes": "ransomware"
     },
+    "rule_args": {
+        "sus_api_combo": (
+            1.0,
+            {
+                "inj_weight": 0.5,
+                "net_weight": 0.3,
+                "reg_weight": 0.2,
+                "severity_error_threshold": 0.5,
+            },
+        ),
+        "packer_artifacts": (0.40, {"no_tiny_text_factor": 0.5}),
+        "tiny_text_section": (0.25, {"tiny_text_size_threshold": 4096}),
+        "low_entropy_strings": (
+            0.10,
+            {
+                "min_prog_size": 100 * 1024,
+                "low_strings_threshold": 8,
+                "short_ratio_threshold": 0.8,
+                "short_case_factor": 0.8,
+            },
+        ),
+        "entry_in_writable": (0.60, {}),
+        "networking_indicators": (0.25, {}),
+        "http_exfil_indicators": (0.20, {}),
+        "crypto_indicators": (0.20, {}),
+        "dynamic_api_resolution": (0.20, {}),
+        "shell_exec_indicators": (0.35, {}),
+        "autorun_persistence": (0.25, {}),
+        "service_persistence": (0.25, {}),
+        "filesystem_mod": (0.10, {}),
+        "suspicious_urls_in_strings": (
+            0.15,
+            {"warn_hits_threshold": 3, "below_threshold_ratio": 0.08 / 0.15},
+        ),
+        "anti_vm_strings": (0.15, {}),
+        "dbg_anti_dbg": (0.20, {}),
+    },
 }
 
 # Centralized score thresholds for label assignment used across the codebase
