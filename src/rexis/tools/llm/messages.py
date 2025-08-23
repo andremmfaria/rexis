@@ -2,7 +2,15 @@ import json
 from typing import Any, Dict, List, Optional
 
 from haystack.dataclasses import ChatMessage
-from rexis.tools.llm.utils import truncate
+from rexis.tools.llm.utils import clip_text, format_key_value, truncate
+from rexis.utils.types import (
+    ImportsByCapability,
+    PackerHints,
+    Passage,
+    ProgramInfo,
+    SectionSummary,
+    SummarizedFeatures,
+)
 
 SYSTEM_PROMPT_BASE: str = (
     "You are a precise malware analyst. You must produce a JSON verdict following the given schema. "
@@ -27,76 +35,47 @@ SCHEMA_HINT: str = (
     "Prefer 1–3 concise classification tags that best describe the sample's high-level type."
 )
 
-K_RETRIEVED_DOCS: int = 3
-MAX_FEATURE_LINES: int = 14
-MAX_LINE_CHARS: int = 160
-MAX_DOC_SNIPPET_CHARS: int = 360
+MAX_FEATURE_LINES: int = 20
+MAX_LINE_CHARS: int = 200
 INCLUDE_METADATA_FOOTER: bool = True
 DEFAULT_MAX_PASSAGES: int = 8
-DEFAULT_PASSAGE_MAX_CHARS: int = 900
+DEFAULT_PASSAGE_MAX_CHARS: int = 1000
 
 
-def _clip_text(text: Optional[str], max_length: int) -> str:
-    """Safely clip a string to at most ``max_length`` characters, adding an ellipsis if clipped.
-
-    Args:
-        text: The string to clip. If None or empty, returns an empty string.
-        max_length: Maximum allowed length of the returned string.
-
-    Returns:
-        The clipped string (with trailing ellipsis if truncation occurred).
-    """
-    if not text:
-        return ""
-    return text if len(text) <= max_length else (text[: max(0, max_length - 1)] + "...")
-
-
-def _format_key_value(key: str, value: Any) -> str:
-    """Format a key/value pair for human-readable bullet output.
-
-    Lists and dicts are JSON-encoded to keep one-line formatting.
-    """
-    try:
-        if isinstance(value, (dict, list)):
-            value = json.dumps(value, ensure_ascii=False)
-        return f"{key}: {value}"
-    except Exception:
-        return f"{key}: {value}"
-
-
-def _render_feature_bullets(feature_summary: Dict[str, Any]) -> List[str]:
+def _render_feature_bullets(feature_summary: SummarizedFeatures) -> List[str]:
     """Build concise bullet lines from a feature summary mapping."""
     lines: List[str] = []
-    program: Dict[str, Any] = (feature_summary or {}).get("program") or {}
+    program: ProgramInfo = feature_summary.get("program") or {}
     if program:
-        for field in ("name", "format", "language", "compiler", "image_base", "size", "sha256"):
-            if program.get(field) not in (None, "", []):
-                lines.append(f"- {_format_key_value(field, program.get(field))}")
+        for field, value in program.items():
+            if value not in (None, "", []):
+                lines.append(f"- {format_key_value(field, value)}")
 
     # Imports grouped by capability (already preprocessed upstream)
-    imports_by_capability: Dict[str, List[str]] = (feature_summary or {}).get("imports_by_capability") or {}
+    imports_by_capability: ImportsByCapability = feature_summary.get("imports_by_capability") or {}
     if imports_by_capability:
         for capability, imports in imports_by_capability.items():
             if not imports:
                 continue
-            sample = ", ".join(_clip_text(name, 40) for name in imports[:6])
-            lines.append(f"- capability:{capability} -> imports: {sample}{'...' if len(imports) > 6 else ''}")
+            sample = ", ".join(clip_text(name, 40) for name in imports[:6])
+            lines.append(
+                f"- capability:{capability} -> imports: {sample}{'...' if len(imports) > 6 else ''}"
+            )
 
     # Packer hints (if any)
-    packer_hints: Dict[str, Any] = (feature_summary or {}).get("packer_hints") or {}
+    packer_hints: PackerHints = feature_summary.get("packer_hints") or []
     if packer_hints:
-        for hint_key, hint_value in packer_hints.items():
-            lines.append(f"- packer_hint:{hint_key} -> {_clip_text(str(hint_value), 80)}")
+        for hint in packer_hints[:6]:
+            lines.append(f"- packer_hint: {clip_text(str(hint), 80)}")
 
-    # Sections (name / perms / entropy / size)
-    sections: List[Dict[str, Any]] = (feature_summary or {}).get("sections") or []
+    sections: List[SectionSummary] = feature_summary.get("sections") or []
     for section in sections[:6]:  # keep brief
         name = section.get("name") or "?"
         entropy = section.get("entropy")
         size = section.get("size")
         permissions = section.get("perms") or section.get("attributes") or ""
         lines.append(
-            f"- section {name}: size={size}, entropy={entropy}, perms={_clip_text(str(permissions), 24)}"
+            f"- section {name}: size={size}, entropy={entropy}, perms={clip_text(str(permissions), 24)}"
         )
     if len(sections) > 6:
         lines.append(f"- (+{len(sections)-6} more sections)")
@@ -105,59 +84,49 @@ def _render_feature_bullets(feature_summary: Dict[str, Any]) -> List[str]:
     return lines[:MAX_FEATURE_LINES]
 
 
-def _render_retrieved_docs_block(retrieved_passages: List[Dict[str, Any]], top_k: int) -> str:
-    """Render a human-readable block summarizing the top-k retrieved passages."""
+def _render_retrieved_docs_block(retrieved_passages: List[Passage]) -> str:
+    """Render a human-readable block summarizing retrieved passages."""
     lines: List[str] = []
-    for index, passage in enumerate(retrieved_passages[:top_k], start=1):
-        doc_id = passage.get("id") or passage.get("doc_id") or f"doc_{index}"
+    for index, passage in enumerate(retrieved_passages, start=1):
+        doc_id = passage.get("doc_id") or f"doc_{index}"
         title = passage.get("title") or passage.get("source") or "Document"
-        source = passage.get("source") or passage.get("origin") or "unknown"
-        # Try typical content keys
-        snippet = passage.get("content") or passage.get("text") or passage.get("snippet") or ""
-        snippet = _clip_text(str(snippet).strip().replace("\n", " "), MAX_DOC_SNIPPET_CHARS)
-        lines.append(f"[{index}] {title} (id={doc_id}, source={source}): {snippet}")
+        source = passage.get("source") or "unknown"
+        text = passage.get("text") or ""
+        lines.append(f"[{index}] {title} (id={doc_id}, source={source}): {text}")
     if not lines:
         lines.append("(no retrieved documents)")
     return "\n".join(lines)
 
 
-def _render_metadata_footer(feature_summary: Dict[str, Any], retrieved_passages: List[Dict[str, Any]]) -> str:
-    """Build a compact metadata footer with sample identifiers and retrieved ids."""
-    program: Dict[str, Any] = (feature_summary or {}).get("program") or {}
-    sha256 = program.get("sha256") or "unknown"
-    sample_name = program.get("name") or "unknown"
-    doc_ids = [
-        p.get("id") or p.get("doc_id")
-        for p in retrieved_passages[:K_RETRIEVED_DOCS]
-        if (p.get("id") or p.get("doc_id"))
-    ]
-    return f"Metadata: sample_name={sample_name}, sha256={sha256}, retrieved_ids={doc_ids}"
-
-
 def build_prompt_messages(
-    feat_summary: Dict[str, Any],
-    passages: List[Dict[str, Any]],
+    feat_summary: SummarizedFeatures,
+    retrieved_passages: List[Passage],
     json_mode: bool = True,
-    k_docs: int = K_RETRIEVED_DOCS,
 ) -> List[ChatMessage]:
     """Build ChatMessage list for LLM classification prompt.
 
     The prompt includes a system role with strict schema instructions, a user
     message with structured context, retrieved documents, and task guidance.
     """
-    system_text = SYSTEM_PROMPT_BASE + (" Output must be JSON only." if json_mode else "")
-    system_text = system_text + "\n\n" + SCHEMA_HINT
+    system_text: str = (
+        SYSTEM_PROMPT_BASE
+        + (" Output must be JSON only." if json_mode else "")
+        + "\n\n"
+        + SCHEMA_HINT
+    )
 
     # Context block (features summarized as short bullets)
-    feature_lines = _render_feature_bullets(feat_summary)
-    context_block = "Context:\n" + "\n".join(_clip_text(l, MAX_LINE_CHARS) for l in feature_lines)
+    feature_lines: List[str] = _render_feature_bullets(feat_summary)
+    context_block: str = "Context:\n" + "\n".join(
+        clip_text(l, MAX_LINE_CHARS) for l in feature_lines
+    )
 
     # Retrieved documents block (ID + source + clipped snippet)
-    docs_block = "Retrieved Documents:\n" + _render_retrieved_docs_block(passages, k_docs)
+    docs_block: str = "Retrieved Documents:\n" + _render_retrieved_docs_block(retrieved_passages)
 
     # Task instructions (explicit, stable)
-    task_block = (
-        "Task:\n"
+    task_block: str = (
+        "Tasks:\n"
         "- Classify the sample into a known malware family (or 'unknown' if undecidable).\n"
         "- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n"
         "- Optionally compare with related families if relevant.\n"
@@ -165,10 +134,8 @@ def build_prompt_messages(
     )
 
     parts: List[str] = [context_block, docs_block, task_block]
-    if INCLUDE_METADATA_FOOTER:
-        parts.append(_render_metadata_footer(feat_summary, passages))
 
-    user_text = "\n\n".join(parts)
+    user_text: str = "\n\n".join(parts)
 
     return [
         ChatMessage.from_system(system_text),
@@ -177,10 +144,10 @@ def build_prompt_messages(
 
 
 def compact_passages(
-    passages: List[Dict[str, Any]],
+    retrieved_passages: List[Passage],
     max_items: int = DEFAULT_MAX_PASSAGES,
     max_chars: int = DEFAULT_PASSAGE_MAX_CHARS,
-) -> List[Dict[str, Any]]:
+) -> List[Passage]:
     """Trim and normalize retrieved passages for prompt inclusion.
 
     Args:
@@ -191,8 +158,8 @@ def compact_passages(
     Returns:
         A list of compact passage dicts with safe-length text.
     """
-    compact: List[Dict[str, Any]] = []
-    for src in passages[:max_items]:
+    compact: List[Passage] = []
+    for src in retrieved_passages[:max_items]:
         compact.append(
             {
                 "doc_id": src.get("doc_id"),

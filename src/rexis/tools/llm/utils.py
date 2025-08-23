@@ -31,6 +31,34 @@ def parse_json_strict(reply: str) -> Dict[str, Any]:
     return parsed
 
 
+def clip_text(text: Optional[str], max_length: int) -> str:
+    """Safely clip a string to at most ``max_length`` characters, adding an ellipsis if clipped.
+
+    Args:
+        text: The string to clip. If None or empty, returns an empty string.
+        max_length: Maximum allowed length of the returned string.
+
+    Returns:
+        The clipped string (with trailing ellipsis if truncation occurred).
+    """
+    if not text:
+        return ""
+    return text if len(text) <= max_length else (text[: max(0, max_length - 1)] + "...")
+
+
+def format_key_value(key: str, value: Any) -> str:
+    """Format a key/value pair for human-readable bullet output.
+
+    Lists and dicts are JSON-encoded to keep one-line formatting.
+    """
+    try:
+        if isinstance(value, (dict, list)):
+            value = json.dumps(value, ensure_ascii=False)
+        return f"{key}: {value}"
+    except Exception:
+        return f"{key}: {value}"
+
+
 def repair_and_parse(reply: str) -> Dict[str, Any]:
     """Extract the first JSON object from a noisy string and parse it.
 
@@ -85,9 +113,7 @@ def hash_messages(messages: List[Dict[str, str]]) -> str:
     for message in messages:
         # Support both dict-style and attribute-style message objects
         role = (
-            getattr(message, "role", None)
-            if not isinstance(message, dict)
-            else message.get("role")
+            getattr(message, "role", None) if not isinstance(message, dict) else message.get("role")
         ) or ""
 
         # Prefer "text", but fall back to "content" which is common in chat APIs
@@ -149,9 +175,7 @@ def fallback_result(
 
     if raw_reply:
         # Prevent huge logs; show a short preview only
-        meta["raw_reply_preview"] = truncate(
-            str(raw_reply), max_chars=RAW_REPLY_PREVIEW_MAX_CHARS
-        )
+        meta["raw_reply_preview"] = truncate(str(raw_reply), max_chars=RAW_REPLY_PREVIEW_MAX_CHARS)
 
     result["meta"] = meta
     return result

@@ -51,7 +51,9 @@ def _decompile_target(
     )
     with features_path.open("r", encoding="utf-8") as f:
         features: Dict[str, Any] = json.load(f)
+
     hash: str = (features.get("program") or {}).get("sha256") or sha256(target)
+
     return hash, features_path, features
 
 

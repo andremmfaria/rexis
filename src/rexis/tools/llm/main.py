@@ -20,12 +20,12 @@ from rexis.utils.constants import (
     SCORE_THRESHOLD_MALICIOUS,
     SCORE_THRESHOLD_SUSPICIOUS,
 )
-from rexis.utils.types import Passage
+from rexis.utils.types import Features, Passage, SummarizedFeatures
 from rexis.utils.utils import LOGGER
 
 
 def llm_classify(
-    features: Dict[str, Any],
+    features: Features,
     passages: List[Passage],
     model: str,
     temperature: float = 0.0,
@@ -47,8 +47,8 @@ def llm_classify(
     )
     print(f"[llm] Passages provided: {len(passages)} (will compact)", flush=True)
     # Summarize the extracted features and compact passages to fit model context.
-    features_summary: Dict[str, Any] = summarize_features(features)
-    compacted_passages: List[Dict[str, Any]] = compact_passages(passages, max_items=8, max_chars=900)
+    features_summary: SummarizedFeatures = summarize_features(features)
+    compacted_passages: List[Passage] = compact_passages(passages, max_items=8, max_chars=900)
     print(f"[llm] Passages after compaction: {len(compacted_passages)} (limit 8)", flush=True)
 
     # Build chat messages and compute a prompt hash to trace this request.
@@ -74,7 +74,7 @@ def llm_classify(
 
         LOGGER.debug(f"[llm] LLM response: {result}")
 
-        raw_model_reply: str = (result.get("replies") or [""])[0].text
+        raw_model_reply: str = (result.get("replies"))[0].text
 
         print(f"[llm] LLM reply received ({len(raw_model_reply)} chars)", flush=True)
     except Exception as e:

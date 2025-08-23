@@ -27,6 +27,45 @@ class ProgramInfo(TypedDict):
     sha256: str
 
 
+# List wrapper for resource summaries
+ResourcesInfo = List["ResourceInfo"]
+
+# Mapping of capability bucket -> list of matching import names
+ImportsByCapability = Dict[str, List[str]]
+
+# List wrapper for packer hint strings
+PackerHints = List[str]
+
+
+class ExportsInfo(TypedDict, total=False):
+    names: List[str]
+    entry_point: Union[str, int]
+    tls_callbacks: List[Union[str, int]]
+
+
+class ResourceInfo(TypedDict, total=False):
+    type: Optional[str]
+    size: Optional[int]
+    entropy: Optional[float]
+    tags: Optional[List[str]]
+
+
+class SectionSummary(TypedDict, total=False):
+    name: Optional[str]
+    size: Optional[int]
+    flags: Optional[List[str]]
+
+
+class SummarizedFeatures(TypedDict, total=False):
+    program: ProgramInfo
+    imports_by_capability: ImportsByCapability
+    packer_hints: Optional[PackerHints]
+    sections: Optional[List[SectionSummary]]
+    exports: ExportsInfo
+    strings: Dict[str, List[str]]
+    resources: ResourcesInfo
+
+
 class Features(TypedDict, total=False):
     program: ProgramInfo
     functions: List[FunctionInfo]

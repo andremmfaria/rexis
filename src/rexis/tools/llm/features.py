@@ -9,6 +9,16 @@ from rexis.utils.constants import (
     STRING_CAP_PER_CATEGORY,
     STRING_CATEGORY_PATTERNS,
 )
+from rexis.utils.types import (
+    ExportsInfo,
+    Features,
+    ImportsByCapability,
+    PackerHints,
+    ProgramInfo,
+    ResourceInfo,
+    ResourcesInfo,
+    SummarizedFeatures,
+)
 
 
 def _limit_list(values: Optional[List[Any]], cap: int) -> List[Any]:
@@ -16,7 +26,7 @@ def _limit_list(values: Optional[List[Any]], cap: int) -> List[Any]:
     return values[:cap]
 
 
-def _extract_exports(features: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+def _extract_exports(features: Features) -> Optional[ExportsInfo]:
     exports = features.get("exports") or []
     if not exports and not (
         features.get("entry_point") or (features.get("program") or {}).get("entry_point")
@@ -34,7 +44,7 @@ def _extract_exports(features: Dict[str, Any]) -> Optional[Dict[str, Any]]:
 
     entry_point = features.get("entry_point") or (features.get("program") or {}).get("entry_point")
     tls_callbacks = features.get("tls_callbacks") or []
-    result = {
+    result: ExportsInfo = {
         "names": _limit_list(sorted(list(dict.fromkeys(names))), EXPORTS_CAP) or None,
         "entry_point": entry_point,
         "tls_callbacks": _limit_list(tls_callbacks, 10) or None,
@@ -82,16 +92,16 @@ def _categorize_strings(strings: List[str]) -> Optional[Dict[str, List[str]]]:
     return out or None
 
 
-def _extract_strings(features: Dict[str, Any]) -> Optional[Dict[str, List[str]]]:
+def _extract_strings(features: Features) -> Optional[Dict[str, List[str]]]:
     raw_strings = features.get("strings") or []
     return _categorize_strings(raw_strings)
 
 
-def _extract_resources(features: Dict[str, Any]) -> Optional[List[Dict[str, Any]]]:
+def _extract_resources(features: Features) -> Optional[ResourcesInfo]:
     resources = features.get("resources") or []
     if not resources:
         return None
-    out: List[Dict[str, Any]] = []
+    out: ResourcesInfo = []
     for r in resources[:RESOURCE_CAP]:
         if not isinstance(r, dict):
             continue
@@ -105,24 +115,23 @@ def _extract_resources(features: Dict[str, Any]) -> Optional[List[Dict[str, Any]
                 tags.append("large")
         except Exception:
             pass
-        out.append(
-            {
-                "type": r.get("type") or r.get("name"),
-                "size": size,
-                "entropy": entropy,
-                "tags": tags or None,
-            }
-        )
+        res: ResourceInfo = {
+            "type": r.get("type") or r.get("name"),
+            "size": size,
+            "entropy": entropy,
+            "tags": tags or None,
+        }
+        out.append(res)
     return out or None
 
 
-def _extract_imports_by_capability(features: Dict[str, Any]) -> Dict[str, List[str]]:
+def _extract_imports_by_capability(features: Features) -> ImportsByCapability:
     import_names: List[str] = [
         name for name in (features.get("imports") or []) if isinstance(name, str)
     ]
     import_names_lower: List[str] = [name.lower() for name in import_names]
 
-    imports_by_capability_map: Dict[str, List[str]] = {}
+    imports_by_capability_map: ImportsByCapability = {}
     for capability, tokens in CAPABILITY_BUCKETS.items():
         matched_imports: List[str] = sorted(
             {imp for imp in import_names_lower if any(token in imp for token in tokens)}
@@ -132,7 +141,7 @@ def _extract_imports_by_capability(features: Dict[str, Any]) -> Dict[str, List[s
     return imports_by_capability_map
 
 
-def _extract_packer_hints(features: Dict[str, Any]) -> List[str]:
+def _extract_packer_hints(features: Features) -> PackerHints:
     # Packer hints (strings/sections-dependent; keep generic)
     import_names: List[str] = [
         name for name in (features.get("imports") or []) if isinstance(name, str)
@@ -155,14 +164,13 @@ def _extract_packer_hints(features: Dict[str, Any]) -> List[str]:
     return hints
 
 
-def summarize_features(features: Dict[str, Any]) -> Dict[str, Any]:
-    program_metadata: Dict[str, Any] = features.get("program") or {}
-
-    packer_hints: List[str] = _extract_packer_hints(features)
-    exports_info: Dict[str, Any] = _extract_exports(features) or {}
+def summarize_features(features: Features) -> SummarizedFeatures:
+    program_metadata: ProgramInfo = features.get("program") or {}
+    packer_hints: PackerHints = _extract_packer_hints(features)
+    exports_info: ExportsInfo = _extract_exports(features) or {}
     strings_info: Dict[str, List[str]] = _extract_strings(features) or {}
-    resources_info: List[Dict[str, Any]] = _extract_resources(features) or []
-    imports_by_capability_map: Dict[str, List[str]] = _extract_imports_by_capability(features)
+    resources_info: ResourcesInfo = _extract_resources(features) or []
+    imports_by_capability_map: ImportsByCapability = _extract_imports_by_capability(features)
 
     sections_summary: List[Dict[str, Any]] = []
     for section in (features.get("sections") or [])[:5]:
@@ -174,7 +182,7 @@ def summarize_features(features: Dict[str, Any]) -> Dict[str, Any]:
             }
         )
 
-    result: Dict[str, Any] = {
+    result: SummarizedFeatures = {
         "program": program_metadata,
         "imports_by_capability": imports_by_capability_map,
         "packer_hints": packer_hints or None,
