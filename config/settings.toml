@@ -34,7 +34,7 @@ model = "gpt-4.1-mini"
 api_key = "@get openai_api_key"
 system_prompt = "You are a malware analysis assistant. Your task is to extract 3-7 highly relevant tags from the provided text. Tags should be keywords, entities, malware families, techniques, countries, CVEs, or other important topics.\n\nReturn ONLY a valid Python list of strings, with no explanation or extra text. Example: ['APT28', 'phishing', 'Russia', 'CVE-2023-38831', 'lateral movement'].\n\nText to tag:"
 temperature = 0.2
-max_tokens = 128
+max_tokens = 256
 
 [pipeline_params]
 retriever_top_k = 5

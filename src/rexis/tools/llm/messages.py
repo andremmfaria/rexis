@@ -58,7 +58,9 @@ DEFAULT_TASK_BLOCK: Dict[str, str] = {
     ),
 }
 
-MAX_FEATURE_LINES: int = 20
+MAX_SECTION_LINES: int = 8
+MAX_PACKER_HINTS: int = 8
+MAX_FEATURE_LINES: int = 30
 MAX_LINE_CHARS: int = 200
 INCLUDE_METADATA_FOOTER: bool = True
 DEFAULT_MAX_PASSAGES: int = 8
@@ -80,25 +82,28 @@ def _render_feature_bullets(feature_summary: SummarizedFeatures) -> List[str]:
         for capability, imports in imports_by_capability.items():
             if not imports:
                 continue
-            sample = ", ".join(clip_text(name, 40) for name in imports[:6])
+            sample = ", ".join(clip_text(name, 40) for name in imports)
             lines.append(
-                f"- capability:{capability} -> imports: {sample}{'...' if len(imports) > 6 else ''}"
+                f"- capability:{capability} -> imports: {sample}"
             )
 
     # Packer hints (if any)
     packer_hints: PackerHints = feature_summary.get("packer_hints") or []
     if packer_hints:
-        for hint in packer_hints[:6]:
+        for hint in packer_hints[:MAX_PACKER_HINTS]:
             lines.append(f"- packer_hint: {clip_text(str(hint), 80)}")
 
     sections: List[SectionSummary] = feature_summary.get("sections") or []
-    for section in sections[:6]:  # keep brief
+    for section in sections[:MAX_SECTION_LINES]:
         name = section.get("name") or "?"
         entropy = section.get("entropy")
         size = section.get("size")
-        permissions = section.get("perms") or section.get("attributes") or ""
+        type = section.get("type") or ""
+        comment = section.get("comment") or ""
+        read = section.get("read") or False
+        write = section.get("write") or False
         lines.append(
-            f"- section {name}: size={size}, entropy={entropy}, perms={clip_text(str(permissions), 24)}"
+            f"- section {name}: size={size}, entropy={entropy}, comment={clip_text(str(comment), 24)}, read={read}, write={write}, type={type}"
         )
     if len(sections) > 6:
         lines.append(f"- (+{len(sections)-6} more sections)")

@@ -53,6 +53,8 @@ class ResourceInfo(TypedDict, total=False):
 class SectionSummary(TypedDict, total=False):
     name: Optional[str]
     size: Optional[int]
+    entropy: Optional[float]
+    attributes: Optional[List[str]]
     flags: Optional[List[str]]
 
 

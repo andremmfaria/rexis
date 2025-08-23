@@ -29,7 +29,7 @@ def llm_classify(
     passages: List[Passage],
     model: str,
     temperature: float = 0.0,
-    max_tokens: int = 800,
+    max_tokens: int = 1024,
     prompt_variant: str = "classification",
 ) -> Dict[str, Any]:
     """Classify a sample with an OpenAI chat model using extracted features and retrieved passages.

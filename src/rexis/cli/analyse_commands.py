@@ -198,7 +198,7 @@ def cmd_analyze_llmrag(
         0.0, "--temperature", "-t", help="LLM temperature", show_default=True
     ),
     max_tokens: int = typer.Option(
-        800, "--max-tokens", "-mt", help="Max tokens in LLM response", show_default=True
+        1024, "--max-tokens", "-mt", help="Max tokens in LLM response", show_default=True
     ),
     prompt_variant: str = typer.Option(
         "classification",

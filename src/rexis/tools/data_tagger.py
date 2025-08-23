@@ -63,7 +63,7 @@ def tag_chunk(text: str) -> List[str]:
     api_key = getattr(tagger_cfg, "api_key", None)
     system_prompt = getattr(tagger_cfg, "system_prompt", None)
     temperature = getattr(tagger_cfg, "temperature", 0.2)
-    max_tokens = getattr(tagger_cfg, "max_tokens", 128)
+    max_tokens = getattr(tagger_cfg, "max_tokens", 256)
     # Allow disabling the tagger from config
     if getattr(getattr(config, "tagger", {}), "enabled", True) is False:
         return []
