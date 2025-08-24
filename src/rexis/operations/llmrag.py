@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
+from rexis.tools.llm.guardrails import apply_guardrails_and_classify
 from rexis.tools.llm.main import llm_classify
 from rexis.tools.retrieval.main import build_queries_from_features, retrieve_context
 from rexis.utils.constants import SCORE_THRESHOLD_MALICIOUS, SCORE_THRESHOLD_SUSPICIOUS
@@ -135,22 +136,13 @@ def _process_sample(
     _audit("rag_done", notes=rag_notes)
 
     # 3) LLM classification using features + retrieved context (JSON-mode)
-    _audit(
-        "llm_start",
-        params={
-            "model": model,
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-            "prompt_variant": prompt_variant,
-        },
-    )
-    llm_out: Dict[str, Any] = llm_classify(
+    _audit("llm_start_guardrailed", params={"model": model, "temperature": temperature, "max_tokens": max_tokens})
+    llm_out, passages_used, guard_meta = apply_guardrails_and_classify(
         features=features,
         passages=passages,
         model=model,
         temperature=temperature,
         max_tokens=max_tokens,
-        prompt_variant=prompt_variant,
     )
     llmrag_path: Path = out_dir / f"{sha256_hex}.llmrag.json"
     write_json(llm_out, llmrag_path)
@@ -177,8 +169,13 @@ def _process_sample(
         "passage_count": len(passages),
         "queries": queries,
         "notes": rag_notes,
-        "passages": [
-            {k: p.get(k) for k in ("doc_id", "source", "title", "score")} for p in passages
+        "passages_original": [
+            {k: p.get(k) for k in ("doc_id", "source", "title", "score")}
+            for p in passages
+        ],
+        "passages_used": [
+            {k: p.get(k) for k in ("doc_id", "source", "title", "score")}
+            for p in passages_used
         ],
     }
 
@@ -195,6 +192,7 @@ def _process_sample(
             "retrieval": retrieval_block,
         },
         "llmrag": llm_out,
+        "guardrails": guard_meta,
         "classification": {"llm": llm_out.get("classification", [])},
         "final": {"score": round(score, 4), "label": final_label},
         "audit": audit_log if audit else [],
