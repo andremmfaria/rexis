@@ -387,6 +387,12 @@ For questions or contributions, open an issue or pull request on GitHub.
 
 ---
 
+## ⚠️ Samples disclaimer
+
+The malware samples located in `./samples` are provided strictly for research and educational purposes within controlled environments. Any other use, distribution, or misuse is the sole responsibility of the user. The owner of this repository assumes no liability for improper use.
+
+---
+
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).

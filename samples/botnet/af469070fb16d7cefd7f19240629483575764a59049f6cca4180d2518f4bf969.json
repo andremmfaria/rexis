@@ -1,0 +1,43 @@
+{
+  "sha256_hash": "af469070fb16d7cefd7f19240629483575764a59049f6cca4180d2518f4bf969",
+  "sha3_384_hash": "3342e938ef9f09b1dc1c1d23f5cd249ecfb19b2a513aed2eb3fa04bdcfa913e25835cff4c9f7bd86ea20ebe5277d964d",
+  "sha1_hash": "f72dfc36d9d4ed6b7746d3da16fb5ec982931684",
+  "md5_hash": "27368b13d3596d3d8f48db6c463bd10d",
+  "first_seen": "2022-04-22 12:39:27",
+  "last_seen": "2022-04-22 13:47:40",
+  "file_name": "af469070fb16d7cefd7f19240629483575764a59049f6cca4180d2518f4bf969",
+  "file_size": 20947078,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "JAMESWT_WT",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "56e6eab1651c914e5d13d6a7129af622",
+  "tlsh": "T17127334AF5C44D93D3E23F342256C1344E7EBD4513D1829BBA960A443A9BAF33B3949E",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "393216:5P13dgpb/IFx70T4pAM7+pWDa8PyZ8ma3YR8JC7rjNPj52L5DdhStSg:J1tN3+gAujQUCHjNIFDd",
+  "magika": null,
+  "dhash_icon": "aebc385c4ce0e8f8",
+  "trid": [
+    "48.8% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+    "16.4% (.EXE) Win64 Executable (generic) (10523/12/4)",
+    "10.2% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+    "7.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "7.0% (.EXE) Win32 Executable (generic) (4505/5/1)"
+  ],
+  "tags": [
+    "83.41.130.122",
+    "botnet",
+    "exe"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.W32.AIDetect.malware2.4121.22579.UNOFFICIAL"
+    ],
+    "downloads": "282",
+    "uploads": "2",
+    "mail": null
+  }
+}

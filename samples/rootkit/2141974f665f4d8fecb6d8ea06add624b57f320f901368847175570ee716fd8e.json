@@ -1,0 +1,45 @@
+{
+  "sha256_hash": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e",
+  "sha3_384_hash": "16708e38cccb8700757aa7a0eab16609a6ac26d4a51455102e5fe60edc5c14ac7a4c57141252f244d09115fd83ace5a0",
+  "sha1_hash": "336f3fb4baa098ea4f54d881f2a2cf696e37c44e",
+  "md5_hash": "8d54e4abe1762f96134a0c874cfb8cdc",
+  "first_seen": "2022-09-05 06:51:01",
+  "last_seen": "2022-09-05 08:05:27",
+  "file_name": "r77_x64",
+  "file_size": 2051584,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "struppigel",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "1c8834f49b12ade6d347518d887ad928",
+  "tlsh": "T1BF95D70BFBB610C1E5BAC139E553223AFD7134A5873897D792859A4A1B31BE4ED3E700",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "24576:jBm2D0GlV7LJMLMVSBsalgydd4jnYnyeiRy:M2D0mV76LMV1algAkYP",
+  "magika": null,
+  "dhash_icon": null,
+  "trid": [
+    "48.7% (.EXE) Win64 Executable (generic) (10523/12/4)",
+    "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+    "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+    "9.2% (.EXE) DOS Executable Generic (2000/1)"
+  ],
+  "tags": [
+    "exe",
+    "Icarus",
+    "r77",
+    "rootkit",
+    "X64"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.Variant.Cerbu.137885.16887.19039.UNOFFICIAL"
+    ],
+    "downloads": "433",
+    "uploads": "2",
+    "mail": null
+  }
+}

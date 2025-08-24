@@ -1,0 +1,49 @@
+{
+  "sha256_hash": "a829694cec2fbcc05aa42f4701f10e043726baade1907faa0c76b458542b88f6",
+  "sha3_384_hash": "506654f045e9202de9d2b6c4a5fb142062129e9fe7a2173e333768d51271cc98059d10dfe786638a5085efdedaf13b0f",
+  "sha1_hash": "3a635f633c2ac3af60666ebdda7ef90ff044b349",
+  "md5_hash": "004adbbd00de437314d713841bc5f0c7",
+  "first_seen": "2023-12-25 07:38:37",
+  "last_seen": null,
+  "file_name": "CHRISTMAS.exe",
+  "file_size": 15515782,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "adm1n_usa32",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "fdcceb6f4c5ee78b5950cbd5ada4e540",
+  "tlsh": "T18AF6CFA2F181E433E4562B3C4E2AF7D4632DF5946E78516B32A46FCE3A375432925383",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "393216:HHgxZp9tCoCttmttCoCtvCoCtP9mttCNmttCoCtvCoCtP9mttCZmQCtvCoCtPq9q:Op98zt88ztqztPs8c8ztqztPs8Gtqzt1",
+  "magika": null,
+  "dhash_icon": "786e16939bceec30",
+  "trid": [
+    "29.9% (.CPL) Windows Control Panel Item (generic) (57583/11/19)",
+    "21.5% (.EXE) Win32 EXE PECompact compressed (generic) (41569/9/9)",
+    "14.0% (.EXE) UPX compressed Win32 Executable (27066/9/6)",
+    "13.8% (.EXE) Win32 EXE Yoda's Crypter (26569/9/4)",
+    "5.4% (.EXE) Win64 Executable (generic) (10523/12/4)"
+  ],
+  "tags": [
+    "exe",
+    "rootkit",
+    "Xanfpezes"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "PUA.Win.Packer.AcprotectUltraprotect-1",
+      "PUA.Win.Packer.UpxProtector-1",
+      "Win.Malware.Fragtor-9957506-0",
+      "Win.Malware.Xanfpezes-9919296-0",
+      "Win.Malware.Xanfpezes-9919297-0",
+      "Win.Malware.Xanfpezes-9919298-0",
+      "Win.Trojan.Agent-1039470"
+    ],
+    "downloads": "582",
+    "uploads": "1",
+    "mail": null
+  }
+}

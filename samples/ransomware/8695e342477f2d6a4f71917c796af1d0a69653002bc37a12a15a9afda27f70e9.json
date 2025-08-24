@@ -1,0 +1,40 @@
+{
+  "sha256_hash": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9",
+  "sha3_384_hash": "95c51f5292cb9872847431a3c49e48b1d5509c7ad0da124439bb1f54777525cfd19f7c078fab300fc3c06a4370c4d965",
+  "sha1_hash": "86baaa3a0c0d7b38101cf6dd12c26c9a59eb611b",
+  "md5_hash": "e56ffa2470d1b1abc8c64c8da9df4252",
+  "first_seen": "2025-08-17 09:17:36",
+  "last_seen": null,
+  "file_name": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9",
+  "file_size": 1011200,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "JAMESWT_WT",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "8095d8e2445a96d466ba2fb12d79d518",
+  "tlsh": "T10C254A0BF7A28DBAC51BC2314BA787716B31F4591315BB2F1E58C3312E26E609F6B614",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "12288:SKf21QAtZ+fPz1rKA2Ogoc5UzxXFBgNOm3byrkzdb:S221QAtZ+fPhKA2OwCz1FBa/",
+  "magika": "pebin",
+  "dhash_icon": null,
+  "trid": [
+    "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+    "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+    "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+  ],
+  "tags": [
+    "exe",
+    "Ransomware"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "89",
+    "uploads": "1",
+    "mail": null
+  }
+}

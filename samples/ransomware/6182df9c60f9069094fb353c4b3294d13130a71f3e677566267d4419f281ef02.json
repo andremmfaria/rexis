@@ -1,0 +1,43 @@
+{
+  "sha256_hash": "6182df9c60f9069094fb353c4b3294d13130a71f3e677566267d4419f281ef02",
+  "sha3_384_hash": "d33c7c5f1b77c9c734118c1061025bd0469d0fc450f5bd6c4a663458834f0f44aaae50db314c25aa2312c224c369c3c2",
+  "sha1_hash": "434f6d0cc7d074c3215981edca4de89a4bf1b7ec",
+  "md5_hash": "00fdc504be1788231aa7b7d2d1335893",
+  "first_seen": "2025-06-06 05:32:58",
+  "last_seen": null,
+  "file_name": "6182df9c60f9069094fb353c4b3294d13130a71f3e677566267d4419f281ef02",
+  "file_size": 16384,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "RakeshKrish12",
+  "anonymous": 0,
+  "signature": "Bert",
+  "imphash": "f6a217af971606da677d770c7543f499",
+  "tlsh": "T1C272092DE7FDC12FD1B25A7D2AE252D50275FA345965E78E19C8200F1E227C0C9E2727",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "384:qwp/VHh5iL61kGtwaHw+lBIiyBcVDv8O:q4Hh5iL6FhlSiyBcVp",
+  "magika": "pebin",
+  "dhash_icon": null,
+  "trid": [
+    "44.4% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "21.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "8.7% (.ICL) Windows Icons Library (generic) (2059/9)",
+    "8.5% (.EXE) OS/2 Executable (generic) (2029/13)",
+    "8.4% (.EXE) Generic Win/DOS Executable (2002/3)"
+  ],
+  "tags": [
+    "bert",
+    "exe",
+    "Ransomware"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.Trojan.Encoder.42127.22398.17606.UNOFFICIAL"
+    ],
+    "downloads": "565",
+    "uploads": "1",
+    "mail": null
+  }
+}

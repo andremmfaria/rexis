@@ -1,0 +1,44 @@
+{
+  "sha256_hash": "0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933",
+  "sha3_384_hash": "62cd056fccddc25b504bb8c10bacc3c6ae77815df244df2f2a63967111106282d05c44a5d0e4b63f6623d580c9fd4f7c",
+  "sha1_hash": "ddd92d14cc4c4e1e5a3afcb24087f997e63f561f",
+  "md5_hash": "67c847973f3c013e3e5049f6a82ae1b5",
+  "first_seen": "2025-03-06 12:15:35",
+  "last_seen": null,
+  "file_name": "xuy.bin",
+  "file_size": 796537,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "zxcursed1491",
+  "anonymous": 0,
+  "signature": "CoinMiner",
+  "imphash": "f34d5f2d4577ed6d9ceec516c1f5a744",
+  "tlsh": "T1FC0519003AC0CDCEF7D19A7890F09762C7A96DE70BD2911DA9AB7ED8DDB47792C05212",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "12288:B+8j7e9O0GA2imWlKdULi6tCJoNEroWjkxNBuun:Y8D0H2iDlKUftCJoNEr7k1n",
+  "magika": "pebin",
+  "dhash_icon": "b26969696961e0f0",
+  "trid": [
+    "44.1% (.EXE) Generic CIL Executable (.NET, Mono, etc.) (73123/4/13)",
+    "34.8% (.CPL) Windows Control Panel Item (generic) (57583/11/19)",
+    "6.3% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "3.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+    "3.0% (.EXE) Win16 NE executable (generic) (5038/12/1)"
+  ],
+  "tags": [
+    "botnet",
+    "CoinMiner",
+    "cvmega",
+    "exe"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "Win.Malware.Malwarex-10041079-0"
+    ],
+    "downloads": "579",
+    "uploads": "1",
+    "mail": null
+  }
+}

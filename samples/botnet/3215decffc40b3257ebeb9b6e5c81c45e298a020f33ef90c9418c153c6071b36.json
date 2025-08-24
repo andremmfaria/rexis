@@ -1,0 +1,37 @@
+{
+  "sha256_hash": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36",
+  "sha3_384_hash": "c22ae3ea7487bf92c9c1e5d4fa7da8605a68a454f90a4497e94feb049f9b80b026ad58a7014251a76346da51ce6c8fb8",
+  "sha1_hash": "f2d41df1d55178b5f7de0512912159f2663296cd",
+  "md5_hash": "618ea7b0e2a26f3c6db0a8664c63fc6f",
+  "first_seen": "2021-11-22 21:40:12",
+  "last_seen": null,
+  "file_name": "build.exe",
+  "file_size": 1818112,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "_FirehaK",
+  "anonymous": 0,
+  "signature": "RedLineStealer",
+  "imphash": "6ed4f5f04d62b18d96b26d6db7c18840",
+  "tlsh": "T1E98533DB12A90573D95BD1BC16AF14BC0708D5684B0CCEA5C799E76FA0BB10EBF92312",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "49152:HAThssooIzoGVgz+GymgXdAa/9uZvvij0b/U:hbTrGymgNAaIv5/U",
+  "magika": null,
+  "dhash_icon": null,
+  "trid": null,
+  "tags": [
+    "boba",
+    "botnet",
+    "exe",
+    "RedLineStealer",
+    "UPX"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "499",
+    "uploads": "1",
+    "mail": null
+  }
+}

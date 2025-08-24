@@ -1,0 +1,44 @@
+{
+  "sha256_hash": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d",
+  "sha3_384_hash": "896fdbde7858d896e2e12b9c2997940b70ad720df295873aa26c9cf28064712625247d394df8029f59c3ca0c60abc314",
+  "sha1_hash": "5b5cbc4e35e997e25cf74c6c68b318104c4df21b",
+  "md5_hash": "83d445f26e0296fec152f61610884ed4",
+  "first_seen": "2023-11-06 06:33:51",
+  "last_seen": "2023-11-06 08:18:05",
+  "file_name": "TrainerFL-build.36449.exe",
+  "file_size": 2048,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "likeastar20",
+  "anonymous": 0,
+  "signature": "Lu0Bot",
+  "imphash": "5e146bf6c1ef160162ed271c0ddde908",
+  "tlsh": "T15D4112DBA57025D2D14A463314830CC9E774CF7103B2916F0BDB088ED9669CB257CB0C",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "24:etGSBt6SBZsIomFsSnymFJp3XhghTSKo5Xi5X5RR7eR7rBSd40E:6LLBypStFJth6SDI77O7rBS+R",
+  "magika": null,
+  "dhash_icon": null,
+  "trid": [
+    "27.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+    "20.7% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "18.5% (.EXE) Win32 Executable (generic) (4505/5/1)",
+    "8.4% (.ICL) Windows Icons Library (generic) (2059/9)",
+    "8.3% (.EXE) OS/2 Executable (generic) (2029/13)"
+  ],
+  "tags": [
+    "backdoor",
+    "botnet",
+    "exe",
+    "Lu0Bot"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.Trojan.Packed.14234.27111.UNOFFICIAL"
+    ],
+    "downloads": "583",
+    "uploads": "2",
+    "mail": null
+  }
+}

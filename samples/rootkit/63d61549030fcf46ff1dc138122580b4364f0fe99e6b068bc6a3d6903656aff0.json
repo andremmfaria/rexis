@@ -1,0 +1,52 @@
+{
+  "sha256_hash": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0",
+  "sha3_384_hash": "6a5bbc90a38b3bf2552a7f721e8a8d83954903a9bc05f8eb80afa1ee4477cbae65b9f9f15524f5411ee52b47fd34b3b4",
+  "sha1_hash": "f023177aca17f6dc90fdd9588240cb16c70a9fe2",
+  "md5_hash": "0bd3b9f55a2d3a13f506d9d8b970e0de",
+  "first_seen": "2021-06-18 19:58:56",
+  "last_seen": "2021-06-18 20:32:07",
+  "file_name": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.bin",
+  "file_size": 57248,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "ArkbirdDevil",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "d252001e327cf09463aba69fb4de2125",
+  "tlsh": "8B438E95A2A814D4CA67D5B8C1629A1BEFF17462232187CF03B1C5950F733E0EF3A795",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "768:o1ZqCQKy8IYdfWiUelR36ihR6nmRYsOSHjS/OPNi7HbB:oNyq+4lRX6IHOSyOVi77",
+  "magika": null,
+  "dhash_icon": null,
+  "trid": null,
+  "tags": [
+    "exe",
+    "netfilter",
+    "rootkit",
+    "signed"
+  ],
+  "code_sign": [
+    {
+      "subject_cn": "Microsoft Windows Hardware Compatibility Publisher",
+      "issuer_cn": "Microsoft Windows Third Party Component CA 2012",
+      "algorithm": "sha256WithRSAEncryption",
+      "valid_from": "2020-12-15T22:15:33Z",
+      "valid_to": "2021-12-02T22:15:33Z",
+      "serial_number": "33000000b5213fca1e4aa03de40000000000b5",
+      "thumbprint_algorithm": "SHA256",
+      "thumbprint": "6d6af5a5fd8bde067e41a176287feb2c62e73cf0823e77514a3b2e2c7bfc1e24",
+      "cscb_listed": false,
+      "cscb_reason": null
+    }
+  ],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.Trojan.NtRootKit.20195.23711.24644.UNOFFICIAL",
+      "SecuriteInfo.com.Trojan.NtRootKit.20195.26521.32227.UNOFFICIAL"
+    ],
+    "downloads": "227",
+    "uploads": "2",
+    "mail": null
+  }
+}

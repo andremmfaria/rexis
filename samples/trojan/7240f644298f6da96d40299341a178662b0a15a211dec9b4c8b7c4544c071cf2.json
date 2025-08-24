@@ -1,0 +1,48 @@
+{
+  "sha256_hash": "7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2",
+  "sha3_384_hash": "2dbb0a5240a900bf321ccfccf527478b50edd2deb1ab94ec99aaac600cf98254b4dbeabaf3fc706a4a76bf5be7fb50e9",
+  "sha1_hash": "a2c355e0bb4c6b62c69656459ecbc9a36ebccb2b",
+  "md5_hash": "530d2c628d8cb2871c611999b9c318ff",
+  "first_seen": "2025-08-04 08:47:13",
+  "last_seen": null,
+  "file_name": "loader (36).exe",
+  "file_size": 4369408,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "joker651181",
+  "anonymous": 0,
+  "signature": "QuasarRAT",
+  "imphash": "d949edd614f965ae4bb650a52883e6a8",
+  "tlsh": "T130167C02B7F95EA6D16BD272C5F1503367F0F82AA362EB1B1590E73A1D53B009D027A7",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "98304:zsNMciRyUvk22SsaNYfdPBldt6+dBcjHvbmPiD:0MciRyCJ7jyPiD",
+  "magika": "pebin",
+  "dhash_icon": null,
+  "trid": [
+    "62.0% (.EXE) Generic CIL Executable (.NET, Mono, etc.) (73123/4/13)",
+    "14.0% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+    "8.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "4.2% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "3.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+  ],
+  "tags": [
+    "exe",
+    "malware",
+    "QuasarRAT",
+    "trojan"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "ditekSHen.MALWARE.Win.Trojan.QuasarStealer.UNOFFICIAL",
+      "Win.Malware.Generic-9883083-0",
+      "Win.Malware.Msilheracles-9900242-0",
+      "Win.Packed.Downeks-6898097-0",
+      "Win.Packed.Rozena-10029918-0"
+    ],
+    "downloads": "37",
+    "uploads": "1",
+    "mail": null
+  }
+}

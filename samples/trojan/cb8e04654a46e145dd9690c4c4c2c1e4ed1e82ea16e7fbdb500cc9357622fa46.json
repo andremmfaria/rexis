@@ -1,0 +1,43 @@
+{
+  "sha256_hash": "cb8e04654a46e145dd9690c4c4c2c1e4ed1e82ea16e7fbdb500cc9357622fa46",
+  "sha3_384_hash": "183be6e87d19ff27b4a1cd58e3b1670d0a025f67563607553aba71c3824912e4666e2f8e31ef913c59a4a642753ec83e",
+  "sha1_hash": "85147225d27a462e075384fcbd111ce31db9d6e2",
+  "md5_hash": "3bc6ac999cee677de9e58dbecb6439ed",
+  "first_seen": "2025-06-22 09:52:07",
+  "last_seen": null,
+  "file_name": "tester24.exe",
+  "file_size": 8332629,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "hR0m454",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "064967a99ade726316dc79a4a929fe96",
+  "tlsh": "T1C886331966E045DDFAE78B3D8943CA28D375BC262391D59313E44AD33E273D02D2ABB1",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "196608:O6/mNTwhLVmurHPm8NlOQPAv2j5uk0ax8JVCd3:P/7LYuK8SkSaxku",
+  "magika": "pebin",
+  "dhash_icon": "aebc385c4ce0e8f8",
+  "trid": [
+    "66.6% (.EXE) InstallShield setup (43053/19/16)",
+    "16.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "7.7% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "3.1% (.EXE) OS/2 Executable (generic) (2029/13)",
+    "3.0% (.EXE) Generic Win/DOS Executable (2002/3)"
+  ],
+  "tags": [
+    "dropper",
+    "exe",
+    "kryptik",
+    "Python",
+    "trojan"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "556",
+    "uploads": "1",
+    "mail": null
+  }
+}

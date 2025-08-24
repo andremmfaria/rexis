@@ -1,0 +1,43 @@
+{
+  "sha256_hash": "10abf4518c37c5852817b74292c939a7646abbb6fa538e7ffd0a1e384b533207",
+  "sha3_384_hash": "016951b775f9b9a9377db4426a7b218c56a7a50aae9a35813abd757e8901c15aa4370691f4b3edfe05b67f6c5d050158",
+  "sha1_hash": "1f35fe0e77cd9dcc54e2dab902eb84d1cca656cd",
+  "md5_hash": "4b5b5a2e9643f6792aba0cb8eb1d400e",
+  "first_seen": "2025-07-22 11:50:32",
+  "last_seen": null,
+  "file_name": "华为强开驱动.exe",
+  "file_size": 10662638,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "joker651181",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "12e12319f1029ec4f8fcbed7e82df162",
+  "tlsh": "T16EB63305F9888170D8A26E71F705A7245E3A2A755FAD8ECBE3C70E8CC7216D2DB31746",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "196608:5DwC8IJcKu5z+btKbXPwp9r7zC6Rhc90dR/assB1K4URxttXwE1ciIQV:dp8EcP5zZXgA/KasU1k7tVwE1cg",
+  "magika": "pebin",
+  "dhash_icon": "f0f8c8e9d9d8f0f0",
+  "trid": [
+    "32.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "20.1% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+    "15.4% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "13.7% (.EXE) Win32 Executable (generic) (4504/4/1)",
+    "6.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+  ],
+  "tags": [
+    "exe",
+    "trojan"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.Trojan.GenericKD.38920448.13962.7593.UNOFFICIAL",
+      "Win.Packed.Zusy-10014517-0"
+    ],
+    "downloads": "38",
+    "uploads": "1",
+    "mail": null
+  }
+}

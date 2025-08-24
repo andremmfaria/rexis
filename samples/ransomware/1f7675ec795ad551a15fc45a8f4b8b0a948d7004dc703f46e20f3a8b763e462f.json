@@ -1,0 +1,41 @@
+{
+  "sha256_hash": "1f7675ec795ad551a15fc45a8f4b8b0a948d7004dc703f46e20f3a8b763e462f",
+  "sha3_384_hash": "9fa17dafe00d280d53828529408b33a9dda4bea90b6447b09eecfb7f1742f10e54bc5c5cd154d0b5e99936e7fa10f5be",
+  "sha1_hash": "4ff53e4a47d3fd084fcd12785a7967ad7e939efd",
+  "md5_hash": "4d0c2ba892fd166f6e9001b5adf61022",
+  "first_seen": "2025-06-24 07:12:08",
+  "last_seen": null,
+  "file_name": "1f7675ec795ad551a15fc45a8f4b8b0a948d7004dc703f46e20f3a8b763e462f",
+  "file_size": 15852955,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "RakeshKrish12",
+  "anonymous": 0,
+  "signature": "BianLian",
+  "imphash": "bae3d3e8262d7ce7e9ee69cc1b630d3a",
+  "tlsh": "T100F61207B88185F5C0AAE231C956D2A3BA30BC980B3163D72B50B7BA2F777D4AD75354",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "393216:u9Ekj/m3pbPFVcCEDVL2ciIrHWZr7AOhFzrNk3+vd2:GrKTcCEDV4IL4r7AOfe+vM",
+  "magika": "pebin",
+  "dhash_icon": "aebc385c4ce0e8f8",
+  "trid": [
+    "66.6% (.EXE) InstallShield setup (43053/19/16)",
+    "16.2% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "7.7% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "3.1% (.EXE) OS/2 Executable (generic) (2029/13)",
+    "3.0% (.EXE) Generic Win/DOS Executable (2002/3)"
+  ],
+  "tags": [
+    "BianLian",
+    "exe",
+    "Ransomware"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "510",
+    "uploads": "1",
+    "mail": null
+  }
+}

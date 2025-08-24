@@ -1,0 +1,56 @@
+{
+  "sha256_hash": "8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732",
+  "sha3_384_hash": "c9542dab87f6691ef9e61f2012ccd9590444ab674a182922fa1afc910d82068a39dd67aada73b907c90017866b5236b0",
+  "sha1_hash": "a9623331ad45c1b3e4d0de7d126db5f11974ae39",
+  "md5_hash": "591a5e763d19825faea87fe10171deab",
+  "first_seen": "2025-03-28 15:56:07",
+  "last_seen": null,
+  "file_name": "electrum-xrp-1.5.2.exe",
+  "file_size": 104524424,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "boruch",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "b34f154ec913d2d2c435cbd644e91687",
+  "tlsh": "T1D53833188541A619FA3CBDB8BAB1E151CCA2974E75B0D8FAA7411E46DE3DF231CB43C1",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "1572864:Zb8J39Kk9M86gNYuTgd0Jz89nAdB8ceyIS7nqYdd6hIExeIg6q7Jxsz:Zbvk9M86gmUi0H/vP7nMxeIg6uqz",
+  "magika": "pebin",
+  "dhash_icon": "aa965796e869e8b2",
+  "trid": [
+    "37.3% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "17.8% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "15.9% (.EXE) Win32 Executable (generic) (4504/4/1)",
+    "7.3% (.ICL) Windows Icons Library (generic) (2059/9)",
+    "7.2% (.EXE) OS/2 Executable (generic) (2029/13)"
+  ],
+  "tags": [
+    "exe",
+    "infostealer",
+    "signed",
+    "stealer",
+    "trojan"
+  ],
+  "code_sign": [
+    {
+      "subject_cn": "Hebei Prolink Import & Export Trading Co., Ltd.",
+      "issuer_cn": "GlobalSign GCC R45 EV CodeSigning CA 2020",
+      "algorithm": "sha256WithRSAEncryption",
+      "valid_from": "2025-02-05T04:25:13Z",
+      "valid_to": "2026-02-06T04:25:13Z",
+      "serial_number": "57f32049482f3c889c8bf65e",
+      "thumbprint_algorithm": "SHA256",
+      "thumbprint": "01a60e6e8e3c8ac2ed0c0a52b4404e5119dd45b4e811992f5cdb5310d1a9f2bc",
+      "cscb_listed": false,
+      "cscb_reason": null
+    }
+  ],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "85",
+    "uploads": "1",
+    "mail": null
+  }
+}

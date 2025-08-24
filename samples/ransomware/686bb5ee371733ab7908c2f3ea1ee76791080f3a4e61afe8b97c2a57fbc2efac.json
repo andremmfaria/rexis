@@ -1,0 +1,44 @@
+{
+  "sha256_hash": "686bb5ee371733ab7908c2f3ea1ee76791080f3a4e61afe8b97c2a57fbc2efac",
+  "sha3_384_hash": "e06a007d3c185ab98c7661729b48cc3db20d00f7bd513d55710749940f1cb8e26fdf6fdad5f9098fd9c5eb3adf5d6362",
+  "sha1_hash": "eeafb2d4f6ed93ab417f190abdd9d3480e1b7b21",
+  "md5_hash": "ec5076aa5ac6ba904d33b8979c60dce1",
+  "first_seen": "2025-06-21 03:46:40",
+  "last_seen": "2025-08-17 08:52:05",
+  "file_name": "MSRuntime.dll",
+  "file_size": 11326976,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "JAMESWT_WT",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "1e2527fb94a1885b572a7a5e85103ff7",
+  "tlsh": "T196B623AAB05437ECC42BC4389423F915B3FA162E5FE6A19E71DB7AD03B1F411D642B06",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "196608:Dew+8gxMr5fwoMYQtLXhRL+EhtEvpXG+8NqQTIEviFK6BPYx6ijRoRzdEv:C7GsrTB0G+8qQMpBw",
+  "magika": "pebin",
+  "dhash_icon": null,
+  "trid": [
+    "38.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "15.6% (.ICL) Windows Icons Library (generic) (2059/9)",
+    "15.4% (.EXE) OS/2 Executable (generic) (2029/13)",
+    "15.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+    "15.2% (.EXE) DOS Executable Generic (2000/1)"
+  ],
+  "tags": [
+    "Crypto24",
+    "CRYPTWOFOUR",
+    "exe",
+    "Ransomware"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.Win64.Malware-gen.27374.4815.UNOFFICIAL"
+    ],
+    "downloads": "545",
+    "uploads": "2",
+    "mail": null
+  }
+}

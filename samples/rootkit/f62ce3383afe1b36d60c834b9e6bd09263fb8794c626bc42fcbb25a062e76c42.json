@@ -1,0 +1,45 @@
+{
+  "sha256_hash": "f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42",
+  "sha3_384_hash": "340de516ba00fc5b4895f5f704edcde8e202f96301094bb17837ace457a91a33cf4e87d4554d5b723fe8c2f0f421939e",
+  "sha1_hash": "31153328e42a9577d43bdcd0f7f7ccc21249f157",
+  "md5_hash": "0c5743d04d853b08cb10109ae822dd99",
+  "first_seen": "2022-07-25 10:43:49",
+  "last_seen": "2022-07-25 12:04:31",
+  "file_name": "f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42",
+  "file_size": 3362304,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "struppigel",
+  "anonymous": 0,
+  "signature": "FuRootkit",
+  "imphash": "218e2701c0e259f74bac46862066af7e",
+  "tlsh": "T16CF5C05D735433A8C82BC438C527A906F2B1790F07B84FEB73D6ABA12F675A0DA65701",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "49152:NM0S8FsHNh7vo2/BPFZqMQj0HcvnafOdYQewd2v/VVgm646fihDPXkP:irJnKzdYqEhDPA",
+  "magika": null,
+  "dhash_icon": null,
+  "trid": [
+    "48.7% (.EXE) Win64 Executable (generic) (10523/12/4)",
+    "23.3% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "9.3% (.EXE) OS/2 Executable (generic) (2029/13)",
+    "9.2% (.EXE) Generic Win/DOS Executable (2002/3)",
+    "9.2% (.EXE) DOS Executable Generic (2000/1)"
+  ],
+  "tags": [
+    "bundle",
+    "exe",
+    "FuRootkit",
+    "rootkit",
+    "X64"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": [
+      "SecuriteInfo.com.Trojan.MulDrop20.19385.14785.7878.UNOFFICIAL"
+    ],
+    "downloads": "395",
+    "uploads": "2",
+    "mail": null
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "sha256_hash": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c",
+  "sha3_384_hash": "53286930e5457f4ada4e1103b2f52f0310e50f770305656c74fa52c4c47a7e253a537c418623774511191003220de361",
+  "sha1_hash": "7134d8f1b2cb6ed5b373b8bf473fa1942e03dca9",
+  "md5_hash": "17125ba3cbeeebbcccd5dcea1be1ae00",
+  "first_seen": "2022-05-21 11:56:03",
+  "last_seen": null,
+  "file_name": "Telegram中文版.exe",
+  "file_size": 2284276,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "obfusor",
+  "anonymous": 0,
+  "signature": null,
+  "imphash": "",
+  "tlsh": "T120B533E5399EC284C9E9173F9AD34AFF3A297C942C3D271ABF81715C127A24D05523A3",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "49152:AHoCTuhhWCh1s/FHmm4YceE6xNRV/jLwzA/+63lqHjj4kOKfJ4:AIC6v/h1U0m+ehxPJPR3laXrJ4",
+  "magika": null,
+  "dhash_icon": "f8fce8e8f0d068b1",
+  "trid": null,
+  "tags": [
+    "exe",
+    "RAT",
+    "rootkit"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "448",
+    "uploads": "1",
+    "mail": null
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "sha256_hash": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b",
+  "sha3_384_hash": "164adc0dfb2eb49677e4ea409c21a103356226e6da24e9b29b659b86734d08b9cafc889c1ae9c554c9e7154539ebd7d7",
+  "sha1_hash": "ebc2ad209a2b0c70abbdc670507712f50fe2b29e",
+  "md5_hash": "375d5d81cba2a78967604c6b77369e79",
+  "first_seen": "2025-07-24 14:29:38",
+  "last_seen": "2025-07-31 08:53:18",
+  "file_name": "BQT.exe",
+  "file_size": 8485376,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "burger403",
+  "anonymous": 0,
+  "signature": "BQTLock",
+  "imphash": "4a7aa72b24c5e72e0c09fe2539047a7d",
+  "tlsh": "T1C6865B7BE16710D8C5ABC174C25BB371BD30B46900347E6E2E60D7B6AF61E601E6EB12",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "98304:k5CT6JMwxdPqS+siMufBOYh4WvbqWpYNYYtLDuyuQ9+bd+2+KM:+FMwbPEyfuVEKlw",
+  "magika": "pebin",
+  "dhash_icon": null,
+  "trid": [
+    "41.1% (.EXE) Microsoft Visual C++ compiled executable (generic) (16529/12/5)",
+    "26.1% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "12.5% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "5.1% (.ICL) Windows Icons Library (generic) (2059/9)",
+    "5.0% (.EXE) OS/2 Executable (generic) (2029/13)"
+  ],
+  "tags": [
+    "BQTLock",
+    "exe",
+    "Ransomware"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "183",
+    "uploads": "2",
+    "mail": null
+  }
+}

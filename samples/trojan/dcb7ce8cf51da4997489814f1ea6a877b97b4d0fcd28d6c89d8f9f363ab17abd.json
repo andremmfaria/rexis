@@ -1,0 +1,43 @@
+{
+  "sha256_hash": "dcb7ce8cf51da4997489814f1ea6a877b97b4d0fcd28d6c89d8f9f363ab17abd",
+  "sha3_384_hash": "15f59b382fc9b4f8d388f2bcd973a281470cc00076baed1ed5068ebc8ecbaef120816bd7764cb937ca91a299fd0d7036",
+  "sha1_hash": "7703feeac19382f9a23503621a6c0170bfdff192",
+  "md5_hash": "29676369d053c27e0d5831ae0b493d91",
+  "first_seen": "2025-05-20 06:12:24",
+  "last_seen": null,
+  "file_name": "Setup.exe",
+  "file_size": 8409377,
+  "file_type_mime": "application/x-dosexec",
+  "file_type": "exe",
+  "reporter": "hR0m454",
+  "anonymous": 0,
+  "signature": "LummaStealer",
+  "imphash": "bf95d1fc1d10de18b32654b123ad5e1f",
+  "tlsh": "T12686071AF709A3480B5F0F4724949AB02E37B17E30D2956172DF8476B6B917B3BEC264",
+  "telfhash": null,
+  "gimphash": null,
+  "ssdeep": "49152:kgmlZy6xr+/W9t0obmCakMVMob9+FdlFOPg:kT3N+ukoyUM+obElQPg",
+  "magika": "pebin",
+  "dhash_icon": "79f0acb8b0b8e0f1",
+  "trid": [
+    "47.3% (.EXE) Win32 Executable MS Visual C++ (generic) (31206/45/13)",
+    "15.9% (.EXE) Win64 Executable (generic) (10522/11/4)",
+    "9.9% (.DLL) Win32 Dynamic Link Library (generic) (6578/25/2)",
+    "7.6% (.EXE) Win16 NE executable (generic) (5038/12/1)",
+    "6.8% (.EXE) Win32 Executable (generic) (4504/4/1)"
+  ],
+  "tags": [
+    "exe",
+    "LummaStealer",
+    "spyware",
+    "stealer",
+    "trojan"
+  ],
+  "code_sign": [],
+  "intelligence": {
+    "clamav": null,
+    "downloads": "575",
+    "uploads": "1",
+    "mail": null
+  }
+}
