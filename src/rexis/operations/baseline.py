@@ -1,5 +1,6 @@
 import concurrent.futures
 import time
+from itertools import repeat
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -10,7 +11,7 @@ from rexis.tools.heuristics_analyser.utils import get_nested_value, load_heurist
 from rexis.tools.reconciliation.main import fuse_heuristics_and_virustotal_decision
 from rexis.tools.virus_total import query_virus_total
 from rexis.utils.config import config
-from rexis.utils.constants import DEFAULT_DECISION
+from rexis.utils.constants import DEFAULT_DECISION, BaselineWorkerConfig
 from rexis.utils.types import RateLimitState, VTConfig
 from rexis.utils.utils import (
     LOGGER,
@@ -81,7 +82,7 @@ def _vt_enrich_sha256(
 
 
 def _process_sample(
-    binary: Path,
+    target: Path,
     out_dir: Path,
     run_name: Optional[str],
     overwrite: bool,
@@ -112,19 +113,19 @@ def _process_sample(
             item.update(fields)
             audit_log.append(item)
 
-    _audit("pipeline_start", run_name=run_name, file=str(binary))
-    print(f"[baseline] Analyzing file: {binary}")
+    _audit("pipeline_start", run_name=run_name, file=str(target))
+    print(f"[baseline] Analyzing file: {target}")
 
     # 1) Decompile
     _audit("decompile_start")
     print("[baseline] Decompiling with Ghidra pipeline...")
     features_path: Path
     features_path, _ = decompile_binary_exec(
-        file=binary,
+        file=target,
         out_dir=out_dir,
         overwrite=overwrite,
         project_dir=project_dir,
-        project_name="rexis",
+        project_name=f"rexis-{run_name}-{target.stem}",
         run_name=run_name,
     )
     _audit("decompile_done", features=str(features_path))
@@ -209,7 +210,7 @@ def _process_sample(
         "duration_sec": round(time.time() - started, 3),
         "sample": {
             "sha256": sha256,
-            "source_path": str(binary.resolve()),
+            "source_path": str(target.resolve()),
         },
         "artifacts": {
             "features_path": str(features_path),
@@ -236,6 +237,36 @@ def _process_sample(
     LOGGER.info(f"Decompilation report written to {report_path}")
     _audit("pipeline_done", report=str(report_path))
     return report_path
+
+
+def _baseline_worker(binary: Path, cfg: "BaselineWorkerConfig") -> Path:
+    try:
+        return _process_sample(
+            target=binary,
+            out_dir=cfg.out_dir,
+            run_name=cfg.run_name,
+            overwrite=cfg.overwrite,
+            project_dir=cfg.project_dir,
+            rules_path=cfg.rules_path,
+            min_severity=cfg.min_severity,
+            vt_cfg=cfg.vt_cfg,
+            vt_rate_state=cfg.vt_rate_state,
+            audit=cfg.audit,
+        )
+    except Exception as e:
+        LOGGER.error("Failed pipeline on %s: %s", binary, e)
+        fail_report: Dict[str, Any] = {
+            "schema": "rexis.baseline.report.v1",
+            "run_id": cfg.run_name,
+            "generated_at": now_iso(),
+            "sample": {"source_path": str(binary.resolve())},
+            "final": {"label": "error", "score": 0.0},
+            "error": str(e),
+        }
+        safe_name: str = binary.name + ".error.report.json"
+        fail_path: Path = cfg.out_dir / safe_name
+        write_json(fail_report, fail_path)
+        return fail_path
 
 
 def analyze_baseline_exec(
@@ -297,36 +328,18 @@ def analyze_baseline_exec(
         + (f"ENABLED (qpm={vt_cfg.qpm})" if vt_cfg.enabled else "disabled")
     )
 
-    # Worker wrapper to pass through fixed parameters
-    def _worker(binary: Path) -> Path:
-        try:
-            return _process_sample(
-                binary=binary,
-                out_dir=run_dir,
-                run_name=run_name,
-                overwrite=overwrite,
-                project_dir=project_dir,
-                rules_path=rules_path,
-                min_severity=min_severity,
-                vt_cfg=vt_cfg,
-                vt_rate_state=vt_rate_state,
-                audit=audit,
-            )
-        except Exception as e:
-            LOGGER.error("Failed pipeline on %s: %s", binary, e)
-            # Emit a minimal failure report to keep batch consistent
-            fail_report: Dict[str, Any] = {
-                "schema": "rexis.baseline.report.v1",
-                "run_id": run_name,
-                "generated_at": now_iso(),
-                "sample": {"source_path": str(binary.resolve())},
-                "final": {"label": "error", "score": 0.0},
-                "error": str(e),
-            }
-            safe_name: str = binary.name + ".error.report.json"
-            fail_path: Path = run_dir / safe_name
-            write_json(fail_report, fail_path)
-            return fail_path
+    # Build worker config
+    worker_cfg = BaselineWorkerConfig(
+        out_dir=run_dir,
+        run_name=run_name,
+        overwrite=overwrite,
+        project_dir=project_dir,
+        rules_path=rules_path,
+        min_severity=min_severity,
+        vt_cfg=vt_cfg,
+        vt_rate_state=vt_rate_state,
+        audit=audit,
+    )
 
     # Execute
     status: str = "success"
@@ -335,7 +348,7 @@ def analyze_baseline_exec(
     reports: List[Path] = []
     try:
         if len(targets) == 1:
-            primary_output = _worker(targets[0])
+            primary_output = _baseline_worker(targets[0], worker_cfg)
         else:
             # Batch mode
             if parallel > 1:
@@ -343,12 +356,12 @@ def analyze_baseline_exec(
                     f"[baseline] Batch mode: processing {len(targets)} files with parallel={parallel}"
                 )
                 with concurrent.futures.ProcessPoolExecutor(max_workers=parallel) as ex:
-                    for path in ex.map(_worker, targets):
+                    for path in ex.map(_baseline_worker, targets, repeat(worker_cfg)):
                         reports.append(path)
             else:
                 print(f"[baseline] Batch mode: processing {len(targets)} files sequentially")
                 for t in targets:
-                    reports.append(_worker(t))
+                    reports.append(_baseline_worker(t, worker_cfg))
 
             # Summary
             summary: Dict[str, Any] = {

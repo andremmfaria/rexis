@@ -1,6 +1,9 @@
-from typing import Any, Dict, Tuple
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.utils.config import config
+from rexis.utils.types import RateLimitState, VTConfig
 
 DATABASE_CONNECTION_CONNSTRING: str = (
     f"postgresql://{config.db.user}:{config.db.password}@{config.db.host}:{config.db.port}/{config.db.name}"
@@ -172,6 +175,42 @@ DEFAULT_DECISION: Dict[str, Any] = {
     # Keep policy minimal here; other keys use internal defaults from ReconcileConfig
     "policy": {"gap_penalty_start": 0.35},
 }
+
+
+# Worker configuration dataclasses used by process pools
+@dataclass
+class BaselineWorkerConfig:
+    out_dir: Path
+    run_name: Optional[str]
+    overwrite: bool
+    project_dir: Optional[Path]
+    rules_path: Optional[Path]
+    min_severity: str
+    vt_cfg: VTConfig
+    vt_rate_state: Optional[RateLimitState]
+    audit: bool
+
+
+@dataclass
+class LlmragWorkerConfig:
+    out_dir: Path
+    run_name: Optional[str]
+    overwrite: bool
+    project_dir: Optional[Path]
+    audit: bool
+    # rag
+    top_k_dense: int
+    top_k_keyword: int
+    final_top_k: int
+    join_mode: str
+    rerank_top_k: int
+    ranker_model: str
+    source_filter: List[str]
+    # llm
+    model: str
+    temperature: float
+    max_tokens: int
+    prompt_variant: str
 
 
 AUTH_BONUS: Dict[str, float] = {

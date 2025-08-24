@@ -1,14 +1,18 @@
 import concurrent.futures
 import json
 import time
+from itertools import repeat
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from rexis.operations.decompile.main import decompile_binary_exec
 from rexis.tools.llm.guardrails import apply_guardrails_and_classify
-from rexis.tools.llm.main import llm_classify
 from rexis.tools.retrieval.main import build_queries_from_features, retrieve_context
-from rexis.utils.constants import SCORE_THRESHOLD_MALICIOUS, SCORE_THRESHOLD_SUSPICIOUS
+from rexis.utils.constants import (
+    SCORE_THRESHOLD_MALICIOUS,
+    SCORE_THRESHOLD_SUSPICIOUS,
+    LlmragWorkerConfig,
+)
 from rexis.utils.types import Features, Passage, RagNotes
 from rexis.utils.utils import LOGGER, get_version, iter_pe_files, now_iso, sha256, write_json
 
@@ -44,7 +48,7 @@ def _decompile_target(
         out_dir=run_dir,
         overwrite=overwrite,
         project_dir=project_dir,
-        project_name="rexis",
+        project_name=f"rexis-{run_name}-{target.stem}",
         run_name=run_name,
     )
     with features_path.open("r", encoding="utf-8") as f:
@@ -136,7 +140,10 @@ def _process_sample(
     _audit("rag_done", notes=rag_notes)
 
     # 3) LLM classification using features + retrieved context (JSON-mode)
-    _audit("llm_start_guardrailed", params={"model": model, "temperature": temperature, "max_tokens": max_tokens})
+    _audit(
+        "llm_start_guardrailed",
+        params={"model": model, "temperature": temperature, "max_tokens": max_tokens},
+    )
     llm_out, passages_used, guard_meta = apply_guardrails_and_classify(
         features=features,
         passages=passages,
@@ -171,12 +178,10 @@ def _process_sample(
         "queries": queries,
         "notes": rag_notes,
         "passages_original": [
-            {k: p.get(k) for k in ("doc_id", "source", "title", "score")}
-            for p in passages
+            {k: p.get(k) for k in ("doc_id", "source", "title", "score")} for p in passages
         ],
         "passages_used": [
-            {k: p.get(k) for k in ("doc_id", "source", "title", "score")}
-            for p in passages_used
+            {k: p.get(k) for k in ("doc_id", "source", "title", "score")} for p in passages_used
         ],
     }
 
@@ -204,6 +209,44 @@ def _process_sample(
     LOGGER.info(f"[llmrag] LLM+RAG report: {report_path}")
     _audit("pipeline_done", report=str(report_path))
     return report_path
+
+
+def _llmrag_worker(binary: Path, cfg: "LlmragWorkerConfig") -> Path:
+    try:
+        return _process_sample(
+            target=binary,
+            out_dir=cfg.out_dir,
+            run_name=cfg.run_name,
+            overwrite=cfg.overwrite,
+            project_dir=cfg.project_dir,
+            audit=cfg.audit,
+            # rag
+            top_k_dense=cfg.top_k_dense,
+            top_k_keyword=cfg.top_k_keyword,
+            final_top_k=cfg.final_top_k,
+            join_mode=cfg.join_mode,
+            rerank_top_k=cfg.rerank_top_k,
+            ranker_model=cfg.ranker_model,
+            source_filter=cfg.source_filter,
+            # llm
+            model=cfg.model,
+            temperature=cfg.temperature,
+            max_tokens=cfg.max_tokens,
+            prompt_variant=cfg.prompt_variant,
+        )
+    except Exception as e:
+        LOGGER.error("Failed LLM+RAG on %s: %s", binary, e)
+        fail_report: Dict[str, Any] = {
+            "schema": "rexis.llmrag.report.v1",
+            "run_id": cfg.run_name,
+            "generated_at": now_iso(),
+            "sample": {"source_path": str(binary.resolve())},
+            "final": {"label": "error", "score": 0.0},
+            "error": str(e),
+        }
+        fail_path: Path = cfg.out_dir / (binary.name + ".error.report.json")
+        write_json(fail_report, fail_path)
+        return fail_path
 
 
 def analyze_llmrag_exec(
@@ -258,43 +301,27 @@ def analyze_llmrag_exec(
     else:
         targets = [input_path]
 
-    # Worker
-    def _worker(binary: Path) -> Path:
-        try:
-            return _process_sample(
-                target=binary,
-                out_dir=run_dir,
-                run_name=run_name,
-                overwrite=overwrite,
-                project_dir=project_dir,
-                audit=audit,
-                # rag
-                top_k_dense=top_k_dense,
-                top_k_keyword=top_k_keyword,
-                final_top_k=final_top_k,
-                join_mode=join_mode,
-                rerank_top_k=rerank_top_k,
-                ranker_model=ranker_model,
-                source_filter=source_filter,
-                # llm
-                model=model,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                prompt_variant=prompt_variant,
-            )
-        except Exception as e:
-            LOGGER.error("Failed LLM+RAG on %s: %s", binary, e)
-            fail_report: Dict[str, Any] = {
-                "schema": "rexis.llmrag.report.v1",
-                "run_id": run_name,
-                "generated_at": now_iso(),
-                "sample": {"source_path": str(binary.resolve())},
-                "final": {"label": "error", "score": 0.0},
-                "error": str(e),
-            }
-            fail_path: Path = run_dir / (binary.name + ".error.report.json")
-            write_json(fail_report, fail_path)
-            return fail_path
+    # Prepare worker config
+    worker_cfg = LlmragWorkerConfig(
+        out_dir=run_dir,
+        run_name=run_name,
+        overwrite=overwrite,
+        project_dir=project_dir,
+        audit=audit,
+        # rag
+        top_k_dense=top_k_dense,
+        top_k_keyword=top_k_keyword,
+        final_top_k=final_top_k,
+        join_mode=join_mode,
+        rerank_top_k=rerank_top_k,
+        ranker_model=ranker_model,
+        source_filter=source_filter,
+        # llm
+        model=model,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        prompt_variant=prompt_variant,
+    )
 
     # Execute
     status: str = "success"
@@ -305,19 +332,19 @@ def analyze_llmrag_exec(
     try:
         if len(targets) == 1:
             print("[llmrag] Processing single file")
-            primary_output = _worker(targets[0])
+            primary_output = _llmrag_worker(targets[0], worker_cfg)
         else:
             if parallel > 1:
                 print(
                     f"[llmrag] Batch mode: processing {len(targets)} files with parallel={parallel}"
                 )
                 with concurrent.futures.ProcessPoolExecutor(max_workers=parallel) as ex:
-                    for path in ex.map(_worker, targets):
+                    for path in ex.map(_llmrag_worker, targets, repeat(worker_cfg)):
                         reports.append(path)
             else:
                 print(f"[llmrag] Batch mode: processing {len(targets)} files sequentially")
                 for t in targets:
-                    reports.append(_worker(t))
+                    reports.append(_llmrag_worker(t, worker_cfg))
 
             summary: Dict[str, Any] = {
                 "schema": "rexis.llmrag.summary.v1",
