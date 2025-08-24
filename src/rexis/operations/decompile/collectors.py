@@ -119,9 +119,13 @@ def collect_sections(program: Any) -> List[MemorySection]:
                     bytes_read = 0
             else:
                 if sample_byte_count == 0:
-                    LOGGER.warning(f"Section {section_info['name']} has zero size; skipping sample.")
+                    LOGGER.warning(
+                        f"Section {section_info['name']} has zero size; skipping sample."
+                    )
                 elif not memory_block.isInitialized():
-                    LOGGER.warning(f"Section {section_info['name']} is uninitialized; skipping sample.")
+                    LOGGER.warning(
+                        f"Section {section_info['name']} is uninitialized; skipping sample."
+                    )
 
             # --- Entropy / strings / funcs
             section_info["entropy"] = calc_entropy(sampled_bytes)

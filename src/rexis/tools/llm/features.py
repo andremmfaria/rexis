@@ -174,7 +174,7 @@ def summarize_features(features: Features) -> SummarizedFeatures:
     imports_by_capability_map: ImportsByCapability = _extract_imports_by_capability(features)
 
     sections_summary: List[Dict[str, Any]] = []
-    for section in (features.get("sections") or []):
+    for section in features.get("sections") or []:
         sections_summary.append(
             {
                 "name": section.get("name"),

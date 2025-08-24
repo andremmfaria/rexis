@@ -44,9 +44,7 @@ def build_queries_from_features(features: Features, max_terms: int = 50) -> List
         return found[:cap]
 
     if uniq_imports:
-        queries.append(
-            "imports: " + ", ".join(uniq_imports[: min(IMPORTS_QUERY_ITEMS, max_terms)])
-        )
+        queries.append("imports: " + ", ".join(uniq_imports[: min(IMPORTS_QUERY_ITEMS, max_terms)]))
 
     # Section entropy signals: capture high-entropy sections (often packed/encrypted)
     sections: List[Dict[str, Any]] = features.get("sections") or []
@@ -105,9 +103,7 @@ def build_queries_from_features(features: Features, max_terms: int = 50) -> List
                     if net_bits:
                         queries.append(
                             f"{label}: "
-                            + ", ".join(
-                                net_bits[: min(NETWORK_INDICATORS_QUERY_ITEMS, max_terms)]
-                            )
+                            + ", ".join(net_bits[: min(NETWORK_INDICATORS_QUERY_ITEMS, max_terms)])
                         )
                 # Skip adding separate queries for urls/domains
                 continue
@@ -117,10 +113,7 @@ def build_queries_from_features(features: Features, max_terms: int = 50) -> List
                 label = "file paths"
             else:
                 label = category.replace("_", " ")
-            queries.append(
-                f"{label}: "
-                + ", ".join(values[: min(CATEGORY_QUERY_ITEMS, max_terms)])
-            )
+            queries.append(f"{label}: " + ", ".join(values[: min(CATEGORY_QUERY_ITEMS, max_terms)]))
 
     # Semantic (capability-centric) prompts for all buckets
     for bucket, keywords in CAPABILITY_BUCKETS.items():

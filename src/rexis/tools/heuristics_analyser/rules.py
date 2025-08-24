@@ -604,6 +604,7 @@ def rule_suspicious_function_names(
     Flags binaries containing functions with suspicious names (e.g., process injection, hooking, shellcode).
     """
     from rexis.utils.constants import SUSPICIOUS_FUNCTION_NAME_PATTERNS
+
     regex = re.compile("|".join(SUSPICIOUS_FUNCTION_NAME_PATTERNS), re.IGNORECASE)
     functions = features.get("functions", [])
     if not functions:

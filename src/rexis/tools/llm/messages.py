@@ -83,9 +83,7 @@ def _render_feature_bullets(feature_summary: SummarizedFeatures) -> List[str]:
             if not imports:
                 continue
             sample = ", ".join(clip_text(name, 40) for name in imports)
-            lines.append(
-                f"- capability:{capability} -> imports: {sample}"
-            )
+            lines.append(f"- capability:{capability} -> imports: {sample}")
 
     # Packer hints (if any)
     packer_hints: PackerHints = feature_summary.get("packer_hints") or []

@@ -16,9 +16,9 @@ from rexis.tools.heuristics_analyser.rules import (
     rule_service_persistence,
     rule_shell_execution_indicators,
     rule_suspicious_api_combination,
+    rule_suspicious_function_names,
     rule_suspicious_urls_in_strings,
     rule_tiny_text_section,
-    rule_suspicious_function_names,
 )
 from rexis.tools.heuristics_analyser.utils import (
     get_nested_value,

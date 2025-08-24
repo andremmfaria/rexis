@@ -65,7 +65,7 @@ def decompile_binary_exec(
     # Prepare paths
     file_hash: str = sha256(file)
     out_path: Path = run_dir / f"{file_hash}.features.json"
-    report_path: Path = run_dir / f"{base_path}.report.json"
+    report_path: Path = run_dir / f"{file_hash}.decompile.report.json"
     if out_path.exists() and not overwrite:
         raise FileExistsError(f"Output exists: {out_path}")
 
@@ -127,7 +127,9 @@ def decompile_binary_exec(
             )
             t0 = time.time()
             print("[decompile] Starting decompilation of functions (timeout=30s per function)...")
-            decompiled: List[DecompiledFunction] = decompile_all_functions(program_instance, timeout_sec=30)
+            decompiled: List[DecompiledFunction] = decompile_all_functions(
+                program_instance, timeout_sec=30
+            )
             t1 = time.time()
             print(
                 f"[decompile] Decompilation finished: decompiled={len(decompiled)} functions in {round(t1 - t0, 2)}s"
