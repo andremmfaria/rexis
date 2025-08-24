@@ -1,12 +1,14 @@
 from typing import Any, Iterable, List
 
-from rexis.operations.decompile.utils import DecompInterface
+from rexis.operations.decompile.utils import GHIDRA_LOADED_CLASSES
 from rexis.utils.types import DecompiledFunction
 from rexis.utils.utils import LOGGER
 
 
 def decompile_all_functions(program: Any, timeout_sec: int = 30) -> List[DecompiledFunction]:
     """Decompile every function and return C-like pseudocode."""
+
+    DecompInterface = GHIDRA_LOADED_CLASSES.DecompInterface
     if DecompInterface is None:
         LOGGER.warning("DecompInterface not available; skipping decompilation.")
         return []

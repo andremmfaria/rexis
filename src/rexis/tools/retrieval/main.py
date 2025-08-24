@@ -29,7 +29,8 @@ def build_queries_from_features(features: Features, max_terms: int = 50) -> List
     imports_lc: List[str] = [
         i.lower() for i in (features.get("imports") or []) if isinstance(i, str)
     ]
-    uniq_imports: List[str] = List(Dict.fromkeys(imports_lc))
+
+    uniq_imports: List[str] = list(dict.fromkeys(imports_lc))
 
     def has(any_of: Set[str]) -> List[str]:
         return sorted(set([i for i in uniq_imports if any(tok in i for tok in any_of)]))

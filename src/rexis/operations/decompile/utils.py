@@ -1,15 +1,16 @@
 import math
 import os
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 from rexis.utils.utils import LOGGER
 
-# Lazy placeholders populated after pyghidra.start()
-ConsoleTaskMonitor = None  # type: ignore[assignment]
-AnalysisScheduler = None  # type: ignore[assignment]
-SymbolType = None  # type: ignore[assignment]
-DecompInterface = None  # type: ignore[assignment]
+GHIDRA_LOADED_CLASSES: SimpleNamespace = SimpleNamespace(
+    ConsoleTaskMonitor=None,
+    AnalysisScheduler=None,
+    DecompInterface=None,
+)
 
 
 def ensure_ghidra_imports_loaded() -> None:
@@ -17,35 +18,28 @@ def ensure_ghidra_imports_loaded() -> None:
 
     Also loads SymbolType for use by collectors after the JVM has started.
     """
-    global ConsoleTaskMonitor, AnalysisScheduler, SymbolType, DecompInterface, AddressSet
-    if ConsoleTaskMonitor is None:
+    global GHIDRA_LOADED_CLASSES
+    if GHIDRA_LOADED_CLASSES.ConsoleTaskMonitor is None:
         try:
             from ghidra.util.task import ConsoleTaskMonitor as _ConsoleTaskMonitor  # type: ignore
 
-            ConsoleTaskMonitor = _ConsoleTaskMonitor  # type: ignore
+            GHIDRA_LOADED_CLASSES.ConsoleTaskMonitor = _ConsoleTaskMonitor  # type: ignore
         except Exception:
             pass
-    if AnalysisScheduler is None:
+    if GHIDRA_LOADED_CLASSES.AnalysisScheduler is None:
         try:
             from ghidra.app.services import AnalysisScheduler as _AnalysisScheduler  # type: ignore
 
-            AnalysisScheduler = _AnalysisScheduler  # type: ignore
+            GHIDRA_LOADED_CLASSES.AnalysisScheduler = _AnalysisScheduler  # type: ignore
         except Exception:
             pass
-    if SymbolType is None:
-        try:
-            from ghidra.program.model.symbol import SymbolType as _SymbolType  # type: ignore
-
-            SymbolType = _SymbolType  # type: ignore
-        except Exception:
-            SymbolType = None  # type: ignore
-    if DecompInterface is None:
+    if GHIDRA_LOADED_CLASSES.DecompInterface is None:
         try:
             from ghidra.app.decompiler import DecompInterface as _DecompInterface  # type: ignore
 
-            DecompInterface = _DecompInterface  # type: ignore
+            GHIDRA_LOADED_CLASSES.DecompInterface = _DecompInterface  # type: ignore
         except Exception:
-            DecompInterface = None  # type: ignore
+            GHIDRA_LOADED_CLASSES.DecompInterface = None  # type: ignore
 
 
 def require_ghidra_env() -> None:
@@ -62,6 +56,8 @@ def require_ghidra_env() -> None:
 def wait_for_analysis(program: Any) -> None:
     """Block until program analysis completes (best-effort)."""
     try:
+        ConsoleTaskMonitor = GHIDRA_LOADED_CLASSES.ConsoleTaskMonitor
+        AnalysisScheduler = GHIDRA_LOADED_CLASSES.AnalysisScheduler
         if ConsoleTaskMonitor is None or AnalysisScheduler is None:
             LOGGER.warning(
                 "AnalysisScheduler or ConsoleTaskMonitor not available; skipping explicit analysis wait."
