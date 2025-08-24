@@ -458,7 +458,104 @@ STRING_CATEGORY_PATTERNS: Dict[str, Tuple[str, ...]] = {
 # Token used to mask names in passages sent to the LLM
 REDACT_TOKEN = "[FAMILY]"
 
-# Seed list (extend from Malpedia/MISP later)
+# Family/actor name extraction constants
+# Known ID-like naming patterns used by vendors (keep as raw regex fragments)
+FAMILY_ID_PATTERNS: Tuple[str, ...] = (
+    r"APT\d{1,3}",
+    r"TA\d{1,4}",
+    r"UNC\d{3,5}",
+    r"FIN\d{1,3}",
+    r"DEV-\d{1,4}",
+    r"TAG-\d{1,4}",
+)
+
+# Union pattern for ID-like prefixes (compose from FAMILY_ID_PATTERNS)
+FAMILY_ID_UNION_PATTERN: str = r"(?:" + "|".join(FAMILY_ID_PATTERNS) + r")"
+
+# Name token patterns (kept as raw strings; compile at use sites)
+# Core token: >=3 chars, starts with a letter. Separators: dash/underscore/dot/space.
+NAME_TOKEN_CORE_PATTERN: str = r"[A-Za-z][A-Za-z0-9]{2,}"
+NAME_TOKEN_SEPARATOR_PATTERN: str = r"[-_.\s]+"
+
+# Allow up to 5 tokens total (i.e., 0..4 separators following the first token)
+NAME_MULTI_TOKEN_MAX_TOKENS: int = 5
+NAME_MULTI_TOKEN_PATTERN: str = (
+    rf"{NAME_TOKEN_CORE_PATTERN}(?:{NAME_TOKEN_SEPARATOR_PATTERN}{NAME_TOKEN_CORE_PATTERN})"
+    rf"{{0,{NAME_MULTI_TOKEN_MAX_TOKENS - 1}}}"
+)
+
+# Full extraction pattern for family/actor-like names
+NAME_EXTRACT_PATTERN: str = rf"\b(?:{FAMILY_ID_UNION_PATTERN}|{NAME_MULTI_TOKEN_PATTERN})\b"
+
+# Common family/actor suffix keywords to reduce false positives
+FAMILY_SUFFIX_KEYWORDS: Tuple[str, ...] = (
+    "bot",
+    "botnet",
+    "loader",
+    "downloader",
+    "dropper",
+    "stealer",
+    "infostealer",
+    "clipper",
+    "grabber",
+    "rat",
+    "backdoor",
+    "injector",
+    "locker",
+    "ransom",
+    "ransomware",
+    "wiper",
+    "banker",
+    "miner",
+    "rootkit",
+    "bootkit",
+    "trojan",
+    "worm",
+    "keylogger",
+    "spy",
+    "spyware",
+)
+
+# Generic words to ignore during name extraction (kept minimal to avoid over-filtering)
+FAMILY_STOPWORDS: Tuple[str, ...] = (
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "of",
+    "on",
+    "to",
+    "in",
+    "by",
+    "for",
+    "from",
+    "with",
+    "using",
+    "into",
+    "this",
+    "that",
+    "there",
+    "their",
+    "analysis",
+    "report",
+    "figure",
+    "table",
+    "windows",
+    "microsoft",
+    "linux",
+    "kernel",
+    "system",
+    "module",
+    "function",
+    "payload",
+    "sample",
+    "threat",
+    "attack",
+    "behavior",
+)
+
+# Seed list (Malpedia/MISP)
 DEFAULT_FAMILY_TERMS = {
     "Emotet",
     "TrickBot",
@@ -513,7 +610,7 @@ DEFAULT_FAMILY_TERMS = {
     "SilverTerrier",
 }
 
-# Technical signal we want to boost in reranking (keep short & generic)
+# Technical signal we want to boost in reranking
 TECH_TOKENS = (
     "CreateRemoteThread",
     "VirtualAlloc",
