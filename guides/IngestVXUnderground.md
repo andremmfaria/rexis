@@ -22,7 +22,8 @@ This guide shows how to take PDFs you collected from VX‑Underground and ingest
   Optional (copyable) command:
   ```bash
   # Folder ingest (recommended)
-  rexis ingest file -t pdf -d /path/to/pdfs -b 50 -m source=vxu year=2012
+  # Tip: -b is the number of batches to split work into (default 5)
+  rexis ingest pdf -d /path/to/pdfs -b 5 -m source=vxu -m year=2012
   ```
 
 - Ingest a single PDF:
@@ -30,26 +31,37 @@ This guide shows how to take PDFs you collected from VX‑Underground and ingest
   Optional (copyable) command:
   ```bash
   # Single-file ingest
-  rexis ingest file -t pdf -f /path/to/pdfs/some_report.pdf -m source=vxu year=2012
+  rexis ingest pdf -f /path/to/pdfs/some_report.pdf -m source=vxu -m year=2012
   ```
 
 Notes:
-- Use `-m key=value` repeatedly to attach metadata (e.g., `source=vxu`, `year=2012`, `topic=APT`).
+- Use `-m key=value` repeatedly to attach metadata (e.g., `-m source=vxu -m year=2012 -m topic=APT`).
 - Duplicates are naturally deduplicated by file content SHA‑256.
 
 ---
 
-## CLI entrypoint and options
+## CLI entrypoints and options
 
-Rexis exposes a file ingester via the CLI function `ingest_file` defined in `src/rexis/cli/ingestion_commands.py`.
+Rexis exposes typed ingesters and a generic fallback (see `src/rexis/cli/ingestion_commands.py`).
+
+Typed commands (recommended):
+- `rexis ingest pdf`
+- `rexis ingest html`
+- `rexis ingest text`
+- `rexis ingest json`
+
+Generic command:
+- `rexis ingest file -t {pdf|html|text|json}`
 
 Key options this command enforces:
-- `--type, -t` (required): one of `pdf`, `html`, `json`, or `text`.
+- `--type, -t` (generic only): one of `pdf`, `html`, `json`, or `text`.
 - Exactly one of:
   - `--dir, -d` (batch mode, recursive) or
   - `--file, -f` (single file).
-- `--batch, -b` (default `50`): batch size for indexing when using `--dir`.
-- `--metadata, -m key=value`: attach arbitrary metadata; can be supplied multiple times. Duplicate keys are rejected, and values must be in `key=value` form.
+- `--batch, -b` (default `5`): number of batches to split work into when using `--dir`.
+- `--metadata, -m key=value`: attach arbitrary metadata; can be supplied multiple times (repeat `-m`). Duplicate keys are rejected.
+- `--out-dir, -o`: output directory for ingestion artifacts and reports (default: CWD).
+- `--run-name, -r`: logical name for the run (used in output folder/report names). Defaults to a UUID.
 
 The CLI performs strict validation and raises user‑friendly errors for invalid combinations (e.g., both `--dir` and `--file` provided, or malformed metadata).
 
@@ -57,7 +69,7 @@ The CLI performs strict validation and raises user‑friendly errors for invalid
 
 ## What happens under the hood
 
-The CLI delegates to `ingest_file_exec` in `src/rexis/operations/ingest_file.py`. Here’s the behavior for PDFs:
+The CLI delegates to `ingest_file_exec` in `src/rexis/operations/ingest/main.py`. Here’s the behavior for PDFs:
 
 - Discovery (when `--dir`):
   - Recursively finds all `*.pdf` files, sorts them, and logs the count.
@@ -70,12 +82,18 @@ The CLI delegates to `ingest_file_exec` in `src/rexis/operations/ingest_file.py`
   - Computes a stable document ID as `file_pdf::<sha256(file bytes)>`.
   - Sets document metadata including `sha256`, `filename`, `type=pdf`, and any CLI‑provided metadata (e.g., `source=vxu`, `year=2012`). If `source` isn’t supplied, it defaults to `external`.
 - Indexing:
-  - Batches documents (size controlled by `--batch`, default 50) and sends them to `index_documents(..., doc_type="prose")`.
+  - Splits the workload into `-b` batches (default 5) and processes them concurrently; within each batch, indexing occurs in sub-batches of size 3.
   - Final partial batch is indexed at the end.
+
+Outputs and report:
+- Results are organized under `--out-dir/ingest-analysis-<run_name>/`.
+- A run report is written to `ingest-analysis-<run_name>/ingest-analysis-<run_name>.report.json` with inputs, summary (files discovered/processed, batch), timing, and status.
 
 For single‑file mode, the same steps are applied to just one file.
 
-Current non‑PDF handlers (`html`, `text`) are placeholders and log that they’re not implemented yet.
+Other types:
+- HTML and TEXT ingestion are implemented (content extraction, normalization, and indexing via Haystack).
+- JSON ingestion is implemented (batch/single modes).
 
 ---
 
@@ -88,7 +106,7 @@ Attach metadata to make your corpus easy to query and filter later:
 
 Example (optional):
 ```bash
-rexis ingest file -t pdf -d ./data/vxunderground/2022 -b 25 -m source=vxu year=2022 topic=APT
+rexis ingest pdf -d ./data/vxunderground/2022 -b 5 -m source=vxu -m year=2022 -m topic=APT
 ```
 
 ---
@@ -114,7 +132,7 @@ Rexis computes a SHA‑256 of the file contents and uses it in the document ID. 
 
    Optional (copyable) command:
    ```bash
-   rexis ingest file -t pdf -d /path/to/downloads -b 50 -m source=vxu year=2013
+  rexis ingest pdf -d /path/to/downloads -b 5 -m source=vxu -m year=2013
    ```
 
 3) Verify in your Haystack backend that documents are present with the expected metadata and IDs.
@@ -125,7 +143,7 @@ Rexis computes a SHA‑256 of the file contents and uses it in the document ID. 
 
 - `ImportError: No module named 'pymupdf'` — ensure project dependencies are installed per your environment manager. PyMuPDF is required for PDF extraction.
 - Nothing gets indexed — check logs for “Empty text extracted” or exceptions from PyMuPDF, and confirm your Haystack backend is configured (see your `config/settings.toml`).
-- CLI validation errors — ensure you specify exactly one of `--dir` or `--file`, and that each `-m` flag is in `key=value` form with unique keys.
+- CLI validation errors — ensure you specify exactly one of `--dir` or `--file`, and repeat `-m` for each `key=value` pair with unique keys.
 
 ---
 
