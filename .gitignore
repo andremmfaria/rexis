@@ -218,3 +218,5 @@ config/.secrets.toml
 .vscode/
 
 data/
+
+samples/**/decompressed/

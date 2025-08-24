@@ -84,7 +84,7 @@ is_zip_file() {
 # Main
 # -------------------------
 for TAG in ${MB_TAGS}; do
-  OUTDIR="${TAG}"
+  OUTDIR="./samples/${TAG}"
   mkdir -p "$OUTDIR"
   echo "==> Querying MalwareBazaar for tag: '$TAG' (include: '$TAG' + 'exe'; exclude other input tags)"
 
