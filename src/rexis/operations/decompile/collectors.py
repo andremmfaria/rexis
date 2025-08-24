@@ -1,6 +1,11 @@
 from typing import Any, List, Set
 
-from rexis.operations.decompile.utils import calc_entropy, count_ascii_strings, count_utf16le_strings
+from rexis.operations.decompile.utils import (
+    calc_entropy,
+    count_ascii_strings,
+    count_utf16le_strings,
+    read_bytes_slow,
+)
 from rexis.utils.types import FunctionInfo, MemorySection
 from rexis.utils.utils import LOGGER
 
@@ -61,54 +66,107 @@ def collect_imports(program: Any) -> List[str]:
 
 def collect_sections(program: Any) -> List[MemorySection]:
     memory_sections: List[MemorySection] = []
-    try:
-        program_memory = program.getMemory()
-        function_manager = program.getFunctionManager()
-        function_entry_points = [function.getEntryPoint() for function in function_manager.getFunctions(True)]
-        for memory_block in program_memory.getBlocks():
-            try:
-                section_info = {
-                    "name": memory_block.getName(),
-                    "start": str(memory_block.getStart()),
-                    "end": str(memory_block.getEnd()),
-                    "size": int(memory_block.getSize()),
-                    "initialized": bool(memory_block.isInitialized()),
-                    "read": bool(memory_block.isRead()),
-                    "write": bool(memory_block.isWrite()),
-                    "execute": bool(memory_block.isExecute()),
-                    "volatile": bool(memory_block.isVolatile()),
-                    "overlay": bool(memory_block.isOverlay()),
-                    "loaded": bool(memory_block.isLoaded()),
-                    "type": str(memory_block.getType()) if hasattr(memory_block, "getType") else None,
-                    "source_name": memory_block.getSourceName() if hasattr(memory_block, "getSourceName") else None,
-                    "comment": memory_block.getComment() if hasattr(memory_block, "getComment") else None,
-                }
-                block_total_size = int(memory_block.getSize())
-                sample_byte_count = min(block_total_size, MAX_SECTION_SAMPLE_BYTES)
-                is_bytes_truncated = block_total_size > sample_byte_count
-                sampled_bytes_array = bytearray(sample_byte_count)
-                try:
-                    bytes_actually_read = program_memory.getBytes(memory_block.getStart(), sampled_bytes_array) or 0
-                    if bytes_actually_read < sample_byte_count:
-                        sampled_bytes_array = sampled_bytes_array[:max(0, bytes_actually_read)]
-                except Exception as read_error:
-                    LOGGER.error(f"Failed reading block bytes for {section_info['name']}: {read_error}")
-                    sampled_bytes_array = bytearray()
-                    bytes_actually_read = 0
+    program_memory = program.getMemory()
+    function_manager = program.getFunctionManager()
+    function_entry_points = [
+        function.getEntryPoint() for function in function_manager.getFunctions(True)
+    ]
 
-                sampled_bytes = bytes(sampled_bytes_array)
-                section_info["entropy"] = calc_entropy(sampled_bytes)
-                section_info["strings_count"] = count_ascii_strings(sampled_bytes) + count_utf16le_strings(sampled_bytes)
-                section_info["functions_count"] = sum(1 for entry_addr in function_entry_points if memory_block.contains(entry_addr))
-                section_info["bytes_total"] = block_total_size
-                section_info["bytes_sampled"] = len(sampled_bytes)
-                section_info["bytes_truncated"] = is_bytes_truncated
-                memory_sections.append(section_info)
-            except Exception as block_error:
-                block_name = getattr(memory_block, "getName", lambda: "<unknown>")()
-                LOGGER.error(f"Error collecting section {block_name}: {block_error}")
-    except Exception as e:
-        LOGGER.error(f"Failed to iterate memory blocks: {e}")
+    # include overlays
+    try:
+        memory_blocks = list(program_memory.getBlocks(True))
+    except Exception:
+        memory_blocks = list(program_memory.getBlocks())
+
+    for memory_block in memory_blocks:
+        try:
+            section_info = {
+                "name": memory_block.getName(),
+                "start": str(memory_block.getStart()),
+                "end": str(memory_block.getEnd()),
+                "size": int(memory_block.getSize()),
+                "initialized": bool(memory_block.isInitialized()),
+                "read": bool(memory_block.isRead()),
+                "write": bool(memory_block.isWrite()),
+                "execute": bool(memory_block.isExecute()),
+                "volatile": bool(memory_block.isVolatile()),
+                "overlay": bool(memory_block.isOverlay()),
+                "loaded": bool(memory_block.isLoaded()),
+                "type": str(memory_block.getType()) if hasattr(memory_block, "getType") else None,
+                "source_name": (
+                    memory_block.getSourceName() if hasattr(memory_block, "getSourceName") else None
+                ),
+                "comment": (
+                    memory_block.getComment() if hasattr(memory_block, "getComment") else None
+                ),
+            }
+
+            block_total_size = int(memory_block.getSize())
+            sample_byte_count = min(block_total_size, MAX_SECTION_SAMPLE_BYTES)
+            is_bytes_truncated = block_total_size > sample_byte_count
+
+            sampled_bytes = b""
+            bytes_read = 0
+            if sample_byte_count > 0 and memory_block.isInitialized():
+                try:
+                    sampled_bytes = read_bytes_slow(
+                        program_memory, memory_block.getStart(), sample_byte_count
+                    )
+                    bytes_read = len(sampled_bytes)
+                except Exception as read_error:
+                    LOGGER.error(f"Failed reading {section_info['name']}: {read_error}")
+                    sampled_bytes = b""
+                    bytes_read = 0
+            else:
+                if sample_byte_count == 0:
+                    LOGGER.warning(f"Section {section_info['name']} has zero size; skipping sample.")
+                elif not memory_block.isInitialized():
+                    LOGGER.warning(f"Section {section_info['name']} is uninitialized; skipping sample.")
+
+            # --- Entropy / strings / funcs
+            section_info["entropy"] = calc_entropy(sampled_bytes)
+            section_info["strings_count"] = count_ascii_strings(
+                sampled_bytes
+            ) + count_utf16le_strings(sampled_bytes)
+            section_info["functions_count"] = sum(
+                1 for entry_addr in function_entry_points if memory_block.contains(entry_addr)
+            )
+            section_info["bytes_total"] = block_total_size
+            section_info["bytes_sampled"] = bytes_read
+            section_info["bytes_truncated"] = is_bytes_truncated
+            memory_sections.append(section_info)
+
+            # --- DEBUG PREVIEW: first 64 bytes + quick stats
+            if sampled_bytes:
+                preview = sampled_bytes[: min(64, len(sampled_bytes))]
+                hex_preview = " ".join(f"{b:02x}" for b in preview)
+                # quick freq count
+                freq = {}
+                for b in preview:
+                    freq[b] = freq.get(b, 0) + 1
+                unique_bytes = len(freq)
+                if freq:
+                    most_byte, most_count = max(freq.items(), key=lambda kv: kv[1])
+                    most_byte_str = f"0x{most_byte:02x}×{most_count}"
+                else:
+                    most_byte_str = "n/a"
+
+                LOGGER.info(
+                    f"Section {section_info['name']} | sampled={len(sampled_bytes)}/{block_total_size} | "
+                    f"init={section_info['initialized']} | entropy={section_info['entropy']:.4f} | "
+                    f"unique={unique_bytes} | most={most_byte_str} | hexdump[0:64]={hex_preview}"
+                )
+            else:
+                LOGGER.info(
+                    f"Section {section_info['name']} | sampled=0/{block_total_size} | "
+                    f"init={section_info['initialized']} | entropy=0.0000 (no data)"
+                )
+
+        except Exception as block_error:
+            LOGGER.error(
+                f"Error collecting section {getattr(memory_block, 'getName', lambda: '<unknown>')()}: {block_error}"
+            )
+
     memory_sections.sort(key=lambda s: s.get("start", ""))
     return memory_sections
 

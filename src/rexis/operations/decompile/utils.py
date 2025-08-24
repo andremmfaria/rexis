@@ -115,7 +115,28 @@ def calc_entropy(data: bytes) -> float:
         return 0.0
     counts = [0] * 256
     for b in data:
-        counts[b & 0xFF] += 1
+        counts[b] += 1
     total = float(len(data))
-    entropy = abs(-sum((cnt / total) * math.log(cnt / total, 2) for cnt in counts if cnt))
-    return round(entropy, 4)
+    h = 0.0
+    for c in counts:
+        if c:
+            p = c / total
+            h -= p * math.log(p, 2)
+    return round(h, 4)
+
+
+def read_bytes_slow(mem, start_addr, length: int) -> bytes:
+    """Safe fallback for PyGhidra: read 'length' bytes byte-by-byte."""
+    out = bytearray()
+    addr = start_addr
+    for _ in range(max(0, int(length))):
+        if addr is None:
+            break
+        try:
+            # getByte returns a signed Java byte; mask to 0..255
+            out.append(mem.getByte(addr) & 0xFF)
+            addr = addr.next()
+        except Exception:
+            # Stop on any address/memory read issue
+            break
+    return bytes(out)
