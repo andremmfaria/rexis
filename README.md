@@ -1,49 +1,48 @@
 # 🔍 REXIS — Retrieval-Enhanced eXploration of Infected Software
 
-**REXIS** is an experimental framework designed to enhance static malware analysis using Large Language Models (LLMs) integrated with Retrieval-Augmented Generation (RAG). This project explores how contextual retrieval from external knowledge sources can improve the accuracy, interpretability, and justifiability of LLM-based malware classification.
+REXIS is an experimental framework that enhances static malware analysis with Large Language Models (LLMs) and Retrieval‑Augmented Generation (RAG). It explores how contextual retrieval from external knowledge sources can improve the accuracy, interpretability, and justifiability of LLM‑based malware classification compared to a static heuristic baseline.
 
-Built for cybersecurity research, **REXIS** focuses on analyzing static features (e.g., bytecode, file structure, API calls) and comparing its performance against traditional static analysis techniques.
+Built for cybersecurity research, it focuses on static features (e.g., decompiler output, file structure, API calls) and offers two pipelines: a fast heuristic baseline and an LLM+RAG pipeline with guardrails.
 
 ---
 
 ## ✨ Key Features
 
-- 📦 Static malware analysis with LLMs  
-- 🔍 Context-aware insights using Retrieval-Augmented Generation  
-- 📊 Benchmarking against traditional detection techniques  
-- 🧠 Emphasis on explainability and contextual reasoning  
+- 📦 Two analysis pipelines: heuristic baseline and LLM+RAG  
+- 🧩 Ghidra/PyGhidra decompilation and feature extraction  
+- 🔍 Hybrid retrieval (dense + keyword) with optional re‑ranking  
+- �️ Guardrails for safe, explainable JSON classifications  
+- 🧭 Decision fusion with VirusTotal and taxonomy normalization  
+- 📊 Reproducible runs and batch summaries for evaluation  
 
 ---
 
 ## 🛠️ Toolchain
 
-- **Code Retrieval & RAG Pipeline:**  
-  - [Haystack](https://github.com/deepset-ai/haystack) — used to build the pipeline between decompiled malware samples and the LLM
-
-- **AI Engine:**  
-  - [OpenAI](https://platform.openai.com/) - for general-purpose, high-accuracy LLM queries  
-  - [DeepSeek](https://github.com/deepseek-ai) - for code-centric language understanding and reasoning
-
-- **Static Analysis Input:**  
-  - [Ghidra](https://ghidra-sre.org/) - Decompiled source code and structural features from known malware datasets
-
-- **Datastore (Vector Database):**  
-  - [PostgreSQL](https://www.postgresql.org/) with [pgvector](https://github.com/pgvector/pgvector) extension  
-  - Used to store and query embeddings for Retrieval-Augmented Generation (RAG)  
-  - Integrated with the Haystack pipeline for vector-based semantic search and context retrieval
+- Static analysis and features  
+  - [Ghidra](https://ghidra-sre.org/) + PyGhidra — decompile and extract features
+- RAG and LLM  
+  - [Haystack](https://github.com/deepset-ai/haystack) — embeddings, retrieval, generation  
+  - [OpenAI](https://platform.openai.com/) — chat generation and embeddings  
+  - [DeepSeek](https://github.com/deepseek-ai) — optional provider for experimentation
+- Vector store  
+  - [PostgreSQL](https://www.postgresql.org/) + [pgvector](https://github.com/pgvector/pgvector) — hybrid retrieval
+- CLI and configuration  
+  - Typer + Rich — ergonomic CLI and output  
+  - Dynaconf — typed settings and secrets
 
 
 ---
 
 ## 📂 Project Structure
 
-High-level layout you’ll interact with most:
+High‑level layout you’ll interact with most:
 
 - `src/rexis/cli` — Typer-based CLI entrypoints
   - `collect` (Malpedia, MalwareBazaar)
   - `ingest` (pdf, html, text, json, or generic `file`)
   - `analyse` (baseline, llmrag)
-  - `decompile` (Ghidra/pyghidra-based feature extraction)
+  - `decompile` (Ghidra/PyGhidra‑based feature extraction)
 - `src/rexis/operations` — implementation modules
   - `collect/` — Malpedia and MalwareBazaar collectors
   - `ingest/` — content parsers and indexers
@@ -56,20 +55,46 @@ High-level layout you’ll interact with most:
 
 ---
 
-## 📈 Evaluation & Benchmarks _(Planned)_
+## 📈 Evaluation & Benchmarks
 
-> REXIS will be tested against traditional static analysis tools and scored based on:
-- Accuracy of classification
-- Justifiability of output
-- Contextual relevance of LLM explanations
-- Efficiency of the analysis pipeline
+Chapter 3 of the accompanying report (see `main.pdf`, Chapter 3) defines the study design and full results. Below is a summary and how to reproduce with this codebase. Use the PDF as the source of truth for dataset sizes and final numbers.
+
+What is evaluated
+- Binary classification quality: malicious/suspicious/benign  
+- Family/category tagging alignment (when ground truth exists)  
+- Retrieval quality and contribution to decisions  
+- Reliability: strict‑JSON validity, uncertainty, guardrail triggers  
+- Efficiency: latency and token/cost footprint per sample  
+
+Ground truth and datasets
+- Samples curated from VX‑Underground/MalwareBazaar and labeled using VirusTotal metadata; family names normalized with Malpedia‑aware rules. See `guides/DataSourcing*` and `guides/Reconciliation.md`.
+
+Metrics
+- Accuracy, Precision/Recall/F1 (macro), AUROC (binary collapse), calibration (Brier), Top‑k family accuracy, retrieval MRR@k/NDCG@k, JSON validity rate, average latency and token usage.
+
+Experiment matrix (illustrative; see PDF for exact)
+- Baseline: heuristics only vs heuristics⊕VT fusion  
+- LLMRAG variants: join mode (RRF vs merge), final_top_k ∈ {4,8,12}, rerank on/off, source filters, model choices  
+- Ablations: no‑retrieval LLM, retrieval‑only (no LLM), guardrails on/off  
+
+Reproducing (outline)
+1) Prepare the vector store and ingest corpora (see Ingestion below).  
+2) Run Baseline on the evaluation set:  
+  `pdm run rexis analyse baseline -i <SAMPLES_DIR> -o ./data/analysis/baseline --parallel 4 --vt`  
+3) Run LLM+RAG with desired knobs:  
+  `pdm run rexis analyse llmrag -i <SAMPLES_DIR> -o ./data/analysis/llmrag --final-top-k 8`  
+4) Aggregate JSON reports and compute metrics (e.g., notebooks/scripts). Per‑run `*.report.json` files capture configuration for reproducibility.
+
+Notes
+- Exact splits and metrics live in `main.pdf` (Chapter 3).  
+- VT is used for enrichment and sometimes for ground truth; vendor disagreement is reconciled per `guides/Reconciliation.md`.  
+- Guardrails down‑weight weak evidence and redact leaked family names when necessary.  
 
 ---
 
 ## ⚙️ Installation & Setup
 
-REXIS targets Python `3.11–3.13` and is managed with [PDM](https://pdm.fming.dev/).  
-You’ll also need [PostgreSQL](https://www.postgresql.org/) with the [pgvector](https://github.com/pgvector/pgvector) extension enabled.
+REXIS targets Python `3.11–3.13` and is managed with [PDM](https://pdm.fming.dev/). You’ll also need PostgreSQL with the [pgvector](https://github.com/pgvector/pgvector) extension enabled.
 
 ### 📦 Prerequisites
 
@@ -95,13 +120,13 @@ cp ./config/.secrets_template.toml ./config/.secrets.toml
 Secrets keys and the database password are read by Dynaconf via `config/settings.toml`. Populate `config/.secrets.toml` with the following keys (values are placeholders):
 
 ```
-db_password = "super_secret_password-..."
+db_password = "super_secret_password"
 openai_api_key = "sk-..."
 deepseek_api_key = "dseek-..."
 malware_bazaar_api_key = "malw-bazaar-..."
 virus_total_api_key = "vt-..."
 ```
-Note: The provided template file may contain a typo for the MalwareBazaar key. Use `malware_bazaar_api_key` exactly as shown above to match `config/settings.toml`.
+Note: Use the key name `malware_bazaar_api_key` exactly as shown to match `config/settings.toml`.
 
 Database connection defaults live in `config/settings.toml`:
 
@@ -118,7 +143,7 @@ password = "@get db_password"
 
 ## 🧪 Usage
 
-REXIS uses Docker primarily for the database. Run the app locally (via PDM) and connect to Postgres running in Docker.
+REXIS uses Docker for the database. Run the app locally (via PDM) and connect to Postgres running in Docker.
 
 Services:
 
@@ -128,7 +153,7 @@ Services:
 
 ### 🐳 Step-by-Step Instructions
 
-1. **Create your `.env` file** in the root of the project by copying from the example file (`.env.example`):
+1. Create your `.env` file in the root of the project by copying from `.env.example`:
 
 ```dotenv
 POSTGRES_USER=postgres
@@ -152,8 +177,7 @@ docker compose up --build
 docker compose down
 ```
 
-5. **Persistent data**:  
-PostgreSQL data is stored in a Docker volume named `pgdata` and will persist between restarts.
+5. Persistent data: PostgreSQL data is stored in a Docker volume named `pgdata` and persists between restarts.
 
 6. **Verify DB connection from app** (optional):
   - DB connection parameters are read from `config/settings.toml` (`[db]` section) and secrets in `config/.secrets.toml`.
@@ -294,14 +318,14 @@ rexis analyse llmrag \
   [--project-dir PATH] [--parallel N] \
   [--top-k-dense N] [--top-k-keyword N] [--final-top-k N] [--join rrf|merge] \
   [--rerank-top-k N] [--ranker-model NAME] [--source NAME ...] \
-  [--model NAME] [--temperature F] [--max-tokens N] [--seed N] [--json-mode/--no-json-mode] \
+  [--model NAME] [--temperature F] [--max-tokens N] [--prompt-variant classification|justification|comparison] \
   [--audit/--no-audit]
 ```
 
 Notes:
 
 - Baseline can optionally enrich with VirusTotal (`--vt`).
-- LLMRAG defaults: retriever fusion via RRF, generator model `gpt-4o-2024-08-06`.
+- LLMRAG defaults: RRF fusion; generator model `gpt-4o-2024-08-06`; ranker model `gpt-4o-mini`.
 
 Examples:
 

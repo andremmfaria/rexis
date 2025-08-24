@@ -38,10 +38,10 @@ CLI entrypoint group: `rexis ingest` (see `../src/rexis/cli/main.py`). You can u
 
 Options (from `../src/rexis/cli/ingestion_commands.py`):
 - Exactly one of `--dir` or `--file` is required (validated).
-- `--batch, -b` controls batching behavior in batch mode (see per-type details below).
+- `--batch, -b` controls batching behavior in batch mode (see per-type details below). Default: `5` (interpreted as number of batches).
 - `--metadata, -m key=value` can be repeated; merged into document metadata (e.g., `source=malpedia`).
-- `--out-dir, -o` sets the run directory where a run report is written.
-- `--run-name, -r` optional tag for the run (defaults to UUID).
+- `--out-dir, -o` sets the run directory where a run report is written. Default: current working directory.
+- `--run-name, -r` optional tag for the run. Default: randomly generated UUID.
 
 
 ## Orchestrator: `ingest_file_exec`
@@ -124,7 +124,7 @@ Implementation: `../src/rexis/tools/haystack.py`.
 
 3) Optional LLM-driven tagging
 - For each chunk, tags are generated with an LLM (`../src/rexis/tools/data_tagger.py`) reading `[tagger]` settings from `../config/settings.toml`.
-- Tags are stored in chunk metadata as `tags` (empty list on failure/disabled).
+- Tags are stored in chunk metadata as `tags` (empty list on failure/disabled). Defaults from code when not configured: `enabled=true`, `max_concurrency=2`, `max_retries=3`, `backoff_seconds=1.0`, `temperature=0.2`, `max_tokens=256`.
 
 4) Embed chunks
 - Uses `OpenAIDocumentEmbedder` with `config.models.openai.embedding_model` and API key.
@@ -172,7 +172,7 @@ These fields are available for filtering at retrieval time (e.g., `--source malp
 
 - OpenAI API configuration under `[models.openai]` in `../config/settings.toml` (API key, models, embedding limit).
 - Database `[db]` in `../config/settings.toml` builds `DATABASE_CONNECTION_CONNSTRING` used by both indexing and retrieval stores.
-- Optional tagger settings under `[tagger]` (model, api_key, prompts, concurrency, retries). Tagger can be disabled by setting `enabled=false`.
+- Optional tagger settings under `[tagger]` (model, api_key, system_prompt, temperature, max_tokens, max_concurrency, max_retries, backoff_seconds). Tagger can be disabled by setting `enabled=false`.
 
 
 ## Troubleshooting and notes

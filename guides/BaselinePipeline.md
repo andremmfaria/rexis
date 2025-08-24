@@ -42,16 +42,16 @@ Important options (from `cmd_analyze_baseline` in `../src/rexis/cli/analyse_comm
 - `--format, -f` Report format (currently only `json`)
 - Ghidra/decompiler:
 	- `--project-dir, -d` Ghidra projects store (default `~/.rexis/ghidra_projects`)
-	- `--parallel, -p` Parallel worker count when input is a directory
+	- `--parallel, -p` Parallel worker count when input is a directory (default `1`)
 - Heuristics:
 	- `--rules` Path to rules config (YAML or JSON)
 	- `--min-severity, -m` Evidence filter for output: `info|warn|error`
 - VirusTotal enrichment:
-	- `--vt` Enable VT lookup by SHA-256
-	- `--vt-timeout` Timeout seconds (captured in run report; actual HTTP is via the `vt` SDK)
-	- `--vt-qpm` Queries-per-minute budget (best-effort rate limiting)
+	- `--vt` Enable VT lookup by SHA-256 (requires API key in `config/settings.toml`)
+	- `--vt-timeout` Timeout seconds (recorded in run report; actual HTTP uses `vt` SDK) (default `20`)
+	- `--vt-qpm` Queries-per-minute budget (best-effort rate limiting) (default `240`)
 - Logging/audit:
-	- `--audit/--no-audit` Include an audit trail of pipeline events in reports
+	- `--audit/--no-audit` Include an audit trail of pipeline events in reports (default: audit ON)
 
 
 ## Output layout and artifacts
@@ -130,7 +130,7 @@ Heuristics output shape (subset):
 Implementation: `_vt_enrich_sha256` in `../src/rexis/operations/baseline.py` and client in `../src/rexis/tools/virus_total.py`.
 - Opt-in via `--vt` and an API key in `../config/settings.toml` under `[baseline].virus_total_api_key`.
 - Looks up the sample by SHA-256 using the `vt` Python SDK (VT v3 API).
-- Returns a compacted record with useful attributes (size, names/tags/type info, meaningful name, last analysis stats, popular_threat_* fields, first/last submission dates).
+- Returns a compacted record with useful attributes (size, names/tags/type info, meaningful name, last analysis stats, `popular_threat_*` fields, first/last submission dates).
 - Best-effort QPM rate limiting is applied via `wait_qpm` in `../src/rexis/utils/utils.py`. Note: in parallel mode the limit is per-process (not centrally coordinated).
 - Errors are captured and included in the final report.
 
@@ -212,7 +212,7 @@ Per-run report (`baseline-analysis-<RUN_ID>.report.json`) captures:
 - Report format: only `json` is supported (`--format json`).
 - VT timeout: the `--vt-timeout` option is recorded in run metadata; actual HTTP requests are performed by the `vt` SDK which doesn’t use this value directly.
 - Rate limiting: `--vt-qpm` applies a simple sleep-based limiter; in parallel mode it’s per-process, not a shared limiter.
-- Overwrite semantics: if the features JSON already exists and `--overwrite` is not set, the decompiler step will raise; set `-y` to regenerate.
+- Overwrite semantics: if the features JSON already exists and `--overwrite` is not set, the decompiler step may raise; set `-y` to regenerate.
 - File extensions: adjust `iter_pe_files` in `../src/rexis/utils/utils.py` to support additional formats if needed.
 
 

@@ -38,14 +38,14 @@ Options (from `cmd_analyze_llmrag` in `../src/rexis/cli/analyse_commands.py`):
 	- `--top-k-keyword, -tk` Candidates per keyword search (default 50)
 	- `--final-top-k, -fk` Passages fed to LLM after fuse/rerank (default 8)
 	- `--join, -j` Fusion mode for dense+keyword: `rrf|merge` (default rrf)
-	- `--rerank-top-k, -rk` If >0, listwise re-rank top K with a cross-encoder LLM
-	- `--ranker-model, -rm` Model id for reranker (OpenAI chat generator)
+	- `--rerank-top-k, -rk` If >0, listwise rerank top K using an OpenAI chat model (JSON-only prompt)
+	- `--ranker-model, -rm` Model id for reranker (default `gpt-4o-mini`)
 	- `--source, -s` Repeatable filter to restrict retrieval to sources (e.g., `--source malpedia`)
 - LLM generator knobs:
-    - `--model, -m` Generator model id (OpenAI via Haystack)
+	- `--model, -m` Generator model id (OpenAI via Haystack, default `gpt-4o-2024-08-06`)
     - `--temperature, -t` Sampling temperature
     - `--max-tokens, -mt` Max output tokens
-    - `--prompt-variant, -pv` Prompt style: `classification|justification|comparison` (guardrailed flow uses classification + justification)
+	- `--prompt-variant, -pv` Prompt style: `classification|justification|comparison` (guardrailed flow uses `classification` + `justification`)
 - Logging/audit:
 	- `--audit/--no-audit, -a/--no-a` Include audit trail events in report
 
@@ -88,8 +88,8 @@ Implementation: `retrieve_context` in `../src/rexis/tools/retrieval/main.py`.
 	- Dense search using `OpenAITextEmbedder` and `PgvectorEmbeddingRetriever` (`searches.py`)
 	- Keyword search using `PgvectorKeywordRetriever` (`searches.py`)
 - Fuses results with Reciprocal Rank Fusion (`join_mode=rrf`) or simple merge, keeping best score per doc id.
-- Optional re-rank when `rerank_top_k > 0`:
-	- Uses OpenAI chat model as a listwise reranker (`ranking.py`), asks for strict JSON scores per `doc_id`.
+- Optional rerank when `rerank_top_k > 0`:
+	- Uses an OpenAI chat model as a listwise reranker (`ranking.py`), returning strict JSON scores per `doc_id`.
 	- Applies small authority bias by source (see `AUTH_BONUS` in `../src/rexis/utils/constants.py`) and diversification caps per source.
 - Returns formatted passages for the LLM: `{doc_id, source, title, score, text}` plus `rag_notes` with metrics and settings.
 
@@ -102,9 +102,9 @@ Filters:
 
 Implementation: `apply_guardrails_and_classify` in `../src/rexis/tools/llm/guardrails.py` (internally uses `llm_classify`).
 - Summarizes features into a compact payload and trims passages to ≤8 items before prompting.
-- Stage A: classify **without** retrieval to get a blind hypothesis (`prompt_variant=classification`).
+- Stage A: classify without retrieval to get a blind hypothesis (`prompt_variant=classification`).
 - Stage B: redact likely family/actor names from passages, rerank by technicality, then classify with sanitized passages using the `justification` prompt.
-- Post-validate: require at least two retrieval evidence items and block family claims that leak redacted names; uncertainty is bumped and family set to `unknown_family` if guardrails trigger.
+- Post-validate: require at least two retrieval evidence items and block family claims that leak redacted names; uncertainty is set to `high` and families to `unknown_family` when guardrails trigger.
 - Output object follows the same strict schema as before and includes a `guardrails` block with redacted names, counts, used passages, and strategy metadata.
 - Both stages call OpenAI via Haystack `OpenAIChatGenerator` with the chosen `--model`; replies are parsed as strict JSON with repair fallback.
 
@@ -114,13 +114,13 @@ The per-sample `.llmrag.json` is written alongside the final report.
 ## Step 5 — Final label and report
 
 Implementation: `_process_sample` in `../src/rexis/operations/llmrag.py`.
-- Final label is derived from `llm_out.score` using the same thresholds as the baseline (`SCORE_THRESHOLD_MALICIOUS`, `SCORE_THRESHOLD_SUSPICIOUS`). If the LLM already labeled `benign` and score is lower, we keep `benign`.
+- Final label is derived from `llm_out.score` using the same thresholds as the baseline (`SCORE_THRESHOLD_MALICIOUS`, `SCORE_THRESHOLD_SUSPICIOUS`). If the LLM labeled `benign` and the score is lower than the suspicious threshold, we keep `benign`.
 - The final report (`H.report.json`) includes:
 	- `schema`: `rexis.llmrag.report.v1`
 	- `run_name`, `generated_at`, `duration_sec`
 	- `sample`: `{sha256, source_path}`
 	- `program`: from features
-    - `artifacts`: `features_path`, `llmrag_path`, and an explicit retrieval block with `queries`, `notes`, `passages` (metadata only)
+	- `artifacts`: `features_path`, `llmrag_path`, and an explicit retrieval block with `queries`, `notes`, `passages_original`, `passages_used` (metadata only)
     - `llmrag`: the raw guardrailed classification JSON
     - `guardrails`: redacted names, counts, passages used, strategy
     - `classification`: `{ "llm": [...] }` convenience block surfacing the tags at the top level

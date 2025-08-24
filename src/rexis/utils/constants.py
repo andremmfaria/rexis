@@ -56,6 +56,7 @@ DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
         "suspicious_urls_in_strings": 0.15,
         "anti_vm_strings": 0.10,
         "dbg_anti_dbg": 0.20,
+        "suspicious_function_names": 0.20,
     },
     # Optional allow/deny lists
     "allow_rules": [],
@@ -101,6 +102,7 @@ DEFAULT_HEURISTIC_RULES: Dict[str, Any] = {
         ),
         "anti_vm_strings": (0.15, {}),
         "dbg_anti_dbg": (0.20, {}),
+        "suspicious_function_names": (0.30, {}),
     },
 }
 
