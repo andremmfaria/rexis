@@ -1,0 +1,296 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "trojan-run-2508",
+  "generated_at": "2025-08-24T21:38:59Z",
+  "duration_sec": 25.367,
+  "sample": {
+    "sha256": "8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/trojan/decompressed/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-trojan-run-2508/decompile-trojan-run-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-trojan-run-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.baseline.json"
+  },
+  "program": {
+    "name": "8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/32/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 104524424,
+    "sha256": "8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732"
+  },
+  "taxonomy": {
+    "families": {},
+    "tags": [
+      {
+        "tag": "downloader",
+        "score": 0.3
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "downloader"
+    ],
+    "virustotal": []
+  },
+  "final": {
+    "score": 0.09,
+    "label": "benign",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.2,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 3,
+          "error": 1
+        }
+      },
+      "virustotal": {
+        "error": "not_available"
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.9,
+      "virustotal_confidence": 0.2
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": false,
+      "score_gap": 0.2,
+      "disagreement_penalty": 0.0
+    },
+    "final": {
+      "score": 0.09,
+      "label": "benign",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.90 (errors=1, warns=3, infos=1, categories=4)",
+      "VT data not available"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.2,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "networking_indicators",
+        "title": "Networking-capable binary",
+        "detail": "Imports include: sendmessagetimeoutw, sendmessagew",
+        "severity": "warn",
+        "score": 0.25,
+        "reason": "matched networking imports: sendmessagetimeoutw, sendmessagew",
+        "categories": [
+          {
+            "tag": "backdoor",
+            "score": 0.125
+          },
+          {
+            "tag": "trojan",
+            "score": 0.125
+          },
+          {
+            "tag": "botnet",
+            "score": 0.075
+          }
+        ]
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "title": "Dynamic API resolution",
+        "detail": "Imports include: getprocaddress",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched dynamic resolution imports: getprocaddress",
+        "categories": [
+          {
+            "tag": "obfuscated",
+            "score": 0.14
+          },
+          {
+            "tag": "packed",
+            "score": 0.08
+          }
+        ]
+      },
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: getsystemdirectoryw, getsystemmenu, getsystemmetrics, systemparametersinfow",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: getsystemdirectoryw, getsystemmenu, getsystemmetrics, systemparametersinfow",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "filesystem_mod",
+        "title": "Filesystem modification capability",
+        "detail": "Imports include: copyfilew, createfilew, deletefilew, movefilew, readfile, setfileattributesw, writefile",
+        "severity": "info",
+        "score": 0.1,
+        "reason": "matched filesystem imports: copyfilew, createfilew, deletefilew, movefilew, readfile, setfileattributesw, writefile",
+        "categories": [
+          {
+            "tag": "ransomware",
+            "score": 0.07
+          },
+          {
+            "tag": "wiper",
+            "score": 0.06
+          },
+          {
+            "tag": "dropper",
+            "score": 0.04
+          }
+        ]
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "title": "Embedded external endpoints",
+        "detail": "Found 3 URL/IP indicators; e.g., http://nsis.sf.net/NSIS_Error, 1.0.0.0, 6.0.0.0",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "found 3 endpoints",
+        "categories": [
+          {
+            "tag": "downloader",
+            "score": 0.09
+          },
+          {
+            "tag": "trojan",
+            "score": 0.075
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 3,
+      "error": 1
+    },
+    "tags": [
+      {
+        "tag": "downloader",
+        "score": 0.3
+      }
+    ],
+    "classification": [
+      "downloader"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "packer_artifacts",
+        "reason": "no packer indicators: no known packer strings, no resource-packaging APIs, and .text not tiny"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "anti_vm_strings",
+        "reason": "no anti-VM tokens present in strings"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no debugger/anti-debug imports found"
+      },
+      {
+        "id": "suspicious_function_names",
+        "reason": "no suspicious function names found"
+      }
+    ]
+  },
+  "virus_total": {},
+  "audit": [
+    {
+      "ts": "2025-08-24T21:38:34Z",
+      "event": "pipeline_start",
+      "run_name": "trojan-run-2508",
+      "file": "samples/trojan/decompressed/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.exe"
+    },
+    {
+      "ts": "2025-08-24T21:38:34Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:38:59Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-trojan-run-2508/decompile-trojan-run-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:38:59Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:38:59Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-trojan-run-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.baseline.json"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "run_id": "rootkit-run-2508",
+  "base_path": "llmrag-analysis-rootkit-run-2508",
+  "started_at": "2025-08-24T22:48:57Z",
+  "ended_at": "2025-08-24T22:52:23Z",
+  "duration_seconds": 206.279,
+  "status": "success",
+  "error": null,
+  "inputs": {
+    "input_path": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed",
+    "parallel": 5,
+    "report_format": "json",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects",
+    "audit": true,
+    "rag": {
+      "top_k_dense": 50,
+      "top_k_keyword": 50,
+      "final_top_k": 8,
+      "join_mode": "rrf",
+      "rerank_top_k": 0,
+      "ranker_model": "gpt-4o-mini",
+      "sources": []
+    },
+    "llm": {
+      "model": "gpt-4o-2024-08-06",
+      "temperature": 0.0,
+      "max_tokens": 1024,
+      "prompt_variant": "classification"
+    }
+  },
+  "outputs": {
+    "primary": "analysis/llmrag/llmrag-analysis-rootkit-run-2508/llmrag_summary.json",
+    "reports": [
+      "analysis/llmrag/llmrag-analysis-rootkit-run-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.report.json",
+      "analysis/llmrag/llmrag-analysis-rootkit-run-2508/f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42.report.json",
+      "analysis/llmrag/llmrag-analysis-rootkit-run-2508/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.report.json",
+      "analysis/llmrag/llmrag-analysis-rootkit-run-2508/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.report.json",
+      "analysis/llmrag/llmrag-analysis-rootkit-run-2508/a829694cec2fbcc05aa42f4701f10e043726baade1907faa0c76b458542b88f6.report.json"
+    ],
+    "run_dir": "analysis/llmrag/llmrag-analysis-rootkit-run-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects"
+  }
+}

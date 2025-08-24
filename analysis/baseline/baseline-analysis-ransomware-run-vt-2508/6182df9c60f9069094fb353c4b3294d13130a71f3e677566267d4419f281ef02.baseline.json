@@ -1,0 +1,148 @@
+{
+  "schema": "rexis.baseline.heuristics.v1",
+  "score": 0.2025,
+  "label": "benign",
+  "evidence": [
+    {
+      "id": "packer_artifacts",
+      "title": "Packer / obfuscation indicators",
+      "detail": "Signals: tiny-.text",
+      "severity": "warn",
+      "score": 0.4,
+      "reason": "signals: tiny-.text",
+      "categories": [
+        {
+          "tag": "packed",
+          "score": 0.36
+        },
+        {
+          "tag": "obfuscated",
+          "score": 0.24
+        }
+      ]
+    },
+    {
+      "id": "tiny_text_section",
+      "title": "Tiny .text section",
+      "detail": "Detected tiny .text section (<4096B); size=2560 bytes",
+      "severity": "warn",
+      "score": 0.25,
+      "reason": "tiny .text section detected",
+      "categories": [
+        {
+          "tag": "packed",
+          "score": 0.15
+        }
+      ]
+    },
+    {
+      "id": "dynamic_api_resolution",
+      "title": "Dynamic API resolution",
+      "detail": "Imports include: getprocaddress, loadlibrarya",
+      "severity": "warn",
+      "score": 0.2,
+      "reason": "matched dynamic resolution imports: getprocaddress, loadlibrarya",
+      "categories": [
+        {
+          "tag": "obfuscated",
+          "score": 0.14
+        },
+        {
+          "tag": "packed",
+          "score": 0.08
+        }
+      ]
+    },
+    {
+      "id": "suspicious_urls_in_strings",
+      "title": "Embedded external endpoints",
+      "detail": "Found 7 URL/IP indicators; e.g., https://getsession.org, 1.0.0.0, 4.0.0.0",
+      "severity": "warn",
+      "score": 0.15,
+      "reason": "found 7 endpoints",
+      "categories": [
+        {
+          "tag": "downloader",
+          "score": 0.09
+        },
+        {
+          "tag": "trojan",
+          "score": 0.075
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "info": 0,
+    "warn": 4,
+    "error": 0
+  },
+  "tags": [
+    {
+      "tag": "packed",
+      "score": 0.59
+    },
+    {
+      "tag": "obfuscated",
+      "score": 0.38
+    }
+  ],
+  "classification": [
+    "packed",
+    "obfuscated"
+  ],
+  "rule_misses": [
+    {
+      "id": "sus_api_combo",
+      "reason": "none of injection/networking/registry API sets present"
+    },
+    {
+      "id": "low_entropy_strings",
+      "reason": "program size below threshold (<100KB) for this heuristic"
+    },
+    {
+      "id": "entry_in_writable",
+      "reason": "no executable section marked writable"
+    },
+    {
+      "id": "networking_indicators",
+      "reason": "no networking-related imports found"
+    },
+    {
+      "id": "http_exfil_indicators",
+      "reason": "no HTTP request/exfiltration imports found"
+    },
+    {
+      "id": "crypto_indicators",
+      "reason": "no cryptographic API imports found"
+    },
+    {
+      "id": "shell_exec_indicators",
+      "reason": "no shell/execution-related imports found"
+    },
+    {
+      "id": "autorun_persistence",
+      "reason": "no registry persistence-related imports found"
+    },
+    {
+      "id": "service_persistence",
+      "reason": "no service control manager API imports found"
+    },
+    {
+      "id": "filesystem_mod",
+      "reason": "no filesystem modification imports found"
+    },
+    {
+      "id": "anti_vm_strings",
+      "reason": "no anti-VM tokens present in strings"
+    },
+    {
+      "id": "dbg_anti_dbg",
+      "reason": "no debugger/anti-debug imports found"
+    },
+    {
+      "id": "suspicious_function_names",
+      "reason": "no suspicious function names found"
+    }
+  ]
+}

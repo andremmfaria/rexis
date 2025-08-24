@@ -1,0 +1,46 @@
+{
+  "run_id": "trojan-run-2508",
+  "base_path": "llmrag-analysis-trojan-run-2508",
+  "started_at": "2025-08-24T22:27:27Z",
+  "ended_at": "2025-08-24T22:29:13Z",
+  "duration_seconds": 105.642,
+  "status": "success",
+  "error": null,
+  "inputs": {
+    "input_path": "/home/andremmfaria/projects/rexis/samples/trojan/decompressed",
+    "parallel": 5,
+    "report_format": "json",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects",
+    "audit": true,
+    "rag": {
+      "top_k_dense": 50,
+      "top_k_keyword": 50,
+      "final_top_k": 8,
+      "join_mode": "rrf",
+      "rerank_top_k": 0,
+      "ranker_model": "gpt-4o-mini",
+      "sources": []
+    },
+    "llm": {
+      "model": "gpt-4o-2024-08-06",
+      "temperature": 0.0,
+      "max_tokens": 1024,
+      "prompt_variant": "classification"
+    }
+  },
+  "outputs": {
+    "primary": "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/llmrag_summary.json",
+    "reports": [
+      "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.report.json",
+      "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.report.json",
+      "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/10abf4518c37c5852817b74292c939a7646abbb6fa538e7ffd0a1e384b533207.report.json",
+      "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/dcb7ce8cf51da4997489814f1ea6a877b97b4d0fcd28d6c89d8f9f363ab17abd.report.json",
+      "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/cb8e04654a46e145dd9690c4c4c2c1e4ed1e82ea16e7fbdb500cc9357622fa46.report.json"
+    ],
+    "run_dir": "data/analysis/llmrag/llmrag-analysis-trojan-run-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects"
+  }
+}

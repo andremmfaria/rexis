@@ -1,0 +1,402 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "rootkit-run-vt-2508",
+  "generated_at": "2025-08-24T22:03:04Z",
+  "duration_sec": 273.317,
+  "sample": {
+    "sha256": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.baseline.json"
+  },
+  "program": {
+    "name": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/64/default",
+    "compiler": "Visual Studio",
+    "image_base": "180000000",
+    "size": 2051584,
+    "sha256": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e"
+  },
+  "taxonomy": {
+    "families": {
+      "trojan": 2,
+      "riskware": 2
+    },
+    "tags": []
+  },
+  "classification": {
+    "heuristics": [
+      "dropper",
+      "downloader",
+      "loader"
+    ],
+    "virustotal": [
+      "riskware",
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.5,
+    "label": "abstain",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.2275,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 3,
+          "error": 1
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2023-06-30",
+        "malicious": 50,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 22,
+        "popular_threat_name": "{'value': 'fvij', 'count': 2}, {'value': 'misc', 'count': 2}, {'value': 'r002c0pbj25', 'count': 2}",
+        "type_description": "Win32 DLL",
+        "meaningful_name": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe",
+        "names": [
+          "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe",
+          "r77-2fd82a75231647ceb44714dc3dfeacb1-x64.dll",
+          "r77-b2dcbcf1652746619d556099960cccce-x64.dll",
+          "r77-5d04c811ce6f4e53be39c7833c305d38-x64.dll",
+          "r77-2782eee42ace4ffc880f2530e1ed9525-x64.dll",
+          "r77-f45a1a242f234a818ad3404363da83a9-x64.dll",
+          "r77-b3a4a88f21764c68aa8b5a4807ae67da-x64.dll",
+          "r77-67592eb5c8ae456fb18efe6c7ee03ef0-x64.dll",
+          "r77-2939c269a58f4bb4bd7db6b948a86e82-x64.dll",
+          "r77-96eac7087e5e4e1a9338aa81ca40bb4e-x64.dll"
+        ],
+        "size": 2051584,
+        "sha256": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e",
+        "consensus_denominator": 50,
+        "consensus_score": 1.0,
+        "confidence": 0.8
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.9,
+      "virustotal_confidence": 0.8
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": true,
+      "score_gap": 0.7725,
+      "disagreement_penalty": 0.0845
+    },
+    "final": {
+      "score": 0.5,
+      "label": "abstain",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.90 (errors=1, warns=3, infos=1, categories=5)",
+      "vt_score=1.00 vt_confidence=0.80 (mal=50, sus=0, denom=50)",
+      "disagreement_penalty=0.08 due to gap=0.77",
+      "hard conflict override -> abstain (set fused score to mid value)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.2275,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "dynamic_api_resolution",
+        "title": "Dynamic API resolution",
+        "detail": "Imports include: getprocaddress",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched dynamic resolution imports: getprocaddress",
+        "categories": [
+          {
+            "tag": "obfuscated",
+            "score": 0.14
+          },
+          {
+            "tag": "packed",
+            "score": 0.08
+          }
+        ]
+      },
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: enumsystemlocalesw, getsysteminfo, getsystemtimeasfiletime",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: enumsystemlocalesw, getsysteminfo, getsystemtimeasfiletime",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "filesystem_mod",
+        "title": "Filesystem modification capability",
+        "detail": "Imports include: createfilew, readfile, writefile",
+        "severity": "info",
+        "score": 0.1,
+        "reason": "matched filesystem imports: createfilew, readfile, writefile",
+        "categories": [
+          {
+            "tag": "ransomware",
+            "score": 0.07
+          },
+          {
+            "tag": "wiper",
+            "score": 0.06
+          },
+          {
+            "tag": "dropper",
+            "score": 0.04
+          }
+        ]
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "title": "Debugger/anti-debug indicators",
+        "detail": "Imports include: isdebuggerpresent, outputdebugstringw",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched debug/anti-debug imports: isdebuggerpresent, outputdebugstringw",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.14
+          }
+        ]
+      },
+      {
+        "id": "suspicious_function_names",
+        "title": "Suspicious function names detected",
+        "detail": "Functions: FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator+=, FID_conflict:operator+=, FID_conflict:operator+=, FID_conflict:operator+=, FID_conflict:operator-=, FID_conflict:operator-=, FID_conflict:operator-=, FID_conflict:operator-=, FID_conflict:operator=, FID_conflict:operator=, FID_conflict:operator=, FID_conflict:operator=, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator[], FID_conflict:operator[], FID_conflict:operator[], FID_conflict:operator[], FUN_1800d2c20, FUN_1800dc250, FUN_1800ddc20, FUN_1800dec20, FUN_18012c2d0, FUN_18012c2e0, FUN_18012c2f0, FUN_18019c2a0, FUN_18019dc20, FUN_1801ac220, FUN_1801ac2a0, FUN_1801b7c20, FUN_1801c2820, FUN_1801c28f0, FUN_1801c29c0, FUN_1801c2a90, FUN_1801c2b60, FUN_1801c2c30, FUN_1801c2d00, FUN_1801c2d20, FUN_1801c2d40, FUN_1801c2d60, FUN_1801c2d80, FUN_1801c2da0, FUN_1801c2dc0, FUN_1801c2de0, FUN_1801c2e00, FUN_1801c2e20, FUN_1801c2e40, FUN_1801c2e60, FUN_1801c2e80, FUN_1801c2ea0, FUN_1801c2ec0, FUN_1801c2ee0, FUN_1801c2f00, FUN_1801c2f20, FUN_1801c2f40, FUN_1801c2f60, FUN_1801c2f80, FUN_1801c2fa0, FUN_1801c2fc0, FUN_1801c2fe0, FUN_1801ec240, FUN_1801efc20, FUN_1801f2c20, FUN_1801f4c20, FUN_18020c220, FUN_18020c290, FUN_18022ac20, FUN_18023ac20, FUN_18023c220, FUN_18023c260, FUN_18023c280, FUN_18023c2a0, FUN_18023c2c0, FUN_18023c2e0, FUN_18023fc20, UnDecorator, UnDecorator, _Copy_unchecked<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, _Copy_unchecked<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, _DllMainCRTStartup, _Iterator_base12, _Iterator_base12, _Iterator_base12, _Iterator_base12, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, __scrt_dllmain_after_initialize_c, __scrt_dllmain_after_initialize_c, __scrt_dllmain_before_initialize_c, __scrt_dllmain_before_initialize_c, __scrt_dllmain_crt_thread_attach, __scrt_dllmain_crt_thread_attach, __scrt_dllmain_crt_thread_detach, __scrt_dllmain_crt_thread_detach, __scrt_dllmain_exception_filter, __scrt_dllmain_exception_filter, __scrt_dllmain_uninitialize_c, __scrt_dllmain_uninitialize_c, __scrt_dllmain_uninitialize_critical, __scrt_dllmain_uninitialize_critical, __vcrt_LoadLibraryExW, __vcrt_LoadLibraryExW, basic_string<char,struct_std::char_traits<char>,class_std::allocator<char>_>::operator[], basic_string<char,struct_std::char_traits<char>,class_std::allocator<char>_>::operator[], composeDeclaration, composeDeclaration, copy<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, copy<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, dllmain_crt_dispatch, dllmain_crt_process_attach, dllmain_crt_process_detach, dllmain_dispatch, dllmain_raw, getDecoratedName, getDecoratedName, getStateFromIterators, getStateFromIterators, getUndecoratedName, getUndecoratedName, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator::operator!=, iterator::operator!=, iterator::operator!=, iterator::operator!=, iterator::operator==, iterator::operator==, iterator::operator==, iterator::operator==, operator!=, operator!=, operator!=, operator!=, operator&, operator&, operator&, operator&, operator&, operator&, operator&, operator&, operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_410d79af7f07d98d83a3f525b3859a53>,class_<lambda_3e16ef9562a7dcce91392c22ab16ea36>&___ptr64,class_<lambda_38119f0e861e05405d8a144b9b982f0a>_>, operator()<class_<lambda_842d9ff0dc9ef11c61343bbaebe7f885>,class_<lambda_c5860995281e5c4ce005b3de8f5874ee>&___ptr64,class_<lambda_d90129c13df834fdcbf8d2b88dafcf2d>_>, operator()<class_<lambda_c376a267cfb53b6959b3b692ec76b120>,class_<lambda_9a32fed5bf61b6b509b2d3f6003082a1>&___ptr64,class_<lambda_572fbb9fa0ab338edf41edfd4b5fcc8d>_>, operator()<class_<lambda_eacf905e26ee9b3ecaf8c83fb6d01ccf>,class_<lambda_c71b65d7ce90e870fe94dc13983de2af>&___ptr64,class_<lambda_02db5278e8aef8b5e4976579d73f5304>&___ptr64>, operator()<class_<lambda_f4e517d552fa6983f9729d42bd01948c>,class_<lambda_996e5bbe595b6575b96cd8ed43795d0b>&___ptr64,class_<lambda_3f7a415f9b2bf2b7e57bed21b4d14873>_>, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator-, operator-, operator-=, operator-=, operator->, operator->, operator<, operator<, operator<, operator<, operator<, operator<, operator<int___cdecl(wchar_t*___ptr64,unsigned_long,__int64)>_int_(__cdecl*)(wchar_t*___ptr64,unsigned_long,__int64), operator<int___cdecl(wchar_t*___ptr64,unsigned_long,__int64)>_int_(__cdecl*)(wchar_t*___ptr64,unsigned_long,__int64), operator<void>_void*___ptr64, operator<void>_void*___ptr64, operator<void_(__cdecl*)(void)>_void_(__cdecl**___ptr64)(void), operator<void_(__cdecl*)(void)>_void_(__cdecl**___ptr64)(void), operator<void___cdecl(void*___ptr64,unsigned_long,void*___ptr64)>_void_(__cdecl*)(void*___ptr64,unsigned_long,void*___ptr64), operator<void___cdecl(void*___ptr64,unsigned_long,void*___ptr64)>_void_(__cdecl*)(void*___ptr64,unsigned_long,void*___ptr64), operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator==, operator==, operator==, operator==, operator>, operator>, operator>=, operator>=, operator[], operator[], operator[], operator[], operator[], operator[], operator[], operator[], operator_\"\"__l, operator_\"\"__l, operator_bool, operator_bool, operator_bool, operator_bool, operator_delete, operator_delete, operator_new, operator_new, operator_new, operator_new, operator_new, operator_new, operator|, operator|, operator|, operator|, operator|, operator|, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, pair<class_FH4::TryBlockMap4::iterator,class_FH4::TryBlockMap4::iterator><class_FH4::TryBlockMap4::iterator&___ptr64,class_FH4::TryBlockMap4::iterator&___ptr64,0>, pair<class_FH4::TryBlockMap4::iterator,class_FH4::TryBlockMap4::iterator><class_FH4::TryBlockMap4::iterator&___ptr64,class_FH4::TryBlockMap4::iterator&___ptr64,0>, pair<class___FrameHandler3::TryBlockMap::iterator,class___FrameHandler3::TryBlockMap::iterator><class___FrameHandler3::TryBlockMap::iterator&___ptr64,class___FrameHandler3::TryBlockMap::iterator&___ptr64,0>, pair<class___FrameHandler3::TryBlockMap::iterator,class___FrameHandler3::TryBlockMap::iterator><class___FrameHandler3::TryBlockMap::iterator&___ptr64,class___FrameHandler3::TryBlockMap::iterator&___ptr64,0>, parseDecoratedName, parseDecoratedName, scratch_data<char>, scratch_data<char>, thunk_FUN_1800d2c20, thunk_FUN_1800dc250, thunk_FUN_1800ddc20, thunk_FUN_1800dec20, thunk_FUN_18012c2d0, thunk_FUN_18012c2e0, thunk_FUN_18012c2f0, thunk_FUN_18019c2a0, thunk_FUN_18019dc20, thunk_FUN_1801ac220, thunk_FUN_1801ac2a0, thunk_FUN_1801b7c20, thunk_FUN_1801c2820, thunk_FUN_1801c28f0, thunk_FUN_1801c29c0, thunk_FUN_1801c2a90, thunk_FUN_1801c2b60, thunk_FUN_1801c2c30, thunk_FUN_1801c2d00, thunk_FUN_1801c2d20, thunk_FUN_1801c2d40, thunk_FUN_1801c2d60, thunk_FUN_1801c2d80, thunk_FUN_1801c2da0, thunk_FUN_1801c2dc0, thunk_FUN_1801c2de0, thunk_FUN_1801c2e00, thunk_FUN_1801c2e20, thunk_FUN_1801c2e40, thunk_FUN_1801c2e60, thunk_FUN_1801c2e80, thunk_FUN_1801c2ea0, thunk_FUN_1801c2ec0, thunk_FUN_1801c2ee0, thunk_FUN_1801c2f00, thunk_FUN_1801c2f20, thunk_FUN_1801c2f40, thunk_FUN_1801c2f60, thunk_FUN_1801c2f80, thunk_FUN_1801c2fa0, thunk_FUN_1801c2fc0, thunk_FUN_1801c2fe0, thunk_FUN_1801ec240, thunk_FUN_1801f2c20, time_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, time_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, time_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, time_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>",
+        "severity": "warn",
+        "score": 0.3,
+        "reason": "matched suspicious function names: FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:money_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:num_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator*, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator++, FID_conflict:operator+=, FID_conflict:operator+=, FID_conflict:operator+=, FID_conflict:operator+=, FID_conflict:operator-=, FID_conflict:operator-=, FID_conflict:operator-=, FID_conflict:operator-=, FID_conflict:operator=, FID_conflict:operator=, FID_conflict:operator=, FID_conflict:operator=, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator==, FID_conflict:operator[], FID_conflict:operator[], FID_conflict:operator[], FID_conflict:operator[], FUN_1800d2c20, FUN_1800dc250, FUN_1800ddc20, FUN_1800dec20, FUN_18012c2d0, FUN_18012c2e0, FUN_18012c2f0, FUN_18019c2a0, FUN_18019dc20, FUN_1801ac220, FUN_1801ac2a0, FUN_1801b7c20, FUN_1801c2820, FUN_1801c28f0, FUN_1801c29c0, FUN_1801c2a90, FUN_1801c2b60, FUN_1801c2c30, FUN_1801c2d00, FUN_1801c2d20, FUN_1801c2d40, FUN_1801c2d60, FUN_1801c2d80, FUN_1801c2da0, FUN_1801c2dc0, FUN_1801c2de0, FUN_1801c2e00, FUN_1801c2e20, FUN_1801c2e40, FUN_1801c2e60, FUN_1801c2e80, FUN_1801c2ea0, FUN_1801c2ec0, FUN_1801c2ee0, FUN_1801c2f00, FUN_1801c2f20, FUN_1801c2f40, FUN_1801c2f60, FUN_1801c2f80, FUN_1801c2fa0, FUN_1801c2fc0, FUN_1801c2fe0, FUN_1801ec240, FUN_1801efc20, FUN_1801f2c20, FUN_1801f4c20, FUN_18020c220, FUN_18020c290, FUN_18022ac20, FUN_18023ac20, FUN_18023c220, FUN_18023c260, FUN_18023c280, FUN_18023c2a0, FUN_18023c2c0, FUN_18023c2e0, FUN_18023fc20, UnDecorator, UnDecorator, _Copy_unchecked<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, _Copy_unchecked<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, _DllMainCRTStartup, _Iterator_base12, _Iterator_base12, _Iterator_base12, _Iterator_base12, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, _String_const_iterator<>, __scrt_dllmain_after_initialize_c, __scrt_dllmain_after_initialize_c, __scrt_dllmain_before_initialize_c, __scrt_dllmain_before_initialize_c, __scrt_dllmain_crt_thread_attach, __scrt_dllmain_crt_thread_attach, __scrt_dllmain_crt_thread_detach, __scrt_dllmain_crt_thread_detach, __scrt_dllmain_exception_filter, __scrt_dllmain_exception_filter, __scrt_dllmain_uninitialize_c, __scrt_dllmain_uninitialize_c, __scrt_dllmain_uninitialize_critical, __scrt_dllmain_uninitialize_critical, __vcrt_LoadLibraryExW, __vcrt_LoadLibraryExW, basic_string<char,struct_std::char_traits<char>,class_std::allocator<char>_>::operator[], basic_string<char,struct_std::char_traits<char>,class_std::allocator<char>_>::operator[], composeDeclaration, composeDeclaration, copy<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, copy<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, dllmain_crt_dispatch, dllmain_crt_process_attach, dllmain_crt_process_detach, dllmain_dispatch, dllmain_raw, getDecoratedName, getDecoratedName, getStateFromIterators, getStateFromIterators, getUndecoratedName, getUndecoratedName, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator, iterator::operator!=, iterator::operator!=, iterator::operator!=, iterator::operator!=, iterator::operator==, iterator::operator==, iterator::operator==, iterator::operator==, operator!=, operator!=, operator!=, operator!=, operator&, operator&, operator&, operator&, operator&, operator&, operator&, operator&, operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator(), operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_410d79af7f07d98d83a3f525b3859a53>,class_<lambda_3e16ef9562a7dcce91392c22ab16ea36>&___ptr64,class_<lambda_38119f0e861e05405d8a144b9b982f0a>_>, operator()<class_<lambda_842d9ff0dc9ef11c61343bbaebe7f885>,class_<lambda_c5860995281e5c4ce005b3de8f5874ee>&___ptr64,class_<lambda_d90129c13df834fdcbf8d2b88dafcf2d>_>, operator()<class_<lambda_c376a267cfb53b6959b3b692ec76b120>,class_<lambda_9a32fed5bf61b6b509b2d3f6003082a1>&___ptr64,class_<lambda_572fbb9fa0ab338edf41edfd4b5fcc8d>_>, operator()<class_<lambda_eacf905e26ee9b3ecaf8c83fb6d01ccf>,class_<lambda_c71b65d7ce90e870fe94dc13983de2af>&___ptr64,class_<lambda_02db5278e8aef8b5e4976579d73f5304>&___ptr64>, operator()<class_<lambda_f4e517d552fa6983f9729d42bd01948c>,class_<lambda_996e5bbe595b6575b96cd8ed43795d0b>&___ptr64,class_<lambda_3f7a415f9b2bf2b7e57bed21b4d14873>_>, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator*, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator+, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator++, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator+=, operator-, operator-, operator-=, operator-=, operator->, operator->, operator<, operator<, operator<, operator<, operator<, operator<, operator<int___cdecl(wchar_t*___ptr64,unsigned_long,__int64)>_int_(__cdecl*)(wchar_t*___ptr64,unsigned_long,__int64), operator<int___cdecl(wchar_t*___ptr64,unsigned_long,__int64)>_int_(__cdecl*)(wchar_t*___ptr64,unsigned_long,__int64), operator<void>_void*___ptr64, operator<void>_void*___ptr64, operator<void_(__cdecl*)(void)>_void_(__cdecl**___ptr64)(void), operator<void_(__cdecl*)(void)>_void_(__cdecl**___ptr64)(void), operator<void___cdecl(void*___ptr64,unsigned_long,void*___ptr64)>_void_(__cdecl*)(void*___ptr64,unsigned_long,void*___ptr64), operator<void___cdecl(void*___ptr64,unsigned_long,void*___ptr64)>_void_(__cdecl*)(void*___ptr64,unsigned_long,void*___ptr64), operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator=, operator==, operator==, operator==, operator==, operator>, operator>, operator>=, operator>=, operator[], operator[], operator[], operator[], operator[], operator[], operator[], operator[], operator_\"\"__l, operator_\"\"__l, operator_bool, operator_bool, operator_bool, operator_bool, operator_delete, operator_delete, operator_new, operator_new, operator_new, operator_new, operator_new, operator_new, operator|, operator|, operator|, operator|, operator|, operator|, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, operator|=, pair<class_FH4::TryBlockMap4::iterator,class_FH4::TryBlockMap4::iterator><class_FH4::TryBlockMap4::iterator&___ptr64,class_FH4::TryBlockMap4::iterator&___ptr64,0>, pair<class_FH4::TryBlockMap4::iterator,class_FH4::TryBlockMap4::iterator><class_FH4::TryBlockMap4::iterator&___ptr64,class_FH4::TryBlockMap4::iterator&___ptr64,0>, pair<class___FrameHandler3::TryBlockMap::iterator,class___FrameHandler3::TryBlockMap::iterator><class___FrameHandler3::TryBlockMap::iterator&___ptr64,class___FrameHandler3::TryBlockMap::iterator&___ptr64,0>, pair<class___FrameHandler3::TryBlockMap::iterator,class___FrameHandler3::TryBlockMap::iterator><class___FrameHandler3::TryBlockMap::iterator&___ptr64,class___FrameHandler3::TryBlockMap::iterator&___ptr64,0>, parseDecoratedName, parseDecoratedName, scratch_data<char>, scratch_data<char>, thunk_FUN_1800d2c20, thunk_FUN_1800dc250, thunk_FUN_1800ddc20, thunk_FUN_1800dec20, thunk_FUN_18012c2d0, thunk_FUN_18012c2e0, thunk_FUN_18012c2f0, thunk_FUN_18019c2a0, thunk_FUN_18019dc20, thunk_FUN_1801ac220, thunk_FUN_1801ac2a0, thunk_FUN_1801b7c20, thunk_FUN_1801c2820, thunk_FUN_1801c28f0, thunk_FUN_1801c29c0, thunk_FUN_1801c2a90, thunk_FUN_1801c2b60, thunk_FUN_1801c2c30, thunk_FUN_1801c2d00, thunk_FUN_1801c2d20, thunk_FUN_1801c2d40, thunk_FUN_1801c2d60, thunk_FUN_1801c2d80, thunk_FUN_1801c2da0, thunk_FUN_1801c2dc0, thunk_FUN_1801c2de0, thunk_FUN_1801c2e00, thunk_FUN_1801c2e20, thunk_FUN_1801c2e40, thunk_FUN_1801c2e60, thunk_FUN_1801c2e80, thunk_FUN_1801c2ea0, thunk_FUN_1801c2ec0, thunk_FUN_1801c2ee0, thunk_FUN_1801c2f00, thunk_FUN_1801c2f20, thunk_FUN_1801c2f40, thunk_FUN_1801c2f60, thunk_FUN_1801c2f80, thunk_FUN_1801c2fa0, thunk_FUN_1801c2fc0, thunk_FUN_1801c2fe0, thunk_FUN_1801ec240, thunk_FUN_1801f2c20, time_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, time_get<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, time_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, time_put<char,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>",
+        "categories": []
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 3,
+      "error": 1
+    },
+    "tags": [],
+    "classification": [
+      "dropper",
+      "downloader",
+      "loader"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "packer_artifacts",
+        "reason": "no packer indicators: no known packer strings, no resource-packaging APIs, and .text not tiny"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "reason": "no URLs or IP addresses found in strings"
+      },
+      {
+        "id": "anti_vm_strings",
+        "reason": "no anti-VM tokens present in strings"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e",
+      "size": 2051584,
+      "names": [
+        "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe",
+        "r77-2fd82a75231647ceb44714dc3dfeacb1-x64.dll",
+        "r77-b2dcbcf1652746619d556099960cccce-x64.dll",
+        "r77-5d04c811ce6f4e53be39c7833c305d38-x64.dll",
+        "r77-2782eee42ace4ffc880f2530e1ed9525-x64.dll",
+        "r77-f45a1a242f234a818ad3404363da83a9-x64.dll",
+        "r77-b3a4a88f21764c68aa8b5a4807ae67da-x64.dll",
+        "r77-67592eb5c8ae456fb18efe6c7ee03ef0-x64.dll",
+        "r77-2939c269a58f4bb4bd7db6b948a86e82-x64.dll",
+        "r77-96eac7087e5e4e1a9338aa81ca40bb4e-x64.dll",
+        "r77-9d8d009a433d456b83f340de7c77c30f-x64.dll",
+        "r77-079bb32bf897460c8ca1cf2780d39536-x64.dll",
+        "r77-f041a2dfb9154d818fdc9d1d43a44531-x64.dll",
+        "r77-x64.dll",
+        "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e-dropped.bin",
+        "unknown",
+        "8d54e4abe1762f96134a0c874cfb8cdc.exe.vir",
+        "r77-0a9fb75932af4c4596239fe17fdc954d-x64.dll",
+        "r77-9f7f397eea364105b14ff3a8380d2f6d-x64.dll",
+        "r77-e95dcd6766834e3fa00ea665b88c7feb-x64.dll",
+        "r77-0da737aee2a64c58917bf0c3a74eee28-x64.dll",
+        "r77-6670f3620a1e4f8ea2c205499c336052-x64.dll",
+        "r77-78ebe195e6c64dbb8df5238e64db723e-x64.dll",
+        "r77-d6f434af42df40308ff6e0942f4ea6be-x64.dll",
+        "r77-a69e1820d41f48bab848261361c4dc51-x64.dll",
+        "r77-cc1c60078d3b4c7baf9376fc1f31c6ca-x64.dll",
+        "r77-42f5b7b3c8064432ae281a9aa6d908f8-x64.dll",
+        "r77-8e2446b23fa44e20b80f2ce689bc6a0d-x64.dll",
+        "r77-9eb9b2e6ac3f4d8cbb2d74a9c0b2f6fd-x64.dll",
+        "r77-efd8e6bdb3974507a9569be5ffb34908-x64.dll",
+        "r77-43b1cec4115b43318fe4597e10afc27f-x64.dll"
+      ],
+      "tags": [
+        "64bits",
+        "spreader",
+        "idle",
+        "detect-debug-environment",
+        "pedll",
+        "assembly",
+        "long-sleeps"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "pedll"
+      ],
+      "type_description": "Win32 DLL",
+      "meaningful_name": "2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe",
+      "harmless": 0,
+      "malicious": 50,
+      "suspicious": 0,
+      "undetected": 22,
+      "popular_threat_category": [
+        {
+          "value": "trojan",
+          "count": 25
+        },
+        {
+          "value": "pua",
+          "count": 2
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "value": "fvij",
+          "count": 2
+        },
+        {
+          "value": "misc",
+          "count": 2
+        },
+        {
+          "value": "r002c0pbj25",
+          "count": 2
+        }
+      ],
+      "first_submission_date": 1658849511,
+      "last_submission_date": 1688123238
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:58:31Z",
+      "event": "pipeline_start",
+      "run_name": "rootkit-run-vt-2508",
+      "file": "samples/rootkit/decompressed/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe"
+    },
+    {
+      "ts": "2025-08-24T21:58:31Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T22:03:03Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.features.json"
+    },
+    {
+      "ts": "2025-08-24T22:03:03Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T22:03:03Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T22:03:03Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T22:03:04Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "run_id": "ransomware-run-vt-2508",
+  "base_path": "decompile-ransomware-run-vt-2508",
+  "started_at": "2025-08-24T21:57:09Z",
+  "ended_at": "2025-08-24T21:57:47Z",
+  "duration_seconds": 38.646,
+  "status": "success",
+  "error": null,
+  "summary": {
+    "functions_count": 6573,
+    "imports_count": 18,
+    "strings_count": 141012,
+    "sections_count": 12,
+    "libraries_count": 9,
+    "exports_count": 10792,
+    "entry_points_count": 0,
+    "decompiled_count": 6573
+  },
+  "inputs": {
+    "file": "/home/andremmfaria/projects/rexis/samples/ransomware/decompressed/686bb5ee371733ab7908c2f3ea1ee76791080f3a4e61afe8b97c2a57fbc2efac.exe"
+  },
+  "outputs": {
+    "features_path": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/decompile-ransomware-run-vt-2508/686bb5ee371733ab7908c2f3ea1ee76791080f3a4e61afe8b97c2a57fbc2efac.features.json",
+    "run_dir": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/decompile-ransomware-run-vt-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "ghidra_install_dir": "/opt/ghidra",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects",
+    "project_name": "rexis-ransomware-run-vt-2508-686bb5ee371733ab7908c2f3ea1ee76791080f3a4e61afe8b97c2a57fbc2efac"
+  }
+}

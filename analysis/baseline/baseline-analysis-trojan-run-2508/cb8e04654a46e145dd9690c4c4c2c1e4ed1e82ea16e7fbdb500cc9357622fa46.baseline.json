@@ -1,0 +1,194 @@
+{
+  "schema": "rexis.baseline.heuristics.v1",
+  "score": 0.4075,
+  "label": "suspicious",
+  "evidence": [
+    {
+      "id": "packer_artifacts",
+      "title": "Packer / obfuscation indicators",
+      "detail": "Signals: packer-string",
+      "severity": "info",
+      "score": 0.4,
+      "reason": "signals: packer-string",
+      "categories": [
+        {
+          "tag": "packed",
+          "score": 0.36
+        },
+        {
+          "tag": "obfuscated",
+          "score": 0.24
+        }
+      ]
+    },
+    {
+      "id": "dynamic_api_resolution",
+      "title": "Dynamic API resolution",
+      "detail": "Imports include: getprocaddress",
+      "severity": "warn",
+      "score": 0.2,
+      "reason": "matched dynamic resolution imports: getprocaddress",
+      "categories": [
+        {
+          "tag": "obfuscated",
+          "score": 0.14
+        },
+        {
+          "tag": "packed",
+          "score": 0.08
+        }
+      ]
+    },
+    {
+      "id": "shell_exec_indicators",
+      "title": "Shell execution capability",
+      "detail": "Imports include: filetimetosystemtime, getsystemtimeasfiletime, systemtimetotzspecificlocaltime",
+      "severity": "error",
+      "score": 0.35,
+      "reason": "matched shell-exec imports: filetimetosystemtime, getsystemtimeasfiletime, systemtimetotzspecificlocaltime",
+      "categories": [
+        {
+          "tag": "dropper",
+          "score": 0.245
+        },
+        {
+          "tag": "downloader",
+          "score": 0.21
+        },
+        {
+          "tag": "loader",
+          "score": 0.175
+        }
+      ]
+    },
+    {
+      "id": "filesystem_mod",
+      "title": "Filesystem modification capability",
+      "detail": "Imports include: createfilew, deletefilew, readfile, writefile",
+      "severity": "info",
+      "score": 0.1,
+      "reason": "matched filesystem imports: createfilew, deletefilew, readfile, writefile",
+      "categories": [
+        {
+          "tag": "ransomware",
+          "score": 0.07
+        },
+        {
+          "tag": "wiper",
+          "score": 0.06
+        },
+        {
+          "tag": "dropper",
+          "score": 0.04
+        }
+      ]
+    },
+    {
+      "id": "suspicious_urls_in_strings",
+      "title": "Embedded external endpoints",
+      "detail": "Found 1 URL/IP indicators; e.g., 6.0.0.0",
+      "severity": "info",
+      "score": 0.5333,
+      "reason": "found 1 endpoints",
+      "categories": [
+        {
+          "tag": "downloader",
+          "score": 0.32
+        },
+        {
+          "tag": "trojan",
+          "score": 0.2667
+        }
+      ]
+    },
+    {
+      "id": "dbg_anti_dbg",
+      "title": "Debugger/anti-debug indicators",
+      "detail": "Imports include: isdebuggerpresent",
+      "severity": "warn",
+      "score": 0.2,
+      "reason": "matched debug/anti-debug imports: isdebuggerpresent",
+      "categories": [
+        {
+          "tag": "evasive",
+          "score": 0.14
+        }
+      ]
+    },
+    {
+      "id": "suspicious_function_names",
+      "title": "Suspicious function names detected",
+      "detail": "Functions: FUN_140001c2e, FUN_140008c20, FUN_14000c244, FUN_14000c258, FUN_14000cc20, FUN_140011c2c, FUN_140019c20, FUN_14002cc2a, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_410d79af7f07d98d83a3f525b3859a53>,class_<lambda_3e16ef9562a7dcce91392c22ab16ea36>&___ptr64,class_<lambda_38119f0e861e05405d8a144b9b982f0a>_>",
+      "severity": "warn",
+      "score": 0.3,
+      "reason": "matched suspicious function names: FUN_140001c2e, FUN_140008c20, FUN_14000c244, FUN_14000c258, FUN_14000cc20, FUN_140011c2c, FUN_140019c20, FUN_14002cc2a, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_410d79af7f07d98d83a3f525b3859a53>,class_<lambda_3e16ef9562a7dcce91392c22ab16ea36>&___ptr64,class_<lambda_38119f0e861e05405d8a144b9b982f0a>_>",
+      "categories": []
+    }
+  ],
+  "counts": {
+    "info": 3,
+    "warn": 3,
+    "error": 1
+  },
+  "tags": [
+    {
+      "tag": "downloader",
+      "score": 0.53
+    },
+    {
+      "tag": "packed",
+      "score": 0.44
+    },
+    {
+      "tag": "obfuscated",
+      "score": 0.38
+    }
+  ],
+  "classification": [
+    "downloader",
+    "packed",
+    "obfuscated"
+  ],
+  "rule_misses": [
+    {
+      "id": "sus_api_combo",
+      "reason": "none of injection/networking/registry API sets present"
+    },
+    {
+      "id": "tiny_text_section",
+      "reason": ".text section size not below threshold"
+    },
+    {
+      "id": "low_entropy_strings",
+      "reason": "string count/length distribution not indicative of packing"
+    },
+    {
+      "id": "entry_in_writable",
+      "reason": "no executable section marked writable"
+    },
+    {
+      "id": "networking_indicators",
+      "reason": "no networking-related imports found"
+    },
+    {
+      "id": "http_exfil_indicators",
+      "reason": "no HTTP request/exfiltration imports found"
+    },
+    {
+      "id": "crypto_indicators",
+      "reason": "no cryptographic API imports found"
+    },
+    {
+      "id": "autorun_persistence",
+      "reason": "no registry persistence-related imports found"
+    },
+    {
+      "id": "service_persistence",
+      "reason": "no service control manager API imports found"
+    },
+    {
+      "id": "anti_vm_strings",
+      "reason": "no anti-VM tokens present in strings"
+    }
+  ]
+}

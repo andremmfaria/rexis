@@ -1,0 +1,35 @@
+{
+  "run_id": "trojan-run-vt-2508",
+  "base_path": "baseline-analysis-trojan-run-vt-2508",
+  "started_at": "2025-08-24T21:40:23Z",
+  "ended_at": "2025-08-24T21:41:53Z",
+  "duration_seconds": 89.322,
+  "status": "success",
+  "error": null,
+  "inputs": {
+    "input_path": "/home/andremmfaria/projects/rexis/samples/trojan/decompressed",
+    "parallel": 5,
+    "report_format": "json",
+    "rules_path": null,
+    "min_severity": "info",
+    "vt_enabled": true,
+    "vt_timeout": 20,
+    "vt_qpm": 240,
+    "audit": true
+  },
+  "outputs": {
+    "primary": "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/baseline_summary.json",
+    "reports": [
+      "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.report.json",
+      "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.report.json",
+      "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/10abf4518c37c5852817b74292c939a7646abbb6fa538e7ffd0a1e384b533207.report.json",
+      "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/dcb7ce8cf51da4997489814f1ea6a877b97b4d0fcd28d6c89d8f9f363ab17abd.report.json",
+      "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/cb8e04654a46e145dd9690c4c4c2c1e4ed1e82ea16e7fbdb500cc9357622fa46.report.json"
+    ],
+    "run_dir": "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects"
+  }
+}

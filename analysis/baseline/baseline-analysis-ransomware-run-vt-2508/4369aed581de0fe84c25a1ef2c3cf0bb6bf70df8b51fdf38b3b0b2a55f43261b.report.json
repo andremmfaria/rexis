@@ -1,0 +1,496 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "ransomware-run-vt-2508",
+  "generated_at": "2025-08-24T22:07:05Z",
+  "duration_sec": 596.644,
+  "sample": {
+    "sha256": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/ransomware/decompressed/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/decompile-ransomware-run-vt-2508/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.baseline.json"
+  },
+  "program": {
+    "name": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/64/default",
+    "compiler": "Visual Studio",
+    "image_base": "140000000",
+    "size": 8485376,
+    "sha256": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b"
+  },
+  "taxonomy": {
+    "families": {
+      "trojan": 2,
+      "ransomware": 2
+    },
+    "tags": [
+      {
+        "tag": "trojan",
+        "score": 0.52
+      },
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      },
+      {
+        "tag": "stealer",
+        "score": 0.38
+      },
+      {
+        "tag": "backdoor",
+        "score": 0.365
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "trojan",
+      "packed",
+      "obfuscated"
+    ],
+    "virustotal": [
+      "ransomware",
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.7628,
+    "label": "malicious",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.695,
+        "label": "suspicious",
+        "evidence_counts": {
+          "info": 2,
+          "warn": 7,
+          "error": 2
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2025-07-31",
+        "malicious": 51,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 21,
+        "popular_threat_name": "{'value': 'bqtlock', 'count': 8}, {'value': 'lockfile', 'count': 3}, {'value': 'gkrxp', 'count': 2}",
+        "type_description": "Win32 EXE",
+        "meaningful_name": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe",
+        "names": [
+          "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe",
+          "BQT.exe"
+        ],
+        "size": 8485376,
+        "sha256": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b",
+        "consensus_denominator": 51,
+        "consensus_score": 1.0,
+        "confidence": 0.9
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.9,
+      "virustotal_confidence": 0.9
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": false,
+      "score_gap": 0.305,
+      "disagreement_penalty": 0.0
+    },
+    "final": {
+      "score": 0.7628,
+      "label": "malicious",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.90 (errors=2, warns=7, infos=2, categories=6)",
+      "packer indicators present -> slight confidence reduction",
+      "vt_score=1.00 vt_confidence=0.90 (mal=51, sus=0, denom=51)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.695,
+    "label": "suspicious",
+    "evidence": [
+      {
+        "id": "sus_api_combo",
+        "title": "Suspicious API combination",
+        "detail": "Hits: process-injection, networking",
+        "severity": "error",
+        "score": 0.8,
+        "reason": "hit sets: process-injection, networking",
+        "categories": [
+          {
+            "tag": "trojan",
+            "score": 0.32
+          },
+          {
+            "tag": "backdoor",
+            "score": 0.24
+          },
+          {
+            "tag": "stealer",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: packer-string",
+        "severity": "info",
+        "score": 0.4,
+        "reason": "signals: packer-string",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "networking_indicators",
+        "title": "Networking-capable binary",
+        "detail": "Imports include: connect, httpopenrequesta, httpsendrequesta, internetconnecta, internetopena, internetopenurla, internetreadfile, recv, recvfrom, send, sendto, wsastartup",
+        "severity": "warn",
+        "score": 0.25,
+        "reason": "matched networking imports: connect, httpopenrequesta, httpsendrequesta, internetconnecta, internetopena, internetopenurla, internetreadfile, recv, recvfrom, send, sendto, wsastartup",
+        "categories": [
+          {
+            "tag": "backdoor",
+            "score": 0.125
+          },
+          {
+            "tag": "trojan",
+            "score": 0.125
+          },
+          {
+            "tag": "botnet",
+            "score": 0.075
+          }
+        ]
+      },
+      {
+        "id": "http_exfil_indicators",
+        "title": "HTTP request/POST capability",
+        "detail": "Imports include: httpaddrequestheadersa, httpsendrequesta",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched HTTP exfil imports: httpaddrequestheadersa, httpsendrequesta",
+        "categories": [
+          {
+            "tag": "exfiltration",
+            "score": 0.16
+          },
+          {
+            "tag": "stealer",
+            "score": 0.14
+          },
+          {
+            "tag": "spyware",
+            "score": 0.12
+          }
+        ]
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "title": "Dynamic API resolution",
+        "detail": "Imports include: getprocaddress, loadlibrarya, loadlibraryw",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched dynamic resolution imports: getprocaddress, loadlibrarya, loadlibraryw",
+        "categories": [
+          {
+            "tag": "obfuscated",
+            "score": 0.14
+          },
+          {
+            "tag": "packed",
+            "score": 0.08
+          }
+        ]
+      },
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: certopensystemstorew, getsystemdirectorya, getsysteminfo, getsystemmetrics, getsystemtime, getsystemtimeasfiletime, shellexecutea, systemparametersinfoa, systemtimetofiletime",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: certopensystemstorew, getsystemdirectorya, getsysteminfo, getsystemmetrics, getsystemtime, getsystemtimeasfiletime, shellexecutea, systemparametersinfoa, systemtimetofiletime",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "filesystem_mod",
+        "title": "Filesystem modification capability",
+        "detail": "Imports include: createfilea, createfilew, deletefilea, deletefilew, internetreadfile, readfile, writefile",
+        "severity": "info",
+        "score": 0.1,
+        "reason": "matched filesystem imports: createfilea, createfilew, deletefilea, deletefilew, internetreadfile, readfile, writefile",
+        "categories": [
+          {
+            "tag": "ransomware",
+            "score": 0.07
+          },
+          {
+            "tag": "wiper",
+            "score": 0.06
+          },
+          {
+            "tag": "dropper",
+            "score": 0.04
+          }
+        ]
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "title": "Embedded external endpoints",
+        "detail": "Found 189 URL/IP indicators; e.g., http://iH, https://api.telegram.org/bot, http://%s",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "found 189 endpoints",
+        "categories": [
+          {
+            "tag": "downloader",
+            "score": 0.09
+          },
+          {
+            "tag": "trojan",
+            "score": 0.075
+          }
+        ]
+      },
+      {
+        "id": "anti_vm_strings",
+        "title": "Anti-VM indicators (strings)",
+        "detail": "Tokens: vbox, xen",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "tokens: vbox, xen",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.12
+          }
+        ]
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "title": "Debugger/anti-debug indicators",
+        "detail": "Imports include: isdebuggerpresent, outputdebugstringa, outputdebugstringw",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched debug/anti-debug imports: isdebuggerpresent, outputdebugstringa, outputdebugstringw",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.14
+          }
+        ]
+      },
+      {
+        "id": "suspicious_function_names",
+        "title": "Suspicious function names detected",
+        "detail": "Functions: DeleteFileA, DeleteFileW, FUN_140027c20, FUN_14005c2a0, FUN_14005c2d0, FUN_14005dc20, FUN_14007c2e0, FUN_14007c2f0, FUN_14007ec20, FUN_140086c20, FUN_14008c2f0, FUN_14008ec20, FUN_140091c20, FUN_140096c20, FUN_140097c20, FUN_1400a3c20, FUN_1400abc20, FUN_1400b3c20, FUN_1400b4c20, FUN_1400b5c20, FUN_1400b8c20, FUN_1400bc210, FUN_1400bc2c0, FUN_1400bec20, FUN_1400c20a0, FUN_1400c2140, FUN_1400c21e0, FUN_1400c2280, FUN_1400c2320, FUN_1400c23c0, FUN_1400c2460, FUN_1400c2500, FUN_1400c25a0, FUN_1400c25d0, FUN_1400c2600, FUN_1400c2630, FUN_1400c2730, FUN_1400c2870, FUN_1400c28b0, FUN_1400c28f0, FUN_1400c2930, FUN_1400c2970, FUN_1400c29b0, FUN_1400c29f0, FUN_1400c2a30, FUN_1400c2a70, FUN_1400c2ab0, FUN_1400c2af0, FUN_1400c2b30, FUN_1400c2b70, FUN_1400c2bb0, FUN_1400c2bf0, FUN_1400c2d60, FUN_1400c2ea0, FUN_1400c2ee0, FUN_1400c2f20, FUN_1400c2f60, FUN_1400c2fa0, FUN_1400c2fe0, FUN_1400c3c20, FUN_1400c4c20, FUN_1400dac20, FUN_1400e5c20, FUN_1400ec280, FUN_1400ec290, FUN_1400ec2a0, FUN_1400ec2b0, FUN_1400ec2c0, FUN_1400ec2d0, FUN_1400f1c20, FUN_1400f6c20, FUN_140103c20, FUN_14011c2c0, FUN_14012c2a0, FUN_14013c2b7, FUN_14013fc20, FUN_140150c20, FUN_140158c20, FUN_14015ec20, FUN_140166c20, FUN_14016ec20, FUN_14016fc2d, FUN_14019dc20, FUN_1401b9c20, FUN_1401bc290, FUN_1401c22b0, FUN_1401c25d0, FUN_1401c26d0, FUN_1401c2750, FUN_1401c2760, FUN_1401c2780, FUN_1401c27b0, FUN_1401c2940, FUN_1401c2970, FUN_1401c29b0, FUN_1401c29e0, FUN_1401c29f0, FUN_1401c2a10, FUN_1401c2a20, FUN_1401c2a30, FUN_1401c2a40, FUN_1401c2a50, FUN_1401c2a90, FUN_1401c2b00, FUN_1401c2b10, FUN_1401c2bd0, FUN_1401c2c90, FUN_1401c2d90, FUN_1401c2e90, FUN_1401c2f10, FUN_1401c2f90, FUN_1401c2ff0, FUN_1401c4c20, FUN_1401c4c2d, FUN_1401d0c20, FUN_1401dc200, FUN_1401dc210, FUN_1401e3c20, FUN_1401e7c20, FUN_1401ec220, FUN_1401ec280, FUN_1401ec2c0, FUN_1401ec2d0, FUN_1401eec20, FUN_1401fc280, FUN_14020ac20, FUN_14020c220, FUN_1402e1c20, FUN_1402e2c20, FUN_140317c20, FUN_14031c2a0, FUN_14031c2c0, FUN_140322c20, FUN_140327c20, FUN_140329c20, FUN_14032c290, FUN_14032c2b0, FUN_14032c2d0, FUN_14032c2e0, FUN_140334c20, FUN_140340c20, FUN_140348c20, FUN_14034c200, FUN_14034c240, FUN_14034c259, FUN_14034fc20, FUN_140358c20, FUN_14036c200, FUN_14036c2d0, FUN_14036fc20, FUN_14037c200, FUN_14037fc20, FUN_140385c20, FUN_140389c20, FUN_14038c230, FUN_14038c2b0, FUN_14038c2c0, FUN_14038c2d0, FUN_14038c2f0, FUN_1403ac2d0, FUN_1403bac20, FUN_1403bc250, FUN_1403bc2d0, FUN_1403c2180, FUN_1403c21b0, FUN_1403c23c0, FUN_1403c2490, FUN_1403c26a0, FUN_1403c28c0, FUN_1403c28f0, FUN_1403c2ad0, FUN_1403c2c00, FUN_1403c2cf0, FUN_1403c2d90, FUN_1403c2eb0, FUN_1403c2fe0, FUN_1403c5c20, FUN_1403d0c20, FUN_14042c230, FUN_140456c20, FUN_1404b9c20, FUN_1404c20f0, FUN_1404dc240, FUN_1404dc280, FUN_1404efc20, FUN_1404f2c20, FUN_1404f6c20, FUN_1404fc2e0, FUN_140503c20, FUN_14050c220, FUN_14055c200, FUN_140561c20, FUN_140562c20, FUN_140563c20, FUN_140577c20, FUN_14057dc20, FUN_14058c230, FUN_140591c20, FUN_1405a9c20, FUN_1405ac210, FUN_1405ac240, FUN_1405ac270, FUN_1405ac2a0, FUN_1405b9c20, FUN_1405bc210, FUN_1405bc260, FUN_1405bc290, FUN_1405bdc20, FUN_1405bec20, FUN_1405c25f0, FUN_1405c2650, FUN_1405c26b0, FUN_1405c2720, FUN_1405c2770, FUN_1405c2800, FUN_1405c2820, FUN_1405c2840, FUN_1405c2860, FUN_1405c28a0, FUN_1405c28c0, FUN_1405c2920, FUN_1405c2aa0, FUN_1405c2af0, FUN_1405c2b10, FUN_1405c2b30, FUN_1405c2b50, FUN_1405c2b70, FUN_1405c2bb0, FUN_1405c2bd0, FUN_1405c2c80, FUN_1405c2ec0, FUN_1405c2ff0, LoadLibraryA, LoadLibraryW, MapViewOfFile, UnmapViewOfFile",
+        "severity": "warn",
+        "score": 0.3,
+        "reason": "matched suspicious function names: DeleteFileA, DeleteFileW, FUN_140027c20, FUN_14005c2a0, FUN_14005c2d0, FUN_14005dc20, FUN_14007c2e0, FUN_14007c2f0, FUN_14007ec20, FUN_140086c20, FUN_14008c2f0, FUN_14008ec20, FUN_140091c20, FUN_140096c20, FUN_140097c20, FUN_1400a3c20, FUN_1400abc20, FUN_1400b3c20, FUN_1400b4c20, FUN_1400b5c20, FUN_1400b8c20, FUN_1400bc210, FUN_1400bc2c0, FUN_1400bec20, FUN_1400c20a0, FUN_1400c2140, FUN_1400c21e0, FUN_1400c2280, FUN_1400c2320, FUN_1400c23c0, FUN_1400c2460, FUN_1400c2500, FUN_1400c25a0, FUN_1400c25d0, FUN_1400c2600, FUN_1400c2630, FUN_1400c2730, FUN_1400c2870, FUN_1400c28b0, FUN_1400c28f0, FUN_1400c2930, FUN_1400c2970, FUN_1400c29b0, FUN_1400c29f0, FUN_1400c2a30, FUN_1400c2a70, FUN_1400c2ab0, FUN_1400c2af0, FUN_1400c2b30, FUN_1400c2b70, FUN_1400c2bb0, FUN_1400c2bf0, FUN_1400c2d60, FUN_1400c2ea0, FUN_1400c2ee0, FUN_1400c2f20, FUN_1400c2f60, FUN_1400c2fa0, FUN_1400c2fe0, FUN_1400c3c20, FUN_1400c4c20, FUN_1400dac20, FUN_1400e5c20, FUN_1400ec280, FUN_1400ec290, FUN_1400ec2a0, FUN_1400ec2b0, FUN_1400ec2c0, FUN_1400ec2d0, FUN_1400f1c20, FUN_1400f6c20, FUN_140103c20, FUN_14011c2c0, FUN_14012c2a0, FUN_14013c2b7, FUN_14013fc20, FUN_140150c20, FUN_140158c20, FUN_14015ec20, FUN_140166c20, FUN_14016ec20, FUN_14016fc2d, FUN_14019dc20, FUN_1401b9c20, FUN_1401bc290, FUN_1401c22b0, FUN_1401c25d0, FUN_1401c26d0, FUN_1401c2750, FUN_1401c2760, FUN_1401c2780, FUN_1401c27b0, FUN_1401c2940, FUN_1401c2970, FUN_1401c29b0, FUN_1401c29e0, FUN_1401c29f0, FUN_1401c2a10, FUN_1401c2a20, FUN_1401c2a30, FUN_1401c2a40, FUN_1401c2a50, FUN_1401c2a90, FUN_1401c2b00, FUN_1401c2b10, FUN_1401c2bd0, FUN_1401c2c90, FUN_1401c2d90, FUN_1401c2e90, FUN_1401c2f10, FUN_1401c2f90, FUN_1401c2ff0, FUN_1401c4c20, FUN_1401c4c2d, FUN_1401d0c20, FUN_1401dc200, FUN_1401dc210, FUN_1401e3c20, FUN_1401e7c20, FUN_1401ec220, FUN_1401ec280, FUN_1401ec2c0, FUN_1401ec2d0, FUN_1401eec20, FUN_1401fc280, FUN_14020ac20, FUN_14020c220, FUN_1402e1c20, FUN_1402e2c20, FUN_140317c20, FUN_14031c2a0, FUN_14031c2c0, FUN_140322c20, FUN_140327c20, FUN_140329c20, FUN_14032c290, FUN_14032c2b0, FUN_14032c2d0, FUN_14032c2e0, FUN_140334c20, FUN_140340c20, FUN_140348c20, FUN_14034c200, FUN_14034c240, FUN_14034c259, FUN_14034fc20, FUN_140358c20, FUN_14036c200, FUN_14036c2d0, FUN_14036fc20, FUN_14037c200, FUN_14037fc20, FUN_140385c20, FUN_140389c20, FUN_14038c230, FUN_14038c2b0, FUN_14038c2c0, FUN_14038c2d0, FUN_14038c2f0, FUN_1403ac2d0, FUN_1403bac20, FUN_1403bc250, FUN_1403bc2d0, FUN_1403c2180, FUN_1403c21b0, FUN_1403c23c0, FUN_1403c2490, FUN_1403c26a0, FUN_1403c28c0, FUN_1403c28f0, FUN_1403c2ad0, FUN_1403c2c00, FUN_1403c2cf0, FUN_1403c2d90, FUN_1403c2eb0, FUN_1403c2fe0, FUN_1403c5c20, FUN_1403d0c20, FUN_14042c230, FUN_140456c20, FUN_1404b9c20, FUN_1404c20f0, FUN_1404dc240, FUN_1404dc280, FUN_1404efc20, FUN_1404f2c20, FUN_1404f6c20, FUN_1404fc2e0, FUN_140503c20, FUN_14050c220, FUN_14055c200, FUN_140561c20, FUN_140562c20, FUN_140563c20, FUN_140577c20, FUN_14057dc20, FUN_14058c230, FUN_140591c20, FUN_1405a9c20, FUN_1405ac210, FUN_1405ac240, FUN_1405ac270, FUN_1405ac2a0, FUN_1405b9c20, FUN_1405bc210, FUN_1405bc260, FUN_1405bc290, FUN_1405bdc20, FUN_1405bec20, FUN_1405c25f0, FUN_1405c2650, FUN_1405c26b0, FUN_1405c2720, FUN_1405c2770, FUN_1405c2800, FUN_1405c2820, FUN_1405c2840, FUN_1405c2860, FUN_1405c28a0, FUN_1405c28c0, FUN_1405c2920, FUN_1405c2aa0, FUN_1405c2af0, FUN_1405c2b10, FUN_1405c2b30, FUN_1405c2b50, FUN_1405c2b70, FUN_1405c2bb0, FUN_1405c2bd0, FUN_1405c2c80, FUN_1405c2ec0, FUN_1405c2ff0, LoadLibraryA, LoadLibraryW, MapViewOfFile, UnmapViewOfFile",
+        "categories": []
+      }
+    ],
+    "counts": {
+      "info": 2,
+      "warn": 7,
+      "error": 2
+    },
+    "tags": [
+      {
+        "tag": "trojan",
+        "score": 0.52
+      },
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      },
+      {
+        "tag": "stealer",
+        "score": 0.38
+      },
+      {
+        "tag": "backdoor",
+        "score": 0.365
+      }
+    ],
+    "classification": [
+      "trojan",
+      "packed",
+      "obfuscated"
+    ],
+    "rule_misses": [
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b",
+      "size": 8485376,
+      "names": [
+        "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe",
+        "BQT.exe"
+      ],
+      "tags": [
+        "checks-bios",
+        "calls-wmi",
+        "64bits",
+        "peexe",
+        "detect-debug-environment"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe",
+      "harmless": 0,
+      "malicious": 51,
+      "suspicious": 0,
+      "undetected": 21,
+      "popular_threat_category": [
+        {
+          "value": "trojan",
+          "count": 24
+        },
+        {
+          "value": "ransomware",
+          "count": 7
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "value": "bqtlock",
+          "count": 8
+        },
+        {
+          "value": "lockfile",
+          "count": 3
+        },
+        {
+          "value": "gkrxp",
+          "count": 2
+        }
+      ],
+      "first_submission_date": 1753367112,
+      "last_submission_date": 1753973473
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:57:09Z",
+      "event": "pipeline_start",
+      "run_name": "ransomware-run-vt-2508",
+      "file": "samples/ransomware/decompressed/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe"
+    },
+    {
+      "ts": "2025-08-24T21:57:09Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T22:07:04Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/decompile-ransomware-run-vt-2508/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.features.json"
+    },
+    {
+      "ts": "2025-08-24T22:07:04Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T22:07:05Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T22:07:05Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T22:07:05Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

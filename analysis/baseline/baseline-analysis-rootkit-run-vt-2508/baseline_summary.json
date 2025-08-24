@@ -1,0 +1,15 @@
+{
+  "schema": "rexis.baseline.summary.v1",
+  "run_id": "rootkit-run-vt-2508",
+  "generated_at": "2025-08-24T22:04:01Z",
+  "inputs_root": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed",
+  "count": 5,
+  "reports": [
+    "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.report.json",
+    "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42.report.json",
+    "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.report.json",
+    "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.report.json",
+    "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/a829694cec2fbcc05aa42f4701f10e043726baade1907faa0c76b458542b88f6.report.json"
+  ],
+  "out_dir": "/home/andremmfaria/projects/rexis/data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508"
+}

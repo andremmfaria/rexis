@@ -1,0 +1,338 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "trojan-run-2508",
+  "generated_at": "2025-08-24T21:40:04Z",
+  "duration_sec": 90.43,
+  "sample": {
+    "sha256": "7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/trojan/decompressed/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-trojan-run-2508/decompile-trojan-run-2508/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-trojan-run-2508/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.baseline.json"
+  },
+  "program": {
+    "name": "7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/64/default",
+    "compiler": "Visual Studio",
+    "image_base": "140000000",
+    "size": 4369408,
+    "sha256": "7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2"
+  },
+  "taxonomy": {
+    "families": {},
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      },
+      {
+        "tag": "downloader",
+        "score": 0.3
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "packed",
+      "obfuscated",
+      "downloader"
+    ],
+    "virustotal": []
+  },
+  "final": {
+    "score": 0.2273,
+    "label": "benign",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.505,
+        "label": "suspicious",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 5,
+          "error": 2
+        }
+      },
+      "virustotal": {
+        "error": "not_available"
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.9,
+      "virustotal_confidence": 0.2
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": false,
+      "score_gap": 0.505,
+      "disagreement_penalty": 0.0
+    },
+    "final": {
+      "score": 0.2273,
+      "label": "benign",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.90 (errors=2, warns=5, infos=1, categories=5)",
+      "packer indicators present -> slight confidence reduction",
+      "VT data not available"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.505,
+    "label": "suspicious",
+    "evidence": [
+      {
+        "id": "sus_api_combo",
+        "title": "Suspicious API combination",
+        "detail": "Hits: process-injection",
+        "severity": "error",
+        "score": 0.5,
+        "reason": "hit sets: process-injection",
+        "categories": [
+          {
+            "tag": "trojan",
+            "score": 0.2
+          },
+          {
+            "tag": "backdoor",
+            "score": 0.15
+          },
+          {
+            "tag": "stealer",
+            "score": 0.15
+          }
+        ]
+      },
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: packer-string",
+        "severity": "info",
+        "score": 0.4,
+        "reason": "signals: packer-string",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "title": "Dynamic API resolution",
+        "detail": "Imports include: getprocaddress, loadlibraryw",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched dynamic resolution imports: getprocaddress, loadlibraryw",
+        "categories": [
+          {
+            "tag": "obfuscated",
+            "score": 0.14
+          },
+          {
+            "tag": "packed",
+            "score": 0.08
+          }
+        ]
+      },
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: getsystemtimeasfiletime",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: getsystemtimeasfiletime",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "title": "Embedded external endpoints",
+        "detail": "Found 391 URL/IP indicators; e.g., https://ipwho.is/, https://api.ipify.org/, https://stackoverflow.com/q/2152978/23354",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "found 391 endpoints",
+        "categories": [
+          {
+            "tag": "downloader",
+            "score": 0.09
+          },
+          {
+            "tag": "trojan",
+            "score": 0.075
+          }
+        ]
+      },
+      {
+        "id": "anti_vm_strings",
+        "title": "Anti-VM indicators (strings)",
+        "detail": "Tokens: xen",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "tokens: xen",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.12
+          }
+        ]
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "title": "Debugger/anti-debug indicators",
+        "detail": "Imports include: isdebuggerpresent, outputdebugstringa",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched debug/anti-debug imports: isdebuggerpresent, outputdebugstringa",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.14
+          }
+        ]
+      },
+      {
+        "id": "suspicious_function_names",
+        "title": "Suspicious function names detected",
+        "detail": "Functions: FUN_140029c20, FUN_14002c2f0, FUN_140032c20, FUN_14008ac20, FUN_14008c210, FUN_140095c20, FUN_14009bc20, FUN_14009c200, FUN_14009c260, FUN_14009c2c0, FUN_1400a1c20, FUN_1400abc20, FUN_1400acc20, FUN_1400afc20, FUN_1400b7c20, FUN_1400b8c20, FUN_1400bc270, FUN_1400bc2f0, FUN_1400bcc20, FUN_1400c2090, FUN_1400c20a0, FUN_1400c20c0, FUN_1400c20f0, FUN_1400c2150, FUN_1400c2180, FUN_1400c21e0, FUN_1400c2260, FUN_1400c22b0, FUN_1400c22e0, FUN_1400c2320, FUN_1400c2390, FUN_1400c23d0, FUN_1400c2400, FUN_1400c24e0, FUN_1400c2520, FUN_1400c2540, FUN_1400c2560, FUN_1400c2780, FUN_1400c2830, FUN_1400c2870, FUN_1400c2900, FUN_1400c2930, FUN_1400c2990, FUN_1400c29d0, FUN_1400c2a90, FUN_1400c2b40, FUN_1400c2b50, FUN_1400c2ba0, FUN_1400c2bb0, FUN_1400c2be0, FUN_1400c2c10, FUN_1400c2c30, FUN_1400c2c90, FUN_1400c2cf0, FUN_1400c2dd0, FUN_1400c2e30, FUN_1400c2e90, FUN_1400c2ef0, FUN_1400c2f70, FUN_1400cdc20, thunk_FUN_14008c210",
+        "severity": "warn",
+        "score": 0.3,
+        "reason": "matched suspicious function names: FUN_140029c20, FUN_14002c2f0, FUN_140032c20, FUN_14008ac20, FUN_14008c210, FUN_140095c20, FUN_14009bc20, FUN_14009c200, FUN_14009c260, FUN_14009c2c0, FUN_1400a1c20, FUN_1400abc20, FUN_1400acc20, FUN_1400afc20, FUN_1400b7c20, FUN_1400b8c20, FUN_1400bc270, FUN_1400bc2f0, FUN_1400bcc20, FUN_1400c2090, FUN_1400c20a0, FUN_1400c20c0, FUN_1400c20f0, FUN_1400c2150, FUN_1400c2180, FUN_1400c21e0, FUN_1400c2260, FUN_1400c22b0, FUN_1400c22e0, FUN_1400c2320, FUN_1400c2390, FUN_1400c23d0, FUN_1400c2400, FUN_1400c24e0, FUN_1400c2520, FUN_1400c2540, FUN_1400c2560, FUN_1400c2780, FUN_1400c2830, FUN_1400c2870, FUN_1400c2900, FUN_1400c2930, FUN_1400c2990, FUN_1400c29d0, FUN_1400c2a90, FUN_1400c2b40, FUN_1400c2b50, FUN_1400c2ba0, FUN_1400c2bb0, FUN_1400c2be0, FUN_1400c2c10, FUN_1400c2c30, FUN_1400c2c90, FUN_1400c2cf0, FUN_1400c2dd0, FUN_1400c2e30, FUN_1400c2e90, FUN_1400c2ef0, FUN_1400c2f70, FUN_1400cdc20, thunk_FUN_14008c210",
+        "categories": []
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 5,
+      "error": 2
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      },
+      {
+        "tag": "downloader",
+        "score": 0.3
+      }
+    ],
+    "classification": [
+      "packed",
+      "obfuscated",
+      "downloader"
+    ],
+    "rule_misses": [
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "filesystem_mod",
+        "reason": "no filesystem modification imports found"
+      }
+    ]
+  },
+  "virus_total": {},
+  "audit": [
+    {
+      "ts": "2025-08-24T21:38:34Z",
+      "event": "pipeline_start",
+      "run_name": "trojan-run-2508",
+      "file": "samples/trojan/decompressed/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.exe"
+    },
+    {
+      "ts": "2025-08-24T21:38:34Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:40:04Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-trojan-run-2508/decompile-trojan-run-2508/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:40:04Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:40:04Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-trojan-run-2508/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.baseline.json"
+    }
+  ]
+}

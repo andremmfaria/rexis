@@ -1,0 +1,35 @@
+{
+  "run_id": "ransomware-run-2508",
+  "base_path": "baseline-analysis-ransomware-run-2508",
+  "started_at": "2025-08-24T22:07:10Z",
+  "ended_at": "2025-08-24T22:17:14Z",
+  "duration_seconds": 604.256,
+  "status": "success",
+  "error": null,
+  "inputs": {
+    "input_path": "/home/andremmfaria/projects/rexis/samples/ransomware/decompressed",
+    "parallel": 5,
+    "report_format": "json",
+    "rules_path": null,
+    "min_severity": "info",
+    "vt_enabled": false,
+    "vt_timeout": 20,
+    "vt_qpm": 240,
+    "audit": true
+  },
+  "outputs": {
+    "primary": "data/analysis/baseline/baseline-analysis-ransomware-run-2508/baseline_summary.json",
+    "reports": [
+      "data/analysis/baseline/baseline-analysis-ransomware-run-2508/1f7675ec795ad551a15fc45a8f4b8b0a948d7004dc703f46e20f3a8b763e462f.report.json",
+      "data/analysis/baseline/baseline-analysis-ransomware-run-2508/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.report.json",
+      "data/analysis/baseline/baseline-analysis-ransomware-run-2508/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.report.json",
+      "data/analysis/baseline/baseline-analysis-ransomware-run-2508/6182df9c60f9069094fb353c4b3294d13130a71f3e677566267d4419f281ef02.report.json",
+      "data/analysis/baseline/baseline-analysis-ransomware-run-2508/686bb5ee371733ab7908c2f3ea1ee76791080f3a4e61afe8b97c2a57fbc2efac.report.json"
+    ],
+    "run_dir": "data/analysis/baseline/baseline-analysis-ransomware-run-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects"
+  }
+}

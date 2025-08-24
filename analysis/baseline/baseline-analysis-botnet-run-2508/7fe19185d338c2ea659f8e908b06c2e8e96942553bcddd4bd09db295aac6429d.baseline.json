@@ -1,0 +1,148 @@
+{
+  "schema": "rexis.baseline.heuristics.v1",
+  "score": 0.3125,
+  "label": "benign",
+  "evidence": [
+    {
+      "id": "packer_artifacts",
+      "title": "Packer / obfuscation indicators",
+      "detail": "Signals: tiny-.text",
+      "severity": "warn",
+      "score": 0.4,
+      "reason": "signals: tiny-.text",
+      "categories": [
+        {
+          "tag": "packed",
+          "score": 0.36
+        },
+        {
+          "tag": "obfuscated",
+          "score": 0.24
+        }
+      ]
+    },
+    {
+      "id": "tiny_text_section",
+      "title": "Tiny .text section",
+      "detail": "Detected tiny .text section (<4096B); size=512 bytes",
+      "severity": "warn",
+      "score": 0.25,
+      "reason": "tiny .text section detected",
+      "categories": [
+        {
+          "tag": "packed",
+          "score": 0.15
+        }
+      ]
+    },
+    {
+      "id": "shell_exec_indicators",
+      "title": "Shell execution capability",
+      "detail": "Imports include: winexec",
+      "severity": "error",
+      "score": 0.35,
+      "reason": "matched shell-exec imports: winexec",
+      "categories": [
+        {
+          "tag": "dropper",
+          "score": 0.245
+        },
+        {
+          "tag": "downloader",
+          "score": 0.21
+        },
+        {
+          "tag": "loader",
+          "score": 0.175
+        }
+      ]
+    },
+    {
+      "id": "anti_vm_strings",
+      "title": "Anti-VM indicators (strings)",
+      "detail": "Tokens: wine",
+      "severity": "warn",
+      "score": 0.15,
+      "reason": "tokens: wine",
+      "categories": [
+        {
+          "tag": "evasive",
+          "score": 0.12
+        }
+      ]
+    },
+    {
+      "id": "suspicious_function_names",
+      "title": "Suspicious function names detected",
+      "detail": "Functions: WinExec",
+      "severity": "warn",
+      "score": 0.3,
+      "reason": "matched suspicious function names: WinExec",
+      "categories": []
+    }
+  ],
+  "counts": {
+    "info": 0,
+    "warn": 4,
+    "error": 1
+  },
+  "tags": [
+    {
+      "tag": "packed",
+      "score": 0.51
+    }
+  ],
+  "classification": [
+    "packed"
+  ],
+  "rule_misses": [
+    {
+      "id": "sus_api_combo",
+      "reason": "none of injection/networking/registry API sets present"
+    },
+    {
+      "id": "low_entropy_strings",
+      "reason": "program size below threshold (<100KB) for this heuristic"
+    },
+    {
+      "id": "entry_in_writable",
+      "reason": "no executable section marked writable"
+    },
+    {
+      "id": "networking_indicators",
+      "reason": "no networking-related imports found"
+    },
+    {
+      "id": "http_exfil_indicators",
+      "reason": "no HTTP request/exfiltration imports found"
+    },
+    {
+      "id": "crypto_indicators",
+      "reason": "no cryptographic API imports found"
+    },
+    {
+      "id": "dynamic_api_resolution",
+      "reason": "no dynamic API resolution imports found"
+    },
+    {
+      "id": "autorun_persistence",
+      "reason": "no registry persistence-related imports found"
+    },
+    {
+      "id": "service_persistence",
+      "reason": "no service control manager API imports found"
+    },
+    {
+      "id": "filesystem_mod",
+      "reason": "no filesystem modification imports found"
+    },
+    {
+      "id": "suspicious_urls_in_strings",
+      "reason": "no URLs or IP addresses found in strings"
+    },
+    {
+      "id": "dbg_anti_dbg",
+      "reason": "no debugger/anti-debug imports found"
+    }
+  ]
+}

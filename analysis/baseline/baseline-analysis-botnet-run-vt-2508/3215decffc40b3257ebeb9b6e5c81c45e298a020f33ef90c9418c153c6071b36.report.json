@@ -1,0 +1,360 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "botnet-run-vt-2508",
+  "generated_at": "2025-08-24T21:43:18Z",
+  "duration_sec": 15.464,
+  "sample": {
+    "sha256": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.baseline.json"
+  },
+  "program": {
+    "name": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/64/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 1818112,
+    "sha256": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36"
+  },
+  "taxonomy": {
+    "families": {
+      "trojan": 2
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "packed",
+      "obfuscated"
+    ],
+    "virustotal": [
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.5,
+    "label": "abstain",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.205,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 3,
+          "error": 0
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2024-10-24",
+        "malicious": 59,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 14,
+        "popular_threat_name": "{'count': 6, 'value': 'scar'}, {'count': 2, 'value': 'kraken'}, {'count': 2, 'value': 'pwsx'}",
+        "type_description": "Win32 EXE",
+        "meaningful_name": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe",
+        "names": [
+          "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe",
+          "Registry.exe",
+          "5.exe"
+        ],
+        "size": 1818112,
+        "sha256": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36",
+        "consensus_denominator": 59,
+        "consensus_score": 1.0,
+        "confidence": 0.85
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.8,
+      "virustotal_confidence": 0.85
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": true,
+      "score_gap": 0.795,
+      "disagreement_penalty": 0.089
+    },
+    "final": {
+      "score": 0.5,
+      "label": "abstain",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.80 (errors=0, warns=3, infos=1, categories=3)",
+      "packer indicators present -> slight confidence reduction",
+      "vt_score=1.00 vt_confidence=0.85 (mal=59, sus=0, denom=59)",
+      "disagreement_penalty=0.09 due to gap=0.80",
+      "hard conflict override -> abstain (set fused score to mid value)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.205,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: packer-string",
+        "severity": "info",
+        "score": 0.4,
+        "reason": "signals: packer-string",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "title": "Dynamic API resolution",
+        "detail": "Imports include: getprocaddress, loadlibrarya",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched dynamic resolution imports: getprocaddress, loadlibrarya",
+        "categories": [
+          {
+            "tag": "obfuscated",
+            "score": 0.14
+          },
+          {
+            "tag": "packed",
+            "score": 0.08
+          }
+        ]
+      },
+      {
+        "id": "anti_vm_strings",
+        "title": "Anti-VM indicators (strings)",
+        "detail": "Tokens: xen",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "tokens: xen",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.12
+          }
+        ]
+      },
+      {
+        "id": "suspicious_function_names",
+        "title": "Suspicious function names detected",
+        "detail": "Functions: FUN_008e47c2",
+        "severity": "warn",
+        "score": 0.3,
+        "reason": "matched suspicious function names: FUN_008e47c2",
+        "categories": []
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 3,
+      "error": 0
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      }
+    ],
+    "classification": [
+      "packed",
+      "obfuscated"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "shell_exec_indicators",
+        "reason": "no shell/execution-related imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "filesystem_mod",
+        "reason": "no filesystem modification imports found"
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "reason": "no URLs or IP addresses found in strings"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no debugger/anti-debug imports found"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36",
+      "size": 1818112,
+      "names": [
+        "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe",
+        "Registry.exe",
+        "5.exe"
+      ],
+      "tags": [
+        "runtime-modules",
+        "detect-debug-environment",
+        "64bits",
+        "persistence",
+        "spreader",
+        "upx",
+        "long-sleeps",
+        "calls-wmi",
+        "peexe",
+        "checks-network-adapters",
+        "direct-cpu-clock-access"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe",
+      "harmless": 0,
+      "malicious": 59,
+      "suspicious": 0,
+      "undetected": 14,
+      "popular_threat_category": [
+        {
+          "count": 32,
+          "value": "trojan"
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "count": 6,
+          "value": "scar"
+        },
+        {
+          "count": 2,
+          "value": "kraken"
+        },
+        {
+          "count": 2,
+          "value": "pwsx"
+        }
+      ],
+      "first_submission_date": 1637662838,
+      "last_submission_date": 1729754616
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "pipeline_start",
+      "run_name": "botnet-run-vt-2508",
+      "file": "samples/botnet/decompressed/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe"
+    },
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:18Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:18Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:18Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:18Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:18Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

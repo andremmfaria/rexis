@@ -1,0 +1,122 @@
+{
+  "schema": "rexis.llmrag.classification.v1",
+  "score": 0.85,
+  "label": "malicious",
+  "classification": [
+    "rat",
+    "stealer"
+  ],
+  "families": [
+    "unknown_family"
+  ],
+  "capabilities": [
+    "injection",
+    "persistence",
+    "anti-debug",
+    "file_ops",
+    "process_ops",
+    "system_info",
+    "networking",
+    "crypto",
+    "ui",
+    "compression"
+  ],
+  "tactics": [
+    "execution",
+    "persistence",
+    "defense-evasion",
+    "credential-access",
+    "collection",
+    "exfiltration",
+    "command-and-control"
+  ],
+  "evidence": [
+    {
+      "id": "evidence-1",
+      "title": "Injection Capabilities",
+      "detail": "Imports related to process injection such as CreateProcessA, CreateRemoteThread, and VirtualAlloc.",
+      "severity": "error",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "evidence-2",
+      "title": "Persistence Mechanisms",
+      "detail": "Uses CreateServiceA and RegCreateKeyExA for persistence.",
+      "severity": "error",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "evidence-3",
+      "title": "Anti-Debugging Techniques",
+      "detail": "Imports like DebugActiveProcess and GetTickCount suggest anti-debugging capabilities.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "evidence-4",
+      "title": "NJRAT Characteristics",
+      "detail": "The sample exhibits behaviors typical of NJRAT, such as remote control and data exfiltration.",
+      "severity": "error",
+      "source": "retrieval",
+      "doc_ref": "file_html::08eceae8c0e4410bf44b7b3acfbd7b62a4fc3537351b0ac70f050daa6f9146fe::chunk-0"
+    },
+    {
+      "id": "evidence-5",
+      "title": "File Operations",
+      "detail": "Capabilities to create, read, and delete files using CreateFileA, ReadFile, and DeleteFileA.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "evidence-6",
+      "title": "Networking Capabilities",
+      "detail": "Uses SendMessageA for potential network communication.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    }
+  ],
+  "uncertainty": "high",
+  "notes": "The sample shows strong indicators of being a NJRAT variant with capabilities for remote access, data exfiltration, and persistence. guardrails:family_abstained(leak=true, ev=1)",
+  "meta": {
+    "model": "gpt-4o-2024-08-06",
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "prompt_variant": "justification",
+    "prompt_hash": "94ce90c7f672430832be080405c4298e26d2e8ba4c175c5097ccabd99e535c52",
+    "passages_used": [
+      "file_pdf::146e57062c590ff3fd51f262f8060fc04f4823e3014d5fda625a8ee04871d91e::chunk-1",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15",
+      "file_html::08eceae8c0e4410bf44b7b3acfbd7b62a4fc3537351b0ac70f050daa6f9146fe::chunk-0",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-6",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-7",
+      "file_html::2d26af7a7bfafb0d3e22a57c4c803716b2db4848fcf04f2be0d45cea69a90245::chunk-2",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10"
+    ],
+    "prompts": [
+      {
+        "role": "system",
+        "text": "You are a precise malware analyst. You must produce a JSON verdict following the given schema. If uncertain, set label='unknown' and uncertainty='high'. Prefer concise, actionable evidence.\n\n Output must be JSON only.\n\nReturn STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n  schema=\"rexis.llmrag.classification.v1\", score (0..1), label (\"malicious\"|\"suspicious\"|\"benign\"|\"unknown\"),\n  classification (list of strings; e.g., ransomware, trojan, worm, downloader, dropper, rootkit, banker, stealer, backdoor, botnet, keylogger, adware, spyware, wiper, rat, cryptominer),\n  families (list of strings), capabilities (list of strings), tactics (list of strings),\n  evidence (list of objects with: id, title, detail, severity in {info,warn,error}, source in {features,retrieval}, doc_ref),\n  uncertainty in {\"low\",\"medium\",\"high\"} and optional notes.\nConstrain evidence to 4\u20138 diverse items. Use source=features for imports/sections-based inferences; use source=retrieval and doc_ref=<doc_id> to cite passages. Map capability names to analyst terminology (injection, persistence, networking, crypto, anti-debug, exfiltration, obfuscation, c2). Calibrate score heuristically: strong diverse capabilities with corroboration -> 0.75\u20130.95; single strong signal -> 0.45\u20130.65; weak/ambiguous -> 0.15\u20130.35; none -> \u22640.15. Prefer 1\u20133 concise classification tags that best describe the sample's high-level type."
+      },
+      {
+        "role": "user",
+        "text": "Context:\n- name: a829694cec2fbcc05aa42f4701f10e043726baade1907faa0c76b458542b88f6.exe\n- format: Portable Executable (PE)\n- language: x86/little/32/default\n- compiler: Delphi\n- image_base: 00400000\n- size: 15515782\n- sha256: a829694cec2fbcc05aa42f4701f10e043726baade1907faa0c76b458542b88f6\n- capability:injection -> imports: createprocessa, createremotethread, getprocaddress, getthreadcontext, loadlibrarya, loadlibraryexa, setthreadcontext, setwindowshookexa, suspendthread, virtualalloc...\n- capability:network -> imports: getcpinfo, sendmessagea\n- capability:crypto -> imports: destroycursor, destroyicon, destroymenu, destroywindow, getdesktopwindow, getenhmetafiledescriptiona, imagelist_destroy, olesetmenudescriptor\n- capability:persistence -> imports: createservicea, getstartupinfoa, regcreatekeyexa, setwindowshookexa\n- capability:anti_debug -> imports: closehandle, debugactiveprocess, findwindowa, gettextextentpoint32a, gettickcount, getwindowthreadprocessid, queryperformancecounter, unhandledexceptionfilter\n- capability:file_ops -> imports: closehandle, createfilea, deletefilea, findfirstfilea, getopenfilenamea, readfile, writefile\n- capability:process_ops -> imports: createprocessa, getcurrentprocessid, openprocess, terminateprocess\n- capability:system_info -> imports: getcomputernamea, getdiskfreespacea, getsystemdirectorya, getsysteminfo, getversion, getversionexa\n- capability:ui -> imports: dispatchmessagea, findwindowa, getcursorpos, getkeystate, getmessagepos, getmessagetime, getwindowrect, getwindowtexta, postmessagea, sendmessagea\n- capability:compression -> imports: freelibrary, loadlibrarya, loadlibraryexa\n- capability:misc -> imports: filetimetodosdatetime, filetimetolocalfiletime, getdateformata, getlocaltime, getmessagetime, gettickcount, gettimezoneinformation, invalidaterect, killtimer, queryperfo...\n- section Headers: size=1024, entropy=1.8397, comment=, read=True, write=False, type=Default\n- section UPX0: size=1142784, entropy=6.4714, comment=, read=True, write=True, type=Default\n- section UPX1: size=434176, entropy=3.9423, comment=, read=True, write=True, type=Default\n- section .rsrc: size=49152, entropy=3.3349, comment=, read=True, write=True, type=Default\n- section .imports: size=12288, entropy=3.7536, comment=, read=True, write=True, type=Default\n- section .reloc: size=81920, entropy=6.6928, comment=, read=True, write=True, type=Default\n\nRetrieved Documents:\n[1] vxunderground (id=file_pdf::146e57062c590ff3fd51f262f8060fc04f4823e3014d5fda625a8ee04871d91e::chunk-1, source=vxunderground):  arg) { \\n\\[FAMILY] \\n } else { \\n [FAMILY](\\\\t[+] [FAMILY]: [ [ [FAMILY]@hostname port port:host:hostport pass ] | [FAMILY] ]); \\n [FAMILY](0); \\n } \\n try { \\n [FAMILY] = [FAMILY](); \\n [FAMILY] = host.substring(0, [FAMILY]('@')); \\n host = host.substring([FAMILY]('@') + 1); \\n [FAMILY] = [FAMILY](user, host, port); \\n if (!kex.equals()) \\n [FAMILY](kex, kex); \\n int rport = [FAMILY](foo.substring(0, [FAMILY](':'))); \\n foo = foo.substring([FAMILY](':') + 1); \\n [FAMILY] = foo.substring(0, [FAMILY](':')); \\n int lport = [FAMILY](foo.substring([FAMILY](':') + 1)); \\n [FAMILY](pass); \\n [FAMILY]([FAMILY], no); \\n session.connect(); \\n [FAMILY](rport, lhost, lport); \\[FAMILY] 20: [FAMILY] of [FAMILY]. \\n \\[FAMILY] leveraged to tunnel traffic is a [FAMILY] is a [FAMILY] \\nversion of [FAMILY] and can be executed with command-line parameters or with a \\nconfiguration [FAMILY] and its path...\n[2] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15, source=malpedia):  input not full block\\n crypto/des: output not full block\\n crypto/des: input not full block\\n crypto/des: invalid buffer overlap\\n crypto/[FAMILY]: invalid hash state [FAMILY]\\n AES-128-CBC\\n AES-192-CBC\\n AES-256-CBC\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n -----[FAMILY]\\n [FAMILY]\\n [FAMILY]: unknown elliptic curve\\n [FAMILY]: cannot sign with hash function requested\\n [FAMILY]: [FAMILY]\\n [FAMILY]: internal [FAMILY]: cannot parse domain %q\\n [FAMILY]: unknown [FAMILY]\\n [FAMILY]: malformed tbs certificate\\n [FAMILY]: invalid version\\n [FAMILY]: malformed validity\\n [FAMILY]: malformed spki\\n [FAMILY]: malformed extensions\\n [FAMILY]: invalid authority info access\\n [FAMILY]: [FAMILY]\\n [FAMILY]: invalid constraint value: \\n [FAMILY]: [FAMILY] is malformed\\n [FAMILY]: cannot parse IP address of length \\n [FAMILY]: [FAMILY]\\n [FAMILY]: [FAMILY] ...\n[3] Full analysis on NJRAT (id=file_html::08eceae8c0e4410bf44b7b3acfbd7b62a4fc3537351b0ac70f050daa6f9146fe::chunk-0, source=malpedia): {\"title\": \"[FAMILY] | [FAMILY] | [FAMILY] of NJ [FAMILY] 0.7NC and 0.6.4\", \"extracted_text\": \"[FAMILY] | [FAMILY] | [FAMILY] of NJ [FAMILY] 0.7NC and 0.6.4\\[FAMILY] | [FAMILY] of NJ [FAMILY] 0.7NC and 0.6.4\\[FAMILY] on [FAMILY] 9, 2024\\[FAMILY]\\[FAMILY]\\[FAMILY] {0.7NC} of [FAMILY] on 17 [FAMILY] 2023 [FAMILY]-magazine- speaker. It was delivered by [FAMILY] [FAMILY] as a type of [FAMILY] ([FAMILY]). [FAMILY] do a range of things, like recording keystrokes, accessing [FAMILY] victim\\[FAMILY], stealing saved login information from web browsers, creating a way for attackers to control [FAMILY] victim\\[FAMILY] a remote [FAMILY], transferring files to and from [FAMILY] victim\\[FAMILY], seeing what\\[FAMILY] on [FAMILY] victim\\[FAMILY], making changes to files, processes, [FAMILY], and even allowing [FAMILY] attacker to update, remove, restart, close, disconnect, or change [FAMILY] name of t...\n[4] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-6, source=malpedia): haroshthi\\n Linear_B\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: invalid whence\\n bufio: buffer full\\n bufio: negative count\\n [FAMILY]: token too long\\n bufio: tried to fill full buffer\\n invalid syntax\\n 6103515625\\n 152587890625\\n 762939453125\\n 3814697265625\\n 95367431640625\\n 11920928955078125\\n 59604644775390625\\n 1490116119384765625\\n 7450580596923828125\\n 37252902984619140625\\n 186264514923095703125\\n 14551915228366851806640625\\n 363797880709171295166015625\\n 28421709430404007...\n[5] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5, source=malpedia):  not found\\n No functions exported\\n [FAMILY]'t fit: %08x\\n [FAMILY]: %w\\n [FAMILY]: %w\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n ntdll.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]()\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY] io.[FAMILY]()...\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n fail to read [FAMILY] table length: %v\\n fail to read section relocations: %v\\n [FAMILY] %d\\n [FAMILY]\\n [FAMILY]\\n extended attribute name too large\\n [FAMILY]\\n [FAMILY]\\n ws2_32.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [pivot] [FAMILY] data length\\n D:(A;;0x1f019f;;;WD)\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY...\n[6] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-7, source=malpedia):  ^r[0-9a-zA-Z]{23,50}$\\n ^0x[a-fA-F0-9]{40}$\\n ^0x[0-9a-fA-F]{40}$\\n ^([a-zA-Z0-9]){32,}$\\n fhbohimaelbohpjbbldcngcnapndodjp\\n [FAMILY]\\n pdadjkfkgcafgbceimcpbkalnfnepbnk\\n amkmjjmmflddogmhpjloimipbofnfjih\\n [FAMILY]\\n cjelfplplebdjjenllpjcblmjkfcffne\\n [FAMILY]\\n [FAMILY]\\n cgeeodpfagjceefieflmdfphplkenlfk\\n [FAMILY]\\n fihkakfobkmkjojpchpfgcmhfjnmnfpi\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n \\\\[FAMILY]\\\\\\n [FAMILY]\\n \\\\atomic\\\\[FAMILY]\\\\leveldb\\n wallet.dat\\n [FAMILY]\\n \\\\[FAMILY]\\\\\\n wallet.dat\\n \\\\[FAMILY]\\\\\\n multidoge.wallet\\n \\\\[FAMILY]\\\\\\n address.db\\n config.inc.php\\n ShareX_H_\\n [FAMILY]\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n [FAMILY]\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n browsedata.db\\n \\\\[FAMILY]++\\\\backup\\\\\\n [FAMILY]\\n \\\\snowflake-ssh\\\\\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n auth.json\\n COMPOSER_HOME\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n winauth.xml\\n accounts....\n[7] Dissecting Lumma Malware: Analyzing the Fake CAPTCHA and Obfuscation Techniques - Part 2 (id=file_html::2d26af7a7bfafb0d3e22a57c4c803716b2db4848fcf04f2be0d45cea69a90245::chunk-2, source=malpedia): [FAMILY] is a glimpse of [FAMILY] extracted code.\\[FAMILY] code that assigns random numbers to different variables.\\[FAMILY]\\neval\\nfunction to execute obfuscated code, which includes a\\nwindow.close()\\nfunction.\\[FAMILY] illustrates how this can be accomplished:\\nimport sys\\nimport re\\n\\ndef extract_scripts(binary_file):\\n try:\\n with open(binary_file, \\\"rb\\\") as f:\\n binary_data = f.read()\\n \\n # [FAMILY] to [FAMILY] ([FAMILY] it's encoded in utf-8 or similar encoding)\\n try:\\n data = binary_data.decode(\\\"utf-8\\\", errors='ignore')\\n [FAMILY]:\\n print(\\\"[-] [FAMILY] to decode binary data.\\\")\\n sys.exit(1)\\n \\n # [FAMILY] contents using regex\\n scripts = re.findall(r'<[FAMILY].*?>(.*?)</[FAMILY]>', data, re.DOTALL | re.IGNORECASE)\\n \\n if scripts:\\n for i, [FAMILY] in enumerate(scripts, start=1):\\n print(f\\\"[+] [FAMILY] {i}\\\\n{[FAMILY].strip()}\\\\n\\\")\\n else:\\n print(\\\"[-] No [FAMILY]....\n[8] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10, source=malpedia):  [FAMILY]\\n [FAMILY]\\n local-addr\\n http: request too large\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: \\n silence-semicolons\\n http: [FAMILY]\\n [FAMILY]\\n <!DOCTYPE HTML\\n image/x-icon\\n image/bmp\\n image/gif\\n image/gif\\n image/png\\n image/jpeg\\n FORM AIFF\\n audio/aiff\\n audio/mpeg\\n application/ogg\\n audio/midi\\n application/vnd.ms-fontobject\\n font/collection\\n font/[FAMILY]\\n application/x-gzip\\n application/zip\\n application/wasm\\n \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n net/http: skip alternate protocol\\n http: [FAMILY]\\n net/http: timeout awaiting response headers\\n http: read on closed response body\\n [FAMILY]\\n bad [FAMILY] [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n identity\\n [FAMILY]\\n [FAMILY]: chunked\\n\\n [FAMILY]\\n [FAMILY]: \\n [FAMILY]\\n [FAMILY]\\n No [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n ...\n\nTasks:\n- Classify the sample into a known malware family (or 'unknown' if undecidable).\n- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n- Return STRICT JSON only, following the required schema."
+      }
+    ]
+  },
+  "guardrails": {
+    "blind_label": "malicious",
+    "blind_families": [
+      "unknown"
+    ],
+    "blind_score": 0.85,
+    "retrieval_evidence_count": 1,
+    "min_retrieval_evidence": 2,
+    "name_leak_detected": true
+  }
+}

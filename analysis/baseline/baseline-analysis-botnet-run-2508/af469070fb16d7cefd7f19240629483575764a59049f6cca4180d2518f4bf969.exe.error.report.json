@@ -1,0 +1,13 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "botnet-run-2508",
+  "generated_at": "2025-08-24T20:53:55Z",
+  "sample": {
+    "source_path": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed/af469070fb16d7cefd7f19240629483575764a59049f6cca4180d2518f4bf969.exe"
+  },
+  "final": {
+    "label": "error",
+    "score": 0.0
+  },
+  "error": "Java Virtual Machine is not running"
+}

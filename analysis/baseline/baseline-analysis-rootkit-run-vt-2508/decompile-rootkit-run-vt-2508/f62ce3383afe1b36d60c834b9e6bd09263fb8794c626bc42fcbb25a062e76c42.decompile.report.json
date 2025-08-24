@@ -1,0 +1,32 @@
+{
+  "run_id": "rootkit-run-vt-2508",
+  "base_path": "decompile-rootkit-run-vt-2508",
+  "started_at": "2025-08-24T21:58:31Z",
+  "ended_at": "2025-08-24T22:00:12Z",
+  "duration_seconds": 101.173,
+  "status": "success",
+  "error": null,
+  "summary": {
+    "functions_count": 1987,
+    "imports_count": 137,
+    "strings_count": 33407,
+    "sections_count": 8,
+    "libraries_count": 5,
+    "exports_count": 16192,
+    "entry_points_count": 0,
+    "decompiled_count": 1987
+  },
+  "inputs": {
+    "file": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed/f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42.exe"
+  },
+  "outputs": {
+    "features_path": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508/f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42.features.json",
+    "run_dir": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "ghidra_install_dir": "/opt/ghidra",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects",
+    "project_name": "rexis-rootkit-run-vt-2508-f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42"
+  }
+}

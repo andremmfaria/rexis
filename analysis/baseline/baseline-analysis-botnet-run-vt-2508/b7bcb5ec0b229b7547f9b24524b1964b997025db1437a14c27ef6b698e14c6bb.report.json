@@ -1,0 +1,388 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "botnet-run-vt-2508",
+  "generated_at": "2025-08-24T21:43:36Z",
+  "duration_sec": 33.492,
+  "sample": {
+    "sha256": "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.baseline.json"
+  },
+  "program": {
+    "name": "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/32/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 20944009,
+    "sha256": "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb"
+  },
+  "taxonomy": {
+    "families": {
+      "trojan": 2,
+      "downloader": 2
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "packed",
+      "obfuscated"
+    ],
+    "virustotal": [
+      "downloader",
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.5,
+    "label": "abstain",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.3275,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 2,
+          "warn": 3,
+          "error": 1
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2023-05-28",
+        "malicious": 40,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 31,
+        "popular_threat_name": "{'value': 'python', 'count': 8}",
+        "type_description": "Win32 EXE",
+        "meaningful_name": "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.exe",
+        "names": [
+          "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.exe",
+          "6797a66f0b5218f3842b6c5aa3fc9f9545ccfd3e.bin",
+          "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.file",
+          "8516ebc9b473b239e0c3413abf1b8c20.bin"
+        ],
+        "size": 20944009,
+        "sha256": "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb",
+        "consensus_denominator": 40,
+        "consensus_score": 1.0,
+        "confidence": 0.8
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.9,
+      "virustotal_confidence": 0.8
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": true,
+      "score_gap": 0.6725,
+      "disagreement_penalty": 0.0645
+    },
+    "final": {
+      "score": 0.5,
+      "label": "abstain",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.90 (errors=1, warns=3, infos=2, categories=5)",
+      "packer indicators present -> slight confidence reduction",
+      "vt_score=1.00 vt_confidence=0.80 (mal=40, sus=0, denom=40)",
+      "disagreement_penalty=0.06 due to gap=0.67",
+      "hard conflict override -> abstain (set fused score to mid value)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.3275,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: packer-string",
+        "severity": "info",
+        "score": 0.4,
+        "reason": "signals: packer-string",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "title": "Dynamic API resolution",
+        "detail": "Imports include: getprocaddress, loadlibrarya",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched dynamic resolution imports: getprocaddress, loadlibrarya",
+        "categories": [
+          {
+            "tag": "obfuscated",
+            "score": 0.14
+          },
+          {
+            "tag": "packed",
+            "score": 0.08
+          }
+        ]
+      },
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: filetimetosystemtime, getsystemtimeasfiletime, systemtimetotzspecificlocaltime",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: filetimetosystemtime, getsystemtimeasfiletime, systemtimetotzspecificlocaltime",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "filesystem_mod",
+        "title": "Filesystem modification capability",
+        "detail": "Imports include: createfilew, deletefilew, readfile, writefile",
+        "severity": "info",
+        "score": 0.1,
+        "reason": "matched filesystem imports: createfilew, deletefilew, readfile, writefile",
+        "categories": [
+          {
+            "tag": "ransomware",
+            "score": 0.07
+          },
+          {
+            "tag": "wiper",
+            "score": 0.06
+          },
+          {
+            "tag": "dropper",
+            "score": 0.04
+          }
+        ]
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "title": "Debugger/anti-debug indicators",
+        "detail": "Imports include: isdebuggerpresent",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched debug/anti-debug imports: isdebuggerpresent",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.14
+          }
+        ]
+      },
+      {
+        "id": "suspicious_function_names",
+        "title": "Suspicious function names detected",
+        "detail": "Functions: FUN_004132c2, FUN_00417c21, FUN_0041c225, FUN_0041c26f, __acrt_lock_and_call<class_<lambda_4e60a939b0d047cfe11ddc22648dfba9>_>, __acrt_lock_and_call<class_<lambda_ec61778202f4f5fc7e7711acc23c3bca>_>, operator(), operator(), operator(), operator(), operator(), operator(), operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_11b4f7b0d3157825a5656a18eba1ae27>,class_<lambda_b51c0495177f500e782686251704ae76>&,class_<lambda_cf89b47920b5017557bfe891e78aca36>_>, operator()<class_<lambda_123407a5e2ac06da108355a851863b7a>,class_<lambda_2fe9b910cf3cbf4a0ab98a02ba45b3ec>&,class_<lambda_ae55bdf541ad94d75914d381c370e64d>_>, operator()<class_<lambda_61cee617f5178ae960314fd4d05640a0>,class_<lambda_6978c1fb23f02e42e1d9e99668cc68aa>&,class_<lambda_9cd88cf8ad10232537feb2133f08c833>_>, operator()<class_<lambda_800076c951b434888f4765a74a194fcc>,class_<lambda_4e60a939b0d047cfe11ddc22648dfba9>&,class_<lambda_6dbb1268764f43b569ce7b67e331d33a>_>, operator()<class_<lambda_978dc153c237d78434369da87b74ff60>,class_<lambda_ad1ced32f4ac17aa236e5ef05d6b3b7c>&,class_<lambda_4a8533e2866a575feecb8298ce776b0d>_>, operator()<class_<lambda_995298e7d72eb4c2aab26c0585b3abe5>,class_<lambda_275893d493268fdec8709772e3fcec0e>&,class_<lambda_293819299cbf9a7022e18b56a874bb5c>_>, operator()<class_<lambda_d92cfe8357b99225085016881b624cb0>,class_<lambda_b721fa326cdb32351d23dfa67958c160>&,class_<lambda_42d75b0848218ec137fa420c8ba9fdf9>_>, operator=, scratch_data<char>",
+        "severity": "warn",
+        "score": 0.3,
+        "reason": "matched suspicious function names: FUN_004132c2, FUN_00417c21, FUN_0041c225, FUN_0041c26f, __acrt_lock_and_call<class_<lambda_4e60a939b0d047cfe11ddc22648dfba9>_>, __acrt_lock_and_call<class_<lambda_ec61778202f4f5fc7e7711acc23c3bca>_>, operator(), operator(), operator(), operator(), operator(), operator(), operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_11b4f7b0d3157825a5656a18eba1ae27>,class_<lambda_b51c0495177f500e782686251704ae76>&,class_<lambda_cf89b47920b5017557bfe891e78aca36>_>, operator()<class_<lambda_123407a5e2ac06da108355a851863b7a>,class_<lambda_2fe9b910cf3cbf4a0ab98a02ba45b3ec>&,class_<lambda_ae55bdf541ad94d75914d381c370e64d>_>, operator()<class_<lambda_61cee617f5178ae960314fd4d05640a0>,class_<lambda_6978c1fb23f02e42e1d9e99668cc68aa>&,class_<lambda_9cd88cf8ad10232537feb2133f08c833>_>, operator()<class_<lambda_800076c951b434888f4765a74a194fcc>,class_<lambda_4e60a939b0d047cfe11ddc22648dfba9>&,class_<lambda_6dbb1268764f43b569ce7b67e331d33a>_>, operator()<class_<lambda_978dc153c237d78434369da87b74ff60>,class_<lambda_ad1ced32f4ac17aa236e5ef05d6b3b7c>&,class_<lambda_4a8533e2866a575feecb8298ce776b0d>_>, operator()<class_<lambda_995298e7d72eb4c2aab26c0585b3abe5>,class_<lambda_275893d493268fdec8709772e3fcec0e>&,class_<lambda_293819299cbf9a7022e18b56a874bb5c>_>, operator()<class_<lambda_d92cfe8357b99225085016881b624cb0>,class_<lambda_b721fa326cdb32351d23dfa67958c160>&,class_<lambda_42d75b0848218ec137fa420c8ba9fdf9>_>, operator=, scratch_data<char>",
+        "categories": []
+      }
+    ],
+    "counts": {
+      "info": 2,
+      "warn": 3,
+      "error": 1
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.44
+      },
+      {
+        "tag": "obfuscated",
+        "score": 0.38
+      }
+    ],
+    "classification": [
+      "packed",
+      "obfuscated"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "reason": "no URLs or IP addresses found in strings"
+      },
+      {
+        "id": "anti_vm_strings",
+        "reason": "no anti-VM tokens present in strings"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb",
+      "size": 20944009,
+      "names": [
+        "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.exe",
+        "6797a66f0b5218f3842b6c5aa3fc9f9545ccfd3e.bin",
+        "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.file",
+        "8516ebc9b473b239e0c3413abf1b8c20.bin"
+      ],
+      "tags": [
+        "overlay",
+        "peexe",
+        "runtime-modules"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.exe",
+      "harmless": 0,
+      "malicious": 40,
+      "suspicious": 0,
+      "undetected": 31,
+      "popular_threat_category": [
+        {
+          "value": "trojan",
+          "count": 15
+        },
+        {
+          "value": "downloader",
+          "count": 6
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "value": "python",
+          "count": 8
+        }
+      ],
+      "first_submission_date": 1650372143,
+      "last_submission_date": 1685253821
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "pipeline_start",
+      "run_name": "botnet-run-vt-2508",
+      "file": "samples/botnet/decompressed/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.exe"
+    },
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:36Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:36Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:36Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:36Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:36Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

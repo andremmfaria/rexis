@@ -1,0 +1,116 @@
+{
+  "schema": "rexis.llmrag.classification.v1",
+  "score": 0.85,
+  "label": "malicious",
+  "classification": [
+    "rat",
+    "stealer"
+  ],
+  "families": [
+    "unknown_family"
+  ],
+  "capabilities": [
+    "injection",
+    "persistence",
+    "anti-debug",
+    "networking",
+    "file_ops",
+    "process_ops"
+  ],
+  "tactics": [
+    "execution",
+    "persistence",
+    "defense-evasion",
+    "credential-access",
+    "collection"
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "Injection Capabilities",
+      "detail": "Imports functions like getprocaddress, getthreadcontext, setthreadcontext, suspendthread indicating code injection capabilities.",
+      "severity": "error",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e2",
+      "title": "Persistence Mechanism",
+      "detail": "Uses getstartupinfoa to potentially establish persistence.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e3",
+      "title": "Anti-Debugging Techniques",
+      "detail": "Imports such as closehandle, gettickcount, queryperformancecounter, setunhandledexceptionfilter suggest anti-debugging measures.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e4",
+      "title": "Network Communication",
+      "detail": "Imports _strnicmp indicating potential network communication capabilities.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e5",
+      "title": "File and Process Operations",
+      "detail": "Functions like getfileattributesa, getcurrentprocess, terminateprocess suggest file and process manipulation.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e6",
+      "title": "CyberGate RAT Characteristics",
+      "detail": "The sample exhibits characteristics similar to CyberGate RAT, known for unauthorized access and information stealing.",
+      "severity": "error",
+      "source": "retrieval",
+      "doc_ref": "file_html::b223e111d25fd644f1123ee36be99aed4d65a4ebaa14a3d1b949fd5f0ccf94f5::chunk-0"
+    }
+  ],
+  "uncertainty": "high",
+  "notes": "The sample shows strong indicators of being a Remote Access Trojan (RAT) with capabilities for injection, persistence, and anti-debugging, aligning with known behaviors of the CyberGate family. guardrails:family_abstained(leak=true, ev=1)",
+  "meta": {
+    "model": "gpt-4o-2024-08-06",
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "prompt_variant": "justification",
+    "prompt_hash": "ef9001e435a270bd18cd6fdcdeafa6736fc17038f72e09a608466f3fb9f746c9",
+    "passages_used": [
+      "file_html::b223e111d25fd644f1123ee36be99aed4d65a4ebaa14a3d1b949fd5f0ccf94f5::chunk-0",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15",
+      "file_html::2dfcbce0b862304c5eb0b92e2d2043ce014186f7ad9a4e80631585efc1383882::chunk-0",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-6",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-7",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-4"
+    ],
+    "prompts": [
+      {
+        "role": "system",
+        "text": "You are a precise malware analyst. You must produce a JSON verdict following the given schema. If uncertain, set label='unknown' and uncertainty='high'. Prefer concise, actionable evidence.\n\n Output must be JSON only.\n\nReturn STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n  schema=\"rexis.llmrag.classification.v1\", score (0..1), label (\"malicious\"|\"suspicious\"|\"benign\"|\"unknown\"),\n  classification (list of strings; e.g., ransomware, trojan, worm, downloader, dropper, rootkit, banker, stealer, backdoor, botnet, keylogger, adware, spyware, wiper, rat, cryptominer),\n  families (list of strings), capabilities (list of strings), tactics (list of strings),\n  evidence (list of objects with: id, title, detail, severity in {info,warn,error}, source in {features,retrieval}, doc_ref),\n  uncertainty in {\"low\",\"medium\",\"high\"} and optional notes.\nConstrain evidence to 4\u20138 diverse items. Use source=features for imports/sections-based inferences; use source=retrieval and doc_ref=<doc_id> to cite passages. Map capability names to analyst terminology (injection, persistence, networking, crypto, anti-debug, exfiltration, obfuscation, c2). Calibrate score heuristically: strong diverse capabilities with corroboration -> 0.75\u20130.95; single strong signal -> 0.45\u20130.65; weak/ambiguous -> 0.15\u20130.35; none -> \u22640.15. Prefer 1\u20133 concise classification tags that best describe the sample's high-level type."
+      },
+      {
+        "role": "user",
+        "text": "Context:\n- name: 8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe\n- format: Portable Executable (PE)\n- language: x86/little/64/default\n- compiler: Visual Studio\n- image_base: 00400000\n- size: 1011200\n- sha256: 8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9\n- capability:injection -> imports: getprocaddress, getthreadcontext, setthreadcontext, suspendthread\n- capability:network -> imports: _strnicmp\n- capability:persistence -> imports: getstartupinfoa\n- capability:anti_debug -> imports: closehandle, gettickcount, queryperformancecounter, setunhandledexceptionfilter, unhandledexceptionfilter\n- capability:file_ops -> imports: closehandle, getfileattributesa\n- capability:process_ops -> imports: getcurrentprocess, getcurrentprocessid, terminateprocess\n- capability:misc -> imports: _ftime, getsystemtimeasfiletime, gettickcount, queryperformancecounter, sleep, strftime, wcsftime\n- section Headers: size=1536, entropy=2.2445, comment=, read=True, write=False, type=Default\n- section .text: size=467456, entropy=6.154, comment=, read=True, write=False, type=Default\n- section .data: size=86528, entropy=0.0361, comment=, read=True, write=True, type=Default\n- section .rdata: size=50176, entropy=4.0973, comment=, read=True, write=False, type=Default\n- section .pdata: size=30720, entropy=5.8417, comment=, read=True, write=False, type=Default\n- section .xdata: size=41984, entropy=4.8016, comment=, read=True, write=False, type=Default\n- section .bss: size=5888, entropy=0.0, comment=, read=True, write=True, type=Default\n- section .idata: size=5632, entropy=4.3499, comment=, read=True, write=True, type=Default\n- (+12 more sections)\n\nRetrieved Documents:\n[1] CyberGate Technical Analysis (id=file_html::b223e111d25fd644f1123ee36be99aed4d65a4ebaa14a3d1b949fd5f0ccf94f5::chunk-0, source=malpedia): {\"title\": \"[FAMILY]\", \"extracted_text\": \"[FAMILY]: [FAMILY]\\[FAMILY]\\[FAMILY], we [FAMILY], a [FAMILY], to determine its function and capabilities.\\[FAMILY]\\[FAMILY] to [FAMILY], [FAMILY] is a [FAMILY] ([FAMILY]) that allows an attacker to gain unauthorized access to\\nthe victim\\[FAMILY] connect to the compromised system from anywhere\\[FAMILY] author generally uses this program to steal private information\\nlike passwords, files, etc. It might also be used to install malicious [FAMILY] on the compromised\\nsystems.\\[FAMILY]\\[FAMILY]: [FAMILY]\\[FAMILY]\\[FAMILY] this sample. I\\[FAMILY]\\npestudio\\[FAMILY] this sample is [FAMILY], as shown in the figure above, UPX is a file compressor. It reduces the file [FAMILY] of [FAMILY] by around 50%-70%, malware authors use that packer to obfuscate and compress their malicious code.\\[FAMILY] by using\\[FAMILY]\\nas seen below\\nupx.exe -d C:\\\\[FAMILY]\\...\n[2] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15, source=malpedia):  input not full block\\n crypto/des: output not full block\\n crypto/des: input not full block\\n crypto/des: invalid buffer overlap\\n crypto/[FAMILY]: invalid hash state [FAMILY]\\n AES-128-CBC\\n AES-192-CBC\\n AES-256-CBC\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n -----[FAMILY]\\n [FAMILY]\\n [FAMILY]: unknown elliptic curve\\n [FAMILY]: cannot sign with hash function requested\\n [FAMILY]: [FAMILY]\\n [FAMILY]: internal [FAMILY]: cannot parse domain %q\\n [FAMILY]: unknown [FAMILY]\\n [FAMILY]: malformed tbs certificate\\n [FAMILY]: invalid version\\n [FAMILY]: malformed validity\\n [FAMILY]: malformed spki\\n [FAMILY]: malformed [FAMILY]\\n [FAMILY]: invalid authority info access\\n [FAMILY]: [FAMILY]\\n [FAMILY]: invalid constraint value: \\n [FAMILY]: [FAMILY] is malformed\\n [FAMILY]: cannot parse IP address of length \\n [FAMILY]: [FAMILY]\\n [FAMILY]: [FAMILY] pa...\n[3] malpedia (id=file_html::2dfcbce0b862304c5eb0b92e2d2043ce014186f7ad9a4e80631585efc1383882::chunk-0, source=malpedia): {\"title\": \"[FAMILY]: part 26. [FAMILY]. C++ example. - cocomelonc\", \"extracted_text\": \"\\ufdfd\\[FAMILY], cybersecurity enthusiasts and white hackers!\\[FAMILY] is the result of my own research into the malware dev trick: prevent self-execution via mutexes.\\[FAMILY], when developing malware, for maximum stealth, it is necessary that the program be launched only once. To do this, according to the\\[FAMILY]\\n, we can use mutexes.\\[FAMILY]\\[FAMILY], we can use\\[FAMILY]\\[FAMILY]:\\[FAMILY]\\[FAMILY]\\n(\\[FAMILY]\\[FAMILY]\\n,\\[FAMILY]\\[FAMILY]\\n,\\[FAMILY]\\[FAMILY]\\n);\\npractical example\\[FAMILY], you can use this function in this way:\\ncreate [FAMILY] with specific name, so multiple instances can detect it:\\[FAMILY]\\n=\\[FAMILY]\\n(\\[FAMILY]\\n,\\[FAMILY]\\n,\\n\\\"[FAMILY]\\\"\\n);\\ncheck if [FAMILY] already exists, exit from app:\\[FAMILY]\\n(\\[FAMILY]\\n()\\n==\\[FAMILY]\\n)\\n{\\n// if this process created the [...\n[4] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-6, source=malpedia): haroshthi\\n Linear_B\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: invalid whence\\n bufio: buffer full\\n bufio: negative count\\n [FAMILY]: token too long\\n bufio: tried to fill full buffer\\n invalid [FAMILY]\\n 6103515625\\n 152587890625\\n 762939453125\\n 3814697265625\\n 95367431640625\\n 11920928955078125\\n 59604644775390625\\n 1490116119384765625\\n 7450580596923828125\\n 37252902984619140625\\n 186264514923095703125\\n 14551915228366851806640625\\n 363797880709171295166015625\\n 284217094304040...\n[5] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5, source=malpedia):  not found\\n No functions exported\\n [FAMILY]'t fit: %08x\\n [FAMILY]: %w\\n [FAMILY]: %w\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n ntdll.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]()\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY] io.[FAMILY]()...\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n fail to read string table length: %v\\n fail to read section relocations: %v\\n [FAMILY] %d\\n [FAMILY]\\n [FAMILY]\\n extended attribute name too large\\n [FAMILY]\\n [FAMILY]\\n ws2_32.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [pivot] [FAMILY] data length\\n D:(A;;0x1f019f;;;WD)\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\...\n[6] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-7, source=malpedia):  ^r[0-9a-zA-Z]{23,50}$\\n ^0x[a-fA-F0-9]{40}$\\n ^0x[0-9a-fA-F]{40}$\\n ^([a-zA-Z0-9]){32,}$\\n fhbohimaelbohpjbbldcngcnapndodjp\\n [FAMILY]\\n pdadjkfkgcafgbceimcpbkalnfnepbnk\\n amkmjjmmflddogmhpjloimipbofnfjih\\n [FAMILY]\\n cjelfplplebdjjenllpjcblmjkfcffne\\n [FAMILY]\\n [FAMILY]\\n cgeeodpfagjceefieflmdfphplkenlfk\\n [FAMILY]\\n fihkakfobkmkjojpchpfgcmhfjnmnfpi\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n \\\\[FAMILY]\\\\\\n [FAMILY]\\n \\\\atomic\\\\[FAMILY]\\\\leveldb\\n wallet.dat\\n [FAMILY]\\n \\\\[FAMILY]\\\\\\n wallet.dat\\n \\\\[FAMILY]\\\\\\n multidoge.wallet\\n \\\\[FAMILY]\\\\\\n address.db\\n config.inc.php\\n ShareX_H_\\n [FAMILY]\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n [FAMILY]\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n browsedata.db\\n \\\\[FAMILY]++\\\\backup\\\\\\n [FAMILY]\\n \\\\snowflake-ssh\\\\\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n auth.json\\n COMPOSER_HOME\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n winauth.xml\\n accounts....\n[7] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10, source=malpedia):  [FAMILY]\\n [FAMILY]\\n [FAMILY]-addr\\n http: request too large\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: \\n silence-semicolons\\n http: [FAMILY]\\n [FAMILY]\\n <!DOCTYPE HTML\\n image/x-icon\\n image/bmp\\n image/gif\\n image/gif\\n image/png\\n image/jpeg\\n FORM AIFF\\n audio/aiff\\n audio/mpeg\\n application/ogg\\n audio/midi\\n application/vnd.ms-fontobject\\n font/collection\\n font/[FAMILY]\\n application/x-gzip\\n application/zip\\n application/wasm\\n \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n net/http: skip alternate protocol\\n http: [FAMILY]\\n net/http: timeout awaiting response headers\\n http: read on closed response body\\n [FAMILY]\\n bad [FAMILY] [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n identity\\n [FAMILY]\\n [FAMILY]: chunked\\n\\n [FAMILY]\\n [FAMILY]: \\n [FAMILY]\\n [FAMILY]\\n No [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]...\n[8] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-4, source=malpedia):  \\n padding contained in alphabet\\n unreachable\\n chunk is too large: \\n bit depth %d, color type %d\\n ORGANOSOLS\\n WHIRLWINDS\\n COPOLYMERS\\n QUINTUPLET\\n AFFRICATING\\n KNEECAPPING\\n PACHALIC\\n CHERNOZEMIC\\n ALLOCATIONS\\n ENTICEMENTS\\n GREASEWOODS\\n PICTURIZATIONS\\n FATALISM\\n GREASERS\\n ANTITUSSIVE\\n BLASTERS\\n ERASURES\\n DISAPPROBATIONS\\n SALUTARY\\n SULLENLY\\n SOPHISTICATEDLY\\n READDRESSING\\n TECHNOLOGIES\\n HIEROGLYPHIC\\n FANTAILED\\n MEANINGFULLY\\n STEREOTYPICALLY\\n SUBSATELLITE\\n UNRESOLVABLE\\n SPADEFISH\\n COHOLDERS\\n GALLANTLY\\n BEARDEDNESSES\\n WITHOUTDOORS\\n RESTRIVES\\n IMMUNOGENETIC\\n MEDICATING\\n HYPERLIPEMIAS\\n GENTAMICIN\\n PREPROCESSING\\n CIGUATERAS\\n RATCHETING\\n MUCKRAKING\\n CARBOLIZES\\n EUTHANIZED\\n LENTIGINES\\n DERMATOSES\\n PLANATIONS\\n REVOCATION\\n MAUMETRIES\\n BOOTLESSLY\\n POIKILOTHERMIC\\n REDEVELOPED\\n REASSEMBLES\\n MISDOUBTING\\n DACTYLOLOGY\\n ADMITTEE\\n DEVIANCY\\n ROU...\n\nTasks:\n- Classify the sample into a known malware family (or 'unknown' if undecidable).\n- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n- Return STRICT JSON only, following the required schema."
+      }
+    ]
+  },
+  "guardrails": {
+    "blind_label": "suspicious",
+    "blind_families": [
+      "unknown"
+    ],
+    "blind_score": 0.75,
+    "retrieval_evidence_count": 1,
+    "min_retrieval_evidence": 2,
+    "name_leak_detected": true
+  }
+}

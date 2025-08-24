@@ -1,0 +1,372 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "botnet-run-vt-2508",
+  "generated_at": "2025-08-24T21:43:16Z",
+  "duration_sec": 12.719,
+  "sample": {
+    "sha256": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.baseline.json"
+  },
+  "program": {
+    "name": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/32/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 2048,
+    "sha256": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d"
+  },
+  "taxonomy": {
+    "families": {
+      "trojan": 2,
+      "downloader": 2,
+      "dropper": 2
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.51
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "packed"
+    ],
+    "virustotal": [
+      "downloader",
+      "dropper",
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.5,
+    "label": "abstain",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.3125,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 0,
+          "warn": 4,
+          "error": 1
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2024-02-07",
+        "malicious": 57,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 16,
+        "popular_threat_name": "{'count': 8, 'value': 'zusy'}, {'count': 4, 'value': 'msic'}, {'count': 2, 'value': 'babar'}",
+        "type_description": "Win32 EXE",
+        "meaningful_name": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.exe",
+        "names": [
+          "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.exe",
+          "TrainerFL-build.36449.bin",
+          "83d445f26e0296fec152f61610884ed4.exe.vir",
+          "TrainerFL-build.36449.exe"
+        ],
+        "size": 2048,
+        "sha256": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d",
+        "consensus_denominator": 57,
+        "consensus_score": 1.0,
+        "confidence": 0.85
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.9,
+      "virustotal_confidence": 0.85
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": true,
+      "score_gap": 0.6875,
+      "disagreement_penalty": 0.0675
+    },
+    "final": {
+      "score": 0.5,
+      "label": "abstain",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.90 (errors=1, warns=4, infos=0, categories=4)",
+      "packer indicators present -> slight confidence reduction",
+      "vt_score=1.00 vt_confidence=0.85 (mal=57, sus=0, denom=57)",
+      "disagreement_penalty=0.07 due to gap=0.69",
+      "hard conflict override -> abstain (set fused score to mid value)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.3125,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: tiny-.text",
+        "severity": "warn",
+        "score": 0.4,
+        "reason": "signals: tiny-.text",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "tiny_text_section",
+        "title": "Tiny .text section",
+        "detail": "Detected tiny .text section (<4096B); size=512 bytes",
+        "severity": "warn",
+        "score": 0.25,
+        "reason": "tiny .text section detected",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.15
+          }
+        ]
+      },
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: winexec",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: winexec",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "anti_vm_strings",
+        "title": "Anti-VM indicators (strings)",
+        "detail": "Tokens: wine",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "tokens: wine",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.12
+          }
+        ]
+      },
+      {
+        "id": "suspicious_function_names",
+        "title": "Suspicious function names detected",
+        "detail": "Functions: WinExec",
+        "severity": "warn",
+        "score": 0.3,
+        "reason": "matched suspicious function names: WinExec",
+        "categories": []
+      }
+    ],
+    "counts": {
+      "info": 0,
+      "warn": 4,
+      "error": 1
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.51
+      }
+    ],
+    "classification": [
+      "packed"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "program size below threshold (<100KB) for this heuristic"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "reason": "no dynamic API resolution imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "filesystem_mod",
+        "reason": "no filesystem modification imports found"
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "reason": "no URLs or IP addresses found in strings"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no debugger/anti-debug imports found"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d",
+      "size": 2048,
+      "names": [
+        "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.exe",
+        "TrainerFL-build.36449.bin",
+        "83d445f26e0296fec152f61610884ed4.exe.vir",
+        "TrainerFL-build.36449.exe"
+      ],
+      "tags": [
+        "peexe",
+        "checks-user-input",
+        "spreader",
+        "detect-debug-environment",
+        "long-sleeps"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.exe",
+      "harmless": 0,
+      "malicious": 57,
+      "suspicious": 0,
+      "undetected": 16,
+      "popular_threat_category": [
+        {
+          "count": 26,
+          "value": "trojan"
+        },
+        {
+          "count": 14,
+          "value": "downloader"
+        },
+        {
+          "count": 2,
+          "value": "dropper"
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "count": 8,
+          "value": "zusy"
+        },
+        {
+          "count": 4,
+          "value": "msic"
+        },
+        {
+          "count": 2,
+          "value": "babar"
+        }
+      ],
+      "first_submission_date": 1699252001,
+      "last_submission_date": 1707297135
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "pipeline_start",
+      "run_name": "botnet-run-vt-2508",
+      "file": "samples/botnet/decompressed/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.exe"
+    },
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:15Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:15Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:15Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:15Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:16Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

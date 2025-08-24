@@ -1,0 +1,208 @@
+{
+  "schema": "rexis.baseline.heuristics.v1",
+  "score": 0.4,
+  "label": "suspicious",
+  "evidence": [
+    {
+      "id": "packer_artifacts",
+      "title": "Packer / obfuscation indicators",
+      "detail": "Signals: resource-packaging",
+      "severity": "info",
+      "score": 0.4,
+      "reason": "signals: resource-packaging",
+      "categories": [
+        {
+          "tag": "packed",
+          "score": 0.36
+        },
+        {
+          "tag": "obfuscated",
+          "score": 0.24
+        }
+      ]
+    },
+    {
+      "id": "dynamic_api_resolution",
+      "title": "Dynamic API resolution",
+      "detail": "Imports include: getprocaddress",
+      "severity": "warn",
+      "score": 0.2,
+      "reason": "matched dynamic resolution imports: getprocaddress",
+      "categories": [
+        {
+          "tag": "obfuscated",
+          "score": 0.14
+        },
+        {
+          "tag": "packed",
+          "score": 0.08
+        }
+      ]
+    },
+    {
+      "id": "shell_exec_indicators",
+      "title": "Shell execution capability",
+      "detail": "Imports include: enumsystemlocalesw, getsystemdirectorya, getsystemtimeasfiletime",
+      "severity": "error",
+      "score": 0.35,
+      "reason": "matched shell-exec imports: enumsystemlocalesw, getsystemdirectorya, getsystemtimeasfiletime",
+      "categories": [
+        {
+          "tag": "dropper",
+          "score": 0.245
+        },
+        {
+          "tag": "downloader",
+          "score": 0.21
+        },
+        {
+          "tag": "loader",
+          "score": 0.175
+        }
+      ]
+    },
+    {
+      "id": "service_persistence",
+      "title": "Service manipulation",
+      "detail": "Imports include: createservicea, openscmanagera, openservicea, startservicea",
+      "severity": "warn",
+      "score": 0.25,
+      "reason": "matched service control imports: createservicea, openscmanagera, openservicea, startservicea",
+      "categories": [
+        {
+          "tag": "persistence",
+          "score": 0.2
+        },
+        {
+          "tag": "backdoor",
+          "score": 0.1
+        }
+      ]
+    },
+    {
+      "id": "filesystem_mod",
+      "title": "Filesystem modification capability",
+      "detail": "Imports include: createfilea, createfilew, readfile, writefile",
+      "severity": "info",
+      "score": 0.1,
+      "reason": "matched filesystem imports: createfilea, createfilew, readfile, writefile",
+      "categories": [
+        {
+          "tag": "ransomware",
+          "score": 0.07
+        },
+        {
+          "tag": "wiper",
+          "score": 0.06
+        },
+        {
+          "tag": "dropper",
+          "score": 0.04
+        }
+      ]
+    },
+    {
+      "id": "suspicious_urls_in_strings",
+      "title": "Embedded external endpoints",
+      "detail": "Found 16 URL/IP indicators; e.g., http://ocsp.globalsign.com/rootr103, http://crl.globalsign.com/root.crl0G, https://www.globalsign.com/repository/0",
+      "severity": "warn",
+      "score": 0.15,
+      "reason": "found 16 endpoints",
+      "categories": [
+        {
+          "tag": "downloader",
+          "score": 0.09
+        },
+        {
+          "tag": "trojan",
+          "score": 0.075
+        }
+      ]
+    },
+    {
+      "id": "dbg_anti_dbg",
+      "title": "Debugger/anti-debug indicators",
+      "detail": "Imports include: isdebuggerpresent, outputdebugstringw",
+      "severity": "warn",
+      "score": 0.2,
+      "reason": "matched debug/anti-debug imports: isdebuggerpresent, outputdebugstringw",
+      "categories": [
+        {
+          "tag": "evasive",
+          "score": 0.14
+        }
+      ]
+    },
+    {
+      "id": "suspicious_function_names",
+      "title": "Suspicious function names detected",
+      "detail": "Functions: FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator*, FID_conflict:operator=, FUN_14000c210, FUN_14000c2e0, FUN_14001c280, FUN_140021c24, FUN_140039c24, FUN_14004ec20, Unwind@140069c28, Unwind@14006ac28, _Copy_unchecked1<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, _Getloctxt<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, `eh_vector_destructor_iterator', operator(), operator(), operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_410d79af7f07d98d83a3f525b3859a53>,class_<lambda_3e16ef9562a7dcce91392c22ab16ea36>&___ptr64,class_<lambda_38119f0e861e05405d8a144b9b982f0a>_>, operator()<class_<lambda_7777bce6b2f8c936911f934f8298dc43>,class_<lambda_f03950bc5685219e0bcd2087efbe011e>&___ptr64,class_<lambda_3883c3dff614d5e0c5f61bb1ac94921c>_>, operator()<class_<lambda_7a5ef57ff966f610505f1d28a3d40618>,class_<lambda_b721fa326cdb32351d23dfa67958c160>&___ptr64,class_<lambda_5e0fb27672408a07956fe59e48ccb2aa>_>, operator()<class_<lambda_7f2adfce497ff2baa965cd4f576ecfd1>,class_<lambda_2a444430fde8c29194d880d93eed5e8f>&___ptr64,class_<lambda_8dff2cf36a5417162780cd64fa2883ef>&___ptr64>, operator()<class_<lambda_842d9ff0dc9ef11c61343bbaebe7f885>,class_<lambda_c5860995281e5c4ce005b3de8f5874ee>&___ptr64,class_<lambda_d90129c13df834fdcbf8d2b88dafcf2d>_>, operator()<class_<lambda_886d6c58226a84441f68b9f2b8217b83>,class_<lambda_ab61a845afdef5b7c387490eaf3616ee>&___ptr64,class_<lambda_f7f22ab5edc0698d5f6905b0d3f44752>_>, operator()<class_<lambda_b521505b218e5242e90febf6bfebc422>,class_<lambda_6978c1fb23f02e42e1d9e99668cc68aa>&___ptr64,class_<lambda_314360699dd331753a4119843814e9a7>_>, operator()<class_<lambda_bfedae4ebbf01fab1bb6dcc6a9e276e0>,class_<lambda_2fe9b910cf3cbf4a0ab98a02ba45b3ec>&___ptr64,class_<lambda_237c231691f317818eb88cc1d5d642d6>_>, operator()<class_<lambda_c376a267cfb53b6959b3b692ec76b120>,class_<lambda_9a32fed5bf61b6b509b2d3f6003082a1>&___ptr64,class_<lambda_572fbb9fa0ab338edf41edfd4b5fcc8d>_>, operator()<class_<lambda_d67e8342c384adda8f857579ab50b2ae>,class_<lambda_30712929f77e709619002f448b6a9510>&___ptr64,class_<lambda_4525336fd7e478d965fb7ca7a337cad8>_>, operator()<class_<lambda_d80eeec6fff315bfe5c115232f3240e3>,class_<lambda_6e4b09c48022b2350581041d5f6b0c4c>&___ptr64,class_<lambda_2358e3775559c9db80273638284d5e45>_>, operator*, operator+=, operator=, operator=, operator_new, operator_new",
+      "severity": "warn",
+      "score": 0.3,
+      "reason": "matched suspicious function names: FID_conflict:operator(), FID_conflict:operator(), FID_conflict:operator*, FID_conflict:operator=, FUN_14000c210, FUN_14000c2e0, FUN_14001c280, FUN_140021c24, FUN_140039c24, FUN_14004ec20, Unwind@140069c28, Unwind@14006ac28, _Copy_unchecked1<char*___ptr64,class_std::ostreambuf_iterator<char,struct_std::char_traits<char>_>_>, _Getloctxt<char,class_std::istreambuf_iterator<char,struct_std::char_traits<char>_>_>, `eh_vector_destructor_iterator', operator(), operator(), operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<>, operator()<class_<lambda_410d79af7f07d98d83a3f525b3859a53>,class_<lambda_3e16ef9562a7dcce91392c22ab16ea36>&___ptr64,class_<lambda_38119f0e861e05405d8a144b9b982f0a>_>, operator()<class_<lambda_7777bce6b2f8c936911f934f8298dc43>,class_<lambda_f03950bc5685219e0bcd2087efbe011e>&___ptr64,class_<lambda_3883c3dff614d5e0c5f61bb1ac94921c>_>, operator()<class_<lambda_7a5ef57ff966f610505f1d28a3d40618>,class_<lambda_b721fa326cdb32351d23dfa67958c160>&___ptr64,class_<lambda_5e0fb27672408a07956fe59e48ccb2aa>_>, operator()<class_<lambda_7f2adfce497ff2baa965cd4f576ecfd1>,class_<lambda_2a444430fde8c29194d880d93eed5e8f>&___ptr64,class_<lambda_8dff2cf36a5417162780cd64fa2883ef>&___ptr64>, operator()<class_<lambda_842d9ff0dc9ef11c61343bbaebe7f885>,class_<lambda_c5860995281e5c4ce005b3de8f5874ee>&___ptr64,class_<lambda_d90129c13df834fdcbf8d2b88dafcf2d>_>, operator()<class_<lambda_886d6c58226a84441f68b9f2b8217b83>,class_<lambda_ab61a845afdef5b7c387490eaf3616ee>&___ptr64,class_<lambda_f7f22ab5edc0698d5f6905b0d3f44752>_>, operator()<class_<lambda_b521505b218e5242e90febf6bfebc422>,class_<lambda_6978c1fb23f02e42e1d9e99668cc68aa>&___ptr64,class_<lambda_314360699dd331753a4119843814e9a7>_>, operator()<class_<lambda_bfedae4ebbf01fab1bb6dcc6a9e276e0>,class_<lambda_2fe9b910cf3cbf4a0ab98a02ba45b3ec>&___ptr64,class_<lambda_237c231691f317818eb88cc1d5d642d6>_>, operator()<class_<lambda_c376a267cfb53b6959b3b692ec76b120>,class_<lambda_9a32fed5bf61b6b509b2d3f6003082a1>&___ptr64,class_<lambda_572fbb9fa0ab338edf41edfd4b5fcc8d>_>, operator()<class_<lambda_d67e8342c384adda8f857579ab50b2ae>,class_<lambda_30712929f77e709619002f448b6a9510>&___ptr64,class_<lambda_4525336fd7e478d965fb7ca7a337cad8>_>, operator()<class_<lambda_d80eeec6fff315bfe5c115232f3240e3>,class_<lambda_6e4b09c48022b2350581041d5f6b0c4c>&___ptr64,class_<lambda_2358e3775559c9db80273638284d5e45>_>, operator*, operator+=, operator=, operator=, operator_new, operator_new",
+      "categories": []
+    }
+  ],
+  "counts": {
+    "info": 2,
+    "warn": 5,
+    "error": 1
+  },
+  "tags": [
+    {
+      "tag": "packed",
+      "score": 0.44
+    },
+    {
+      "tag": "obfuscated",
+      "score": 0.38
+    },
+    {
+      "tag": "downloader",
+      "score": 0.3
+    }
+  ],
+  "classification": [
+    "packed",
+    "obfuscated",
+    "downloader"
+  ],
+  "rule_misses": [
+    {
+      "id": "sus_api_combo",
+      "reason": "none of injection/networking/registry API sets present"
+    },
+    {
+      "id": "tiny_text_section",
+      "reason": ".text section size not below threshold"
+    },
+    {
+      "id": "low_entropy_strings",
+      "reason": "string count/length distribution not indicative of packing"
+    },
+    {
+      "id": "entry_in_writable",
+      "reason": "no executable section marked writable"
+    },
+    {
+      "id": "networking_indicators",
+      "reason": "no networking-related imports found"
+    },
+    {
+      "id": "http_exfil_indicators",
+      "reason": "no HTTP request/exfiltration imports found"
+    },
+    {
+      "id": "crypto_indicators",
+      "reason": "no cryptographic API imports found"
+    },
+    {
+      "id": "autorun_persistence",
+      "reason": "no registry persistence-related imports found"
+    },
+    {
+      "id": "anti_vm_strings",
+      "reason": "no anti-VM tokens present in strings"
+    }
+  ]
+}

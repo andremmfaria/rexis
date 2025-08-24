@@ -1,0 +1,342 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "rootkit-run-vt-2508",
+  "generated_at": "2025-08-24T21:58:57Z",
+  "duration_sec": 26.05,
+  "sample": {
+    "sha256": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.baseline.json"
+  },
+  "program": {
+    "name": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/64/default",
+    "compiler": "Visual Studio",
+    "image_base": "140000000",
+    "size": 57248,
+    "sha256": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0"
+  },
+  "taxonomy": {
+    "families": {
+      "rootkit": 2,
+      "trojan": 2
+    },
+    "tags": []
+  },
+  "classification": {
+    "heuristics": [
+      "dropper",
+      "downloader",
+      "loader"
+    ],
+    "virustotal": [
+      "rootkit",
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.5,
+    "label": "abstain",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.0975,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 0,
+          "error": 1
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2021-06-30",
+        "malicious": 53,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 19,
+        "popular_threat_name": "{'count': 11, 'value': 'retliften'}, {'count': 8, 'value': 'netfilter'}, {'count': 7, 'value': 'rootkit'}",
+        "type_description": "Win32 EXE",
+        "meaningful_name": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.exe",
+        "names": [
+          "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.exe",
+          "0bd3b9f55a2d3a13f506d9d8b970e0de",
+          "netfilter.sys",
+          "d6",
+          "",
+          "ba8",
+          "81.sys"
+        ],
+        "size": 57248,
+        "sha256": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0",
+        "consensus_denominator": 53,
+        "consensus_score": 1.0,
+        "confidence": 0.8
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.85,
+      "virustotal_confidence": 0.8
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": true,
+      "score_gap": 0.9025,
+      "disagreement_penalty": 0.1
+    },
+    "final": {
+      "score": 0.5,
+      "label": "abstain",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.85 (errors=1, warns=0, infos=1, categories=2)",
+      "vt_score=1.00 vt_confidence=0.80 (mal=53, sus=0, denom=53)",
+      "disagreement_penalty=0.10 due to gap=0.90",
+      "hard conflict override -> abstain (set fused score to mid value)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.0975,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: pscreatesystemthread, psterminatesystemthread",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: pscreatesystemthread, psterminatesystemthread",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "filesystem_mod",
+        "title": "Filesystem modification capability",
+        "detail": "Imports include: zwreadfile, zwwritefile",
+        "severity": "info",
+        "score": 0.1,
+        "reason": "matched filesystem imports: zwreadfile, zwwritefile",
+        "categories": [
+          {
+            "tag": "ransomware",
+            "score": 0.07
+          },
+          {
+            "tag": "wiper",
+            "score": 0.06
+          },
+          {
+            "tag": "dropper",
+            "score": 0.04
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 0,
+      "error": 1
+    },
+    "tags": [],
+    "classification": [
+      "dropper",
+      "downloader",
+      "loader"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "packer_artifacts",
+        "reason": "no packer indicators: no known packer strings, no resource-packaging APIs, and .text not tiny"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "program size below threshold (<100KB) for this heuristic"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "reason": "no dynamic API resolution imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "reason": "no URLs or IP addresses found in strings"
+      },
+      {
+        "id": "anti_vm_strings",
+        "reason": "no anti-VM tokens present in strings"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no debugger/anti-debug imports found"
+      },
+      {
+        "id": "suspicious_function_names",
+        "reason": "no suspicious function names found"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0",
+      "size": 57248,
+      "names": [
+        "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.exe",
+        "0bd3b9f55a2d3a13f506d9d8b970e0de",
+        "netfilter.sys",
+        "d6",
+        "",
+        "ba8",
+        "81.sys"
+      ],
+      "tags": [
+        "native",
+        "overlay",
+        "via-tor",
+        "assembly",
+        "peexe",
+        "64bits",
+        "signed"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.exe",
+      "harmless": 0,
+      "malicious": 53,
+      "suspicious": 0,
+      "undetected": 19,
+      "popular_threat_category": [
+        {
+          "count": 30,
+          "value": "trojan"
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "count": 11,
+          "value": "retliften"
+        },
+        {
+          "count": 8,
+          "value": "netfilter"
+        },
+        {
+          "count": 7,
+          "value": "rootkit"
+        }
+      ],
+      "first_submission_date": 1623521091,
+      "last_submission_date": 1625057960
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:58:31Z",
+      "event": "pipeline_start",
+      "run_name": "rootkit-run-vt-2508",
+      "file": "samples/rootkit/decompressed/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.exe"
+    },
+    {
+      "ts": "2025-08-24T21:58:31Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:57Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:58:57Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:57Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T21:58:57Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:57Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

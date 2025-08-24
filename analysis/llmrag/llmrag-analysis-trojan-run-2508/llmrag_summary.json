@@ -1,0 +1,15 @@
+{
+  "schema": "rexis.llmrag.summary.v1",
+  "run_id": "trojan-run-2508",
+  "generated_at": "2025-08-24T22:29:13Z",
+  "inputs_root": "/home/andremmfaria/projects/rexis/samples/trojan/decompressed",
+  "count": 5,
+  "reports": [
+    "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.report.json",
+    "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/7240f644298f6da96d40299341a178662b0a15a211dec9b4c8b7c4544c071cf2.report.json",
+    "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/10abf4518c37c5852817b74292c939a7646abbb6fa538e7ffd0a1e384b533207.report.json",
+    "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/dcb7ce8cf51da4997489814f1ea6a877b97b4d0fcd28d6c89d8f9f363ab17abd.report.json",
+    "data/analysis/llmrag/llmrag-analysis-trojan-run-2508/cb8e04654a46e145dd9690c4c4c2c1e4ed1e82ea16e7fbdb500cc9357622fa46.report.json"
+  ],
+  "out_dir": "/home/andremmfaria/projects/rexis/data/analysis/llmrag/llmrag-analysis-trojan-run-2508"
+}

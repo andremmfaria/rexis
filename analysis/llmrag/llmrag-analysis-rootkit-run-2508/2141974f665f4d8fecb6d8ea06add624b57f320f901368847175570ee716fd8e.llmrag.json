@@ -1,0 +1,116 @@
+{
+  "schema": "rexis.llmrag.classification.v1",
+  "score": 0.85,
+  "label": "malicious",
+  "classification": [
+    "trojan",
+    "injector"
+  ],
+  "families": [
+    "unknown_family"
+  ],
+  "capabilities": [
+    "injection",
+    "persistence",
+    "anti-debug",
+    "file_ops",
+    "process_ops",
+    "system_info",
+    "networking",
+    "crypto",
+    "compression"
+  ],
+  "tactics": [
+    "defense-evasion",
+    "persistence",
+    "execution",
+    "collection"
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "Injection Capabilities",
+      "detail": "Imports functions like GetProcAddress, SetThreadContext, and SuspendThread indicating code injection capabilities.",
+      "severity": "error",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e2",
+      "title": "Persistence Mechanism",
+      "detail": "Uses GetStartupInfoW to potentially establish persistence.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e3",
+      "title": "Anti-Debugging Techniques",
+      "detail": "Imports IsDebuggerPresent and SetUnhandledExceptionFilter to evade debugging.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e4",
+      "title": "File and Process Operations",
+      "detail": "Imports CreateFileW, ReadFile, WriteFile, and TerminateProcess indicating file and process manipulation.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e5",
+      "title": "Network and System Information Gathering",
+      "detail": "Imports GetSystemInfo and networking functions indicating system reconnaissance.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e6",
+      "title": "Packer Indication",
+      "detail": "Presence of packer strings suggests obfuscation techniques.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    }
+  ],
+  "uncertainty": "high",
+  "notes": "The sample exhibits multiple capabilities typical of a trojan with injection and persistence mechanisms, but lacks specific family identification. guardrails:family_abstained(leak=false, ev=0)",
+  "meta": {
+    "model": "gpt-4o-2024-08-06",
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "prompt_variant": "justification",
+    "prompt_hash": "22d42212e90d40f4af446c6372f9f8d9e66bb782620f906c659bcb7f205ad8c8",
+    "passages_used": [
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-9",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-13",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-2",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-16",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-0",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10"
+    ],
+    "prompts": [
+      {
+        "role": "system",
+        "text": "You are a precise malware analyst. You must produce a JSON verdict following the given schema. If uncertain, set label='unknown' and uncertainty='high'. Prefer concise, actionable evidence.\n\n Output must be JSON only.\n\nReturn STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n  schema=\"rexis.llmrag.classification.v1\", score (0..1), label (\"malicious\"|\"suspicious\"|\"benign\"|\"unknown\"),\n  classification (list of strings; e.g., ransomware, trojan, worm, downloader, dropper, rootkit, banker, stealer, backdoor, botnet, keylogger, adware, spyware, wiper, rat, cryptominer),\n  families (list of strings), capabilities (list of strings), tactics (list of strings),\n  evidence (list of objects with: id, title, detail, severity in {info,warn,error}, source in {features,retrieval}, doc_ref),\n  uncertainty in {\"low\",\"medium\",\"high\"} and optional notes.\nConstrain evidence to 4\u20138 diverse items. Use source=features for imports/sections-based inferences; use source=retrieval and doc_ref=<doc_id> to cite passages. Map capability names to analyst terminology (injection, persistence, networking, crypto, anti-debug, exfiltration, obfuscation, c2). Calibrate score heuristically: strong diverse capabilities with corroboration -> 0.75\u20130.95; single strong signal -> 0.45\u20130.65; weak/ambiguous -> 0.15\u20130.35; none -> \u22640.15. Prefer 1\u20133 concise classification tags that best describe the sample's high-level type."
+      },
+      {
+        "role": "user",
+        "text": "Context:\n- name: 2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.exe\n- format: Portable Executable (PE)\n- language: x86/little/64/default\n- compiler: Visual Studio\n- image_base: 180000000\n- size: 2051584\n- sha256: 2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e\n- capability:injection -> imports: getprocaddress, getthreadcontext, loadlibraryexw, setthreadcontext, suspendthread\n- capability:network -> imports: getconsoleoutputcp, getcpinfo\n- capability:crypto -> imports: heapdestroy\n- capability:persistence -> imports: getstartupinfow\n- capability:anti_debug -> imports: closehandle, isdebuggerpresent, outputdebugstringw, queryperformancecounter, setunhandledexceptionfilter, unhandledexceptionfilter\n- capability:file_ops -> imports: closehandle, createfilew, findfirstfileexw, findnextfilew, readfile, writefile\n- capability:process_ops -> imports: getcurrentprocess, getcurrentprocessid, terminateprocess\n- capability:system_info -> imports: getsysteminfo\n- capability:compression -> imports: freelibrary, loadlibraryexw\n- capability:misc -> imports: getdateformatw, getsystemtimeasfiletime, gettimeformatw, gettimezoneinformation, heapvalidate, queryperformancecounter, sleep\n- packer_hint: packer-string\n- section Headers: size=1024, entropy=3.5744, comment=, read=True, write=False, type=Default\n- section .textbss: size=756917, entropy=0.0, comment=, read=True, write=True, type=Default\n- section .text: size=1607680, entropy=5.1954, comment=, read=True, write=False, type=Default\n- section .rdata: size=331264, entropy=4.0198, comment=, read=True, write=False, type=Default\n- section .data: size=22784, entropy=2.0172, comment=, read=True, write=True, type=Default\n- section .pdata: size=78336, entropy=5.3357, comment=, read=True, write=False, type=Default\n- section .idata: size=5120, entropy=4.0338, comment=, read=True, write=False, type=Default\n- section .msvcjmc: size=512, entropy=0.9355, comment=, read=True, write=True, type=Default\n- (+7 more sections)\n\nRetrieved Documents:\n[1] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-9, source=malpedia): timestamp\\n cannot create [FAMILY]\\n invalid body\\n cannot create form file\\n empty key\\n [FAMILY]\\n [GOZOOX_FETCH][DEBUG][[FAMILY]]\\n [warn] [FAMILY] to [FAMILY]:\\n [FAMILY] to load client cert and key: %v\\n invalid proxy: %s\\n [FAMILY]\\n application/json\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n multipart/form-data\\n [FAMILY]\\n gzip decode [FAMILY]: %s\\n application/json\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n {[FAMILY]-4C6A-9C5A-[FAMILY]}\\n {6485B1EF-[FAMILY]-4834-[FAMILY]-1EBB51746CA3}\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n combase.dll\\n [FAMILY]\\n [FAMILY]\\n command timed [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n iphlpapi.dll\\n ESTABLISHED\\n process does not have children\\n [FAMILY]\\n [FAMILY]\\n [FA...\n[2] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-13, source=malpedia): adaptersaddresses\\n unexpected address type\\n unixgram\\n wsasendmsg\\n wsasendto\\n wsarecvfrom\\n shutdown\\n unixgram\\n nil context\\n go package net: [FAMILY] =\\n myhostname\\n [FAMILY]\\n invalid port\\n unexpected network: \\n [FAMILY]\\n mismatched local address type\\n IP address\\n crypto/des: input not full block\\n crypto/des: output not full block\\n crypto/des: output not full block\\n crypto/des: input not full block\\n d.nx != 0\\n crypto/[FAMILY]: invalid hash state identifier\\n crypto/[FAMILY]: invalid hash state size\\n AES-256-CBC\\n [FAMILY]: decryption password incorrect\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n -----[FAMILY]\\n [FAMILY]: unknown [FAMILY]\\n [FAMILY]: unknown EC private key version %d\\n [FAMILY]: [FAMILY]: %v\\n [FAMILY]: [FAMILY]: %v\\n [FAMILY]: trailing data\\n [FAMILY]: malformed certificate\\n [FAMILY]: malformed tbs certificate\\n ...\n[3] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15, source=malpedia):  input not full block\\n crypto/des: output not full block\\n crypto/des: input not full block\\n crypto/des: invalid buffer overlap\\n crypto/[FAMILY]: invalid hash state size\\n AES-128-CBC\\n AES-192-CBC\\n AES-256-CBC\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n -----[FAMILY]\\n [FAMILY]\\n [FAMILY]: unknown elliptic curve\\n [FAMILY]: cannot sign with hash function requested\\n [FAMILY]: [FAMILY]\\n [FAMILY]: internal [FAMILY]: cannot parse domain %q\\n [FAMILY]: unknown [FAMILY]\\n [FAMILY]: malformed tbs certificate\\n [FAMILY]: invalid version\\n [FAMILY]: malformed validity\\n [FAMILY]: malformed spki\\n [FAMILY]: malformed extensions\\n [FAMILY]: invalid authority info access\\n [FAMILY]: [FAMILY]\\n [FAMILY]: invalid constraint value: \\n [FAMILY]: [FAMILY] is malformed\\n [FAMILY]: cannot parse IP address of length \\n [FAMILY]: [FAMILY]\\n [FAMILY]: [FAMILY] para...\n[4] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-2, source=malpedia): \\nsql: [FAMILY] is nil\\nsql: [FAMILY] \\[FAMILY]-01-02T15:04:05.999999999Z07:00\\ndestination not a pointer\\[FAMILY] to %s is unsupported\\[FAMILY] to %s is unsupported\\nsql: [FAMILY]\\nsql: [FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\nin literal true (expecting 'r')\\nafter top-level value\\nafter object key:value pair\\nafter array element\\nomitempty\\nunexpected map key type\\njson: encoding [FAMILY] for type %q: %q\\[FAMILY]\\n for type \\njson: [FAMILY](nil)\\njson: [FAMILY](nil \\ndestination pointer is nil\\[FAMILY]-01-02 15:04:05\\[FAMILY]-01-02 15:04\\[FAMILY]-01-02T15:04\\ndatetime\\ntimestamp\\[FAMILY]\\n_auth_user\\n_auth_pass\\[FAMILY]: %v: %v\\ndeferred\\[FAMILY]: %v\\[FAMILY]: %v: %v\\n_case_sensitive_like\\n_defer_foreign_keys\\n_foreign_keys\\n_journal_mode\\n_journal_mode\\[FAMILY]\\n_locking_mode\\n_locking_mode\\n_locking\\[FAMILY]\\n_query_only\\n_recursive_triggers\\n_synchronous\\n_cache_size\\[FAMILY...\n[5] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-16, source=malpedia):  [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n getsockopt\\n setsockopt\\n [FAMILY] to [FAMILY]: \\n winapi [FAMILY] #\\n [FAMILY]\\n iphlpapi.dll\\n ws2_32.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n 1220703125\\n 6103515625\\n 30517578125\\n 3814697265625\\n 19073486328125\\n 95367431640625\\n 11920928955078125\\n 1490116119384765625\\n 37252902984619140625\\n 4656612873077392578125\\n 14551915228366851806640625\\n 3552713678800500929355621337890625\\n 11102230246251565404236316680908203125\\n [FAMILY] > 18\\n [FAMILY] > 9\\n [FAMILY]\\n [FAMILY]\\n strconv.\\n parsing \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMIL...\n[6] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-0, source=malpedia): {\"title\": \"[FAMILY] | [FAMILY]\", \"extracted_text\": \"[FAMILY]\\[FAMILY]/[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\nis an open source obfuscation framework for GO which also includes a string [FAMILY] feature. It has been used in multiple GO based malware builds including\\[FAMILY]\\nand\\[FAMILY]\\n.\\[FAMILY]/[FAMILY]\\[FAMILY] is a weakness in the string [FAMILY] implementation that may be exploited to generically decrypt strings and identify [FAMILY] GO [FAMILY] in functions rather than in-[FAMILY] a similar pattern that can be sigged.\\[FAMILY]\\[FAMILY] be using a [FAMILY] [FAMILY] as our example\\[FAMILY]\\n.\\[FAMILY]\\[FAMILY]\\[FAMILY] is a simple matter of emulating the string decryption function.\\nfrom\\nunicorn\\nimport\\n*\\nfrom\\[FAMILY]\\nimport\\n*\\nimport\\nstruct\\nfrom\\ncapstone\\nimport\\n*\\nfrom\\[FAMILY]\\nimport\\n*\\ndef\\nde...\n[7] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5, source=malpedia):  not found\\n No functions exported\\n [FAMILY]'t fit: %08x\\n [FAMILY]: %w\\n [FAMILY]: %w\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n ntdll.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]()\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY] io.[FAMILY]()...\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n fail to read string table length: %v\\n fail to read section relocations: %v\\n [FAMILY] %d\\n [FAMILY]\\n [FAMILY]\\n extended attribute name too large\\n [FAMILY]\\n [FAMILY]\\n ws2_32.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [pivot] zero data length\\n D:(A;;0x1f019f;;;WD)\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [F...\n[8] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10, source=malpedia):  [FAMILY]\\n [FAMILY]\\n local-addr\\n http: [FAMILY] too large\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: \\n silence-semicolons\\n http: [FAMILY]\\n [FAMILY]\\n <!DOCTYPE HTML\\n image/x-icon\\n image/bmp\\n image/gif\\n image/gif\\n image/png\\n image/jpeg\\n FORM AIFF\\n audio/aiff\\n audio/mpeg\\n application/ogg\\n audio/midi\\n application/vnd.ms-fontobject\\n font/collection\\n font/[FAMILY]\\n application/x-gzip\\n application/zip\\n application/wasm\\n \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n net/http: skip alternate protocol\\n http: [FAMILY]\\n net/http: timeout awaiting response headers\\n http: read on closed response body\\n [FAMILY]\\n bad [FAMILY] key\\n [FAMILY]\\n [FAMILY]\\n identity\\n [FAMILY]\\n [FAMILY]: chunked\\n\\n [FAMILY]\\n [FAMILY]: \\n [FAMILY]\\n [FAMILY]\\n No [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAM...\n\nTasks:\n- Classify the sample into a known malware family (or 'unknown' if undecidable).\n- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n- Return STRICT JSON only, following the required schema."
+      }
+    ]
+  },
+  "guardrails": {
+    "blind_label": "suspicious",
+    "blind_families": [],
+    "blind_score": 0.75,
+    "retrieval_evidence_count": 0,
+    "min_retrieval_evidence": 2,
+    "name_leak_detected": false
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "run_id": "botnet-run-2508",
+  "base_path": "decompile-botnet-run-2508",
+  "started_at": "2025-08-24T22:34:22Z",
+  "ended_at": "2025-08-24T22:34:38Z",
+  "duration_seconds": 16.263,
+  "status": "success",
+  "error": null,
+  "summary": {
+    "functions_count": 3,
+    "imports_count": 4,
+    "strings_count": 26817,
+    "sections_count": 4,
+    "libraries_count": 1,
+    "exports_count": 53,
+    "entry_points_count": 0,
+    "decompiled_count": 3
+  },
+  "inputs": {
+    "file": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.exe"
+  },
+  "outputs": {
+    "features_path": "analysis/llmrag/llmrag-analysis-botnet-run-2508/decompile-botnet-run-2508/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.features.json",
+    "run_dir": "analysis/llmrag/llmrag-analysis-botnet-run-2508/decompile-botnet-run-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "ghidra_install_dir": "/opt/ghidra",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects",
+    "project_name": "rexis-botnet-run-2508-3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36"
+  }
+}

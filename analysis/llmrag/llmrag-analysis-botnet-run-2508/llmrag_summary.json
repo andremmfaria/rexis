@@ -1,0 +1,15 @@
+{
+  "schema": "rexis.llmrag.summary.v1",
+  "run_id": "botnet-run-2508",
+  "generated_at": "2025-08-24T22:35:23Z",
+  "inputs_root": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed",
+  "count": 5,
+  "reports": [
+    "analysis/llmrag/llmrag-analysis-botnet-run-2508/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.report.json",
+    "analysis/llmrag/llmrag-analysis-botnet-run-2508/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.report.json",
+    "analysis/llmrag/llmrag-analysis-botnet-run-2508/af469070fb16d7cefd7f19240629483575764a59049f6cca4180d2518f4bf969.report.json",
+    "analysis/llmrag/llmrag-analysis-botnet-run-2508/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.report.json",
+    "analysis/llmrag/llmrag-analysis-botnet-run-2508/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.report.json"
+  ],
+  "out_dir": "/home/andremmfaria/projects/rexis/analysis/llmrag/llmrag-analysis-botnet-run-2508"
+}

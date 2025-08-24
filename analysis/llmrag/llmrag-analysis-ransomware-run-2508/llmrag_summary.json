@@ -1,0 +1,15 @@
+{
+  "schema": "rexis.llmrag.summary.v1",
+  "run_id": "ransomware-run-2508",
+  "generated_at": "2025-08-24T22:47:40Z",
+  "inputs_root": "/home/andremmfaria/projects/rexis/samples/ransomware/decompressed",
+  "count": 5,
+  "reports": [
+    "analysis/llmrag/llmrag-analysis-ransomware-run-2508/1f7675ec795ad551a15fc45a8f4b8b0a948d7004dc703f46e20f3a8b763e462f.report.json",
+    "analysis/llmrag/llmrag-analysis-ransomware-run-2508/4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.report.json",
+    "analysis/llmrag/llmrag-analysis-ransomware-run-2508/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.report.json",
+    "analysis/llmrag/llmrag-analysis-ransomware-run-2508/6182df9c60f9069094fb353c4b3294d13130a71f3e677566267d4419f281ef02.report.json",
+    "analysis/llmrag/llmrag-analysis-ransomware-run-2508/686bb5ee371733ab7908c2f3ea1ee76791080f3a4e61afe8b97c2a57fbc2efac.report.json"
+  ],
+  "out_dir": "/home/andremmfaria/projects/rexis/analysis/llmrag/llmrag-analysis-ransomware-run-2508"
+}

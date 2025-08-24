@@ -1,0 +1,35 @@
+{
+  "run_id": "rootkit-run-2508",
+  "base_path": "baseline-analysis-rootkit-run-2508",
+  "started_at": "2025-08-24T22:04:05Z",
+  "ended_at": "2025-08-24T22:09:33Z",
+  "duration_seconds": 327.586,
+  "status": "success",
+  "error": null,
+  "inputs": {
+    "input_path": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed",
+    "parallel": 5,
+    "report_format": "json",
+    "rules_path": null,
+    "min_severity": "info",
+    "vt_enabled": false,
+    "vt_timeout": 20,
+    "vt_qpm": 240,
+    "audit": true
+  },
+  "outputs": {
+    "primary": "data/analysis/baseline/baseline-analysis-rootkit-run-2508/baseline_summary.json",
+    "reports": [
+      "data/analysis/baseline/baseline-analysis-rootkit-run-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.report.json",
+      "data/analysis/baseline/baseline-analysis-rootkit-run-2508/f62ce3383afe1b36d60c834b9e6bd09263fb8794c626bc42fcbb25a062e76c42.report.json",
+      "data/analysis/baseline/baseline-analysis-rootkit-run-2508/63d61549030fcf46ff1dc138122580b4364f0fe99e6b068bc6a3d6903656aff0.report.json",
+      "data/analysis/baseline/baseline-analysis-rootkit-run-2508/2141974f665f4d8fecb6d8ea06add624b57f320f901368847175570ee716fd8e.report.json",
+      "data/analysis/baseline/baseline-analysis-rootkit-run-2508/a829694cec2fbcc05aa42f4701f10e043726baade1907faa0c76b458542b88f6.report.json"
+    ],
+    "run_dir": "data/analysis/baseline/baseline-analysis-rootkit-run-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects"
+  }
+}

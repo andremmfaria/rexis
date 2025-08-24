@@ -1,0 +1,80 @@
+{
+  "schema": "rexis.llmrag.classification.v1",
+  "score": 0.2,
+  "label": "unknown",
+  "classification": [],
+  "families": [],
+  "capabilities": [],
+  "tactics": [],
+  "evidence": [
+    {
+      "id": "evidence-1",
+      "title": "Section Entropy Analysis",
+      "detail": "The .text section has high entropy (6.6593), which may indicate obfuscation or packed code.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "evidence-2",
+      "title": "Section Characteristics",
+      "detail": "The executable has typical sections (.text, .rsrc, .reloc) with no unusual characteristics.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "evidence-3",
+      "title": "Compiler Information",
+      "detail": "Compiled with Visual Studio, which is common for both legitimate and malicious software.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "evidence-4",
+      "title": "Retrieved Document Analysis",
+      "detail": "No direct matches or strong indicators from retrieved documents to classify the sample.",
+      "severity": "info",
+      "source": "retrieval",
+      "doc_ref": "file_html::d158d71633e9797394293107cda548ac32253933bf58fc172b42cdccfb8cd050::chunk-0"
+    }
+  ],
+  "uncertainty": "high",
+  "notes": "The sample does not exhibit strong indicators of known malware families or capabilities based on the available data.",
+  "meta": {
+    "model": "gpt-4o-2024-08-06",
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "prompt_variant": "justification",
+    "prompt_hash": "7de2baca578aab7f857b590ac6047965cd3d1906820ec4f7a895cf7d917657ff",
+    "passages_used": [
+      "file_html::d158d71633e9797394293107cda548ac32253933bf58fc172b42cdccfb8cd050::chunk-0",
+      "file_html::ff768d01b182da2fd31e09c350b6360f80f01d191b3c388d8e8637c477280e9b::chunk-0",
+      "file_html::b223e111d25fd644f1123ee36be99aed4d65a4ebaa14a3d1b949fd5f0ccf94f5::chunk-0",
+      "file_pdf::6f5a76fdef499f0eed044641764e7cd7f76ef274e1d880d24b6cf9d0e47b40d8::chunk-1",
+      "file_html::568cbe96fb7728e1d255cc8a28e9fa2675c7aab0becc0f794fba87f3b10206cb::chunk-3",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10",
+      "file_html::2dfcbce0b862304c5eb0b92e2d2043ce014186f7ad9a4e80631585efc1383882::chunk-0",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-2"
+    ],
+    "prompts": [
+      {
+        "role": "system",
+        "text": "You are a precise malware analyst. You must produce a JSON verdict following the given schema. If uncertain, set label='unknown' and uncertainty='high'. Prefer concise, actionable evidence.\n\n Output must be JSON only.\n\nReturn STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n  schema=\"rexis.llmrag.classification.v1\", score (0..1), label (\"malicious\"|\"suspicious\"|\"benign\"|\"unknown\"),\n  classification (list of strings; e.g., ransomware, trojan, worm, downloader, dropper, rootkit, banker, stealer, backdoor, botnet, keylogger, adware, spyware, wiper, rat, cryptominer),\n  families (list of strings), capabilities (list of strings), tactics (list of strings),\n  evidence (list of objects with: id, title, detail, severity in {info,warn,error}, source in {features,retrieval}, doc_ref),\n  uncertainty in {\"low\",\"medium\",\"high\"} and optional notes.\nConstrain evidence to 4\u20138 diverse items. Use source=features for imports/sections-based inferences; use source=retrieval and doc_ref=<doc_id> to cite passages. Map capability names to analyst terminology (injection, persistence, networking, crypto, anti-debug, exfiltration, obfuscation, c2). Calibrate score heuristically: strong diverse capabilities with corroboration -> 0.75\u20130.95; single strong signal -> 0.45\u20130.65; weak/ambiguous -> 0.15\u20130.35; none -> \u22640.15. Prefer 1\u20133 concise classification tags that best describe the sample's high-level type."
+      },
+      {
+        "role": "user",
+        "text": "Context:\n- name: 0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.exe\n- format: Portable Executable (PE)\n- language: x86/little/32/default\n- compiler: Visual Studio\n- image_base: 00400000\n- size: 796537\n- sha256: 0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933\n- section Headers: size=512, entropy=2.8687, comment=, read=True, write=False, type=Default\n- section .text: size=497152, entropy=6.6593, comment=, read=True, write=False, type=Default\n- section .rsrc: size=287744, entropy=4.0768, comment=, read=True, write=False, type=Default\n- section .reloc: size=512, entropy=0.1019, comment=, read=True, write=False, type=Default\n\nRetrieved Documents:\n[1] Hunting AsyncRAT & QuasarRAT (id=file_html::d158d71633e9797394293107cda548ac32253933bf58fc172b42cdccfb8cd050::chunk-0, source=malpedia): {\"title\": \"[FAMILY] & [FAMILY] | dfir.ch\", \"extracted_text\": \"[FAMILY] of [FAMILY]\\[FAMILY]\\[FAMILY]\\nwrites in their\\[FAMILY] 2023\\n:\\[FAMILY] 5 malware families we [FAMILY], [FAMILY], [FAMILY], [FAMILY], [FAMILY], [FAMILY] [FAMILY] 2 detections are open-[FAMILY], and [FAMILY] last 3 are well-established tools, showing that our statement from last year\\[FAMILY]:\\n[[FAMILY]] high level of commodity tool use indicates that threat actors are more concerned with blending in and being non-attributable rather than being undetectable, or have simply determined that their targets are not likely to detect even these well-known tools.\\[FAMILY] 1: [FAMILY] 20 [FAMILY] ([FAMILY]) and backdoors, ranked according to [FAMILY] number of [FAMILY] (C2) servers observed. ([FAMILY]: [FAMILY])\\[FAMILY] in [FAMILY] aforementioned quote is particularly interesting:\\n[\\[FAMILY]] have simply determined that ...\n[2] Glupteba's .NET dropper deep dive. (id=file_html::ff768d01b182da2fd31e09c350b6360f80f01d191b3c388d8e8637c477280e9b::chunk-0, source=malpedia): {\"title\": \"[FAMILY]'s .[FAMILY]. \\[FAMILY]'s [FAMILY] \\[FAMILY] & [FAMILY].\", \"extracted_text\": \"[FAMILY]'s .[FAMILY].\\[FAMILY] M. \\[FAMILY] 30, 2024\\n.NET\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY] is a modular malware, meaning that it can deploy and execute a variety of independent code which implements different capabilities.\\[FAMILY] is a [FAMILY], usually driven by a [FAMILY] to steal user credentials and cookies, mine cryptocurrency on victims, and deploy proxy components targeting [FAMILY].\\[FAMILY] is mainly through pay-per-install (PPI) networks and traffic distribution systems (TDS).\\[FAMILY], we will be analyzing its first stage, where an executable is dropped and executed on disk.\\[FAMILY]\\[FAMILY]:[FAMILY]\\[FAMILY] is a 32-bit executable, written in .NET (v4.0.30319). [FAMILY] 3 sections: .text, .rsrc, and .reloc, [FAMILY]: mscoree.dll, which is [FAMILY] (as well as [FA...\n[3] CyberGate Technical Analysis (id=file_html::b223e111d25fd644f1123ee36be99aed4d65a4ebaa14a3d1b949fd5f0ccf94f5::chunk-0, source=malpedia): {\"title\": \"[FAMILY]\", \"extracted_text\": \"[FAMILY]: [FAMILY]\\[FAMILY]\\[FAMILY], we [FAMILY], a [FAMILY], to determine its function and capabilities.\\[FAMILY]\\[FAMILY] to [FAMILY], [FAMILY] is a [FAMILY] ([FAMILY]) that allows an attacker to gain unauthorized access to\\nthe victim\\[FAMILY] connect to [FAMILY] compromised system from anywhere\\[FAMILY] author generally uses this program to steal private information\\nlike passwords, files, etc. It might also be used to install malicious software on [FAMILY] compromised\\nsystems.\\[FAMILY]\\[FAMILY]: [FAMILY]\\[FAMILY]\\[FAMILY] this sample. I\\[FAMILY]\\npestudio\\[FAMILY] this sample is [FAMILY], as shown in [FAMILY] figure above, UPX is a file compressor. It reduces [FAMILY] file size of [FAMILY] by around 50%-70%, malware authors use that packer to obfuscate and compress their malicious code.\\[FAMILY] by using\\[FAMILY]\\nas seen below\\nupx.exe ...\n[4] vxunderground (id=file_pdf::6f5a76fdef499f0eed044641764e7cd7f76ef274e1d880d24b6cf9d0e47b40d8::chunk-1, source=vxunderground): 990984634e2c1c05232d3260c29970f9dd6f3\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\narrow_drop_down\\[FAMILY] to [FAMILY] from published reports related to this long-running\\ncampaign.\\[FAMILY].106.253[.]194\\[FAMILY].61.129[.]255\\[FAMILY].61.130[.]0\\[FAMILY].61.131[.]218\\[FAMILY].61.160[.]14\\[FAMILY].61.169[.]187\\[FAMILY].140.147[.]208\\[FAMILY].203.7[.]171\\[FAMILY].203.7[.]245\\[FAMILY].37.37[.]81\\[FAMILY].92.120[.]135\\[FAMILY].164.17[.]24\\[FAMILY].172.74[.]48\\[FAMILY].172.79[.]23\\[FAMILY].124.212[.]89\\[FAMILY].124.213[.]11\\[FAMILY].124.213[.]29\\[FAMILY].124.212[.]146\\[FAMILY].124.214[.]129\\[FAMILY].124.214[.]131\\[FAMILY].124.214[.]237\\[FAMILY].88.36[.]13\\[FAMILY].88.168[.]152\\[FAMILY].88.168[.]24\\[FAMILY].86.97[.]80\\[FAMILY].86.98[.]143\\[FAMILY].86.98[.]240\\[FAMILY].86.123[.]35\\[FAMILY].211.106[.]101\\[FAMILY].235.241[.]208\\nblocktestingto[.]com\\nde.ztec[.]store:8000\\nhxxp://freeconfere...\n[5] Rat King Configuration Parser (id=file_html::568cbe96fb7728e1d255cc8a28e9fa2675c7aab0becc0f794fba87f3b10206cb::chunk-3, source=malpedia): 4\\[FAMILY]\\\"\\n:\\n\\\"\\nqztadmin.duckdns.org:9782;\\n\\\"\\n,\\n\\\"\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\ufffd\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\\"\\n:\\[FAMILY]\\n,\\n\\\"\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\\"\\n:\\n\\\"\\[FAMILY]==\\n\\\"\\n,\\n\\\"\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\uecbf\\[FAMILY]\\\"\\n:\\n\\\"\\[FAMILY]/[FAMILY]+[FAMILY]==\\n\\\"\\n,\\n\\\"\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\ufcca\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\\"\\n:\\n\\\"\\[FAMILY]\\n\\\"\\n,\\n\\\"\\[FAMIL...\n[6] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10, source=malpedia):  [FAMILY]\\n [FAMILY]\\n [FAMILY]-addr\\n http: request too large\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: \\n silence-semicolons\\n http: [FAMILY]\\n [FAMILY]\\n <!DOCTYPE HTML\\n image/x-icon\\n image/bmp\\n image/gif\\n image/gif\\n image/png\\n image/jpeg\\n FORM AIFF\\n audio/aiff\\n audio/mpeg\\n application/ogg\\n audio/midi\\n application/vnd.ms-fontobject\\n font/collection\\n font/[FAMILY]\\n application/x-gzip\\n application/zip\\n application/wasm\\n \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n net/http: skip alternate protocol\\n http: [FAMILY]\\n net/http: timeout awaiting response headers\\n http: read on closed response body\\n [FAMILY]\\n bad [FAMILY] [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n identity\\n [FAMILY]\\n [FAMILY]: chunked\\n\\n [FAMILY]\\n [FAMILY]: \\n [FAMILY]\\n [FAMILY]\\n No [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]...\n[7] malpedia (id=file_html::2dfcbce0b862304c5eb0b92e2d2043ce014186f7ad9a4e80631585efc1383882::chunk-0, source=malpedia): {\"title\": \"[FAMILY]: part 26. [FAMILY]. C++ example. - cocomelonc\", \"extracted_text\": \"\\ufdfd\\[FAMILY], cybersecurity enthusiasts and white hackers!\\[FAMILY] is [FAMILY] result of my own research into [FAMILY] malware dev trick: prevent self-execution via [FAMILY].\\[FAMILY], when developing malware, for maximum stealth, it is necessary that [FAMILY] program be launched only once. To do this, according to [FAMILY]\\[FAMILY]\\n, we can use [FAMILY].\\[FAMILY]\\[FAMILY], we can use\\[FAMILY]\\[FAMILY]:\\[FAMILY]\\[FAMILY]\\n(\\[FAMILY]\\[FAMILY]\\n,\\[FAMILY]\\[FAMILY]\\n,\\[FAMILY]\\[FAMILY]\\n);\\npractical example\\[FAMILY], you can use this function in this way:\\ncreate [FAMILY] with specific name, so multiple instances can detect it:\\[FAMILY]\\n=\\[FAMILY]\\n(\\[FAMILY]\\n,\\[FAMILY]\\n,\\n\\\"[FAMILY]\\\"\\n);\\ncheck if [FAMILY] already exists, exit from app:\\[FAMILY]\\n(\\[FAMILY]\\n()\\n==\\[FAMILY]\\n)\\n{\\n// if this...\n[8] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-2, source=malpedia): \\nsql: [FAMILY] is nil\\nsql: [FAMILY] \\[FAMILY]-01-02T15:04:05.999999999Z07:00\\ndestination not a pointer\\[FAMILY] to %s is unsupported\\[FAMILY] to %s is unsupported\\nsql: [FAMILY]\\nsql: [FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\nin literal true (expecting 'r')\\nafter [FAMILY]-level value\\nafter object [FAMILY]:value pair\\nafter array element\\nomitempty\\nunexpected map [FAMILY] type\\njson: encoding [FAMILY] for type %q: %q\\[FAMILY]\\n for type \\njson: [FAMILY](nil)\\njson: [FAMILY](nil \\ndestination pointer is nil\\[FAMILY]-01-02 15:04:05\\[FAMILY]-01-02 15:04\\[FAMILY]-01-02T15:04\\ndatetime\\ntimestamp\\[FAMILY]\\n_auth_user\\n_auth_pass\\[FAMILY]: %v: %v\\ndeferred\\[FAMILY]: %v\\[FAMILY]: %v: %v\\n_case_sensitive_like\\n_defer_foreign_keys\\n_foreign_keys\\n_journal_mode\\n_journal_mode\\[FAMILY]\\n_locking_mode\\n_locking_mode\\n_locking\\[FAMILY]\\n_query_only\\n_recursive_triggers\\n_synchronous\\n_cac...\n\nTasks:\n- Classify the sample into a known malware family (or 'unknown' if undecidable).\n- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n- Return STRICT JSON only, following the required schema."
+      }
+    ]
+  },
+  "guardrails": {
+    "blind_label": "unknown",
+    "blind_families": [],
+    "blind_score": 0.25,
+    "retrieval_evidence_count": 1,
+    "min_retrieval_evidence": 2,
+    "name_leak_detected": false
+  }
+}

@@ -1,0 +1,324 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "rootkit-run-vt-2508",
+  "generated_at": "2025-08-24T21:58:54Z",
+  "duration_sec": 23.346,
+  "sample": {
+    "sha256": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.baseline.json"
+  },
+  "program": {
+    "name": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/32/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 2284276,
+    "sha256": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c"
+  },
+  "taxonomy": {
+    "families": {},
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.36
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "packed"
+    ],
+    "virustotal": [
+      "Microsoft(TM) NYIDVZOVDZ"
+    ]
+  },
+  "final": {
+    "score": 0.5,
+    "label": "abstain",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.1375,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 2,
+          "error": 0
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2023-11-06",
+        "malicious": 53,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 19,
+        "popular_threat_name": null,
+        "type_description": "Win32 EXE",
+        "meaningful_name": "Microsoft(TM) NYIDVZOVDZ",
+        "names": [
+          "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe",
+          "System PrntScrn",
+          "Microsoft(TM) NYIDVZOVDZ",
+          "virussign.com_17125ba3cbeeebbcccd5dcea1be1ae00.vir",
+          "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.sample"
+        ],
+        "size": 2284276,
+        "sha256": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c",
+        "consensus_denominator": 53,
+        "consensus_score": 1.0,
+        "confidence": 0.8
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.8,
+      "virustotal_confidence": 0.8
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": true,
+      "score_gap": 0.8625,
+      "disagreement_penalty": 0.1
+    },
+    "final": {
+      "score": 0.5,
+      "label": "abstain",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.80 (errors=0, warns=2, infos=1, categories=3)",
+      "packer indicators present -> slight confidence reduction",
+      "vt_score=1.00 vt_confidence=0.80 (mal=53, sus=0, denom=53)",
+      "disagreement_penalty=0.10 due to gap=0.86",
+      "hard conflict override -> abstain (set fused score to mid value)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.1375,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: packer-string",
+        "severity": "info",
+        "score": 0.4,
+        "reason": "signals: packer-string",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "title": "Embedded external endpoints",
+        "detail": "Found 3 URL/IP indicators; e.g., 5.2.0.0, 6.0.0.0, 1.0.0.1",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "found 3 endpoints",
+        "categories": [
+          {
+            "tag": "downloader",
+            "score": 0.09
+          },
+          {
+            "tag": "trojan",
+            "score": 0.075
+          }
+        ]
+      },
+      {
+        "id": "anti_vm_strings",
+        "title": "Anti-VM indicators (strings)",
+        "detail": "Tokens: xen",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "tokens: xen",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.12
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 2,
+      "error": 0
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.36
+      }
+    ],
+    "classification": [
+      "packed"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "reason": "no imports present"
+      },
+      {
+        "id": "shell_exec_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no imports present"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no imports present"
+      },
+      {
+        "id": "filesystem_mod",
+        "reason": "no imports present"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no imports present"
+      },
+      {
+        "id": "suspicious_function_names",
+        "reason": "no functions metadata available"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c",
+      "size": 2284276,
+      "names": [
+        "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe",
+        "System PrntScrn",
+        "Microsoft(TM) NYIDVZOVDZ",
+        "virussign.com_17125ba3cbeeebbcccd5dcea1be1ae00.vir",
+        "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.sample"
+      ],
+      "tags": [
+        "malware",
+        "assembly",
+        "peexe",
+        "corrupt",
+        "upack",
+        "executes-dropped-file"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "Microsoft(TM) NYIDVZOVDZ",
+      "harmless": 0,
+      "malicious": 53,
+      "suspicious": 0,
+      "undetected": 19,
+      "popular_threat_category": null,
+      "popular_threat_name": null,
+      "first_submission_date": 1653130564,
+      "last_submission_date": 1699306785
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:58:31Z",
+      "event": "pipeline_start",
+      "run_name": "rootkit-run-vt-2508",
+      "file": "samples/rootkit/decompressed/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe"
+    },
+    {
+      "ts": "2025-08-24T21:58:31Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:54Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/decompile-rootkit-run-vt-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:58:54Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:54Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-rootkit-run-vt-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T21:58:54Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:54Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

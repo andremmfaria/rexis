@@ -1,0 +1,253 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "rootkit-run-2508",
+  "generated_at": "2025-08-24T22:04:25Z",
+  "duration_sec": 19.95,
+  "sample": {
+    "sha256": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/rootkit/decompressed/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-rootkit-run-2508/decompile-rootkit-run-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-rootkit-run-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.baseline.json"
+  },
+  "program": {
+    "name": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/32/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 2284276,
+    "sha256": "b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c"
+  },
+  "taxonomy": {
+    "families": {},
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.36
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "packed"
+    ],
+    "virustotal": []
+  },
+  "final": {
+    "score": 0.055,
+    "label": "benign",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.1375,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 2,
+          "error": 0
+        }
+      },
+      "virustotal": {
+        "error": "not_available"
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.8,
+      "virustotal_confidence": 0.2
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": false,
+      "score_gap": 0.1375,
+      "disagreement_penalty": 0.0
+    },
+    "final": {
+      "score": 0.055,
+      "label": "benign",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.80 (errors=0, warns=2, infos=1, categories=3)",
+      "packer indicators present -> slight confidence reduction",
+      "VT data not available"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.1375,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: packer-string",
+        "severity": "info",
+        "score": 0.4,
+        "reason": "signals: packer-string",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "title": "Embedded external endpoints",
+        "detail": "Found 3 URL/IP indicators; e.g., 5.2.0.0, 6.0.0.0, 1.0.0.1",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "found 3 endpoints",
+        "categories": [
+          {
+            "tag": "downloader",
+            "score": 0.09
+          },
+          {
+            "tag": "trojan",
+            "score": 0.075
+          }
+        ]
+      },
+      {
+        "id": "anti_vm_strings",
+        "title": "Anti-VM indicators (strings)",
+        "detail": "Tokens: xen",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "tokens: xen",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.12
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 2,
+      "error": 0
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.36
+      }
+    ],
+    "classification": [
+      "packed"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "reason": "no imports present"
+      },
+      {
+        "id": "shell_exec_indicators",
+        "reason": "no imports present"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no imports present"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no imports present"
+      },
+      {
+        "id": "filesystem_mod",
+        "reason": "no imports present"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no imports present"
+      },
+      {
+        "id": "suspicious_function_names",
+        "reason": "no functions metadata available"
+      }
+    ]
+  },
+  "virus_total": {},
+  "audit": [
+    {
+      "ts": "2025-08-24T22:04:05Z",
+      "event": "pipeline_start",
+      "run_name": "rootkit-run-2508",
+      "file": "samples/rootkit/decompressed/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.exe"
+    },
+    {
+      "ts": "2025-08-24T22:04:05Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T22:04:25Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-rootkit-run-2508/decompile-rootkit-run-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.features.json"
+    },
+    {
+      "ts": "2025-08-24T22:04:25Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T22:04:25Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-rootkit-run-2508/b1e3da936d666cf9d671dd8f79e54afc8f524bccaca77e835bf611ec3038211c.baseline.json"
+    }
+  ]
+}

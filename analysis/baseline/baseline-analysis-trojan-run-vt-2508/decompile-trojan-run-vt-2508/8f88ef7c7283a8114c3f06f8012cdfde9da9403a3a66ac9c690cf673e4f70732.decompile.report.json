@@ -1,0 +1,32 @@
+{
+  "run_id": "trojan-run-vt-2508",
+  "base_path": "decompile-trojan-run-vt-2508",
+  "started_at": "2025-08-24T21:40:23Z",
+  "ended_at": "2025-08-24T21:40:48Z",
+  "duration_seconds": 24.804,
+  "status": "success",
+  "error": null,
+  "summary": {
+    "functions_count": 104,
+    "imports_count": 165,
+    "strings_count": 738,
+    "sections_count": 7,
+    "libraries_count": 7,
+    "exports_count": 1414,
+    "entry_points_count": 0,
+    "decompiled_count": 104
+  },
+  "inputs": {
+    "file": "/home/andremmfaria/projects/rexis/samples/trojan/decompressed/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.exe"
+  },
+  "outputs": {
+    "features_path": "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/decompile-trojan-run-vt-2508/8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732.features.json",
+    "run_dir": "data/analysis/baseline/baseline-analysis-trojan-run-vt-2508/decompile-trojan-run-vt-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "ghidra_install_dir": "/opt/ghidra",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects",
+    "project_name": "rexis-trojan-run-vt-2508-8f88ef7c7283a8114c3f06f8012cdfde9da9403a3a66ac9c690cf673e4f70732"
+  }
+}

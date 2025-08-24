@@ -1,0 +1,89 @@
+{
+  "schema": "rexis.llmrag.classification.v1",
+  "score": 0.45,
+  "label": "suspicious",
+  "classification": [
+    "dropper"
+  ],
+  "families": [],
+  "capabilities": [
+    "injection",
+    "compression",
+    "obfuscation"
+  ],
+  "tactics": [
+    "defense-evasion",
+    "execution"
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "Injection Capabilities",
+      "detail": "Imports GetProcAddress and LoadLibraryA, indicating potential for code injection.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e2",
+      "title": "Compression Capabilities",
+      "detail": "Uses LoadLibraryA, which can be associated with compression or decompression routines.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e3",
+      "title": "Packer Detected",
+      "detail": "Packer hint 'tiny-.text' suggests the use of a packer, which is often used for obfuscation.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e4",
+      "title": "High Entropy in .packed Section",
+      "detail": "The .packed section has high entropy (5.228), indicating potential obfuscation or packed content.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    }
+  ],
+  "uncertainty": "medium",
+  "notes": "The sample exhibits characteristics of a dropper with obfuscation and injection capabilities, but lacks strong evidence linking it to a specific malware family.",
+  "meta": {
+    "model": "gpt-4o-2024-08-06",
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "prompt_variant": "justification",
+    "prompt_hash": "b432c1624caa85ac4c784144c8190c2f05b964dc3e289cb76f9a12d0fa980ce4",
+    "passages_used": [
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-9",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-2",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-16",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-0",
+      "file_html::f408f9d7ac37c52e778d98c09a7109225364110abb1a4a8a2d2e377b94bad0c1::chunk-0",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10"
+    ],
+    "prompts": [
+      {
+        "role": "system",
+        "text": "You are a precise malware analyst. You must produce a JSON verdict following the given schema. If uncertain, set label='unknown' and uncertainty='high'. Prefer concise, actionable evidence.\n\n Output must be JSON only.\n\nReturn STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n  schema=\"rexis.llmrag.classification.v1\", score (0..1), label (\"malicious\"|\"suspicious\"|\"benign\"|\"unknown\"),\n  classification (list of strings; e.g., ransomware, trojan, worm, downloader, dropper, rootkit, banker, stealer, backdoor, botnet, keylogger, adware, spyware, wiper, rat, cryptominer),\n  families (list of strings), capabilities (list of strings), tactics (list of strings),\n  evidence (list of objects with: id, title, detail, severity in {info,warn,error}, source in {features,retrieval}, doc_ref),\n  uncertainty in {\"low\",\"medium\",\"high\"} and optional notes.\nConstrain evidence to 4\u20138 diverse items. Use source=features for imports/sections-based inferences; use source=retrieval and doc_ref=<doc_id> to cite passages. Map capability names to analyst terminology (injection, persistence, networking, crypto, anti-debug, exfiltration, obfuscation, c2). Calibrate score heuristically: strong diverse capabilities with corroboration -> 0.75\u20130.95; single strong signal -> 0.45\u20130.65; weak/ambiguous -> 0.15\u20130.35; none -> \u22640.15. Prefer 1\u20133 concise classification tags that best describe the sample's high-level type."
+      },
+      {
+        "role": "user",
+        "text": "Context:\n- name: 6182df9c60f9069094fb353c4b3294d13130a71f3e677566267d4419f281ef02.exe\n- format: Portable Executable (PE)\n- language: x86/little/64/default\n- compiler: Visual Studio\n- image_base: 140000000\n- size: 16384\n- sha256: 6182df9c60f9069094fb353c4b3294d13130a71f3e677566267d4419f281ef02\n- capability:injection -> imports: getprocaddress, loadlibrarya\n- capability:compression -> imports: loadlibrarya\n- packer_hint: tiny-.text\n- section Headers: size=512, entropy=2.5106, comment=, read=True, write=False, type=Default\n- section .text: size=2560, entropy=5.0209, comment=, read=True, write=False, type=Default\n- section .idata: size=512, entropy=2.7638, comment=, read=True, write=True, type=Default\n- section .packed: size=12800, entropy=5.228, comment=, read=True, write=True, type=Default\n\nRetrieved Documents:\n[1] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-9, source=malpedia): timestamp\\n cannot create [FAMILY]\\n invalid body\\n cannot create form file\\n empty key\\n [FAMILY]\\n [GOZOOX_FETCH][DEBUG][[FAMILY]]\\n [warn] [FAMILY] to [FAMILY]:\\n [FAMILY] to load client cert and key: %v\\n invalid proxy: %s\\n [FAMILY]\\n application/json\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n multipart/form-data\\n [FAMILY]\\n gzip decode [FAMILY]: %s\\n application/json\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n {[FAMILY]-4C6A-9C5A-[FAMILY]}\\n {6485B1EF-[FAMILY]-4834-[FAMILY]-1EBB51746CA3}\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n combase.dll\\n [FAMILY]\\n [FAMILY]\\n command timed [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n iphlpapi.dll\\n ESTABLISHED\\n process does not have children\\n [FAMILY]\\n [FAMILY]\\n [FA...\n[2] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15, source=malpedia):  input not full block\\n crypto/des: output not full block\\n crypto/des: input not full block\\n crypto/des: invalid buffer overlap\\n crypto/[FAMILY]: invalid hash state size\\n AES-128-CBC\\n AES-192-CBC\\n AES-256-CBC\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n -----[FAMILY]\\n [FAMILY]\\n [FAMILY]: unknown elliptic curve\\n [FAMILY]: cannot sign with hash function requested\\n [FAMILY]: [FAMILY]\\n [FAMILY]: internal [FAMILY]: cannot parse domain %q\\n [FAMILY]: unknown [FAMILY]\\n [FAMILY]: malformed tbs certificate\\n [FAMILY]: invalid version\\n [FAMILY]: malformed validity\\n [FAMILY]: malformed spki\\n [FAMILY]: malformed extensions\\n [FAMILY]: invalid authority info access\\n [FAMILY]: [FAMILY]\\n [FAMILY]: invalid constraint value: \\n [FAMILY]: [FAMILY] is malformed\\n [FAMILY]: cannot parse IP address of length \\n [FAMILY]: [FAMILY]\\n [FAMILY]: [FAMILY] para...\n[3] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-2, source=malpedia): \\nsql: [FAMILY] is nil\\nsql: [FAMILY] \\[FAMILY]-01-02T15:04:05.999999999Z07:00\\ndestination not a pointer\\[FAMILY] to %s is unsupported\\[FAMILY] to %s is unsupported\\nsql: [FAMILY]\\nsql: [FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\nin literal true (expecting 'r')\\nafter top-level value\\nafter object key:value pair\\nafter array element\\nomitempty\\nunexpected map key type\\njson: encoding [FAMILY] for type %q: %q\\[FAMILY]\\n for type \\njson: [FAMILY](nil)\\njson: [FAMILY](nil \\ndestination pointer is nil\\[FAMILY]-01-02 15:04:05\\[FAMILY]-01-02 15:04\\[FAMILY]-01-02T15:04\\ndatetime\\ntimestamp\\[FAMILY]\\n_auth_user\\n_auth_pass\\[FAMILY]: %v: %v\\ndeferred\\[FAMILY]: %v\\[FAMILY]: %v: %v\\n_case_sensitive_like\\n_defer_foreign_keys\\n_foreign_keys\\n_journal_mode\\n_journal_mode\\[FAMILY]\\n_locking_mode\\n_locking_mode\\n_locking\\[FAMILY]\\n_query_only\\n_recursive_triggers\\n_synchronous\\n_cache_size\\[FAMILY...\n[4] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-16, source=malpedia):  [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n getsockopt\\n setsockopt\\n [FAMILY] to [FAMILY]: \\n winapi [FAMILY] #\\n [FAMILY]\\n iphlpapi.dll\\n ws2_32.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n 1220703125\\n 6103515625\\n 30517578125\\n 3814697265625\\n 19073486328125\\n 95367431640625\\n 11920928955078125\\n 1490116119384765625\\n 37252902984619140625\\n 4656612873077392578125\\n 14551915228366851806640625\\n 3552713678800500929355621337890625\\n 11102230246251565404236316680908203125\\n [FAMILY] > 18\\n [FAMILY] > 9\\n [FAMILY]\\n [FAMILY]\\n strconv.\\n parsing \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMIL...\n[5] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5, source=malpedia):  not found\\n No functions exported\\n [FAMILY]'t fit: %08x\\n [FAMILY]: %w\\n [FAMILY]: %w\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n ntdll.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]()\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY] io.[FAMILY]()...\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n fail to read string table length: %v\\n fail to read section relocations: %v\\n [FAMILY] %d\\n [FAMILY]\\n [FAMILY]\\n extended attribute name too large\\n [FAMILY]\\n [FAMILY]\\n ws2_32.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [pivot] zero data length\\n D:(A;;0x1f019f;;;WD)\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [F...\n[6] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-0, source=malpedia): {\"title\": \"[FAMILY] | [FAMILY]\", \"extracted_text\": \"[FAMILY]\\[FAMILY]/[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\nis an open source obfuscation framework for GO which also includes a string [FAMILY] feature. It has been used in multiple GO based malware builds including\\[FAMILY]\\nand\\[FAMILY]\\n.\\[FAMILY]/[FAMILY]\\[FAMILY] is a weakness in the string [FAMILY] implementation that may be exploited to generically decrypt strings and identify [FAMILY] GO [FAMILY] in functions rather than in-[FAMILY] a similar pattern that can be sigged.\\[FAMILY]\\[FAMILY] be using a [FAMILY] [FAMILY] as our example\\[FAMILY]\\n.\\[FAMILY]\\[FAMILY]\\[FAMILY] is a simple matter of emulating the string decryption function.\\nfrom\\nunicorn\\nimport\\n*\\nfrom\\[FAMILY]\\nimport\\n*\\nimport\\nstruct\\nfrom\\ncapstone\\nimport\\n*\\nfrom\\[FAMILY]\\nimport\\n*\\ndef\\nde...\n[7] malpedia (id=file_html::f408f9d7ac37c52e778d98c09a7109225364110abb1a4a8a2d2e377b94bad0c1::chunk-0, source=malpedia): {\"title\": \"[FAMILY]: [FAMILY]-To & [FAMILY]\", \"extracted_text\": \"CATEGORIES\\[FAMILY]\\[FAMILY]\\[FAMILY]\\n4\\[FAMILY]\\n3\\[FAMILY]\\[FAMILY]\\[FAMILY]\\n1\\[FAMILY]\\[FAMILY]\\[FAMILY]\\n2\\[FAMILY] & [FAMILY]\\n1\\[FAMILY]\\n0\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY]\\[FAMILY] To [FAMILY]\\[FAMILY]\\[FAMILY]\\n3\\[FAMILY]\\n1\\[FAMILY]\\n1\\[FAMILY]\\n0\\[FAMILY]\\[FAMILY]\\[FAMILY] 3.0 [FAMILY]\\[FAMILY]\\[FAMILY]\\n0\\[FAMILY]: [FAMILY]-To & [FAMILY]\\[FAMILY] 18, 2023\\nhttps://research.checkpoint.com/2023/raspberry-robin-anti-evasion-how-to-exploit-analysis/\\[FAMILY] by: [FAMILY]\\[FAMILY]\\[FAMILY], [FAMILY] to be one of the most distributed malware currently [FAMILY], it is likely to be used by many actors to distribute their own malware\\[FAMILY] as [FAMILY], [FAMILY].\\[FAMILY], malware has continued to evolve and escalate the game of [FAMILY], however, has taken this game to the next level with a great number of uniq...\n[8] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10, source=malpedia):  [FAMILY]\\n [FAMILY]\\n local-addr\\n http: [FAMILY] too large\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: \\n silence-semicolons\\n http: [FAMILY]\\n [FAMILY]\\n <!DOCTYPE HTML\\n image/x-icon\\n image/bmp\\n image/gif\\n image/gif\\n image/png\\n image/jpeg\\n FORM AIFF\\n audio/aiff\\n audio/mpeg\\n application/ogg\\n audio/midi\\n application/vnd.ms-fontobject\\n font/collection\\n font/[FAMILY]\\n application/x-gzip\\n application/zip\\n application/wasm\\n \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n net/http: skip alternate protocol\\n http: [FAMILY]\\n net/http: timeout awaiting response headers\\n http: read on closed response body\\n [FAMILY]\\n bad [FAMILY] key\\n [FAMILY]\\n [FAMILY]\\n identity\\n [FAMILY]\\n [FAMILY]: chunked\\n\\n [FAMILY]\\n [FAMILY]: \\n [FAMILY]\\n [FAMILY]\\n No [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAM...\n\nTasks:\n- Classify the sample into a known malware family (or 'unknown' if undecidable).\n- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n- Return STRICT JSON only, following the required schema."
+      }
+    ]
+  },
+  "guardrails": {
+    "blind_label": "suspicious",
+    "blind_families": [],
+    "blind_score": 0.45,
+    "retrieval_evidence_count": 0,
+    "min_retrieval_evidence": 2,
+    "name_leak_detected": false
+  }
+}

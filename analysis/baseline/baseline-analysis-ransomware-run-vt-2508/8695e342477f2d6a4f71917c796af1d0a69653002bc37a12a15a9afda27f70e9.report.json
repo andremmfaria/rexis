@@ -1,0 +1,358 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "ransomware-run-vt-2508",
+  "generated_at": "2025-08-24T21:58:08Z",
+  "duration_sec": 59.114,
+  "sample": {
+    "sha256": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/ransomware/decompressed/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/decompile-ransomware-run-vt-2508/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.baseline.json"
+  },
+  "program": {
+    "name": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/64/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 1011200,
+    "sha256": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9"
+  },
+  "taxonomy": {
+    "families": {
+      "ransomware": 2,
+      "trojan": 2
+    },
+    "tags": [
+      {
+        "tag": "downloader",
+        "score": 0.53
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "downloader"
+    ],
+    "virustotal": [
+      "ransomware",
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.5,
+    "label": "abstain",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.2725,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 3,
+          "error": 1
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2025-08-20",
+        "malicious": 32,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 39,
+        "popular_threat_name": "{'value': 'crypmodng', 'count': 6}",
+        "type_description": "Win32 EXE",
+        "meaningful_name": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe",
+        "names": [
+          "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe",
+          "Ransomware (4).exe",
+          "2025-08-18_e56ffa2470d1b1abc8c64c8da9df4252_",
+          "8fqybtqb.exe"
+        ],
+        "size": 1011200,
+        "sha256": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9",
+        "consensus_denominator": 32,
+        "consensus_score": 1.0,
+        "confidence": 0.9
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.9,
+      "virustotal_confidence": 0.9
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": true,
+      "score_gap": 0.7275,
+      "disagreement_penalty": 0.0755
+    },
+    "final": {
+      "score": 0.5,
+      "label": "abstain",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.90 (errors=1, warns=3, infos=1, categories=5)",
+      "vt_score=1.00 vt_confidence=0.90 (mal=32, sus=0, denom=32)",
+      "disagreement_penalty=0.08 due to gap=0.73",
+      "hard conflict override -> abstain (set fused score to mid value)"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.2725,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "dynamic_api_resolution",
+        "title": "Dynamic API resolution",
+        "detail": "Imports include: getprocaddress",
+        "severity": "warn",
+        "score": 0.2,
+        "reason": "matched dynamic resolution imports: getprocaddress",
+        "categories": [
+          {
+            "tag": "obfuscated",
+            "score": 0.14
+          },
+          {
+            "tag": "packed",
+            "score": 0.08
+          }
+        ]
+      },
+      {
+        "id": "shell_exec_indicators",
+        "title": "Shell execution capability",
+        "detail": "Imports include: getsystemtimeasfiletime",
+        "severity": "error",
+        "score": 0.35,
+        "reason": "matched shell-exec imports: getsystemtimeasfiletime",
+        "categories": [
+          {
+            "tag": "dropper",
+            "score": 0.245
+          },
+          {
+            "tag": "downloader",
+            "score": 0.21
+          },
+          {
+            "tag": "loader",
+            "score": 0.175
+          }
+        ]
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "title": "Embedded external endpoints",
+        "detail": "Found 1 URL/IP indicators; e.g., http://gH",
+        "severity": "info",
+        "score": 0.5333,
+        "reason": "found 1 endpoints",
+        "categories": [
+          {
+            "tag": "downloader",
+            "score": 0.32
+          },
+          {
+            "tag": "trojan",
+            "score": 0.2667
+          }
+        ]
+      },
+      {
+        "id": "anti_vm_strings",
+        "title": "Anti-VM indicators (strings)",
+        "detail": "Tokens: wine",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "tokens: wine",
+        "categories": [
+          {
+            "tag": "evasive",
+            "score": 0.12
+          }
+        ]
+      },
+      {
+        "id": "suspicious_function_names",
+        "title": "Suspicious function names detected",
+        "detail": "Functions: FUN_00422c20, FUN_00427c20, FUN_00439c20, FUN_00446c20, FUN_0044c2e0, FUN_00451c20, FUN_00456c20, FUN_0046c240, FUN_0046c260, FUN_0046c270, FUN_0046cc20",
+        "severity": "warn",
+        "score": 0.3,
+        "reason": "matched suspicious function names: FUN_00422c20, FUN_00427c20, FUN_00439c20, FUN_00446c20, FUN_0044c2e0, FUN_00451c20, FUN_00456c20, FUN_0046c240, FUN_0046c260, FUN_0046c270, FUN_0046cc20",
+        "categories": []
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 3,
+      "error": 1
+    },
+    "tags": [
+      {
+        "tag": "downloader",
+        "score": 0.53
+      }
+    ],
+    "classification": [
+      "downloader"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "packer_artifacts",
+        "reason": "no packer indicators: no known packer strings, no resource-packaging APIs, and .text not tiny"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "filesystem_mod",
+        "reason": "no filesystem modification imports found"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no debugger/anti-debug imports found"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9",
+      "size": 1011200,
+      "names": [
+        "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe",
+        "Ransomware (4).exe",
+        "2025-08-18_e56ffa2470d1b1abc8c64c8da9df4252_",
+        "8fqybtqb.exe"
+      ],
+      "tags": [
+        "64bits",
+        "peexe"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe",
+      "harmless": 0,
+      "malicious": 32,
+      "suspicious": 0,
+      "undetected": 39,
+      "popular_threat_category": [
+        {
+          "value": "ransomware",
+          "count": 14
+        },
+        {
+          "value": "trojan",
+          "count": 13
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "value": "crypmodng",
+          "count": 6
+        }
+      ],
+      "first_submission_date": 1754628113,
+      "last_submission_date": 1755713306
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:57:09Z",
+      "event": "pipeline_start",
+      "run_name": "ransomware-run-vt-2508",
+      "file": "samples/ransomware/decompressed/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.exe"
+    },
+    {
+      "ts": "2025-08-24T21:57:09Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:07Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/decompile-ransomware-run-vt-2508/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:58:07Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:07Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-ransomware-run-vt-2508/8695e342477f2d6a4f71917c796af1d0a69653002bc37a12a15a9afda27f70e9.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T21:58:07Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T21:58:08Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}

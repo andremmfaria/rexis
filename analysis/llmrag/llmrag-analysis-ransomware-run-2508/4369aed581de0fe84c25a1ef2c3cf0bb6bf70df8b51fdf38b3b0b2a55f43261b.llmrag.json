@@ -1,0 +1,139 @@
+{
+  "schema": "rexis.llmrag.classification.v1",
+  "score": 0.85,
+  "label": "malicious",
+  "classification": [
+    "trojan",
+    "backdoor"
+  ],
+  "families": [
+    "unknown_family"
+  ],
+  "capabilities": [
+    "injection",
+    "networking",
+    "crypto",
+    "persistence",
+    "anti-debug",
+    "file_ops",
+    "process_ops",
+    "system_info",
+    "compression"
+  ],
+  "tactics": [
+    "execution",
+    "persistence",
+    "defense evasion",
+    "credential access",
+    "discovery",
+    "lateral movement",
+    "collection",
+    "exfiltration",
+    "command and control"
+  ],
+  "evidence": [
+    {
+      "id": "e1",
+      "title": "Injection Capabilities",
+      "detail": "Imports related to process injection such as CreateProcessA, GetProcAddress, and VirtualAllocEx.",
+      "severity": "error",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e2",
+      "title": "Networking Capabilities",
+      "detail": "Imports for network communication including connect, HttpOpenRequestA, and InternetConnectA.",
+      "severity": "error",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e3",
+      "title": "Persistence Mechanisms",
+      "detail": "Uses RegCreateKeyExA and RegSetValueExA for registry-based persistence.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e4",
+      "title": "Anti-Debugging Techniques",
+      "detail": "Checks for debuggers using IsDebuggerPresent and OutputDebugStringA.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e5",
+      "title": "Cryptographic Operations",
+      "detail": "Imports CryptAcquireContextW and CryptGenRandom indicating cryptographic operations.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e6",
+      "title": "File Operations",
+      "detail": "Capabilities to create, delete, and manipulate files using CreateFileA and DeleteFileA.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e7",
+      "title": "System Information Gathering",
+      "detail": "Gathers system information using GetComputerNameA and GetDiskFreeSpaceExA.",
+      "severity": "info",
+      "source": "features",
+      "doc_ref": ""
+    },
+    {
+      "id": "e8",
+      "title": "Packer Detected",
+      "detail": "Packer string detected, indicating potential obfuscation.",
+      "severity": "warn",
+      "source": "features",
+      "doc_ref": ""
+    }
+  ],
+  "uncertainty": "high",
+  "notes": "The sample exhibits multiple capabilities typical of a trojan with backdoor functionalities, but no specific family could be identified from the retrieved documents. guardrails:family_abstained(leak=false, ev=0)",
+  "meta": {
+    "model": "gpt-4o-2024-08-06",
+    "temperature": 0.0,
+    "max_tokens": 1024,
+    "prompt_variant": "justification",
+    "prompt_hash": "7709a4e7cffe1e911bb1416a401007e8cbf24a76731ff24122bfe7fac1717fa0",
+    "passages_used": [
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-13",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-3",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-7",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-12",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10",
+      "file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-4"
+    ],
+    "prompts": [
+      {
+        "role": "system",
+        "text": "You are a precise malware analyst. You must produce a JSON verdict following the given schema. If uncertain, set label='unknown' and uncertainty='high'. Prefer concise, actionable evidence.\n\n Output must be JSON only.\n\nReturn STRICT JSON only, no prose outside JSON. The JSON object MUST include keys:\n  schema=\"rexis.llmrag.classification.v1\", score (0..1), label (\"malicious\"|\"suspicious\"|\"benign\"|\"unknown\"),\n  classification (list of strings; e.g., ransomware, trojan, worm, downloader, dropper, rootkit, banker, stealer, backdoor, botnet, keylogger, adware, spyware, wiper, rat, cryptominer),\n  families (list of strings), capabilities (list of strings), tactics (list of strings),\n  evidence (list of objects with: id, title, detail, severity in {info,warn,error}, source in {features,retrieval}, doc_ref),\n  uncertainty in {\"low\",\"medium\",\"high\"} and optional notes.\nConstrain evidence to 4\u20138 diverse items. Use source=features for imports/sections-based inferences; use source=retrieval and doc_ref=<doc_id> to cite passages. Map capability names to analyst terminology (injection, persistence, networking, crypto, anti-debug, exfiltration, obfuscation, c2). Calibrate score heuristically: strong diverse capabilities with corroboration -> 0.75\u20130.95; single strong signal -> 0.45\u20130.65; weak/ambiguous -> 0.15\u20130.35; none -> \u22640.15. Prefer 1\u20133 concise classification tags that best describe the sample's high-level type."
+      },
+      {
+        "role": "user",
+        "text": "Context:\n- name: 4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b.exe\n- format: Portable Executable (PE)\n- language: x86/little/64/default\n- compiler: Visual Studio\n- image_base: 140000000\n- size: 8485376\n- sha256: 4369aed581de0fe84c25a1ef2c3cf0bb6bf70df8b51fdf38b3b0b2a55f43261b\n- capability:injection -> imports: createprocessa, getprocaddress, getthreadcontext, loadlibrarya, loadlibraryw, mapviewoffile, setthreadcontext, suspendthread, unmapviewoffile, virtualallocex\n- capability:network -> imports: _stricmp, accept, bind, closesocket, connect, getaddrinfo, gethostbyname, httpopenrequesta, httpsendrequesta, internetconnecta\n- capability:crypto -> imports: cryptacquirecontextw, cryptgenrandom, getdesktopwindow, heapdestroy, httpaddrequestheadersa\n- capability:persistence -> imports: gdiplusstartup, getstartupinfoa, regcreatekeyexa, regsetvalueexa, wsastartup\n- capability:anti_debug -> imports: closehandle, gettickcount, internetclosehandle, isdebuggerpresent, outputdebugstringa, outputdebugstringw, queryperformancecounter, setunhandledexceptionfilter\n- capability:file_ops -> imports: closehandle, createfilea, createfilemappinga, createfilemappingw, createfilew, deletefilea, deletefilew, findfirstfilew, findnextfilew, getfileattributesa\n- capability:process_ops -> imports: createprocessa, getcurrentprocess, getcurrentprocessid, openprocess, openprocesstoken, terminateprocess\n- capability:system_info -> imports: getcomputernamea, getdiskfreespacea, getdiskfreespaceexa, getdiskfreespaceexw, getdiskfreespacew, getdrivetypea, getenvironmentvariablew, getlogicaldrives, getsys...\n- capability:compression -> imports: freelibrary, loadlibrarya, loadlibraryw\n- capability:misc -> imports: _gmtime64, _localtime64, _time64, _wutime64, cryptgenrandom, getsystemtime, getsystemtimeasfiletime, gettickcount, heapvalidate, queryperformancecounter\n- packer_hint: packer-string\n- section Headers: size=1024, entropy=2.6334, comment=, read=True, write=False, type=Default\n- section .text: size=6056960, entropy=6.2316, comment=, read=True, write=False, type=Default\n- section .data: size=37888, entropy=2.1221, comment=, read=True, write=True, type=Default\n- section .rodata: size=190464, entropy=7.777, comment=, read=True, write=True, type=Default\n- section .rdata: size=1694720, entropy=5.4442, comment=, read=True, write=False, type=Default\n- section .pdata: size=211456, entropy=6.3571, comment=, read=True, write=False, type=Default\n- section .xdata: size=216064, entropy=4.6914, comment=, read=True, write=False, type=Default\n- section .bss: size=17672, entropy=0.0, comment=, read=True, write=True, type=Default\n- (+6 more sections)\n\nRetrieved Documents:\n[1] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-13, source=malpedia): adaptersaddresses\\n unexpected address type\\n unixgram\\n wsasendmsg\\n wsasendto\\n wsarecvfrom\\n shutdown\\n unixgram\\n nil context\\n go package net: [FAMILY] =\\n myhostname\\n [FAMILY]\\n invalid port\\n unexpected network: \\n [FAMILY]\\n mismatched local address type\\n IP address\\n crypto/des: input not full block\\n crypto/des: output not full block\\n crypto/des: output not full block\\n crypto/des: input not full block\\n d.nx != 0\\n crypto/[FAMILY]: invalid hash state identifier\\n crypto/[FAMILY]: invalid hash state size\\n AES-256-CBC\\n [FAMILY]: decryption password incorrect\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n -----[FAMILY]\\n [FAMILY]: unknown [FAMILY]\\n [FAMILY]: unknown EC private key version %d\\n [FAMILY]: [FAMILY]: %v\\n [FAMILY]: [FAMILY]: %v\\n [FAMILY]: trailing data\\n [FAMILY]: malformed certificate\\n [FAMILY]: malformed tbs certificate\\n ...\n[2] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-15, source=malpedia):  input not full block\\n crypto/des: output not full block\\n crypto/des: input not full block\\n crypto/des: invalid buffer overlap\\n crypto/[FAMILY]: invalid hash state size\\n AES-128-CBC\\n AES-192-CBC\\n AES-256-CBC\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n -----[FAMILY]\\n [FAMILY]\\n [FAMILY]: unknown elliptic curve\\n [FAMILY]: cannot sign with hash function requested\\n [FAMILY]: [FAMILY]\\n [FAMILY]: internal [FAMILY]: cannot parse domain %q\\n [FAMILY]: unknown [FAMILY]\\n [FAMILY]: malformed tbs certificate\\n [FAMILY]: invalid version\\n [FAMILY]: malformed validity\\n [FAMILY]: malformed spki\\n [FAMILY]: malformed [FAMILY]\\n [FAMILY]: invalid authority info access\\n [FAMILY]: [FAMILY]\\n [FAMILY]: invalid constraint value: \\n [FAMILY]: [FAMILY] is malformed\\n [FAMILY]: cannot parse IP address of length \\n [FAMILY]: [FAMILY]\\n [FAMILY]: [FAMILY] parame...\n[3] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-3, source=malpedia):  [FAMILY] of invalid type \\n : value of type \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY] of unaddressable value\\n reflect: \\n invalid write result\\n [FAMILY] no data or [FAMILY]\\n invalid argument\\n permission denied\\n file already closed\\n [FAMILY]\\n interrupt\\n broken pipe\\n alarm clock\\n terminated\\n 1.3.6.1.4.1.311.10.3.3 \\n permission denied\\n advertise [FAMILY]\\n invalid exchange\\n invalid slot\\n bad font file format\\n operation canceled\\n resource deadlock avoided\\n disk quota exceeded\\n file exists\\n bad address\\n interrupted system call\\n key has expired\\n level 3 halted\\n level 3 reset\\n cannot exec a shared library directly\\n too many levels of symbolic links\\n file name too long\\n no [FAMILY]\\n network is down\\n network dropped [FAMILY] on reset\\n no data available\\n exec format [FAMILY]\\n required key not available\\n link has been severed\\n no [FAMILY] of desired type\\n ...\n[4] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-7, source=malpedia):  ^r[0-9a-zA-Z]{23,50}$\\n ^0x[a-fA-F0-9]{40}$\\n ^0x[0-9a-fA-F]{40}$\\n ^([a-zA-Z0-9]){32,}$\\n fhbohimaelbohpjbbldcngcnapndodjp\\n [FAMILY]\\n pdadjkfkgcafgbceimcpbkalnfnepbnk\\n amkmjjmmflddogmhpjloimipbofnfjih\\n [FAMILY]\\n cjelfplplebdjjenllpjcblmjkfcffne\\n [FAMILY]\\n [FAMILY]\\n cgeeodpfagjceefieflmdfphplkenlfk\\n [FAMILY]\\n fihkakfobkmkjojpchpfgcmhfjnmnfpi\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n \\\\[FAMILY]\\\\\\n [FAMILY]\\n \\\\atomic\\\\[FAMILY]\\\\leveldb\\n wallet.dat\\n [FAMILY]\\n \\\\[FAMILY]\\\\\\n wallet.dat\\n \\\\[FAMILY]\\\\\\n multidoge.wallet\\n \\\\[FAMILY]\\\\\\n address.db\\n config.inc.php\\n ShareX_H_\\n [FAMILY]\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n [FAMILY]\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n browsedata.db\\n \\\\[FAMILY]++\\\\backup\\\\\\n [FAMILY]\\n \\\\snowflake-ssh\\\\\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n auth.json\\n COMPOSER_HOME\\n \\\\[FAMILY]\\\\[FAMILY]\\\\\\n winauth.xml\\n accounts....\n[5] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-5, source=malpedia):  not found\\n No functions exported\\n [FAMILY]'t fit: %08x\\n [FAMILY]: %w\\n [FAMILY]: %w\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n ntdll.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]()\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY] io.[FAMILY]()...\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n fail to read string table length: %v\\n fail to read section relocations: %v\\n [FAMILY] %d\\n [FAMILY]\\n [FAMILY]\\n extended attribute name too large\\n [FAMILY]\\n [FAMILY]\\n ws2_32.dll\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [pivot] zero data length\\n D:(A;;0x1f019f;;;WD)\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [F...\n[6] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-12, source=malpedia): \\n sql: [FAMILY] is nil\\n sql: [FAMILY] \\n 2006-01-02T15:04:05.999999999Z07:00\\n destination not a pointer\\n [FAMILY] to %s is unsupported\\n [FAMILY] to %s is unsupported\\n sql: [FAMILY]\\n sql: [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n in literal true (expecting 'r')\\n after top-level value\\n after object key:value pair\\n after array element\\n omitempty\\n unexpected map key type\\n json: encoding [FAMILY] for type %q: %q\\n [FAMILY]\\n for type \\n json: [FAMILY](nil)\\n json: [FAMILY](nil \\n destination pointer is nil\\n 2006-01-02 15:04:05\\n 2006-01-02 15:04\\n 2006-01-02T15:04\\n datetime\\n timestamp\\n ROLLBACK\\n _auth_user\\n _auth_pass\\n [FAMILY]: %v: %v\\n deferred\\n [FAMILY]: %v\\n [FAMILY]: %v: %v\\n _case_sensitive_like\\n _defer_foreign_keys\\n _foreign_keys\\n _journal_mode\\n _journal_mode\\n TRUNCATE\\n _locking_mode\\n _locking_mode\\n _locking\\n EXCLUSIVE\\n _query_only\\n _recu...\n[7] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-10, source=malpedia):  [FAMILY]\\n [FAMILY]\\n local-addr\\n http: request too large\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]: \\n silence-semicolons\\n http: [FAMILY]\\n [FAMILY]\\n <!DOCTYPE HTML\\n image/x-icon\\n image/bmp\\n image/gif\\n image/gif\\n image/png\\n image/jpeg\\n FORM AIFF\\n audio/aiff\\n audio/mpeg\\n application/ogg\\n audio/midi\\n application/vnd.ms-fontobject\\n font/collection\\n font/[FAMILY]\\n application/x-gzip\\n application/zip\\n application/wasm\\n \\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n net/http: skip alternate protocol\\n http: [FAMILY]\\n net/http: timeout awaiting response headers\\n http: read on closed response body\\n [FAMILY]\\n bad [FAMILY] key\\n [FAMILY]\\n [FAMILY]\\n identity\\n [FAMILY]\\n [FAMILY]: chunked\\n\\n [FAMILY]\\n [FAMILY]: \\n [FAMILY]\\n [FAMILY]\\n No [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMILY]\\n [FAMI...\n[8] malpedia (id=file_html::1d457b9340531ad47b43145f343254c9e54d6288de1d1b0573dfb14e24095ceb::chunk-4, source=malpedia):  \\n padding contained in alphabet\\n unreachable\\n chunk is too large: \\n bit depth %d, color type %d\\n ORGANOSOLS\\n WHIRLWINDS\\n COPOLYMERS\\n QUINTUPLET\\n AFFRICATING\\n KNEECAPPING\\n PACHALIC\\n CHERNOZEMIC\\n ALLOCATIONS\\n ENTICEMENTS\\n GREASEWOODS\\n PICTURIZATIONS\\n FATALISM\\n GREASERS\\n ANTITUSSIVE\\n BLASTERS\\n ERASURES\\n DISAPPROBATIONS\\n SALUTARY\\n SULLENLY\\n SOPHISTICATEDLY\\n READDRESSING\\n TECHNOLOGIES\\n HIEROGLYPHIC\\n FANTAILED\\n MEANINGFULLY\\n STEREOTYPICALLY\\n SUBSATELLITE\\n UNRESOLVABLE\\n SPADEFISH\\n COHOLDERS\\n GALLANTLY\\n BEARDEDNESSES\\n WITHOUTDOORS\\n RESTRIVES\\n IMMUNOGENETIC\\n MEDICATING\\n HYPERLIPEMIAS\\n GENTAMICIN\\n PREPROCESSING\\n CIGUATERAS\\n RATCHETING\\n MUCKRAKING\\n CARBOLIZES\\n EUTHANIZED\\n LENTIGINES\\n DERMATOSES\\n PLANATIONS\\n REVOCATION\\n MAUMETRIES\\n BOOTLESSLY\\n POIKILOTHERMIC\\n REDEVELOPED\\n REASSEMBLES\\n MISDOUBTING\\n DACTYLOLOGY\\n ADMITTEE\\n DEVIANCY\\n ROU...\n\nTasks:\n- Classify the sample into a known malware family (or 'unknown' if undecidable).\n- Justify the classification using both static features and retrieved evidence; cite doc ids in 'evidence'.\n- Return STRICT JSON only, following the required schema."
+      }
+    ]
+  },
+  "guardrails": {
+    "blind_label": "malicious",
+    "blind_families": [
+      "unknown"
+    ],
+    "blind_score": 0.85,
+    "retrieval_evidence_count": 0,
+    "min_retrieval_evidence": 2,
+    "name_leak_detected": false
+  }
+}

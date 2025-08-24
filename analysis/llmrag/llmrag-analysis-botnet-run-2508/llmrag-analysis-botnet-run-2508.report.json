@@ -1,0 +1,46 @@
+{
+  "run_id": "botnet-run-2508",
+  "base_path": "llmrag-analysis-botnet-run-2508",
+  "started_at": "2025-08-24T22:34:22Z",
+  "ended_at": "2025-08-24T22:35:23Z",
+  "duration_seconds": 61.154,
+  "status": "success",
+  "error": null,
+  "inputs": {
+    "input_path": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed",
+    "parallel": 5,
+    "report_format": "json",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects",
+    "audit": true,
+    "rag": {
+      "top_k_dense": 50,
+      "top_k_keyword": 50,
+      "final_top_k": 8,
+      "join_mode": "rrf",
+      "rerank_top_k": 0,
+      "ranker_model": "gpt-4o-mini",
+      "sources": []
+    },
+    "llm": {
+      "model": "gpt-4o-2024-08-06",
+      "temperature": 0.0,
+      "max_tokens": 1024,
+      "prompt_variant": "classification"
+    }
+  },
+  "outputs": {
+    "primary": "analysis/llmrag/llmrag-analysis-botnet-run-2508/llmrag_summary.json",
+    "reports": [
+      "analysis/llmrag/llmrag-analysis-botnet-run-2508/7fe19185d338c2ea659f8e908b06c2e8e96942553bcddd4bd09db295aac6429d.report.json",
+      "analysis/llmrag/llmrag-analysis-botnet-run-2508/3215decffc40b3257ebeb9b6e5c81c45e298a020f33ef90c9418c153c6071b36.report.json",
+      "analysis/llmrag/llmrag-analysis-botnet-run-2508/af469070fb16d7cefd7f19240629483575764a59049f6cca4180d2518f4bf969.report.json",
+      "analysis/llmrag/llmrag-analysis-botnet-run-2508/b7bcb5ec0b229b7547f9b24524b1964b997025db1437a14c27ef6b698e14c6bb.report.json",
+      "analysis/llmrag/llmrag-analysis-botnet-run-2508/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.report.json"
+    ],
+    "run_dir": "analysis/llmrag/llmrag-analysis-botnet-run-2508"
+  },
+  "environment": {
+    "rexis_version": "0.1.0",
+    "project_dir": "/home/andremmfaria/.rexis/ghidra_projects"
+  }
+}

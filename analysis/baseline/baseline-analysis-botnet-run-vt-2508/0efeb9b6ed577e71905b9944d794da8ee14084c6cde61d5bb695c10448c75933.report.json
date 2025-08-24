@@ -1,0 +1,434 @@
+{
+  "schema": "rexis.baseline.report.v1",
+  "run_id": "botnet-run-vt-2508",
+  "generated_at": "2025-08-24T21:43:15Z",
+  "duration_sec": 11.941,
+  "sample": {
+    "sha256": "0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933",
+    "source_path": "/home/andremmfaria/projects/rexis/samples/botnet/decompressed/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.exe"
+  },
+  "artifacts": {
+    "features_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.features.json",
+    "baseline_path": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.baseline.json"
+  },
+  "program": {
+    "name": "0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.exe",
+    "format": "Portable Executable (PE)",
+    "language": "x86/little/32/default",
+    "compiler": "Visual Studio",
+    "image_base": "00400000",
+    "size": 796537,
+    "sha256": "0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933"
+  },
+  "taxonomy": {
+    "families": {
+      "trojan": 2
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.36
+      }
+    ]
+  },
+  "classification": {
+    "heuristics": [
+      "packed"
+    ],
+    "virustotal": [
+      "trojan"
+    ]
+  },
+  "final": {
+    "score": 0.3868,
+    "label": "benign",
+    "thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    },
+    "decision_thresholds": {
+      "malicious": 0.7,
+      "suspicious": 0.4
+    }
+  },
+  "decision": {
+    "schema": "rexis.baseline.decision.v1",
+    "inputs": {
+      "heuristics": {
+        "score": 0.1225,
+        "label": "benign",
+        "evidence_counts": {
+          "info": 1,
+          "warn": 1,
+          "error": 0
+        }
+      },
+      "virustotal": {
+        "last_submission_date": "2025-07-08",
+        "malicious": 41,
+        "suspicious": 0,
+        "harmless": 0,
+        "undetected": 15,
+        "popular_threat_name": "{'count': 7, 'value': 'msil'}, {'count': 4, 'value': 'barys'}, {'count': 2, 'value': 'misc'}",
+        "type_description": "Win32 EXE",
+        "meaningful_name": "TrackerGetSession.exe",
+        "names": [
+          "awkwdf24.qe5.exe",
+          "fkiqdcdb.mkm.exe",
+          "0sd5gqqk.4ry.exe",
+          "35fwb0jh.k34.exe",
+          "riro21ue.5yc.exe",
+          "ibjx44ty.jnw.exe",
+          "j3urgnvb.rjs.exe",
+          "mwgclsge.0d3.exe",
+          "3x53jyty.sy5.exe",
+          "qgsk0fdt.44d.exe"
+        ],
+        "size": 796537,
+        "sha256": "0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933",
+        "consensus_denominator": 41,
+        "consensus_score": 1.0,
+        "confidence": 0.9
+      }
+    },
+    "confidence": {
+      "heuristics_confidence": 0.6,
+      "virustotal_confidence": 0.9
+    },
+    "weights": {
+      "heuristics_weight": 0.5,
+      "virustotal_weight": 0.5
+    },
+    "comparison": {
+      "conflict_override_applied": false,
+      "score_gap": 0.8775,
+      "disagreement_penalty": 0.1
+    },
+    "final": {
+      "score": 0.3868,
+      "label": "benign",
+      "thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      },
+      "decision_thresholds": {
+        "malicious": 0.7,
+        "suspicious": 0.4
+      }
+    },
+    "explanation": [
+      "heuristics_confidence=0.60 (errors=0, warns=1, infos=1, categories=2)",
+      "packer indicators present -> slight confidence reduction",
+      "vt_score=1.00 vt_confidence=0.90 (mal=41, sus=0, denom=41)",
+      "disagreement_penalty=0.10 due to gap=0.88"
+    ]
+  },
+  "heuristics": {
+    "schema": "rexis.baseline.heuristics.v1",
+    "score": 0.1225,
+    "label": "benign",
+    "evidence": [
+      {
+        "id": "packer_artifacts",
+        "title": "Packer / obfuscation indicators",
+        "detail": "Signals: packer-string",
+        "severity": "info",
+        "score": 0.4,
+        "reason": "signals: packer-string",
+        "categories": [
+          {
+            "tag": "packed",
+            "score": 0.36
+          },
+          {
+            "tag": "obfuscated",
+            "score": 0.24
+          }
+        ]
+      },
+      {
+        "id": "suspicious_urls_in_strings",
+        "title": "Embedded external endpoints",
+        "detail": "Found 7 URL/IP indicators; e.g., 127.0.0.1, 1.0.0.0, 243.161.67.122",
+        "severity": "warn",
+        "score": 0.15,
+        "reason": "found 7 endpoints",
+        "categories": [
+          {
+            "tag": "downloader",
+            "score": 0.09
+          },
+          {
+            "tag": "trojan",
+            "score": 0.075
+          }
+        ]
+      }
+    ],
+    "counts": {
+      "info": 1,
+      "warn": 1,
+      "error": 0
+    },
+    "tags": [
+      {
+        "tag": "packed",
+        "score": 0.36
+      }
+    ],
+    "classification": [
+      "packed"
+    ],
+    "rule_misses": [
+      {
+        "id": "sus_api_combo",
+        "reason": "none of injection/networking/registry API sets present"
+      },
+      {
+        "id": "tiny_text_section",
+        "reason": ".text section size not below threshold"
+      },
+      {
+        "id": "low_entropy_strings",
+        "reason": "string count/length distribution not indicative of packing"
+      },
+      {
+        "id": "entry_in_writable",
+        "reason": "no executable section marked writable"
+      },
+      {
+        "id": "networking_indicators",
+        "reason": "no networking-related imports found"
+      },
+      {
+        "id": "http_exfil_indicators",
+        "reason": "no HTTP request/exfiltration imports found"
+      },
+      {
+        "id": "crypto_indicators",
+        "reason": "no cryptographic API imports found"
+      },
+      {
+        "id": "dynamic_api_resolution",
+        "reason": "no dynamic API resolution imports found"
+      },
+      {
+        "id": "shell_exec_indicators",
+        "reason": "no shell/execution-related imports found"
+      },
+      {
+        "id": "autorun_persistence",
+        "reason": "no registry persistence-related imports found"
+      },
+      {
+        "id": "service_persistence",
+        "reason": "no service control manager API imports found"
+      },
+      {
+        "id": "filesystem_mod",
+        "reason": "no filesystem modification imports found"
+      },
+      {
+        "id": "anti_vm_strings",
+        "reason": "no anti-VM tokens present in strings"
+      },
+      {
+        "id": "dbg_anti_dbg",
+        "reason": "no debugger/anti-debug imports found"
+      },
+      {
+        "id": "suspicious_function_names",
+        "reason": "no suspicious function names found"
+      }
+    ]
+  },
+  "virus_total": {
+    "data": {
+      "sha256": "0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933",
+      "size": 796537,
+      "names": [
+        "awkwdf24.qe5.exe",
+        "fkiqdcdb.mkm.exe",
+        "0sd5gqqk.4ry.exe",
+        "35fwb0jh.k34.exe",
+        "riro21ue.5yc.exe",
+        "ibjx44ty.jnw.exe",
+        "j3urgnvb.rjs.exe",
+        "mwgclsge.0d3.exe",
+        "3x53jyty.sy5.exe",
+        "qgsk0fdt.44d.exe",
+        "cv.exe.bin.infected",
+        "PlannerExportCSV",
+        "TrackerGetSession.exe",
+        "wm220zeo.rst.exe",
+        "fcgdkndo.4at.exe",
+        "n3jgr4ih.5yz.exe",
+        "03ghisdp.bhz.exe",
+        "3lhpvmgm.hvl.exe",
+        "gjabj1qn.1jq.exe",
+        "0elzrowk.hmh.exe",
+        "mqky3ddh.pfh.exe",
+        "ciddnt4s.0dq.exe",
+        "5qczypko.ta5.exe",
+        "nwnmuywb.kot.exe",
+        "0isumgfx.zzu.exe",
+        "grhp0xfg.hi1.exe",
+        "bm4nnveh.3au.exe",
+        "qpb4mzqp.0kc.exe",
+        "ckczi5vy.qoi.exe",
+        "yracd0ui.zps.exe",
+        "cebebbnx.5qx.exe",
+        "lc2i2dsp.nad.exe",
+        "oo1lfz1n.4z0.exe",
+        "grfqm2mi.tc4.exe",
+        "0d4rd2pm.xto.exe",
+        "bu50t3vg.wmh.exe",
+        "0fdida0y.kgb.exe",
+        "cgcpfje1.ipg.exe",
+        "1badpb4a.ixf.exe",
+        "d3l1ucld.voj.exe",
+        "svokxb5t.gqx.exe",
+        "s2sl0o0a.2pc.exe",
+        "erjvnprc.msj.exe",
+        "pwewlxgn.nwn.exe",
+        "hcyr5gtd.qc2.exe",
+        "d1vb5x3z.p44.exe",
+        "5y15b4dy.bre.exe",
+        "epq00zza.vmh.exe",
+        "cmy1leod.ffz.exe",
+        "xjxtwic3.whx.exe",
+        "1fff50ni.hlj.exe",
+        "ikmxdu1e.wv5.exe",
+        "tr3dx5ey.ov3.exe",
+        "fjisaz1u.frg.exe",
+        "eh0cw0o2.3dn.exe",
+        "easwlzmv.yfo.exe",
+        "tyd1u4ec.vzr.exe",
+        "riofnm14.w1y.exe",
+        "xghe5nb1.ep2.exe",
+        "tq3sna4f.vsr.exe",
+        "4mits3og.jd3.exe",
+        "pnajx0ra.nrb.exe",
+        "dfac2hv5.hm3.exe",
+        "jdmxuyrl.iul.exe",
+        "xviycbnm.a33.exe",
+        "szbqjgxn.i2r.exe",
+        "xkotns10.uzc.exe",
+        "ndrdzmo2.zu1.exe",
+        "rdbhxokr.ca4.exe",
+        "wdbaxe22.5so.exe",
+        "rj4tx2g5.x1s.exe",
+        "5wjvy14q.4wv.exe",
+        "qkvlnclb.mkr.exe",
+        "oiw0uybb.1hl.exe",
+        "neeq3gxw.2z4.exe",
+        "sgddevpy.uqy.exe",
+        "alv1rv4k.ozb.exe",
+        "ulqr2fbu.ao3.exe",
+        "svatrdgs.4hi.exe",
+        "xypbwpxi.4wl.exe",
+        "5vn4uqej.ge1.exe",
+        "ctbpggcz.pu2.exe",
+        "mocmane1.szj.exe",
+        "ucxfhb2q.csi.exe",
+        "2h5wfdqw.s2t.exe",
+        "51nl3mf1.sph.exe",
+        "2z0tciwn.icx.exe",
+        "ib2fsn3c.rle.exe",
+        "4tuvf3ln.a3o.exe",
+        "mfgkhek2.rqa.exe",
+        "l2jlldov.xlg.exe",
+        "bk2otzuv.2ow.exe",
+        "mlwpmon3.f31.exe",
+        "udi5xky3.chz.exe",
+        "decoded.exe",
+        "2.bin",
+        "pgoog50a.ltp.exe",
+        "bqv3sj2a.oym.exe",
+        "xcnmcwuz.yso.exe",
+        "erwfyvoy.zzs.exe"
+      ],
+      "tags": [
+        "overlay",
+        "checks-memory-available",
+        "long-sleeps",
+        "calls-wmi",
+        "assembly",
+        "peexe",
+        "detect-debug-environment"
+      ],
+      "type_tags": [
+        "executable",
+        "windows",
+        "win32",
+        "pe",
+        "peexe"
+      ],
+      "type_description": "Win32 EXE",
+      "meaningful_name": "TrackerGetSession.exe",
+      "harmless": 0,
+      "malicious": 41,
+      "suspicious": 0,
+      "undetected": 15,
+      "popular_threat_category": [
+        {
+          "count": 18,
+          "value": "trojan"
+        }
+      ],
+      "popular_threat_name": [
+        {
+          "count": 7,
+          "value": "msil"
+        },
+        {
+          "count": 4,
+          "value": "barys"
+        },
+        {
+          "count": 2,
+          "value": "misc"
+        }
+      ],
+      "first_submission_date": 1740152245,
+      "last_submission_date": 1752005463
+    },
+    "error": null
+  },
+  "audit": [
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "pipeline_start",
+      "run_name": "botnet-run-vt-2508",
+      "file": "samples/botnet/decompressed/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.exe"
+    },
+    {
+      "ts": "2025-08-24T21:43:03Z",
+      "event": "decompile_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:14Z",
+      "event": "decompile_done",
+      "features": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/decompile-botnet-run-vt-2508/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.features.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:14Z",
+      "event": "heuristics_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:14Z",
+      "event": "heuristics_done",
+      "baseline": "data/analysis/baseline/baseline-analysis-botnet-run-vt-2508/0efeb9b6ed577e71905b9944d794da8ee14084c6cde61d5bb695c10448c75933.baseline.json"
+    },
+    {
+      "ts": "2025-08-24T21:43:14Z",
+      "event": "vt_start"
+    },
+    {
+      "ts": "2025-08-24T21:43:15Z",
+      "event": "vt_done",
+      "ok": true,
+      "error": null
+    }
+  ]
+}
