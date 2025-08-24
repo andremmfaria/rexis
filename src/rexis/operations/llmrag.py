@@ -9,7 +9,7 @@ from rexis.tools.llm.guardrails import apply_guardrails_and_classify
 from rexis.tools.llm.main import llm_classify
 from rexis.tools.retrieval.main import build_queries_from_features, retrieve_context
 from rexis.utils.constants import SCORE_THRESHOLD_MALICIOUS, SCORE_THRESHOLD_SUSPICIOUS
-from rexis.utils.types import Passage, RagNotes
+from rexis.utils.types import Features, Passage, RagNotes
 from rexis.utils.utils import LOGGER, get_version, iter_pe_files, now_iso, sha256, write_json
 
 
@@ -19,7 +19,7 @@ def _decompile_target(
     overwrite: bool,
     project_dir: Optional[Path],
     run_name: Optional[str],
-) -> Tuple[str, Path, Dict[str, Any]]:
+) -> Tuple[str, Path, Features]:
     """
     Returns (sha256, features_path, features_dict).
     If `target` is a PE, decompiles; if it's a .features.json, uses it directly.
@@ -48,7 +48,7 @@ def _decompile_target(
         run_name=run_name,
     )
     with features_path.open("r", encoding="utf-8") as f:
-        features: Dict[str, Any] = json.load(f)
+        features: Features = json.load(f)
 
     hash: str = (features.get("program") or {}).get("sha256") or sha256(target)
 
@@ -143,6 +143,7 @@ def _process_sample(
         model=model,
         temperature=temperature,
         max_tokens=max_tokens,
+        prompt_variant=prompt_variant,
     )
     llmrag_path: Path = out_dir / f"{sha256_hex}.llmrag.json"
     write_json(llm_out, llmrag_path)
