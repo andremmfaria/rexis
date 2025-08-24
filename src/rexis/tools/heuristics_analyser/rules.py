@@ -595,3 +595,33 @@ def rule_http_exfil_indicators(
     return None, (
         "no imports present" if not imps else "no HTTP request/exfiltration imports found"
     )
+
+
+def rule_suspicious_function_names(
+    features: Dict[str, Any], rule_score: float = 0.30, params: Dict[str, Any] = {}
+) -> Tuple[Optional[Evidence], Optional[str]]:
+    """
+    Flags binaries containing functions with suspicious names (e.g., process injection, hooking, shellcode).
+    """
+    from rexis.utils.constants import SUSPICIOUS_FUNCTION_NAME_PATTERNS
+    regex = re.compile("|".join(SUSPICIOUS_FUNCTION_NAME_PATTERNS), re.IGNORECASE)
+    functions = features.get("functions", [])
+    if not functions:
+        return None, "no functions metadata available"
+    hits = []
+    for fn in functions:
+        name = fn.get("name", "")
+        if name and regex.search(name):
+            hits.append(name)
+    if hits:
+        return (
+            Evidence(
+                id="suspicious_function_names",
+                title="Suspicious function names detected",
+                detail=f"Functions: {', '.join(sorted(hits))}",
+                severity="warn",
+                score=float(rule_score),
+            ),
+            f"matched suspicious function names: {', '.join(sorted(hits))}",
+        )
+    return None, "no suspicious function names found"

@@ -18,6 +18,7 @@ from rexis.tools.heuristics_analyser.rules import (
     rule_suspicious_api_combination,
     rule_suspicious_urls_in_strings,
     rule_tiny_text_section,
+    rule_suspicious_function_names,
 )
 from rexis.tools.heuristics_analyser.utils import (
     get_nested_value,
@@ -144,6 +145,7 @@ def heuristic_classify(
         ("suspicious_urls_in_strings", rule_suspicious_urls_in_strings),
         ("anti_vm_strings", rule_anti_vm_strings),
         ("dbg_anti_dbg", rule_debugger_anti_debug_indicators),
+        ("suspicious_function_names", rule_suspicious_function_names),
     ]
 
     all_ev: List[Evidence] = []
