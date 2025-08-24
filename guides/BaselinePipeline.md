@@ -92,7 +92,7 @@ In the baseline orchestrator (`_process_sample` in `../src/rexis/operations/base
 
 Implementation: `../src/rexis/tools/heuristics_analyser/main.py`
 - Applies a suite of built-in rules (see `rules.py` and helpers in `utils.py`), e.g.:
-	- Suspicious API combinations, packer artifacts, tiny .text, low-entropy strings, writable entry section, networking indicators, HTTP exfil indicators, crypto usage, dynamic API resolution, shell execution, autorun/service persistence, filesystem modification, suspicious URLs, anti-VM, anti-debug.
+    - Suspicious API combinations, packer artifacts, tiny .text, low-entropy strings, writable entry section, networking indicators, HTTP exfil indicators, crypto usage, dynamic API resolution, shell execution, autorun/service persistence, filesystem modification, suspicious URLs, anti-VM, anti-debug, suspicious function names.
 - Each rule can emit an Evidence item: `{id, title, detail, severity, score}`.
 - Evidence now also records:
 	- `reason`: short human-readable hit explanation when available
@@ -106,12 +106,13 @@ Implementation: `../src/rexis/tools/heuristics_analyser/main.py`
 Configuration knobs and defaults (see `../src/rexis/utils/constants.py` and loader `load_heuristic_rules` in `../src/rexis/tools/heuristics_analyser/utils.py`):
 - If `--rules` is omitted, `DEFAULT_HEURISTIC_RULES` are used.
 - A rules file (YAML or JSON) may override:
-	- `scoring`: `base`, `combine` (`weighted_sum|max`), `label_thresholds.{malicious,suspicious}`
-	- `weights`: per-rule weight caps
-	- `allow_rules` / `deny_rules`: enable/disable subsets of rules
-	- `label_overrides`: map certain rule hits directly to labels
-	- `tagging`: `map`, `tag_weights`, `threshold`, `top_k`, `classification_top_k`, `evidence_top_k`
-	- `taxonomy.normalization_rules`: regex-to-family mapping for VT name normalization (used later)
+    - `scoring`: `base`, `combine` (`weighted_sum|max`), `label_thresholds.{malicious,suspicious}`
+    - `weights`: per-rule weight caps
+    - `allow_rules` / `deny_rules`: enable/disable subsets of rules
+    - `label_overrides`: map certain rule hits directly to labels
+    - `rule_args`: per-rule tuples `(score, {params})` to adjust rule weight and parameters
+    - `tagging`: `map`, `tag_weights`, `threshold`, `top_k`, `classification_top_k`, `evidence_top_k`
+    - `taxonomy.normalization_rules`: regex-to-family mapping for VT name normalization (used later)
 
 Heuristics output shape (subset):
 - `schema`: `rexis.baseline.heuristics.v1`
@@ -147,9 +148,9 @@ Implementation: `fuse_heuristics_and_virustotal_decision` in `../src/rexis/tools
 Configuration sources:
 - Defaults for the fusion are in `DEFAULT_DECISION` (`../src/rexis/utils/constants.py`).
 - The heuristics rules file may optionally include a `decision.*` section to override:
-	- `decision.weights` -> `{w_h, w_vt}`
-	- `decision.thresholds` -> `{malicious, suspicious}`
-	- `decision.policy` -> keys like `gap_penalty_start`, `gap_penalty_max`, `gap_penalty_slope`, `conflict_gap_hard`, `high_conf`, `conflict_override_score`, and more supported by `ReconcileConfig`.
+    - `decision.weights` -> `{w_h, w_vt}`
+    - `decision.thresholds` -> `{malicious, suspicious}`
+    - `decision.policy` -> keys like `gap_penalty_start`, `gap_penalty_max`, `gap_penalty_slope`, `conflict_gap_hard`, `high_conf`, `conflict_override_score`, `abstain_on_conflict`, `heuristics_conf`, `cat_map`, `C_h_floor`, `C_h_ceil`, `C_vt_floor`, `C_vt_ceil`, and more supported by `ReconcileConfig`.
 
 Decision output shape (subset, embedded under `decision` in the final report):
 - `inputs.{heuristics,virustotal}` compact summaries

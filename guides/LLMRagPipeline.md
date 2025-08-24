@@ -1,4 +1,4 @@
-## LLM+RAG pipeline: end-to-end workflow (features -> hybrid retrieval -> re-rank -> LLM JSON -> report)
+## LLM+RAG pipeline: end-to-end workflow (features -> hybrid retrieval -> guardrails -> LLM JSON -> report)
 
 This document explains the LLM+RAG pipeline in detail: inputs, control knobs, retrieval and re-ranking internals, LLM classification schema, outputs, and where each piece lives in the repo.
 
@@ -7,13 +7,13 @@ Key code entry points:
 - Orchestrator: `../src/rexis/operations/llmrag.py` (`analyze_llmrag_exec`, `_process_sample`)
 - Decompiler (shared with baseline): `../src/rexis/operations/decompile/main.py`
 - Retrieval: `../src/rexis/tools/retrieval/main.py`, `ranking.py`, `searches.py`, `store.py`
-- LLM classification: `../src/rexis/tools/llm/main.py` (+ `messages.py`, `features.py`, `utils.py`)
+- Guardrails + classification: `../src/rexis/tools/llm/guardrails.py`, `main.py` (+ `messages.py`, `features.py`, `utils.py`)
 - Shared constants/config: `../src/rexis/utils/constants.py`, `../config/settings.toml`
 
 
 ## What the LLM+RAG pipeline does
 
-For each input sample, it ensures features exist (reuse `*.features.json` or decompile a PE), builds retrieval queries, performs hybrid retrieval (dense + keyword), optionally re-ranks with a cross-encoder LLM, then prompts a chat LLM to produce a strict JSON classification that includes score, label, classification tags (e.g., ransomware, trojan), families, capabilities, evidence, and uncertainty. It writes an `.llmrag.json` per sample and a final `.report.json` summarizing everything.
+For each input sample, it ensures features exist (reuse `*.features.json` or decompile a PE), builds retrieval queries, performs hybrid retrieval (dense + keyword), fuses and optionally re-ranks results, then runs a guardrailed two-stage LLM classification that redacts family/actor names, reranks passages by technicality, and demands a strict JSON verdict with score, label, classification tags (e.g., ransomware, trojan), families, capabilities, evidence, and uncertainty. It writes an `.llmrag.json` per sample and a final `.report.json` summarizing everything.
 
 
 ## How to run
@@ -42,11 +42,10 @@ Options (from `cmd_analyze_llmrag` in `../src/rexis/cli/analyse_commands.py`):
 	- `--ranker-model, -rm` Model id for reranker (OpenAI chat generator)
 	- `--source, -s` Repeatable filter to restrict retrieval to sources (e.g., `--source malpedia`)
 - LLM generator knobs:
-	- `--model, -m` Generator model id (OpenAI via Haystack)
-	- `--temperature, -t` Sampling temperature
-	- `--max-tokens, -mt` Max output tokens
-	- `--seed, -sd` Randomness seed if supported
-	- `--json-mode/--no-json-mode, -jm/--no-jm` Force JSON-only output
+    - `--model, -m` Generator model id (OpenAI via Haystack)
+    - `--temperature, -t` Sampling temperature
+    - `--max-tokens, -mt` Max output tokens
+    - `--prompt-variant, -pv` Prompt style: `classification|justification|comparison` (guardrailed flow uses classification + justification)
 - Logging/audit:
 	- `--audit/--no-audit, -a/--no-a` Include audit trail events in report
 
@@ -56,8 +55,8 @@ Options (from `cmd_analyze_llmrag` in `../src/rexis/cli/analyse_commands.py`):
 Every run creates `llmrag-analysis-<RUN_ID>/` under `--out-dir`.
 - If input is a PE file: features are produced or reused under `llmrag-analysis-<RUN_ID>/decompile-<RUN_ID>/`.
 - Per-sample artifacts for SHA-256 `H`:
-	- `H.llmrag.json` — model’s JSON classification
-	- `H.report.json` — final report embedding the LLM output, retrieval notes, and audit
+    - `H.llmrag.json` — guardrailed JSON classification
+    - `H.report.json` — final report embedding the LLM output, guardrails meta, retrieval notes, and audit
 - Directory mode also creates: `llmrag_summary.json` (lists all per-file reports)
 - Per-run report: `llmrag-analysis-<RUN_ID>/llmrag-analysis-<RUN_ID>.report.json`
 
@@ -99,24 +98,15 @@ Filters:
 - If the store fails to initialize or a retrieval step fails, the function logs and continues best-effort, returning empty or partial results with notes.
 
 
-## Step 4 — LLM classification (JSON-only schema)
+## Step 4 — Guardrailed two-stage LLM classification
 
-Implementation: `llm_classify` in `../src/rexis/tools/llm/main.py`.
-- Summarizes features (`features.py`) into a compact payload (program info, imports-by-capability, packer hints, sections summary).
-- Compacts passages to ≤8 items (truncate content) for prompt efficiency (`messages.py`).
-- Builds a system message that demands STRICT JSON only with a fixed schema, and a user message containing the summarized features and retrieved passages.
-- Calls OpenAI via Haystack `OpenAIChatGenerator` with `config.models.openai.api_key` and chosen `--model`.
-- Parses reply strictly as JSON; if that fails, attempts a best-effort repair. On failure, returns a safe fallback result with `label=unknown` and `_debug.error`.
-- Validates and normalizes the object into the schema:
-	- `schema`: `rexis.llmrag.classification.v1`
-	- `score`: [0,1], coerced
-	- `label`: `malicious|suspicious|benign|unknown` coerced with thresholds from `../src/rexis/utils/constants.py`
-	- `classification`: list of high-level malware tags (e.g., ransomware, trojan, worm), bounded length
-	- `families`, `capabilities`, `tactics`: bounded lists
-	- `evidence`: up to 8 items `{id,title,detail,severity,source,doc_ref}` with coercions
-	- `uncertainty`: `low|medium|high`
-	- Optional `notes`
-	- `_debug`: prompt hash, parameters, passages used
+Implementation: `apply_guardrails_and_classify` in `../src/rexis/tools/llm/guardrails.py` (internally uses `llm_classify`).
+- Summarizes features into a compact payload and trims passages to ≤8 items before prompting.
+- Stage A: classify **without** retrieval to get a blind hypothesis (`prompt_variant=classification`).
+- Stage B: redact likely family/actor names from passages, rerank by technicality, then classify with sanitized passages using the `justification` prompt.
+- Post-validate: require at least two retrieval evidence items and block family claims that leak redacted names; uncertainty is bumped and family set to `unknown_family` if guardrails trigger.
+- Output object follows the same strict schema as before and includes a `guardrails` block with redacted names, counts, used passages, and strategy metadata.
+- Both stages call OpenAI via Haystack `OpenAIChatGenerator` with the chosen `--model`; replies are parsed as strict JSON with repair fallback.
 
 The per-sample `.llmrag.json` is written alongside the final report.
 
@@ -130,11 +120,12 @@ Implementation: `_process_sample` in `../src/rexis/operations/llmrag.py`.
 	- `run_name`, `generated_at`, `duration_sec`
 	- `sample`: `{sha256, source_path}`
 	- `program`: from features
-	- `artifacts`: `features_path`, `llmrag_path`, and an explicit retrieval block with `queries`, `notes`, `passages` (metadata only)
-	- `llmrag`: the raw LLM classification JSON (now includes `classification` tags)
-	- `classification`: `{ "llm": [...] }` convenience block surfacing the tags at the top level
-	- `final`: `{score, label}`
-	- `audit`: chronological events if enabled
+    - `artifacts`: `features_path`, `llmrag_path`, and an explicit retrieval block with `queries`, `notes`, `passages` (metadata only)
+    - `llmrag`: the raw guardrailed classification JSON
+    - `guardrails`: redacted names, counts, passages used, strategy
+    - `classification`: `{ "llm": [...] }` convenience block surfacing the tags at the top level
+    - `final`: `{score, label}`
+    - `audit`: chronological events if enabled
 
 Run-level report and batch summary:
 - `llmrag_summary.json` (directory mode): counts and report paths
@@ -147,7 +138,7 @@ When `--audit` is enabled, `_process_sample` records:
 - `pipeline_start`
 - `decompile_start` / `decompile_ready`
 - `rag_start` / `rag_done`
-- `llm_start` / `llm_done`
+- `llm_start_guardrailed` / `llm_done`
 - `pipeline_done`
 
 
@@ -167,12 +158,13 @@ When `--audit` is enabled, `_process_sample` records:
 - Rerank is optional; if it fails, the code falls back to fused results without re-ranking.
 - Source filters only apply if your documents were ingested with a `source` metadata field (see ingestion guides under `./`).
 - The LLM is required to return strict JSON; parsing is robust with a repair step, but complete failures fall back to a safe classification stub for reliability.
+- Guardrails may replace leaked family names with `unknown_family` and bump uncertainty if passages lack sufficient retrieval evidence.
 
 
 ## Quick reference: key files
 
 - Orchestrator: `../src/rexis/operations/llmrag.py`
 - Retrieval: `../src/rexis/tools/retrieval/main.py`, `ranking.py`, `searches.py`, `store.py`
-- LLM: `../src/rexis/tools/llm/main.py`, `messages.py`, `features.py`, `utils.py`
+- LLM: `../src/rexis/tools/llm/guardrails.py`, `main.py`, `messages.py`, `features.py`, `utils.py`
 - Decompiler: `../src/rexis/operations/decompile/main.py`
 - Config/Constants: `../config/settings.toml`, `../src/rexis/utils/constants.py`

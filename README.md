@@ -92,7 +92,7 @@ pdm install
 cp ./config/.secrets_template.toml ./config/.secrets.toml
 ```
 
-Secrets keys are read by Dynaconf via `config/settings.toml`. Ensure your `.secrets.toml` contains the following keys (values are placeholders):
+Secrets keys and the database password are read by Dynaconf via `config/settings.toml`. Populate `config/.secrets.toml` with the following keys (values are placeholders):
 
 ```
 db_password = "super_secret_password-..."
@@ -100,9 +100,19 @@ openai_api_key = "sk-..."
 deepseek_api_key = "dseek-..."
 malware_bazaar_api_key = "malw-bazaar-..."
 virus_total_api_key = "vt-..."
-decompiler_api_key = "decomp-..."
 ```
 Note: The provided template file may contain a typo for the MalwareBazaar key. Use `malware_bazaar_api_key` exactly as shown above to match `config/settings.toml`.
+
+Database connection defaults live in `config/settings.toml`:
+
+```toml
+[db]
+host = "localhost"
+port = 5432
+name = "rexis"
+user = "postgres"
+password = "@get db_password"
+```
 
 ---
 
@@ -169,10 +179,14 @@ rexis --help
 
 Subcommands:
 
-- `collect` — fetch raw data from sources
-- `ingest` — index files into the vector store
+- `collect` — gather raw malware intelligence
+  - `malpedia` – retrieve families and actors from Malpedia
+  - `malwarebazaar` – fetch samples from MalwareBazaar
+- `ingest` — normalise and index files into the vector store
+  - `file`, `pdf`, `html`, `text`, `json`
 - `analyse` — run analysis pipelines over samples
-- `decompile` — decompile a binary and extract features
+  - `baseline`, `llmrag`
+- `decompile` — decompile a binary and extract features via Ghidra
 
 ---
 
@@ -301,6 +315,22 @@ pdm run rexis analyse llmrag -i ./data/samples/c6e3....exe -o ./data/analysis/ll
 
 ---
 
+## 🛠 decompile
+
+Decompile a binary and extract features using Ghidra.
+
+```bash
+rexis decompile --file FILE --out-dir DIR [--overwrite] [--project-dir PATH] [--project-name NAME] [--run-name NAME]
+```
+
+Example:
+
+```bash
+pdm run rexis decompile -f ./data/samples/c6e3....exe -o ./data/decompiled
+```
+
+---
+
 ## 🧪 Data Flow (at a glance)
 
 1) `collect` writes JSON manifests and optional scraped artifacts
@@ -318,6 +348,18 @@ pdm run rexis analyse llmrag -i ./data/samples/c6e3....exe -o ./data/analysis/ll
 - `src/rexis/operations/decompile` — decompiler integration (Ghidra)
 - `config/` — Dynaconf settings and secrets
 - `data/` — sample datasets and collected artifacts (gitignored in real usage)
+
+---
+
+## 📖 Further Reading
+
+- [BaselinePipeline.md](guides/BaselinePipeline.md)
+- [IngestionPipeline.md](guides/IngestionPipeline.md)
+- [LLMRagPipeline.md](guides/LLMRagPipeline.md)
+- [WritingHeuristicRules.md](guides/WritingHeuristicRules.md)
+- [Reconciliation.md](guides/Reconciliation.md)
+
+For questions or contributions, open an issue or pull request on GitHub.
 
 ---
 
