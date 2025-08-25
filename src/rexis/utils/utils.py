@@ -4,7 +4,7 @@ import logging
 import os
 import time
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Any, Dict, List, Optional, Set
 
 import tomli
 
@@ -64,6 +64,21 @@ def write_json(obj: Dict, path: Path) -> Path:
 def load_json(path: Path) -> Dict:
     with path.open("r") as f:
         return json.load(f)
+
+
+def safe_get(d: Dict[str, Any], path: List[Any], default: Any | None = None) -> Any:
+    """Safely fetch a nested value from a dict using a list path.
+
+    Example:
+        safe_get(obj, ["a", "b", 0, "c"], default=None)
+    """
+    cur: Any = d
+    for p in path:
+        if isinstance(cur, dict) and p in cur:
+            cur = cur[p]
+        else:
+            return default
+    return cur
 
 
 def now_iso() -> str:

@@ -1,6 +1,7 @@
 import pyfiglet
 import rich
 import typer
+from rexis.cli.aggregate_commands import aggregate_cmd
 from rexis.cli.analyse_commands import cmd_analyze_baseline, cmd_analyze_llmrag
 from rexis.cli.collect_commands import collect_malpedia, collect_malwarebazaar
 from rexis.cli.decompile_commands import decompile_binary
@@ -45,6 +46,9 @@ query_app.command("llmrag")(cmd_analyze_llmrag)
 
 # Decompile/analysis commands
 cli_app.command("decompile")(decompile_binary)
+
+# Aggregation command
+cli_app.command("aggregate")(aggregate_cmd)
 
 
 # --- Global Callback ---

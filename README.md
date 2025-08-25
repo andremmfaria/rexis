@@ -14,6 +14,7 @@ Built for cybersecurity research, it focuses on static features (e.g., decompile
 - �️ Guardrails for safe, explainable JSON classifications  
 - 🧭 Decision fusion with VirusTotal and taxonomy normalization  
 - 📊 Reproducible runs and batch summaries for evaluation  
+- 🧮 Built‑in results aggregation CLI for cross‑run metrics (accuracy, latency, interpretability)
 
 ---
 
@@ -43,12 +44,14 @@ High‑level layout you’ll interact with most:
   - `ingest` (pdf, html, text, json, or generic `file`)
   - `analyse` (baseline, llmrag)
   - `decompile` (Ghidra/PyGhidra‑based feature extraction)
+  - `aggregate` (stitch results across runs and compute metrics)
 - `src/rexis/operations` — implementation modules
   - `collect/` — Malpedia and MalwareBazaar collectors
   - `ingest/` — content parsers and indexers
   - `baseline.py` — static heuristic baseline pipeline
   - `llmrag.py` — RAG + LLM analysis pipeline
   - `decompile/` — Ghidra integration
+- `src/rexis/tools/aggregate/` — aggregation helpers (parsers, VT helpers, metrics)
 - `config/` — Dynaconf settings and secrets
 - `data/` — sample datasets and collected artifacts (local only)
 - `.docker/` — Docker build context for Postgres + pgvector
@@ -83,7 +86,10 @@ Reproducing (outline)
   `pdm run rexis analyse baseline -i <SAMPLES_DIR> -o ./data/analysis/baseline --parallel 4 --vt`  
 3) Run LLM+RAG with desired knobs:  
   `pdm run rexis analyse llmrag -i <SAMPLES_DIR> -o ./data/analysis/llmrag --final-top-k 8`  
-4) Aggregate JSON reports and compute metrics (e.g., notebooks/scripts). Per‑run `*.report.json` files capture configuration for reproducibility.
+4) Aggregate reports and compute metrics with the built‑in CLI (writes CSV + JSON):  
+  `pdm run rexis aggregate --baseline-dir analysis/baseline/baseline-analysis-*-run-* --baseline-vt-dir analysis/baseline/baseline-analysis-*-run-vt-* --llmrag-dir analysis/llmrag/llmrag-analysis-*-run-* --out-dir analysis/aggregate`
+
+Per‑run `*.report.json` files capture configuration for reproducibility.
 
 Notes
 - Exact splits and metrics live in `main.pdf` (Chapter 3).  
@@ -211,6 +217,7 @@ Subcommands:
 - `analyse` — run analysis pipelines over samples
   - `baseline`, `llmrag`
 - `decompile` — decompile a binary and extract features via Ghidra
+- `aggregate` — aggregate evaluation metrics across multiple runs
 
 ---
 
@@ -339,7 +346,38 @@ pdm run rexis analyse llmrag -i ./data/samples/c6e3....exe -o ./data/analysis/ll
 
 ---
 
-## 🛠 decompile
+## � aggregate
+
+Aggregate results across multiple runs to produce a per‑sample CSV and a JSON summary. Ground truth is taken from Baseline+VT run directory names when available (e.g., `baseline-analysis-<category>-run-vt-*`), otherwise derived from VirusTotal signals. See `guides/ResultsAggregation.md` for details and reproduction commands.
+
+Usage (globs or directories supported):
+
+```bash
+rexis aggregate \
+  --baseline-dir analysis/baseline/baseline-analysis-*-run-* \
+  --baseline-vt-dir analysis/baseline/baseline-analysis-*-run-vt-* \
+  --llmrag-dir analysis/llmrag/llmrag-analysis-*-run-* \
+  [--out-dir PATH] [--debug] [--alpha F] [--beta F] [--gamma F]
+```
+
+Notes:
+- You can pass each of the directory options multiple times.
+- Outputs: `<out-dir>/aggregation-report.csv` and `<out-dir>/aggregation-output.json`.
+- Weights (`alpha`, `beta`, `gamma`) control the composite score for accuracy, efficiency^{-1}, and interpretability; when any are set, they’re normalized.
+
+Example:
+
+```bash
+pdm run rexis aggregate \
+  --baseline-dir "./analysis/baseline/baseline-analysis-*-run-*" \
+  --baseline-vt-dir "./analysis/baseline/baseline-analysis-*-run-vt-*" \
+  --llmrag-dir "./analysis/llmrag/llmrag-analysis-*-run-*" \
+  --out-dir ./analysis
+```
+
+---
+
+## �🛠 decompile
 
 Decompile a binary and extract features using Ghidra.
 
@@ -360,12 +398,13 @@ pdm run rexis decompile -f ./data/samples/c6e3....exe -o ./data/decompiled
 1) `collect` writes JSON manifests and optional scraped artifacts
 2) `ingest` normalizes and indexes content into pgvector
 3) `analyse` retrieves context (for LLMRAG) and produces reports
+4) `aggregate` joins reports across runs and computes metrics (CSV + JSON)
 
 ---
 
 ## 🧭 Project Structure (high level)
 
-- `src/rexis/cli` — Typer-based CLI (collect, ingest, analyse, decompile)
+- `src/rexis/cli` — Typer-based CLI (collect, ingest, analyse, decompile, aggregate)
 - `src/rexis/operations/ingest` — file-type-specific ingestion
 - `src/rexis/operations/baseline.py` — static baseline pipeline
 - `src/rexis/operations/llmrag.py` — LLMRAG pipeline (Haystack + OpenAI)
@@ -382,6 +421,7 @@ pdm run rexis decompile -f ./data/samples/c6e3....exe -o ./data/decompiled
 - [LLMRagPipeline.md](guides/LLMRagPipeline.md)
 - [WritingHeuristicRules.md](guides/WritingHeuristicRules.md)
 - [Reconciliation.md](guides/Reconciliation.md)
+- [ResultsAggregation.md](guides/ResultsAggregation.md)
 
 For questions or contributions, open an issue or pull request on GitHub.
 

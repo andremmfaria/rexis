@@ -1,0 +1,82 @@
+{
+  "total_samples_joined": 20,
+  "prediction_accuracy": {
+    "baseline": {
+      "correct": 2,
+      "total_evaluated": 20,
+      "wilson_ci_95": [
+        0.027865893984153206,
+        0.30103820641179335
+      ]
+    },
+    "baseline_vt": {
+      "correct": 2,
+      "total_evaluated": 20,
+      "wilson_ci_95": [
+        0.027865893984153206,
+        0.30103820641179335
+      ]
+    },
+    "llmrag": {
+      "correct": 5,
+      "total_evaluated": 18,
+      "wilson_ci_95": [
+        0.12499569146355474,
+        0.5087307754619452
+      ]
+    }
+  },
+  "mean_inference_latency_seconds": {
+    "baseline": 90.75565,
+    "baseline_vt": 90.75565,
+    "llmrag": 97.12190000000001
+  },
+  "interpretability_metrics": {
+    "baseline_explanations_present_count": 20,
+    "baseline_vt_explanations_present_count": 20,
+    "llmrag_explanations_present_count": 20,
+    "llmrag_grounding_at_least_one_reference_count": 20,
+    "llmrag_grounding_at_least_two_references_count": 20,
+    "llmrag_abstentions_count": 2,
+    "baseline_rules_triggered_count": 115,
+    "baseline_rules_consistent_count": 56,
+    "baseline_vt_rules_triggered_count": 115,
+    "baseline_vt_rules_consistent_count": 56,
+    "explanation_coverage_ratio": {
+      "baseline": 1.0,
+      "baseline_vt": 1.0,
+      "llmrag": 1.0
+    },
+    "llmrag_grounding_ratio": 1.0,
+    "rule_match_consistency_ratio": {
+      "baseline": 0.48695652173913045,
+      "baseline_vt": 0.48695652173913045
+    }
+  },
+  "composite_and_component_scores": {
+    "weighting_coefficients": {
+      "alpha_accuracy_weight": 0.3333333333333333,
+      "beta_efficiency_weight": 0.3333333333333333,
+      "gamma_interpretability_weight": 0.3333333333333333
+    },
+    "baseline": {
+      "accuracy_score": 0.1,
+      "efficiency_score": 0.010898511426816767,
+      "interpretability_score": 0.7434782608695653,
+      "composite_score": 0.2847922574321273
+    },
+    "baseline_vt": {
+      "accuracy_score": 0.1,
+      "efficiency_score": 0.010898511426816767,
+      "interpretability_score": 0.7434782608695653,
+      "composite_score": 0.2847922574321273
+    },
+    "llmrag": {
+      "accuracy_score": 0.2777777777777778,
+      "efficiency_score": 0.01019140477304251,
+      "interpretability_score": 1.0,
+      "composite_score": 0.4293230608502734
+    }
+  },
+  "output_csv_path": "analysis/aggregation-report.csv"
+}
